@@ -1,0 +1,47 @@
+{
+  "name": "antvis",
+  "version": "0.1.0",
+  "description": "Excalidraw-style flowchart renderer — supports browser and Node.js, auto-layout, beautiful SVG output.",
+  "keywords": [
+    "flowchart",
+    "svg",
+    "excalidraw",
+    "diagram",
+    "dagre",
+    "roughjs"
+  ],
+  "author": "hustcc",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "dagre": "^0.8.5",
+    "roughjs": "^4.6.6"
+  },
+  "devDependencies": {
+    "@types/dagre": "^0.7.52",
+    "@types/node": "^22.0.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0",
+    "vitest": "^3.2.4"
+  }
+}

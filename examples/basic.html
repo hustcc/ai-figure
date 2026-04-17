@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>antvis — Excalidraw Flowchart Demo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 24px;
+    }
+    h1 { font-size: 1.6rem; margin-bottom: 8px; color: #1a1a2e; }
+    p  { color: #555; margin-bottom: 24px; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .tab {
+      padding: 6px 16px; border-radius: 6px; border: 1.5px solid #ccc;
+      background: white; cursor: pointer; font-size: 0.9rem;
+      transition: background 0.15s;
+    }
+    .tab.active { background: #1a1a2e; color: white; border-color: #1a1a2e; }
+    .demo-area {
+      background: white; border-radius: 12px;
+      padding: 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      overflow: auto;
+      display: flex; justify-content: center; align-items: flex-start;
+    }
+    textarea {
+      width: 100%; height: 300px; font-family: monospace; font-size: 13px;
+      border: 1.5px solid #ddd; border-radius: 8px; padding: 12px;
+      resize: vertical; margin-bottom: 12px;
+    }
+    button.run {
+      padding: 8px 24px; background: #1a1a2e; color: white;
+      border: none; border-radius: 6px; cursor: pointer; font-size: 0.95rem;
+    }
+    button.run:hover { background: #2d2d5e; }
+    .section { margin-bottom: 40px; }
+    h2 { font-size: 1.1rem; margin-bottom: 12px; color: #333; }
+  </style>
+</head>
+<body>
+  <h1>🎨 antvis — Excalidraw Flowchart Renderer</h1>
+  <p>Auto-layout, hand-drawn SVG flowcharts. Works in browser &amp; Node.js.</p>
+
+  <div class="section">
+    <h2>Examples</h2>
+    <div class="tabs" id="tabs"></div>
+    <div class="demo-area" id="output">Loading…</div>
+  </div>
+
+  <div class="section">
+    <h2>Live Playground</h2>
+    <textarea id="code"></textarea>
+    <button class="run" onclick="runCode()">▶ Run</button>
+    <div class="demo-area" style="margin-top:16px" id="playground"></div>
+  </div>
+
+  <!--
+    For local development: run `npm run build` first, then serve this file
+    with a static server (e.g. `npx serve .`).
+    The importmap below maps to the built ESM bundle.
+  -->
+  <script type="importmap">
+    { "imports": { "antvis": "../dist/index.js" } }
+  </script>
+
+  <script type="module">
+    import { createFlowChart } from 'antvis';
+    window.createFlowChart = createFlowChart;
+
+    const examples = [
+      {
+        name: '📋 Basic Flow',
+        options: {
+          nodes: [
+            { id: 'start',   label: 'Start',        type: 'terminal' },
+            { id: 'process', label: 'Process Data',  type: 'process'  },
+            { id: 'end',     label: 'End',           type: 'terminal' },
+          ],
+          edges: [
+            { from: 'start',   to: 'process' },
+            { from: 'process', to: 'end'     },
+          ],
+          theme: 'excalidraw',
+        },
+      },
+      {
+        name: '🔀 Decision Branch',
+        options: {
+          nodes: [
+            { id: 'start',    label: 'Start',      type: 'terminal'  },
+            { id: 'proc',     label: 'Process',    type: 'process'   },
+            { id: 'decision', label: 'Is Valid?',  type: 'decision'  },
+            { id: 'yes',      label: 'Success',    type: 'terminal'  },
+            { id: 'no',       label: 'Failure',    type: 'terminal'  },
+          ],
+          edges: [
+            { from: 'start',    to: 'proc'     },
+            { from: 'proc',     to: 'decision' },
+            { from: 'decision', to: 'yes',  label: 'Yes' },
+            { from: 'decision', to: 'no',   label: 'No'  },
+          ],
+          theme: 'excalidraw',
+          direction: 'TB',
+        },
+      },
+      {
+        name: '📦 With Groups',
+        options: {
+          nodes: [
+            { id: 'start',    label: 'Start',        type: 'terminal' },
+            { id: 'validate', label: 'Validate',     type: 'process'  },
+            { id: 'check',    label: 'Pass?',        type: 'decision' },
+            { id: 'process',  label: 'Process',      type: 'process'  },
+            { id: 'log',      label: 'Log Error',    type: 'io'       },
+            { id: 'end',      label: 'End',          type: 'terminal' },
+          ],
+          edges: [
+            { from: 'start',    to: 'validate'           },
+            { from: 'validate', to: 'check'              },
+            { from: 'check',    to: 'process', label: 'Yes' },
+            { from: 'check',    to: 'log',     label: 'No'  },
+            { from: 'process',  to: 'end'                },
+            { from: 'log',      to: 'end'                },
+          ],
+          groups: [
+            { id: 'g1', label: 'Validation', nodes: ['validate', 'check'] },
+            { id: 'g2', label: 'Outcome',    nodes: ['process', 'log']    },
+          ],
+          theme: 'excalidraw',
+        },
+      },
+      {
+        name: '✨ Clean Theme LR',
+        options: {
+          nodes: [
+            { id: 'input',  label: 'User Input',    type: 'io'       },
+            { id: 'parse',  label: 'Parse',         type: 'process'  },
+            { id: 'valid',  label: 'Valid?',        type: 'decision' },
+            { id: 'store',  label: 'Store in DB',   type: 'process'  },
+            { id: 'error',  label: 'Return Error',  type: 'terminal' },
+          ],
+          edges: [
+            { from: 'input', to: 'parse'            },
+            { from: 'parse', to: 'valid'            },
+            { from: 'valid', to: 'store', label: '✓' },
+            { from: 'valid', to: 'error', label: '✗' },
+          ],
+          theme: 'clean',
+          direction: 'LR',
+        },
+      },
+    ];
+
+    function showExample(index) {
+      document.querySelectorAll('.tab').forEach((t, i) =>
+        t.classList.toggle('active', i === index));
+      document.getElementById('output').innerHTML = createFlowChart(examples[index].options);
+      document.getElementById('code').value = JSON.stringify(examples[index].options, null, 2);
+    }
+
+    // Build tab buttons
+    const tabsEl = document.getElementById('tabs');
+    examples.forEach((ex, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'tab';
+      btn.textContent = ex.name;
+      btn.onclick = () => showExample(i);
+      tabsEl.appendChild(btn);
+    });
+
+    showExample(1);
+
+    window.runCode = function () {
+      try {
+        const opts = JSON.parse(document.getElementById('code').value);
+        document.getElementById('playground').innerHTML = createFlowChart(opts);
+      } catch (e) {
+        document.getElementById('playground').textContent = 'Error: ' + e.message;
+      }
+    };
+  </script>
+</body>
+</html>

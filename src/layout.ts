@@ -1,0 +1,97 @@
+import * as dagre from 'dagre';
+import type { FlowNode, FlowEdge, Direction, NodeType } from './types';
+
+/** Width and height of each node type in pixels. */
+const NODE_DIMS: Record<NodeType, { width: number; height: number }> = {
+  process: { width: 160, height: 60 },
+  decision: { width: 160, height: 80 },
+  terminal: { width: 160, height: 56 },
+  io: { width: 160, height: 60 },
+};
+
+export interface LayoutNode {
+  id: string;
+  /** Top-left x. */
+  x: number;
+  /** Top-left y. */
+  y: number;
+  width: number;
+  height: number;
+}
+
+export interface LayoutEdge {
+  from: string;
+  to: string;
+  points: { x: number; y: number }[];
+  label?: string;
+}
+
+export interface LayoutResult {
+  nodes: Map<string, LayoutNode>;
+  edges: LayoutEdge[];
+  width: number;
+  height: number;
+}
+
+export function computeLayout(
+  nodes: FlowNode[],
+  edges: FlowEdge[],
+  direction: Direction,
+): LayoutResult {
+  const g = new dagre.graphlib.Graph({ multigraph: true });
+  g.setGraph({
+    rankdir: direction,
+    marginx: 60,
+    marginy: 60,
+    nodesep: 60,
+    ranksep: 80,
+    edgesep: 20,
+  });
+  g.setDefaultEdgeLabel(() => ({}));
+
+  for (const node of nodes) {
+    const dims = NODE_DIMS[node.type ?? 'process'];
+    g.setNode(node.id, { width: dims.width, height: dims.height });
+  }
+
+  for (let i = 0; i < edges.length; i++) {
+    const edge = edges[i];
+    // Use index as edge name to support multiple edges between the same pair
+    g.setEdge(edge.from, edge.to, { label: edge.label }, String(i));
+  }
+
+  dagre.layout(g);
+
+  const layoutNodes = new Map<string, LayoutNode>();
+  for (const nodeId of g.nodes()) {
+    const n = g.node(nodeId) as dagre.Node;
+    layoutNodes.set(nodeId, {
+      id: nodeId,
+      x: n.x - n.width / 2,
+      y: n.y - n.height / 2,
+      width: n.width,
+      height: n.height,
+    });
+  }
+
+  const layoutEdges: LayoutEdge[] = [];
+  for (const { v, w, name } of g.edges()) {
+    const e = g.edge(v, w, name) as dagre.GraphEdge;
+    const idx = name !== undefined ? parseInt(name, 10) : NaN;
+    const originalEdge = !isNaN(idx) ? edges[idx] : edges.find((ed) => ed.from === v && ed.to === w);
+    layoutEdges.push({
+      from: v,
+      to: w,
+      points: (e.points ?? []) as { x: number; y: number }[],
+      label: originalEdge?.label,
+    });
+  }
+
+  const graphInfo = g.graph() as dagre.GraphLabel;
+  return {
+    nodes: layoutNodes,
+    edges: layoutEdges,
+    width: (graphInfo.width ?? 800) + 120,
+    height: (graphInfo.height ?? 600) + 120,
+  };
+}
