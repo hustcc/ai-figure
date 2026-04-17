@@ -246,7 +246,7 @@ npm run typecheck
 
 # Start browser demo (after building)
 npx serve .
-# Then open: http://localhost:3000/examples/basic.html
+# Then open: http://localhost:3000/index.html
 ```
 
 ---
