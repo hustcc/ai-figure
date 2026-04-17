@@ -22,6 +22,8 @@ export interface LayoutNode {
 export interface LayoutEdge {
   from: string;
   to: string;
+  /** Original input edge index — matches the position in the `edges` array passed to computeLayout. */
+  index: number;
   points: { x: number; y: number }[];
   label?: string;
 }
@@ -83,6 +85,7 @@ export function computeLayout(
     layoutEdges.push({
       from: v,
       to: w,
+      index: !isNaN(idx) ? idx : -1,
       points: (e.points ?? []) as { x: number; y: number }[],
       label: originalEdge?.label,
     });

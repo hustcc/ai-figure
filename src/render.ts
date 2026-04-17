@@ -235,7 +235,7 @@ export function renderFlowChart(options: FlowChartOptions): string {
     return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
   }
 
-  const theme = themes[themeName];
+  const theme = themes[themeName] ?? themes['excalidraw'];
   const layout = computeLayout(nodes, edges, direction);
 
   // SVG <defs> — arrowhead marker + edge animation
@@ -256,12 +256,18 @@ export function renderFlowChart(options: FlowChartOptions): string {
     .map((g) => renderGroup(g, layout.nodes, theme))
     .join('\n');
 
+  // Build an O(1) index: input-edge-index → layout edge.
+  // layout.ts names each dagre edge with String(i) where i is the input index.
+  const layoutEdgeByIndex = new Map<string, LayoutEdge>();
+  for (const le of layout.edges) {
+    // key format: "<from>|<to>|<index>" stored by layout as `le.index`
+    layoutEdgeByIndex.set(`${le.from}|${le.to}|${le.index}`, le);
+  }
+
   // Edges
   const edgesSvg = edges
-    .map((edge) => {
-      const layoutEdge = layout.edges.find(
-        (e) => e.from === edge.from && e.to === edge.to,
-      );
+    .map((edge, i) => {
+      const layoutEdge = layoutEdgeByIndex.get(`${edge.from}|${edge.to}|${i}`);
       if (!layoutEdge) return '';
       return renderEdge(edge, layoutEdge, theme);
     })
