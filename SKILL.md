@@ -1,7 +1,7 @@
 ---
 name: ai-flowchart
 version: "0.1.0"
-description: Generate clean SVG flowcharts from a JSON config. Figcraft-inspired style, auto-layout via dagre, zero coordinates needed. Works in browser and Node.js.
+description: Generate clean SVG flowcharts from a JSON config. Excalidraw-inspired style, auto-layout via dagre, zero coordinates needed. Works in browser and Node.js.
 author: hustcc
 license: MIT
 package: ai-flowchart

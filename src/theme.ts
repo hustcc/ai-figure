@@ -49,7 +49,7 @@ export const themes: Record<ThemeType, ThemeConfig> = {
   },
 
   /**
-   * Minimal theme — figcraft-inspired clean shapes.
+   * Minimal theme — excalidraw-inspired clean shapes.
    * Neutral fills, typed border/text colors, Inter font.
    */
   clean: {
