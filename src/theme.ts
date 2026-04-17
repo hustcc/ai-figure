@@ -3,56 +3,81 @@ import type { NodeType, ThemeType } from './types';
 export interface ThemeConfig {
   fontFamily: string;
   fontSize: number;
+  strokeWidth: number;
+  cornerRadius: number;
   nodeFills: Record<NodeType, string>;
   nodeStrokes: Record<NodeType, string>;
+  textColors: Record<NodeType, string>;
   edgeColor: string;
+  edgeWidth: number;
   groupColor: string;
-  roughness: number;
-  bowing: number;
-  seed: number;
+  groupFill: string;
 }
 
 export const themes: Record<ThemeType, ThemeConfig> = {
+  /**
+   * Colorful theme — vibrant pastel fills with matched border/text colors.
+   * Inspired by Excalidraw's color palette, rendered as crisp clean SVG.
+   */
   excalidraw: {
-    fontFamily: "'Segoe UI', 'Comic Sans MS', cursive",
+    fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
     fontSize: 14,
+    strokeWidth: 2,
+    cornerRadius: 6,
     nodeFills: {
-      process: '#fff8f0',
-      decision: '#f0f8ff',
-      terminal: '#f0fff4',
-      io: '#fff0f8',
+      process:  '#fff7e6',
+      decision: '#e7f5ff',
+      terminal: '#ebfbee',
+      io:       '#fdf4ff',
     },
     nodeStrokes: {
-      process: '#1a1a2e',
-      decision: '#1a1a2e',
-      terminal: '#1a1a2e',
-      io: '#1a1a2e',
+      process:  '#f59f00',
+      decision: '#339af0',
+      terminal: '#51cf66',
+      io:       '#cc5de8',
     },
-    edgeColor: '#1a1a2e',
-    groupColor: '#6c757d',
-    roughness: 1.5,
-    bowing: 1.2,
-    seed: 42,
+    textColors: {
+      process:  '#e67700',
+      decision: '#1971c2',
+      terminal: '#2f9e44',
+      io:       '#862e9c',
+    },
+    edgeColor: '#495057',
+    edgeWidth: 1.5,
+    groupColor: '#adb5bd',
+    groupFill:  'rgba(173,181,189,0.06)',
   },
+
+  /**
+   * Minimal theme — figcraft-inspired clean shapes.
+   * Neutral fills, typed border/text colors, Inter font.
+   */
   clean: {
-    fontFamily: "'Segoe UI', Arial, sans-serif",
+    fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
     fontSize: 14,
+    strokeWidth: 1.5,
+    cornerRadius: 6,
     nodeFills: {
-      process: '#e8f4fd',
+      process:  '#e8f4fd',
       decision: '#fef9e7',
       terminal: '#eafaf1',
-      io: '#fdf2f8',
+      io:       '#fdf2f8',
     },
     nodeStrokes: {
-      process: '#2196f3',
+      process:  '#2196f3',
       decision: '#f39c12',
       terminal: '#27ae60',
-      io: '#8e44ad',
+      io:       '#8e44ad',
+    },
+    textColors: {
+      process:  '#1565c0',
+      decision: '#e65100',
+      terminal: '#1b5e20',
+      io:       '#6a1b9a',
     },
     edgeColor: '#555555',
-    groupColor: '#aaaaaa',
-    roughness: 0.3,
-    bowing: 0,
-    seed: 1,
+    edgeWidth: 1.5,
+    groupColor: '#999999',
+    groupFill:  'rgba(153,153,153,0.06)',
   },
 };

@@ -11,5 +11,5 @@ export default defineConfig({
   minify: false,
   outDir: 'dist',
   target: 'es2020',
-  noExternal: ['dagre', 'roughjs'],
+  noExternal: ['dagre'],
 });

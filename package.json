@@ -1,14 +1,13 @@
 {
   "name": "ai-flowchart",
   "version": "0.1.0",
-  "description": "Excalidraw-style flowchart renderer — supports browser and Node.js, auto-layout, beautiful SVG output.",
+  "description": "Flowchart renderer — define nodes & edges, get beautiful SVG. Works in browser and Node.js.",
   "keywords": [
     "flowchart",
     "svg",
-    "excalidraw",
     "diagram",
     "dagre",
-    "roughjs"
+    "figcraft"
   ],
   "author": "hustcc",
   "license": "MIT",
@@ -34,8 +33,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "dagre": "^0.8.5",
-    "roughjs": "^4.6.6"
+    "dagre": "^0.8.5"
   },
   "devDependencies": {
     "@types/dagre": "^0.7.52",

@@ -1,6 +1,6 @@
 # SKILL: ai-flowchart
 
-Generate Excalidraw-style SVG flowcharts from a simple node/edge description.
+Generate clean SVG flowcharts from a simple node/edge description. Figcraft-inspired style, auto layout, browser + Node.js.
 
 ## Install
 

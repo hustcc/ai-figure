@@ -1,6 +1,6 @@
 # ai-flowchart
 
-> Excalidraw-style flowchart renderer — define nodes & edges, get beautiful SVG. Works in browser **and** Node.js.
+> Clean SVG flowchart renderer — define nodes & edges, get beautiful diagrams. Works in browser **and** Node.js.
 
 [![npm version](https://img.shields.io/npm/v/ai-flowchart.svg)](https://www.npmjs.com/package/ai-flowchart)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -9,12 +9,12 @@
 
 ## Features ✨
 
-- 🎨 **Excalidraw hand-drawn style** — slightly imperfect lines, soft fills, rounded shapes
+- 🎨 **Figcraft-inspired style** — clean crisp shapes, Inter font, modern color palette
 - 📐 **Auto layout** — powered by [Dagre](https://github.com/dagrejs/dagre), no manual coordinates
 - 📦 **Groups** — logical node groups rendered with dashed borders and labels
 - 🌐 **Browser + Node.js** — pure SVG output, zero DOM dependency
 - 🤖 **AI-friendly API** — simple, semantic, TypeScript-first
-- 🎭 **Two themes** — `excalidraw` (hand-drawn) or `clean` (flat/modern)
+- 🎭 **Two themes** — `excalidraw` (colorful) or `clean` (minimal)
 
 ---
 

@@ -3,14 +3,6 @@ import { computeLayout } from './layout';
 import type { LayoutNode, LayoutEdge } from './layout';
 import { themes } from './theme';
 import type { ThemeConfig } from './theme';
-import {
-  roughRect,
-  roughRoundedRect,
-  roughDiamond,
-  roughParallelogram,
-  roughCurve,
-} from './rough';
-import type { PathInfo, RoughOptions } from './rough';
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -48,26 +40,13 @@ function wrapText(text: string, maxWidth: number, fontSize: number): string[] {
   return lines.length > 0 ? lines : [text];
 }
 
-/** Convert a PathInfo array to SVG <path> elements. */
-function pathsToSvg(
-  paths: PathInfo[],
-  fill: string,
-  stroke: string,
-  strokeWidth: number,
-  extra = '',
-): string {
-  return paths
-    .map((p) => {
-      const f = p.fill && p.fill !== 'none' ? p.fill : fill;
-      const s = p.stroke ?? stroke;
-      const sw = p.strokeWidth ?? strokeWidth;
-      const dash = p.strokeLineDash
-        ? `stroke-dasharray="${p.strokeLineDash.join(' ')}"`
-        : '';
-      return `<path d="${p.d}" fill="${f}" stroke="${s}" stroke-width="${sw}" ${dash} stroke-linecap="round" stroke-linejoin="round" ${extra}/>`;
-    })
-    .join('\n');
+/** Serialize an array of waypoints to an SVG path `d` attribute. */
+function pointsToPath(points: { x: number; y: number }[]): string {
+  return points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x},${p.y}`).join(' ');
 }
+
+/** Pixels-per-character estimate used for edge label background width. */
+const EDGE_LABEL_CHAR_WIDTH = 7;
 
 // ---------------------------------------------------------------------------
 // Node rendering
@@ -78,38 +57,45 @@ function renderNode(node: FlowNode, layout: LayoutNode, theme: ThemeConfig): str
   const type = node.type ?? 'process';
   const fill = theme.nodeFills[type];
   const stroke = theme.nodeStrokes[type];
+  const sw = theme.strokeWidth;
 
-  const roughOpts: RoughOptions = {
-    roughness: theme.roughness,
-    bowing: theme.bowing,
-    seed: theme.seed,
-    stroke,
-    strokeWidth: 2,
-    fill,
-    fillStyle: 'solid',
-  };
-
-  let pathInfos: PathInfo[];
+  let shapeSvg: string;
 
   switch (type) {
-    case 'terminal':
-      pathInfos = roughRoundedRect(x, y, width, height, 28, roughOpts);
+    case 'terminal': {
+      const rx = Math.min(height / 2, 28);
+      shapeSvg =
+        `<rect x="${x}" y="${y}" width="${width}" height="${height}" ` +
+        `rx="${rx}" ry="${rx}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>`;
       break;
-    case 'decision':
-      pathInfos = roughDiamond(x + width / 2, y + height / 2, width, height, roughOpts);
+    }
+    case 'decision': {
+      const cx = x + width / 2;
+      const cy = y + height / 2;
+      shapeSvg =
+        `<polygon points="${cx},${y} ${x + width},${cy} ${cx},${y + height} ${x},${cy}" ` +
+        `fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round"/>`;
       break;
-    case 'io':
-      pathInfos = roughParallelogram(x, y, width, height, 14, roughOpts);
+    }
+    case 'io': {
+      const skew = 14;
+      shapeSvg =
+        `<polygon points="${x + skew},${y} ${x + width},${y} ${x + width - skew},${y + height} ${x},${y + height}" ` +
+        `fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round"/>`;
       break;
-    default:
-      pathInfos = roughRect(x, y, width, height, roughOpts);
+    }
+    default: {
+      const rx = theme.cornerRadius;
+      shapeSvg =
+        `<rect x="${x}" y="${y}" width="${width}" height="${height}" ` +
+        `rx="${rx}" ry="${rx}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>`;
+    }
   }
-
-  const shapeSvg = pathsToSvg(pathInfos, fill, stroke, 2);
 
   // Text label
   const labelX = x + width / 2;
   const labelY = y + height / 2;
+  const textColor = theme.textColors[type];
   const lines = wrapText(node.label, width - 16, theme.fontSize);
   const lineHeight = theme.fontSize * 1.4;
   const totalH = lines.length * lineHeight;
@@ -121,7 +107,7 @@ function renderNode(node: FlowNode, layout: LayoutNode, theme: ThemeConfig): str
         `<text x="${labelX}" y="${startY + i * lineHeight}" ` +
         `text-anchor="middle" dominant-baseline="middle" ` +
         `font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize}" ` +
-        `fill="${escapeXml(stroke)}">${escapeXml(line)}</text>`,
+        `fill="${escapeXml(textColor)}">${escapeXml(line)}</text>`,
     )
     .join('\n');
 
@@ -136,40 +122,24 @@ function renderEdge(
   edge: FlowEdge,
   layoutEdge: LayoutEdge,
   theme: ThemeConfig,
-  edgeIndex: number,
 ): string {
   const { points } = layoutEdge;
   if (points.length < 2) return '';
 
-  const roughOpts: RoughOptions = {
-    roughness: theme.roughness * 0.6,
-    bowing: theme.bowing * 0.5,
-    seed: theme.seed + edgeIndex + 10,
-    stroke: theme.edgeColor,
-    strokeWidth: 1.5,
-    fill: 'none',
-  };
-
-  const pathInfos = roughCurve(points, roughOpts);
-  // Add arrowhead marker only on the last path (the stroke path)
-  const lastIndex = pathInfos.length - 1;
-  const curveSvg = pathInfos
-    .map((p, i) => {
-      const markerAttr = i === lastIndex ? `marker-end="url(#arrowhead)"` : '';
-      return (
-        `<path d="${p.d}" fill="none" stroke="${theme.edgeColor}" ` +
-        `stroke-width="${p.strokeWidth ?? 1.5}" stroke-linecap="round" ` +
-        `stroke-linejoin="round" ${markerAttr}/>`
-      );
-    })
-    .join('\n');
+  const d = pointsToPath(points);
+  const edgeSvg =
+    `<path d="${d}" fill="none" stroke="${theme.edgeColor}" ` +
+    `stroke-width="${theme.edgeWidth}" stroke-linecap="round" ` +
+    `stroke-linejoin="round" marker-end="url(#arrowhead)"/>`;
 
   // Edge label at the midpoint
   let labelSvg = '';
   if (edge.label) {
     const mid = points[Math.floor(points.length / 2)];
-    const bg = `<rect x="${mid.x - edge.label.length * 4}" y="${mid.y - 10}" ` +
-      `width="${edge.label.length * 8}" height="16" fill="white" rx="3" opacity="0.85"/>`;
+    const labelW = edge.label.length * EDGE_LABEL_CHAR_WIDTH + 10;
+    const bg =
+      `<rect x="${mid.x - labelW / 2}" y="${mid.y - 10}" ` +
+      `width="${labelW}" height="16" fill="white" rx="3" opacity="0.9"/>`;
     labelSvg =
       bg +
       `\n<text x="${mid.x}" y="${mid.y}" text-anchor="middle" dominant-baseline="middle" ` +
@@ -177,7 +147,7 @@ function renderEdge(
       `fill="${escapeXml(theme.edgeColor)}">${escapeXml(edge.label)}</text>`;
   }
 
-  return `<g class="edge" data-from="${escapeXml(edge.from)}" data-to="${escapeXml(edge.to)}">\n${curveSvg}\n${labelSvg}\n</g>`;
+  return `<g class="edge" data-from="${escapeXml(edge.from)}" data-to="${escapeXml(edge.to)}">\n${edgeSvg}\n${labelSvg}\n</g>`;
 }
 
 // ---------------------------------------------------------------------------
@@ -204,16 +174,15 @@ function renderGroup(
   const w = maxX - minX;
   const h = maxY - minY;
 
-  // Use a plain SVG rect for the group border (roughjs fill paths bleed through otherwise)
   const groupSvg =
-    `<rect x="${minX}" y="${minY}" width="${w}" height="${h}" rx="6" ` +
-    `fill="none" stroke="${theme.groupColor}" stroke-width="1.5" ` +
-    `stroke-dasharray="7 4" stroke-linecap="round"/>`;
+    `<rect x="${minX}" y="${minY}" width="${w}" height="${h}" rx="8" ` +
+    `fill="${theme.groupFill}" stroke="${theme.groupColor}" stroke-width="1.5" ` +
+    `stroke-dasharray="6 3"/>`;
 
   const labelSvg =
     `<text x="${minX + 10}" y="${minY + labelHeight - 4}" ` +
-    `font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize - 1}" ` +
-    `fill="${escapeXml(theme.groupColor)}" font-style="italic">${escapeXml(group.label)}</text>`;
+    `font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize - 3}" ` +
+    `fill="${escapeXml(theme.groupColor)}" font-weight="500">${escapeXml(group.label)}</text>`;
 
   return `<g class="group" data-id="${escapeXml(group.id)}">\n${groupSvg}\n${labelSvg}\n</g>`;
 }
@@ -238,13 +207,14 @@ export function renderFlowChart(options: FlowChartOptions): string {
   const theme = themes[themeName];
   const layout = computeLayout(nodes, edges, direction);
 
-  // SVG <defs> — arrowhead marker
-  const defs = `<defs>
-    <marker id="arrowhead" markerWidth="10" markerHeight="7"
-      refX="9" refY="3.5" orient="auto" markerUnits="strokeWidth">
-      <polygon points="0 0, 10 3.5, 0 7" fill="${theme.edgeColor}"/>
-    </marker>
-  </defs>`;
+  // SVG <defs> — stealth arrowhead marker
+  const defs =
+    `<defs>\n` +
+    `    <marker id="arrowhead" markerWidth="8" markerHeight="6"\n` +
+    `      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">\n` +
+    `      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="${theme.edgeColor}"/>\n` +
+    `    </marker>\n` +
+    `  </defs>`;
 
   // Groups (rendered first, behind everything else)
   const groupsSvg = groups
@@ -253,12 +223,12 @@ export function renderFlowChart(options: FlowChartOptions): string {
 
   // Edges
   const edgesSvg = edges
-    .map((edge, i) => {
+    .map((edge) => {
       const layoutEdge = layout.edges.find(
         (e) => e.from === edge.from && e.to === edge.to,
       );
       if (!layoutEdge) return '';
-      return renderEdge(edge, layoutEdge, theme, i);
+      return renderEdge(edge, layoutEdge, theme);
     })
     .join('\n');
 
