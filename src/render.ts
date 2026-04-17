@@ -280,6 +280,7 @@ export function renderFlowChart(options: FlowChartOptions): string {
   let { width, height, viewBox: vb } = layout;
   if (groups.length > 0) {
     const GROUP_PAD = 24;
+    // labelH matches renderGroup: fontSize + 8px of vertical padding around the label text
     const labelH = theme.fontSize + 8;
     let minX = vb.x, minY = vb.y, maxX = vb.x + vb.width, maxY = vb.y + vb.height;
     for (const group of groups) {
@@ -287,10 +288,18 @@ export function renderFlowChart(options: FlowChartOptions): string {
         .map((id) => layout.nodes.get(id))
         .filter((n): n is LayoutNode => n !== undefined);
       if (!gNodes.length) continue;
-      minX = Math.min(minX, Math.min(...gNodes.map((n) => n.x)) - GROUP_PAD);
-      minY = Math.min(minY, Math.min(...gNodes.map((n) => n.y)) - GROUP_PAD - labelH);
-      maxX = Math.max(maxX, Math.max(...gNodes.map((n) => n.x + n.width)) + GROUP_PAD);
-      maxY = Math.max(maxY, Math.max(...gNodes.map((n) => n.y + n.height)) + GROUP_PAD);
+      // Compute group bounds in a single pass over gNodes
+      let gMinX = Infinity, gMinY = Infinity, gMaxX = -Infinity, gMaxY = -Infinity;
+      for (const n of gNodes) {
+        if (n.x < gMinX) gMinX = n.x;
+        if (n.y < gMinY) gMinY = n.y;
+        if (n.x + n.width > gMaxX) gMaxX = n.x + n.width;
+        if (n.y + n.height > gMaxY) gMaxY = n.y + n.height;
+      }
+      if (gMinX - GROUP_PAD < minX) minX = gMinX - GROUP_PAD;
+      if (gMinY - GROUP_PAD - labelH < minY) minY = gMinY - GROUP_PAD - labelH;
+      if (gMaxX + GROUP_PAD > maxX) maxX = gMaxX + GROUP_PAD;
+      if (gMaxY + GROUP_PAD > maxY) maxY = gMaxY + GROUP_PAD;
     }
     vb = { x: minX, y: minY, width: maxX - minX, height: maxY - minY };
     width = maxX - minX;
