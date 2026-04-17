@@ -204,24 +204,11 @@ function renderGroup(
   const w = maxX - minX;
   const h = maxY - minY;
 
-  const roughOpts: RoughOptions = {
-    roughness: theme.roughness * 0.5,
-    bowing: theme.bowing * 0.3,
-    seed: theme.seed + 100,
-    stroke: theme.groupColor,
-    strokeWidth: 1.5,
-    fill: 'none',
-    strokeLineDash: [6, 4],
-  };
-
-  const pathInfos = roughRect(minX, minY, w, h, roughOpts);
-  const groupSvg = pathInfos
-    .map(
-      (p) =>
-        `<path d="${p.d}" fill="none" stroke="${theme.groupColor}" stroke-width="1.5" ` +
-        `stroke-dasharray="6 4" stroke-linecap="round"/>`,
-    )
-    .join('\n');
+  // Use a plain SVG rect for the group border (roughjs fill paths bleed through otherwise)
+  const groupSvg =
+    `<rect x="${minX}" y="${minY}" width="${w}" height="${h}" rx="6" ` +
+    `fill="none" stroke="${theme.groupColor}" stroke-width="1.5" ` +
+    `stroke-dasharray="7 4" stroke-linecap="round"/>`;
 
   const labelSvg =
     `<text x="${minX + 10}" y="${minY + labelHeight - 4}" ` +

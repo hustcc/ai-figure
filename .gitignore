@@ -28,6 +28,11 @@ dist/
 # Coverage
 coverage/
 
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
 # TypeScript incremental build
 *.tsbuildinfo
 
