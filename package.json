@@ -1,5 +1,5 @@
 {
-  "name": "antvis",
+  "name": "ai-flowchart",
   "version": "0.1.0",
   "description": "Excalidraw-style flowchart renderer — supports browser and Node.js, auto-layout, beautiful SVG output.",
   "keywords": [

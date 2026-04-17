@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>antvis — Excalidraw-style Flowcharts</title>
+  <title>ai-flowchart — Excalidraw-style Flowcharts</title>
   <meta name="description" content="Turn node/edge definitions into beautiful hand-drawn SVG flowcharts. Works in browser and Node.js." />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -307,7 +307,7 @@
       <rect x="1" y="1" width="20" height="20" rx="5" stroke="#1a1a2e" stroke-width="1.8" fill="#fff8f0"/>
       <path d="M6 11 L11 6 L16 11 L11 16 Z" stroke="#1a1a2e" stroke-width="1.6" fill="#f0f8ff"/>
     </svg>
-    antvis
+    ai-flowchart
     <span class="badge">v0.1</span>
   </a>
   <div class="nav-links">
@@ -321,7 +321,7 @@
 <section class="hero">
   <div class="hero-tag">Open Source · TypeScript · Zero dependencies on DOM</div>
   <h1>Draw flowcharts<br>the <em>hand-drawn</em> way</h1>
-  <p>Just describe your nodes and edges. antvis handles the layout and renders beautiful Excalidraw‑style SVG — in browser or Node.js.</p>
+  <p>Just describe your nodes and edges. ai-flowchart handles the layout and renders beautiful Excalidraw‑style SVG — in browser or Node.js.</p>
   <div class="hero-cta">
     <a class="btn btn-primary" href="#demo">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -345,7 +345,7 @@
       <span class="dot dot-r"></span>
       <span class="dot dot-y"></span>
       <span class="dot dot-g"></span>
-      <span class="demo-topbar-title">antvis live preview</span>
+      <span class="demo-topbar-title">ai-flowchart live preview</span>
     </div>
     <div class="demo-body">
       <div class="demo-code">
@@ -361,7 +361,7 @@
 
 <!-- ── Features ── -->
 <section class="section" id="features">
-  <p class="section-label">Why antvis</p>
+  <p class="section-label">Why ai-flowchart</p>
   <h2 class="section-title">Everything you need,<br>nothing you don't</h2>
   <div class="features-grid">
     <div class="feature-card">
@@ -387,7 +387,7 @@
     <div class="feature-card">
       <div class="feature-icon">📦</div>
       <h3>Tiny & Bundled</h3>
-      <p>Ships ESM + CJS. All dependencies bundled in. Just <code>npm install antvis</code> and go.</p>
+      <p>Ships ESM + CJS. All dependencies bundled in. Just <code>npm install ai-flowchart</code> and go.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🎨</div>
@@ -407,14 +407,14 @@
     <div class="snippet-card">
       <div class="snippet-card-title">install</div>
       <pre><span class="t-cm"># npm</span>
-npm install antvis
+npm install ai-flowchart
 
 <span class="t-cm"># pnpm</span>
-pnpm add antvis</pre>
+pnpm add ai-flowchart</pre>
     </div>
     <div class="snippet-card">
       <div class="snippet-card-title">basic.ts</div>
-      <pre><span class="t-kw">import</span> <span class="t-pn">{ createFlowChart }</span> <span class="t-kw">from</span> <span class="t-str">'antvis'</span><span class="t-pn">;</span>
+      <pre><span class="t-kw">import</span> <span class="t-pn">{ createFlowChart }</span> <span class="t-kw">from</span> <span class="t-str">'ai-flowchart'</span><span class="t-pn">;</span>
 
 <span class="t-kw">const</span> svg <span class="t-pn">=</span> <span class="t-fn">createFlowChart</span><span class="t-pn">({</span>
   nodes<span class="t-pn">: [</span>
@@ -441,7 +441,7 @@ el<span class="t-pn">.</span><span class="t-fn">replaceChildren</span><span clas
     <div class="snippet-card">
       <div class="snippet-card-title">node.js usage</div>
       <pre><span class="t-kw">import</span> <span class="t-pn">{ writeFileSync }</span> <span class="t-kw">from</span> <span class="t-str">'fs'</span><span class="t-pn">;</span>
-<span class="t-kw">import</span> <span class="t-pn">{ createFlowChart }</span> <span class="t-kw">from</span> <span class="t-str">'antvis'</span><span class="t-pn">;</span>
+<span class="t-kw">import</span> <span class="t-pn">{ createFlowChart }</span> <span class="t-kw">from</span> <span class="t-str">'ai-flowchart'</span><span class="t-pn">;</span>
 
 <span class="t-kw">const</span> svg <span class="t-pn">=</span> <span class="t-fn">createFlowChart</span><span class="t-pn">({</span>
   nodes<span class="t-pn">: [</span><span class="t-pn">...</span><span class="t-pn">],</span>
@@ -505,16 +505,16 @@ el<span class="t-pn">.</span><span class="t-fn">replaceChildren</span><span clas
 
 <!-- ── Footer ── -->
 <footer>
-  <p>antvis &nbsp;·&nbsp; MIT License &nbsp;·&nbsp; <a href="https://github.com/hustcc/antvis" target="_blank">github.com/hustcc/antvis</a></p>
+  <p>ai-flowchart &nbsp;·&nbsp; MIT License &nbsp;·&nbsp; <a href="https://github.com/hustcc/antvis" target="_blank">github.com/hustcc/antvis</a></p>
 </footer>
 
 <!-- ── Script: load library from built dist ── -->
 <script type="importmap">
-  { "imports": { "antvis": "../dist/index.js" } }
+  { "imports": { "ai-flowchart": "../dist/index.js" } }
 </script>
 
 <script type="module">
-  import { createFlowChart } from 'antvis';
+  import { createFlowChart } from 'ai-flowchart';
 
   // ── Demo examples ──
   const DEMOS = [

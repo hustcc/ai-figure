@@ -1,8 +1,8 @@
-# antvis
+# ai-flowchart
 
 > Excalidraw-style flowchart renderer — define nodes & edges, get beautiful SVG. Works in browser **and** Node.js.
 
-[![npm version](https://img.shields.io/npm/v/antvis.svg)](https://www.npmjs.com/package/antvis)
+[![npm version](https://img.shields.io/npm/v/ai-flowchart.svg)](https://www.npmjs.com/package/ai-flowchart)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -23,13 +23,13 @@
 ### Install
 
 ```bash
-npm install antvis
+npm install ai-flowchart
 ```
 
 ### Usage
 
 ```typescript
-import { createFlowChart } from 'antvis';
+import { createFlowChart } from 'ai-flowchart';
 
 const svg = createFlowChart({
   nodes: [
@@ -197,7 +197,7 @@ This API is designed to be easy for AI agents to call. Just describe the flow in
 
 **AI-generated code:**
 ```typescript
-import { createFlowChart } from 'antvis';
+import { createFlowChart } from 'ai-flowchart';
 
 const svg = createFlowChart({
   nodes: [
@@ -244,83 +244,7 @@ npx serve .
 
 ---
 
-## Tech Stack
-
-| Concern        | Library                                     |
-|----------------|---------------------------------------------|
-| Language       | TypeScript                                  |
-| Layout         | [dagre](https://github.com/dagrejs/dagre)   |
-| Hand-drawn SVG | [roughjs](https://roughjs.com/)             |
-| Build          | [tsup](https://tsup.egoist.dev/) (ESM + CJS)|
-| Tests          | [vitest](https://vitest.dev/)               |
-
----
-
 ## License
 
 MIT © [hustcc](https://github.com/hustcc)
 
----
-
-# antvis（中文文档）
-
-> Excalidraw 手绘风格流程图渲染器 — 只需定义节点与边，自动生成美观的 SVG。支持浏览器与 Node.js 双环境。
-
-## 核心特性
-
-- 🎨 **Excalidraw 手绘风格** — 略带抖动的线条、柔和的填充色
-- 📐 **自动布局** — 基于 Dagre 算法，无需手动指定坐标
-- 📦 **分组支持** — 用虚线框包裹节点组，自动计算边界
-- 🌐 **双环境运行** — 纯 SVG 输出，不依赖 DOM
-- 🤖 **AI 友好 API** — 语义清晰，TypeScript 类型完整
-
-## 快速使用
-
-```typescript
-import { createFlowChart } from 'antvis';
-
-const svg = createFlowChart({
-  nodes: [
-    { id: 'start',    label: '开始',     type: 'terminal' },
-    { id: 'process',  label: '处理数据', type: 'process'  },
-    { id: 'decision', label: '是否有效?', type: 'decision' },
-    { id: 'yes',      label: '成功',     type: 'terminal' },
-    { id: 'no',       label: '失败',     type: 'terminal' },
-  ],
-  edges: [
-    { from: 'start',    to: 'process'              },
-    { from: 'process',  to: 'decision'             },
-    { from: 'decision', to: 'yes', label: '是'    },
-    { from: 'decision', to: 'no',  label: '否'    },
-  ],
-  groups: [
-    { id: 'g1', label: '验证流程', nodes: ['process', 'decision'] },
-  ],
-  theme: 'excalidraw',
-  direction: 'TB',
-});
-
-document.body.innerHTML = svg; // 浏览器
-// 或
-import { writeFileSync } from 'fs';
-writeFileSync('chart.svg', svg); // Node.js
-```
-
-## 节点类型
-
-| 类型         | 形状         | 适用场景       |
-|-------------|-------------|---------------|
-| `process`   | 矩形         | 默认步骤/操作  |
-| `decision`  | 菱形         | 条件判断/分支  |
-| `terminal`  | 圆角矩形     | 开始/结束      |
-| `io`        | 平行四边形   | 输入/输出      |
-
-## 主题
-
-- `excalidraw`（默认）：手绘风格，略微不规则的线条
-- `clean`：扁平现代风格，整洁线条
-
-## 布局方向
-
-- `TB`（默认）：从上到下
-- `LR`：从左到右
