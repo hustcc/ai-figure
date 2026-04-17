@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <title>Excalidraw TB</title>
-  <style>
-    body { margin: 0; background: #f9f9f7; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
-    svg { max-width: 100%; height: auto; }
-  </style>
+<meta charset="UTF-8">
+<title>Decision Branch (Excalidraw, TB)</title>
+<style>
+  body { margin: 0; padding: 20px; background: #f8f9fa; font-family: sans-serif; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: #868e96; margin: 0 0 12px; }
+  .card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,.08); display: inline-block; }
+</style>
 </head>
-<body><svg xmlns="http://www.w3.org/2000/svg" width="420" height="532" viewBox="40 40 420 532">
+<body>
+  <h2>Decision Branch (Excalidraw, TB)</h2>
+  <div class="card"><svg xmlns="http://www.w3.org/2000/svg" width="410" height="472" viewBox="0 0 410 472">
 <defs>
     <marker id="arrowhead" markerWidth="8" markerHeight="6"
       refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
@@ -21,44 +24,45 @@
   </defs>
 <g class="flowchart">
 
-<g class="edge" data-from="start" data-to="proc">
-<path d="M250,116 C250,136 250,136 250,156 C250,176 250,176 250,196" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<g class="edge" data-from="start" data-to="process">
+<path d="M205,76 L205,96 Q205,106 205,116 L205,136" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 
 </g>
-<g class="edge" data-from="proc" data-to="dec">
-<path d="M250,256 C250,276 250,276 250,296 C250,316 250,316 250,336" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<g class="edge" data-from="process" data-to="decision">
+<path d="M205,196 L205,216 Q205,226 205,236 L205,256" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 
 </g>
-<g class="edge" data-from="dec" data-to="yes">
-<path d="M195,416 C167.5,416 167.5,456 140,456 C140,476 140,476 140,496" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
-<rect x="123.5" y="446" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="140" y="456" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
+<g class="edge" data-from="decision" data-to="success">
+<path d="M145,336 L108.32050294337844,360.4529980377477 Q100,366 100,376 L100,396" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="83.5" y="356" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="100" y="366" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
 </g>
-<g class="edge" data-from="dec" data-to="no">
-<path d="M305,416 C332.5,416 332.5,456 360,456 C360,476 360,476 360,496" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
-<rect x="347" y="446" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="360" y="456" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
+<g class="edge" data-from="decision" data-to="failure">
+<path d="M265,336 L301.6794970566216,360.4529980377477 Q310,366 310,376 L310,396" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="297" y="356" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="310" y="366" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
 </g>
 <g class="node node-terminal" data-id="start">
-<rect x="170" y="60" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
-<text x="250" y="88" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Start</text>
+<rect x="125" y="20" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="205" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Start</text>
 </g>
-<g class="node node-process" data-id="proc">
-<rect x="170" y="196" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
-<text x="250" y="226" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Process Data</text>
+<g class="node node-process" data-id="process">
+<rect x="125" y="136" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="205" y="166" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Process</text>
 </g>
-<g class="node node-decision" data-id="dec">
-<polygon points="250,336 330,376 250,416 170,376" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
-<text x="250" y="376" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Is Valid?</text>
+<g class="node node-decision" data-id="decision">
+<polygon points="205,256 285,296 205,336 125,296" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="205" y="296" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Is Valid?</text>
 </g>
-<g class="node node-terminal" data-id="yes">
-<rect x="60" y="496" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
-<text x="140" y="524" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Success</text>
+<g class="node node-terminal" data-id="success">
+<rect x="20" y="396" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="100" y="424" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Success</text>
 </g>
-<g class="node node-terminal" data-id="no">
-<rect x="280" y="496" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
-<text x="360" y="524" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Failure</text>
+<g class="node node-terminal" data-id="failure">
+<rect x="230" y="396" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="310" y="424" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Failure</text>
 </g>
 </g>
-</svg></body>
+</svg></div>
+</body>
 </html>

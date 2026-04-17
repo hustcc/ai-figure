@@ -44,10 +44,10 @@ export function computeLayout(
   const g = new dagre.graphlib.Graph({ multigraph: true });
   g.setGraph({
     rankdir: direction,
-    marginx: 60,
-    marginy: 60,
-    nodesep: 60,
-    ranksep: 80,
+    marginx: 20,
+    marginy: 20,
+    nodesep: 50,
+    ranksep: 60,
     edgesep: 20,
   });
   g.setDefaultEdgeLabel(() => ({}));

@@ -41,32 +41,38 @@ function wrapText(text: string, maxWidth: number, fontSize: number): string[] {
 }
 
 /**
- * Convert waypoints to a smooth cubic-bezier SVG path.
- * Control points are placed at the midpoint along the dominant axis of each
- * segment so that:
- *  - Vertical segments (TB) produce a tangent pointing downward at the endpoint → arrowhead points down ✓
- *  - Horizontal segments (LR) produce a tangent pointing rightward at the endpoint → arrowhead points right ✓
+ * Convert waypoints to a smooth SVG path with rounded corners.
+ * Each intermediate waypoint is rounded using a quadratic bezier (Q), while
+ * segments between waypoints are straight lines (L). This avoids the
+ * S-curve "fold" that occurs when consecutive segments change direction
+ * and keeps arrowhead orientation correct on any axis.
  */
 function pointsToSmoothPath(points: { x: number; y: number }[]): string {
   if (points.length < 2) return '';
-  const [first, ...rest] = points;
-  let d = `M${first.x},${first.y}`;
-  let prev = first;
-  for (const curr of rest) {
-    const dx = Math.abs(curr.x - prev.x);
-    const dy = Math.abs(curr.y - prev.y);
-    if (dy >= dx) {
-      // Primarily vertical segment: control points at vertical midpoint, preserving x.
-      // Tangent at endpoint: (curr.x, midY) → (curr.x, curr.y)  →  points downward ✓
-      const midY = (prev.y + curr.y) / 2;
-      d += ` C${prev.x},${midY} ${curr.x},${midY} ${curr.x},${curr.y}`;
+  const r = 10; // corner rounding radius (px)
+  let d = `M${points[0].x},${points[0].y}`;
+  for (let i = 1; i < points.length; i++) {
+    const p = points[i];
+    if (i === points.length - 1) {
+      // Last point — draw a straight line to it so the arrowhead orientation is exact.
+      d += ` L${p.x},${p.y}`;
     } else {
-      // Primarily horizontal segment: control points at horizontal midpoint, preserving y.
-      // Tangent at endpoint: (midX, curr.y) → (curr.x, curr.y)  →  points rightward ✓
-      const midX = (prev.x + curr.x) / 2;
-      d += ` C${midX},${prev.y} ${midX},${curr.y} ${curr.x},${curr.y}`;
+      // Intermediate waypoint — round the corner with a small quadratic bezier.
+      const prev = points[i - 1];
+      const next = points[i + 1];
+      const dx1 = p.x - prev.x, dy1 = p.y - prev.y;
+      const dx2 = next.x - p.x, dy2 = next.y - p.y;
+      const d1 = Math.sqrt(dx1 * dx1 + dy1 * dy1);
+      const d2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+      if (d1 < 1 || d2 < 1) { d += ` L${p.x},${p.y}`; continue; }
+      const r1 = Math.min(r, d1 / 2);
+      const r2 = Math.min(r, d2 / 2);
+      // Point just before the corner
+      const bx = p.x - (dx1 / d1) * r1, by = p.y - (dy1 / d1) * r1;
+      // Point just after the corner
+      const ax = p.x + (dx2 / d2) * r2, ay = p.y + (dy2 / d2) * r2;
+      d += ` L${bx},${by} Q${p.x},${p.y} ${ax},${ay}`;
     }
-    prev = curr;
   }
   return d;
 }

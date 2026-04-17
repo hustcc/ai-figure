@@ -5,7 +5,7 @@
 [![npm version](https://img.shields.io/npm/v/ai-flowchart.svg)](https://www.npmjs.com/package/ai-flowchart)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-![LLM Training Pipeline](./previews/llm-pipeline.svg)
+![Hermes Agent Architecture](./previews/hermes-agent.svg)
 
 ---
 
