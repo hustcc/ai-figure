@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Excalidraw Groups</title>
+  <style>
+    body { margin: 0; background: #f9f9f7; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    svg { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body><svg xmlns="http://www.w3.org/2000/svg" width="620" height="736" viewBox="0 0 620 736">
+<defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<g class="flowchart">
+<g class="group" data-id="g1">
+<rect x="146" y="154" width="208" height="290" rx="8" fill="rgba(173,181,189,0.06)" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="156" y="172" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd" font-weight="500">Validation</text>
+</g>
+<g class="edge" data-from="input" data-to="parse">
+<path d="M250,120 C250,120 250,160 250,160 C250,160 250,200 250,200" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="parse" data-to="valid">
+<path d="M250,260 C250,260 250,300 250,300 C250,300 250,340 250,340" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="valid" data-to="save">
+<path d="M195,420 C167.5,420 167.5,460 140,460 C140,460 140,500 140,500" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="124.5" y="450" width="31" height="16" fill="white" rx="3" opacity="0.9"/>
+<text x="140" y="460" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
+</g>
+<g class="edge" data-from="valid" data-to="err">
+<path d="M305,420 C332.5,420 332.5,460 360,460 C360,460 360,500 360,500" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="348" y="450" width="24" height="16" fill="white" rx="3" opacity="0.9"/>
+<text x="360" y="460" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
+</g>
+<g class="node node-io" data-id="input">
+<polygon points="184,60 330,60 316,120 170,120" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
+<text x="250" y="90" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">User Input</text>
+</g>
+<g class="node node-process" data-id="parse">
+<rect x="170" y="200" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="250" y="230" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Parse</text>
+</g>
+<g class="node node-decision" data-id="valid">
+<polygon points="250,340 330,380 250,420 170,380" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="250" y="380" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Valid?</text>
+</g>
+<g class="node node-terminal" data-id="save">
+<rect x="60" y="500" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="140" y="528" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Save</text>
+</g>
+<g class="node node-terminal" data-id="err">
+<rect x="280" y="500" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="360" y="528" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Error</text>
+</g>
+</g>
+</svg></body>
+</html>

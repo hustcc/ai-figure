@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="732" viewBox="0 0 620 732">
+<defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<g class="flowchart">
+
+<g class="edge" data-from="start" data-to="proc">
+<path d="M250,116 C250,116 250,156 250,156 C250,156 250,196 250,196" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="proc" data-to="dec">
+<path d="M250,256 C250,256 250,296 250,296 C250,296 250,336 250,336" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="dec" data-to="yes">
+<path d="M195,416 C167.5,416 167.5,456 140,456 C140,456 140,496 140,496" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="124.5" y="446" width="31" height="16" fill="white" rx="3" opacity="0.9"/>
+<text x="140" y="456" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
+</g>
+<g class="edge" data-from="dec" data-to="no">
+<path d="M305,416 C332.5,416 332.5,456 360,456 C360,456 360,496 360,496" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="348" y="446" width="24" height="16" fill="white" rx="3" opacity="0.9"/>
+<text x="360" y="456" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
+</g>
+<g class="node node-terminal" data-id="start">
+<rect x="170" y="60" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="250" y="88" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Start</text>
+</g>
+<g class="node node-process" data-id="proc">
+<rect x="170" y="196" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="250" y="226" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Process Data</text>
+</g>
+<g class="node node-decision" data-id="dec">
+<polygon points="250,336 330,376 250,416 170,376" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="250" y="376" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Is Valid?</text>
+</g>
+<g class="node node-terminal" data-id="yes">
+<rect x="60" y="496" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="140" y="524" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Success</text>
+</g>
+<g class="node node-terminal" data-id="no">
+<rect x="280" y="496" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="360" y="524" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Failure</text>
+</g>
+</g>
+</svg>

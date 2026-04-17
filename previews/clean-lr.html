@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Clean LR</title>
+  <style>
+    body { margin: 0; background: #f9f9f7; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    svg { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body><svg xmlns="http://www.w3.org/2000/svg" width="1120" height="412" viewBox="0 0 1120 412">
+<defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#555555"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<g class="flowchart">
+
+<g class="edge" data-from="read" data-to="parse">
+<path d="M220,146 C240,146 240,146 260,146 C280,146 280,146 300,146" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="parse" data-to="ok">
+<path d="M460,146 C480,146 480,146 500,146 C520,146 520,146 540,146" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="ok" data-to="save">
+<path d="M700,107.33333333333334 C720,107.33333333333334 720,88 740,88 C760,88 760,88 780,88" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="724.5" y="78" width="31" height="16" fill="white" rx="3" opacity="0.9"/>
+<text x="740" y="88" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Yes</text>
+</g>
+<g class="edge" data-from="ok" data-to="retry">
+<path d="M700,184.66666666666666 C720,184.66666666666666 720,204 740,204 C760,204 760,204 780,204" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="728" y="194" width="24" height="16" fill="white" rx="3" opacity="0.9"/>
+<text x="740" y="204" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">No</text>
+</g>
+<g class="node node-io" data-id="read">
+<polygon points="74,116 220,116 206,176 60,176" fill="#fdf2f8" stroke="#8e44ad" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="140" y="146" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#6a1b9a">Read File</text>
+</g>
+<g class="node node-process" data-id="parse">
+<rect x="300" y="116" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<text x="380" y="146" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Parse</text>
+</g>
+<g class="node node-decision" data-id="ok">
+<polygon points="620,106 700,146 620,186 540,146" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="620" y="146" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e65100">OK?</text>
+</g>
+<g class="node node-terminal" data-id="save">
+<rect x="780" y="60" width="160" height="56" rx="28" ry="28" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="860" y="88" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1b5e20">Save</text>
+</g>
+<g class="node node-terminal" data-id="retry">
+<rect x="780" y="176" width="160" height="56" rx="28" ry="28" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="860" y="204" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1b5e20">Retry</text>
+</g>
+</g>
+</svg></body>
+</html>
