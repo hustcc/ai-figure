@@ -190,6 +190,13 @@ const svg = createFlowChart({
 
 ## Using with AI
 
+This library ships a **[`SKILL.md`](./SKILL.md)** — a machine-readable skill file that AI agents (Copilot, Cursor, Claude, etc.) can load as context. It contains YAML frontmatter metadata, a complete guide on how to generate the JSON config, node-type rules, and the full TypeScript type reference. Point your AI at it and it will produce correct configs without any manual prompting.
+
+```
+# Load the skill into your AI context:
+@SKILL.md
+```
+
 This API is designed to be easy for AI agents to call. Just describe the flow in natural language and ask the AI to generate the `createFlowChart(...)` call.
 
 **Prompt example:**
