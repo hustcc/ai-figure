@@ -80,14 +80,15 @@ export function computeLayout(
   const layoutEdges: LayoutEdge[] = [];
   for (const { v, w, name } of g.edges()) {
     const e = g.edge(v, w, name) as dagre.GraphEdge;
-    const idx = name !== undefined ? parseInt(name, 10) : NaN;
-    const originalEdge = !isNaN(idx) ? edges[idx] : edges.find((ed) => ed.from === v && ed.to === w);
+    // Edge names are always set to String(i) above, so parseInt is always valid.
+    const idx = parseInt(name ?? '', 10);
+    if (isNaN(idx)) continue; // skip any edge without a valid index (should not happen)
     layoutEdges.push({
       from: v,
       to: w,
-      index: !isNaN(idx) ? idx : -1,
+      index: idx,
       points: (e.points ?? []) as { x: number; y: number }[],
-      label: originalEdge?.label,
+      label: edges[idx]?.label,
     });
   }
 
