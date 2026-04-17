@@ -21,12 +21,12 @@
 </g>
 <g class="edge" data-from="ok" data-to="save">
 <path d="M700,107.33333333333334 C720,107.33333333333334 720,88 740,88 C760,88 760,88 780,88" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
-<rect x="724.5" y="78" width="31" height="16" fill="white" rx="3" opacity="0.9"/>
+<rect x="723.5" y="78" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
 <text x="740" y="88" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Yes</text>
 </g>
 <g class="edge" data-from="ok" data-to="retry">
 <path d="M700,184.66666666666666 C720,184.66666666666666 720,204 740,204 C760,204 760,204 780,204" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
-<rect x="728" y="194" width="24" height="16" fill="white" rx="3" opacity="0.9"/>
+<rect x="727" y="194" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
 <text x="740" y="204" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">No</text>
 </g>
 <g class="node node-io" data-id="read">

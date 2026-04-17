@@ -163,14 +163,18 @@ function renderEdge(
   let labelSvg = '';
   if (edge.label) {
     const mid = points[Math.floor(points.length / 2)];
-    const labelW = edge.label.length * EDGE_LABEL_CHAR_WIDTH + 10;
+    const labelFontSize = theme.fontSize - 2;
+    const padX = 6;
+    const padY = 4;
+    const labelW = edge.label.length * EDGE_LABEL_CHAR_WIDTH + padX * 2;
+    const labelH = labelFontSize + padY * 2;
     const bg =
-      `<rect x="${mid.x - labelW / 2}" y="${mid.y - 10}" ` +
-      `width="${labelW}" height="16" fill="white" rx="3" opacity="0.9"/>`;
+      `<rect x="${mid.x - labelW / 2}" y="${mid.y - labelH / 2}" ` +
+      `width="${labelW}" height="${labelH}" fill="white" rx="3" opacity="0.9"/>`;
     labelSvg =
       bg +
       `\n<text x="${mid.x}" y="${mid.y}" text-anchor="middle" dominant-baseline="middle" ` +
-      `font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize - 2}" ` +
+      `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFontSize}" ` +
       `fill="${escapeXml(theme.edgeColor)}">${escapeXml(edge.label)}</text>`;
   }
 
