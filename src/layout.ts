@@ -29,6 +29,7 @@ export interface LayoutEdge {
 export interface LayoutResult {
   nodes: Map<string, LayoutNode>;
   edges: LayoutEdge[];
+  viewBox: { x: number; y: number; width: number; height: number };
   width: number;
   height: number;
 }
@@ -87,11 +88,30 @@ export function computeLayout(
     });
   }
 
-  const graphInfo = g.graph() as dagre.GraphLabel;
+  // Compute tight bounding box from all node positions and edge waypoints.
+  const PAD = 20;
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  for (const n of layoutNodes.values()) {
+    minX = Math.min(minX, n.x);
+    minY = Math.min(minY, n.y);
+    maxX = Math.max(maxX, n.x + n.width);
+    maxY = Math.max(maxY, n.y + n.height);
+  }
+  for (const e of layoutEdges) {
+    for (const p of e.points) {
+      minX = Math.min(minX, p.x);
+      minY = Math.min(minY, p.y);
+      maxX = Math.max(maxX, p.x);
+      maxY = Math.max(maxY, p.y);
+    }
+  }
+
   return {
     nodes: layoutNodes,
     edges: layoutEdges,
-    width: (graphInfo.width ?? 800) + 120,
-    height: (graphInfo.height ?? 600) + 120,
+    // viewBox origin and size for the tight bounding box + padding
+    viewBox: { x: minX - PAD, y: minY - PAD, width: maxX - minX + PAD * 2, height: maxY - minY + PAD * 2 },
+    width: maxX - minX + PAD * 2,
+    height: maxY - minY + PAD * 2,
   };
 }

@@ -276,10 +276,10 @@ export function renderFlowChart(options: FlowChartOptions): string {
     })
     .join('\n');
 
-  const { width, height } = layout;
+  const { width, height, viewBox: vb } = layout;
 
   return [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="${vb.x} ${vb.y} ${vb.width} ${vb.height}">`,
     defs,
     `<g class="flowchart">`,
     groupsSvg,
