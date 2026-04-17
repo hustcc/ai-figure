@@ -154,10 +154,18 @@
       },
     ];
 
+    function setSvg(containerId, svgString) {
+      const container = document.getElementById(containerId);
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(svgString, 'image/svg+xml');
+      const svgEl = doc.documentElement;
+      container.replaceChildren(svgEl);
+    }
+
     function showExample(index) {
       document.querySelectorAll('.tab').forEach((t, i) =>
         t.classList.toggle('active', i === index));
-      document.getElementById('output').innerHTML = createFlowChart(examples[index].options);
+      setSvg('output', createFlowChart(examples[index].options));
       document.getElementById('code').value = JSON.stringify(examples[index].options, null, 2);
     }
 
@@ -176,7 +184,7 @@
     window.runCode = function () {
       try {
         const opts = JSON.parse(document.getElementById('code').value);
-        document.getElementById('playground').innerHTML = createFlowChart(opts);
+        setSvg('playground', createFlowChart(opts));
       } catch (e) {
         document.getElementById('playground').textContent = 'Error: ' + e.message;
       }
