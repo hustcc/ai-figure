@@ -42,8 +42,10 @@ function wrapText(text: string, maxWidth: number, fontSize: number): string[] {
 
 /**
  * Convert waypoints to a smooth cubic-bezier SVG path.
- * For each segment, control points are placed at the horizontal midpoint so that
- * orthogonal corners become gentle S-curves.
+ * Control points are placed at the midpoint along the dominant axis of each
+ * segment so that:
+ *  - Vertical segments (TB) produce a tangent pointing downward at the endpoint → arrowhead points down ✓
+ *  - Horizontal segments (LR) produce a tangent pointing rightward at the endpoint → arrowhead points right ✓
  */
 function pointsToSmoothPath(points: { x: number; y: number }[]): string {
   if (points.length < 2) return '';
@@ -51,8 +53,19 @@ function pointsToSmoothPath(points: { x: number; y: number }[]): string {
   let d = `M${first.x},${first.y}`;
   let prev = first;
   for (const curr of rest) {
-    const cpx = (prev.x + curr.x) / 2;
-    d += ` C${cpx},${prev.y} ${cpx},${curr.y} ${curr.x},${curr.y}`;
+    const dx = Math.abs(curr.x - prev.x);
+    const dy = Math.abs(curr.y - prev.y);
+    if (dy >= dx) {
+      // Primarily vertical segment: control points at vertical midpoint, preserving x.
+      // Tangent at endpoint: (curr.x, midY) → (curr.x, curr.y)  →  points downward ✓
+      const midY = (prev.y + curr.y) / 2;
+      d += ` C${prev.x},${midY} ${curr.x},${midY} ${curr.x},${curr.y}`;
+    } else {
+      // Primarily horizontal segment: control points at horizontal midpoint, preserving y.
+      // Tangent at endpoint: (midX, curr.y) → (curr.x, curr.y)  →  points rightward ✓
+      const midX = (prev.x + curr.x) / 2;
+      d += ` C${midX},${prev.y} ${midX},${curr.y} ${curr.x},${curr.y}`;
+    }
     prev = curr;
   }
   return d;
