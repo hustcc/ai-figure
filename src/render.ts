@@ -64,7 +64,10 @@ function pointsToSmoothPath(points: { x: number; y: number }[]): string {
       const dx2 = next.x - p.x, dy2 = next.y - p.y;
       const d1 = Math.sqrt(dx1 * dx1 + dy1 * dy1);
       const d2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
-      if (d1 < 1 || d2 < 1) { d += ` L${p.x},${p.y}`; continue; }
+      if (d1 < 1 || d2 < 1) {
+        d += ` L${p.x},${p.y}`;
+        continue;
+      }
       const r1 = Math.min(r, d1 / 2);
       const r2 = Math.min(r, d2 / 2);
       // Point just before the corner
