@@ -40,9 +40,22 @@ function wrapText(text: string, maxWidth: number, fontSize: number): string[] {
   return lines.length > 0 ? lines : [text];
 }
 
-/** Serialize an array of waypoints to an SVG path `d` attribute. */
-function pointsToPath(points: { x: number; y: number }[]): string {
-  return points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x},${p.y}`).join(' ');
+/**
+ * Convert waypoints to a smooth cubic-bezier SVG path.
+ * For each segment, control points are placed at the horizontal midpoint so that
+ * orthogonal corners become gentle S-curves.
+ */
+function pointsToSmoothPath(points: { x: number; y: number }[]): string {
+  if (points.length < 2) return '';
+  const [first, ...rest] = points;
+  let d = `M${first.x},${first.y}`;
+  let prev = first;
+  for (const curr of rest) {
+    const cpx = (prev.x + curr.x) / 2;
+    d += ` C${cpx},${prev.y} ${cpx},${curr.y} ${curr.x},${curr.y}`;
+    prev = curr;
+  }
+  return d;
 }
 
 /** Pixels-per-character estimate used for edge label background width. */
@@ -126,11 +139,12 @@ function renderEdge(
   const { points } = layoutEdge;
   if (points.length < 2) return '';
 
-  const d = pointsToPath(points);
+  const d = pointsToSmoothPath(points);
   const edgeSvg =
     `<path d="${d}" fill="none" stroke="${theme.edgeColor}" ` +
     `stroke-width="${theme.edgeWidth}" stroke-linecap="round" ` +
-    `stroke-linejoin="round" marker-end="url(#arrowhead)"/>`;
+    `stroke-linejoin="round" stroke-dasharray="8 5" ` +
+    `class="ai-fc-edge" marker-end="url(#arrowhead)"/>`;
 
   // Edge label at the midpoint
   let labelSvg = '';
@@ -207,13 +221,17 @@ export function renderFlowChart(options: FlowChartOptions): string {
   const theme = themes[themeName];
   const layout = computeLayout(nodes, edges, direction);
 
-  // SVG <defs> — stealth arrowhead marker
+  // SVG <defs> — arrowhead marker + edge animation
   const defs =
     `<defs>\n` +
     `    <marker id="arrowhead" markerWidth="8" markerHeight="6"\n` +
     `      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">\n` +
     `      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="${theme.edgeColor}"/>\n` +
     `    </marker>\n` +
+    `    <style>\n` +
+    `      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }\n` +
+    `      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }\n` +
+    `    </style>\n` +
     `  </defs>`;
 
   // Groups (rendered first, behind everything else)
