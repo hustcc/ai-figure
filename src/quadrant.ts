@@ -61,7 +61,7 @@ export function createQuadrantChart(options: QuadrantChartOptions): string {
     : themes['excalidraw'];
 
   const sw = theme.strokeWidth;
-  const axisColor  = theme.edgeColor;   // dark gray — axis lines + arrows
+  const axisColor  = theme.groupColor;  // muted gray — axis lines + arrows (lighter, no opacity needed)
   const groupColor = theme.groupColor;  // muted gray — corner labels + borders
   const textColor  = theme.edgeColor;   // regular dark gray for all text labels
   const labelFs    = theme.fontSize - 1;
