@@ -18,7 +18,7 @@ const LAYER_NODE_TYPES: NodeType[] = ['process', 'decision', 'terminal', 'io'];
  *
  * Each layer is rendered as a rounded card with its own color.
  * TB: cards stacked vertically; LR: cards arranged horizontally.
- * Node cells inside each card are white with a colored border.
+ * Node cells inside each card use the layer's tinted fill with a colored border.
  */
 export function createArchDiagram(options: ArchDiagramOptions): string {
   const {

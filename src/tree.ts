@@ -17,10 +17,14 @@ export function createTreeDiagram(options: TreeDiagramOptions): string {
   nodes.forEach((n) => { if (n.parent !== undefined) parentMap.set(n.id, n.parent); });
 
   const depthMap = new Map<string, number>();
-  const getDepth = (id: string): number => {
+  const getDepth = (id: string, visiting = new Set<string>()): number => {
     if (depthMap.has(id)) return depthMap.get(id)!;
+    if (visiting.has(id)) {
+      throw new Error(`Tree cycle detected at node "${id}". Nodes must form a tree, not a graph.`);
+    }
+    visiting.add(id);
     const parent = parentMap.get(id);
-    const depth = parent === undefined ? 0 : getDepth(parent) + 1;
+    const depth = parent === undefined ? 0 : getDepth(parent, visiting) + 1;
     depthMap.set(id, depth);
     return depth;
   };

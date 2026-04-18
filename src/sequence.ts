@@ -15,6 +15,9 @@ const SELF_LOOP_H = 28;    // height of the self-message loop
 /** Node types cycled by actor index so each participant has a distinct color. */
 const ACTOR_NODE_TYPES: NodeType[] = ['terminal', 'process', 'decision', 'io'];
 
+/** Incrementing counter for unique per-diagram marker IDs. */
+let _seqDiagramCount = 0;
+
 /**
  * Generate an SVG sequence diagram with vertical lifelines and horizontal
  * message arrows. No Dagre — layout is fully hand-computed.
@@ -25,6 +28,15 @@ export function createSequenceDiagram(options: SequenceDiagramOptions): string {
 
   if (actors.length === 0) {
     return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
+  }
+
+  // Validate unique actor names
+  const seenActors = new Set<string>();
+  for (const actor of actors) {
+    if (seenActors.has(actor)) {
+      throw new Error(`Duplicate actor name "${actor}". Actor names must be unique.`);
+    }
+    seenActors.add(actor);
   }
 
   const theme = Object.prototype.hasOwnProperty.call(themes, themeName)
@@ -43,7 +55,11 @@ export function createSequenceDiagram(options: SequenceDiagramOptions): string {
     actorCenterX.set(a, sideMargin + i * ACTOR_SPACING);
   });
 
-  const svgWidth = sideMargin * 2 + (actors.length - 1) * ACTOR_SPACING;
+  // Self-message loops extend to the right by SELF_LOOP_W; add extra padding so
+  // a self-message on the rightmost actor stays inside the viewBox.
+  const hasSelfMessage = messages.some((m) => m.from === m.to);
+  const selfMessageRightPad = hasSelfMessage ? SELF_LOOP_W + 60 : 0;
+  const svgWidth = sideMargin * 2 + (actors.length - 1) * ACTOR_SPACING + selfMessageRightPad;
 
   // Y positions
   const actorTopY = TOP_PAD;
@@ -54,11 +70,14 @@ export function createSequenceDiagram(options: SequenceDiagramOptions): string {
 
   const parts: string[] = [];
 
+  // Unique marker ID to avoid conflicts when multiple diagrams are embedded in one HTML document
+  const markerId = `seq-arrow-${++_seqDiagramCount}`;
+
   // Arrowhead marker definitions + animation styles
   const arrowColor = theme.edgeColor;
   const defs =
     `<defs>\n` +
-    `  <marker id="seq-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">\n` +
+    `  <marker id="${markerId}" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">\n` +
     `    <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="${escapeXml(arrowColor)}"/>\n` +
     `  </marker>\n` +
     `  <style>\n` +
@@ -113,7 +132,15 @@ export function createSequenceDiagram(options: SequenceDiagramOptions): string {
     const msg = messages[mi];
     const fromX = actorCenterX.get(msg.from);
     const toX = actorCenterX.get(msg.to);
-    if (fromX === undefined || toX === undefined) continue;
+    if (fromX === undefined || toX === undefined) {
+      const unknownActors = [
+        fromX === undefined ? `"from" actor "${msg.from}"` : '',
+        toX === undefined ? `"to" actor "${msg.to}"` : '',
+      ]
+        .filter(Boolean)
+        .join(' and ');
+      throw new Error(`Invalid sequence message at index ${mi}: unknown ${unknownActors}.`);
+    }
 
     const msgY = firstMsgY + mi * MSG_SPACING;
     const isReturn = msg.style === 'return';
@@ -124,7 +151,7 @@ export function createSequenceDiagram(options: SequenceDiagramOptions): string {
       `stroke="${escapeXml(arrowColor)}"`,
       `stroke-width="1.5"`,
       `fill="none"`,
-      `marker-end="url(#seq-arrow)"`,
+      `marker-end="url(#${markerId})"`,
       dashArray ? `stroke-dasharray="${dashArray}"` : '',
       isReturn ? `class="seq-return"` : '',
     ]
