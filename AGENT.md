@@ -56,32 +56,32 @@ All diagram types share one visual language. When building a new renderer, follo
 
 Two themes are defined in `src/theme.ts`. Every renderer **must support both**.
 
-| Property | `excalidraw` | `clean` |
-|----------|-------------|---------|
+| Property | `colorful` | `minimal` |
+|----------|-----------|----------|
 | `fontFamily` | `Inter, system-ui, -apple-system, sans-serif` | same |
 | `fontSize` | `14` px | same |
-| `strokeWidth` | `2` | `1.5` |
-| `cornerRadius` | `6` px | `6` px |
+| `strokeWidth` | `2` | `1` |
+| `cornerRadius` | `6` px | `8` px |
 | `edgeColor` | `#495057` (dark gray) | `#555555` |
 | `edgeWidth` | `1.5` | `1.5` |
-| `groupColor` | `#868e96` (muted gray) | `#555555` |
-| `groupFill` | `rgba(134,142,150,0.06)` | `rgba(85,85,85,0.06)` |
+| `groupColor` | `#868e96` (muted gray) | `#adb5bd` (light gray) |
+| `groupFill` | `rgba(134,142,150,0.06)` | `rgba(173,181,189,0.06)` |
 
 Node-type colors (4 types: `process`, `decision`, `terminal`, `io`):
 
-| NodeType | excalidraw fill | excalidraw stroke | excalidraw text |
-|----------|----------------|-------------------|-----------------|
-| `process` | `#fff7e6` | `#f59f00` (amber) | `#e67700` |
-| `decision` | `#e7f5ff` | `#339af0` (blue) | `#1971c2` |
+| NodeType | colorful fill | colorful stroke | colorful text |
+|----------|--------------|-----------------|---------------|
+| `process` | `#e7f5ff` | `#339af0` (blue) | `#1971c2` |
+| `decision` | `#fff7e6` | `#f59f00` (amber) | `#e67700` |
 | `terminal` | `#ebfbee` | `#51cf66` (green) | `#2f9e44` |
 | `io` | `#fdf4ff` | `#cc5de8` (purple) | `#862e9c` |
 
-| NodeType | clean fill | clean stroke | clean text |
-|----------|-----------|--------------|------------|
-| `process` | `#e8f4fd` | `#2196f3` | `#1565c0` |
-| `decision` | `#fef9e7` | `#f39c12` | `#e65100` |
-| `terminal` | `#eafaf1` | `#27ae60` | `#1b5e20` |
-| `io` | `#fdf2f8` | `#8e44ad` | `#6a1b9a` |
+| NodeType | minimal fill | minimal stroke | minimal text |
+|----------|-------------|----------------|--------------|
+| `process` | `#e8f4fd` | `#42a5f5` | `#1565c0` |
+| `decision` | `#d4eaf9` | `#1976d2` | `#0d47a1` |
+| `terminal` | `#bbdefb` | `#1565c0` | `#0a3566` |
+| `io` | `#f0f8ff` | `#90caf9` | `#1976d2` |
 
 ### Color assignment patterns
 

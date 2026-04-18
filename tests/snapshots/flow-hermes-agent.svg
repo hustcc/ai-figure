@@ -85,24 +85,24 @@
 <text x="150" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">User Request</text>
 </g>
 <g class="node node-process" data-id="ctx_load">
-<rect x="70" y="156" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
-<text x="150" y="186" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Load Context</text>
+<rect x="70" y="156" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="150" y="186" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Load Context</text>
 </g>
 <g class="node node-process" data-id="orchestrator">
-<rect x="70" y="296" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
-<text x="150" y="326" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Orchestrator</text>
+<rect x="70" y="296" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="150" y="326" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Orchestrator</text>
 </g>
 <g class="node node-process" data-id="planner">
-<rect x="70" y="436" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
-<text x="150" y="466" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Task Planner</text>
+<rect x="70" y="436" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="150" y="466" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Task Planner</text>
 </g>
 <g class="node node-decision" data-id="dispatch">
-<polygon points="150,576 230,616 150,656 70,616" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
-<text x="150" y="616" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Route Task?</text>
+<polygon points="150,576 230,616 150,656 70,616" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="150" y="616" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Route Task?</text>
 </g>
 <g class="node node-process" data-id="tool_select">
-<rect x="240" y="736" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
-<text x="320" y="766" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Select Tool</text>
+<rect x="240" y="736" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="320" y="766" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Select Tool</text>
 </g>
 <g class="node node-io" data-id="web_search">
 <polygon points="34,876 180,876 166,936 20,936" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
@@ -117,8 +117,8 @@
 <text x="540" y="906" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">Memory</text>
 </g>
 <g class="node node-process" data-id="synthesize">
-<rect x="130" y="1016" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
-<text x="210" y="1046" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Synthesize</text>
+<rect x="130" y="1016" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="210" y="1046" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Synthesize</text>
 </g>
 <g class="node node-terminal" data-id="final_out">
 <rect x="130" y="1156" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>

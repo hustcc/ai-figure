@@ -80,32 +80,32 @@
 <text x="280" y="186" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">Enter Credentials</text>
 </g>
 <g class="node node-decision" data-id="check_user">
-<polygon points="280,296 360,336 280,376 200,336" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
-<text x="280" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">User Exists?</text>
+<polygon points="280,296 360,336 280,376 200,336" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="280" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">User Exists?</text>
 </g>
 <g class="node node-process" data-id="verify_pwd">
-<rect x="140" y="456" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
-<text x="220" y="486" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Verify Password</text>
+<rect x="140" y="456" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="220" y="486" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Verify Password</text>
 </g>
 <g class="node node-decision" data-id="pwd_ok">
-<polygon points="220,596 300,636 220,676 140,636" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
-<text x="220" y="636" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Password OK?</text>
+<polygon points="220,596 300,636 220,676 140,636" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="220" y="636" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Password OK?</text>
 </g>
 <g class="node node-decision" data-id="mfa_enabled">
-<polygon points="160,756 240,796 160,836 80,796" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
-<text x="160" y="796" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">MFA Enabled?</text>
+<polygon points="160,756 240,796 160,836 80,796" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="160" y="796" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">MFA Enabled?</text>
 </g>
 <g class="node node-io" data-id="mfa">
 <polygon points="34,916 180,916 166,976 20,976" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
 <text x="100" y="946" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">MFA Challenge</text>
 </g>
 <g class="node node-decision" data-id="mfa_ok">
-<polygon points="100,1056 180,1096 100,1136 20,1096" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
-<text x="100" y="1096" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">MFA Valid?</text>
+<polygon points="100,1056 180,1096 100,1136 20,1096" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="100" y="1096" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">MFA Valid?</text>
 </g>
 <g class="node node-process" data-id="session">
-<rect x="80" y="1216" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
-<text x="160" y="1246" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Create Session</text>
+<rect x="80" y="1216" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="160" y="1246" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Create Session</text>
 </g>
 <g class="node node-terminal" data-id="deny">
 <rect x="300" y="1218" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>

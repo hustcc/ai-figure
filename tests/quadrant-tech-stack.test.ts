@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('quadrant chart — tech stack adoption: effort vs value, clean theme', () => {
+it('quadrant chart — tech stack adoption: effort vs value, minimal theme', () => {
   const svg = fig({
     figure: 'quadrant',
     xAxis: { label: 'Adoption Effort', min: 'Low', max: 'High' },
@@ -18,7 +18,7 @@ it('quadrant chart — tech stack adoption: effort vs value, clean theme', () =>
       { id: 'jquery', label: 'jQuery',      x: 0.12, y: 0.22 },
       { id: 'svelte', label: 'Svelte',      x: 0.45, y: 0.65 },
     ],
-    theme: 'clean',
+    theme: 'minimal',
   });
   matchSvgSnapshot('quadrant-tech-stack', svg);
 });

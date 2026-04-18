@@ -21,7 +21,7 @@
 - 📦 **Groups** — logical node groups rendered with dashed borders and labels
 - 🌐 **Browser + Node.js** — pure SVG output, zero DOM dependency
 - 🤖 **AI-friendly API** — single `fig()` entry point, semantic JSON config, TypeScript-first
-- 🎭 **Two themes** — `excalidraw` (colorful) or `clean` (minimal)
+- 🎭 **Two themes** — `colorful` (vibrant multi-hue) or `minimal` (single blue family)
 - 📊 **Five diagram types** — flowchart, tree, architecture, sequence, quadrant
 
 ---
@@ -58,7 +58,7 @@ const svg = fig({
   groups: [
     { id: 'g1', label: 'Validation', nodes: ['process1', 'decision'] },
   ],
-  theme: 'excalidraw', // 'excalidraw' | 'clean'
+  theme: 'colorful', // 'colorful' | 'minimal'
   direction: 'TB',     // 'TB' (top→bottom) | 'LR' (left→right)
 });
 
@@ -98,7 +98,7 @@ fig({ figure: 'quadrant', ...quadrantOptions }); // quadrant chart
 | `nodes`     | `FlowNode[]`    | **required**   | List of nodes                            |
 | `edges`     | `FlowEdge[]`    | **required**   | List of directed edges                   |
 | `groups`    | `FlowGroup[]`   | `[]`           | Optional logical groups                  |
-| `theme`     | `ThemeType`     | `'excalidraw'` | Visual theme                             |
+| `theme`     | `ThemeType`     | `'colorful'` | Visual theme                             |
 | `direction` | `Direction`     | `'TB'`         | Layout direction (`'TB'` or `'LR'`)      |
 
 #### `FlowNode`
@@ -144,7 +144,7 @@ Renders a hierarchy from a flat node list with `parent` references. Uses Dagre f
 |-------------|---------------|----------------|------------------------------------|
 | `figure`    | `'tree'`      | **required**   | Selects the tree renderer          |
 | `nodes`     | `TreeNode[]`  | **required**   | Flat list with optional parent ref |
-| `theme`     | `ThemeType`   | `'excalidraw'` | Visual theme                       |
+| `theme`     | `ThemeType`   | `'colorful'` | Visual theme                       |
 | `direction` | `Direction`   | `'TB'`         | Layout direction                   |
 
 ```typescript
@@ -155,7 +155,7 @@ fig({
     { id: 'cto', label: 'CTO', parent: 'ceo' },
     { id: 'coo', label: 'COO', parent: 'ceo' },
   ],
-  theme: 'clean',
+  theme: 'minimal',
 });
 ```
 
@@ -169,7 +169,7 @@ Renders a tech-stack landscape as layered, color-coded cards — no edges needed
 |-------------|---------------|----------------|------------------------------------------|
 | `figure`    | `'arch'`      | **required**   | Selects the architecture renderer        |
 | `layers`    | `ArchLayer[]` | **required**   | Layers from top to bottom (TB) or left to right (LR) |
-| `theme`     | `ThemeType`   | `'excalidraw'` | Visual theme                             |
+| `theme`     | `ThemeType`   | `'colorful'` | Visual theme                             |
 | `direction` | `Direction`   | `'TB'`         | `'TB'` = layers stacked, `'LR'` = layers side-by-side |
 | `width`     | `number`      | `800`          | Total diagram width in pixels            |
 
@@ -195,7 +195,7 @@ Renders a sequence diagram with vertical lifelines and horizontal message arrows
 | `figure`   | `'sequence'`   | **required**   | Selects the sequence renderer         |
 | `actors`   | `string[]`     | **required**   | Ordered list of participant names     |
 | `messages` | `SeqMessage[]` | **required**   | Ordered list of message arrows        |
-| `theme`    | `ThemeType`    | `'excalidraw'` | Visual theme                          |
+| `theme`    | `ThemeType`    | `'colorful'` | Visual theme                          |
 
 ```typescript
 fig({
@@ -223,7 +223,7 @@ Renders a 2D quadrant scatter plot. Points are placed by normalized `x`/`y` valu
 | `yAxis`     | `AxisConfig`       | **required**   | Y-axis label, min and max tick labels               |
 | `quadrants` | `[TL, TR, BL, BR]` | **required**   | Corner labels: top-left, top-right, bottom-left, bottom-right |
 | `points`    | `QuadrantPoint[]`  | **required**   | Data points to plot                                 |
-| `theme`     | `ThemeType`        | `'excalidraw'` | Visual theme                                        |
+| `theme`     | `ThemeType`        | `'colorful'` | Visual theme                                        |
 
 #### `AxisConfig`
 
@@ -255,7 +255,7 @@ fig({
     { id: 'd', label: 'Feature D', x: 0.3,  y: 0.2  },
     { id: 'e', label: 'Feature E', x: 0.8,  y: 0.25 },
   ],
-  theme: 'excalidraw',
+  theme: 'colorful',
 });
 ```
 
@@ -294,7 +294,7 @@ const svg = fig({
     { from: 'check',       to: 'dashboard', label: 'Valid'    },
     { from: 'check',       to: 'error',     label: 'Invalid'  },
   ],
-  theme: 'excalidraw',
+  theme: 'colorful',
   direction: 'TB',
 });
 ```

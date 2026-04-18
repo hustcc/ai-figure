@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('tree diagram — package dependency tree, clean theme, LR direction', () => {
+it('tree diagram — package dependency tree, minimal theme, LR direction', () => {
   const svg = fig({
     figure: 'tree',
     nodes: [
@@ -15,7 +15,7 @@ it('tree diagram — package dependency tree, clean theme, LR direction', () => 
       { id: 'history',   label: 'history',          parent: 'router' },
       { id: 'axios',     label: 'axios',            parent: 'query' },
     ],
-    theme: 'clean',
+    theme: 'minimal',
     direction: 'LR',
   });
   matchSvgSnapshot('tree-deps', svg);

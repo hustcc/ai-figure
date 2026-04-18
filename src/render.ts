@@ -209,7 +209,7 @@ export function renderFlowChart(options: FlowChartOptions): string {
     nodes,
     edges,
     groups = [],
-    theme: themeName = 'excalidraw',
+    theme: themeName = 'colorful',
     direction = 'TB',
   } = options;
 
@@ -219,7 +219,7 @@ export function renderFlowChart(options: FlowChartOptions): string {
 
   const theme = Object.prototype.hasOwnProperty.call(themes, themeName)
     ? themes[themeName as keyof typeof themes]
-    : themes['excalidraw'];
+    : themes['colorful'];
   const layout = computeLayout(nodes, edges, direction);
 
   // Unique ID scoped to this diagram instance to avoid marker conflicts on the same HTML page.

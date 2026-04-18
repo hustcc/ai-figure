@@ -40,36 +40,36 @@
 
 </g>
 <g class="node node-terminal" data-id="app">
-<rect x="20" y="312" width="160" height="56" rx="28" ry="28" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
-<text x="100" y="340" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1b5e20">my-app</text>
+<rect x="20" y="312" width="160" height="56" rx="28" ry="28" fill="#bbdefb" stroke="#1565c0" stroke-width="1"/>
+<text x="100" y="340" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0a3566">my-app</text>
 </g>
 <g class="node node-process" data-id="react">
-<rect x="260" y="100" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="260" y="100" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="340" y="130" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">react</text>
 </g>
 <g class="node node-process" data-id="router">
-<rect x="260" y="310" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="260" y="310" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="340" y="340" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">react-router</text>
 </g>
 <g class="node node-process" data-id="query">
-<rect x="260" y="450" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="260" y="450" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="340" y="480" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">react-query</text>
 </g>
 <g class="node node-decision" data-id="scheduler">
-<polygon points="580,20 660,60 580,100 500,60" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5" stroke-linejoin="round"/>
-<text x="580" y="60" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e65100">scheduler</text>
+<polygon points="580,20 660,60 580,100 500,60" fill="#d4eaf9" stroke="#1976d2" stroke-width="1" stroke-linejoin="round"/>
+<text x="580" y="60" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0d47a1">scheduler</text>
 </g>
 <g class="node node-decision" data-id="jsxrt">
-<polygon points="580,160 660,200 580,240 500,200" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5" stroke-linejoin="round"/>
-<text x="580" y="200" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e65100">react-jsx-runtime</text>
+<polygon points="580,160 660,200 580,240 500,200" fill="#d4eaf9" stroke="#1976d2" stroke-width="1" stroke-linejoin="round"/>
+<text x="580" y="200" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0d47a1">react-jsx-runtime</text>
 </g>
 <g class="node node-decision" data-id="history">
-<polygon points="580,300 660,340 580,380 500,340" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5" stroke-linejoin="round"/>
-<text x="580" y="340" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e65100">history</text>
+<polygon points="580,300 660,340 580,380 500,340" fill="#d4eaf9" stroke="#1976d2" stroke-width="1" stroke-linejoin="round"/>
+<text x="580" y="340" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0d47a1">history</text>
 </g>
 <g class="node node-decision" data-id="axios">
-<polygon points="580,440 660,480 580,520 500,480" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5" stroke-linejoin="round"/>
-<text x="580" y="480" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e65100">axios</text>
+<polygon points="580,440 660,480 580,520 500,480" fill="#d4eaf9" stroke="#1976d2" stroke-width="1" stroke-linejoin="round"/>
+<text x="580" y="480" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0d47a1">axios</text>
 </g>
 </g>
 </svg>

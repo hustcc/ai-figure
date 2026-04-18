@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('tree diagram — knowledge domain taxonomy, excalidraw theme, TB direction', () => {
+it('tree diagram — knowledge domain taxonomy, colorful theme, TB direction', () => {
   const svg = fig({
     figure: 'tree',
     nodes: [
@@ -17,7 +17,7 @@ it('tree diagram — knowledge domain taxonomy, excalidraw theme, TB direction',
       { id: 'detect',  label: 'Detection',          parent: 'cv' },
       { id: 'segment', label: 'Segmentation',       parent: 'cv' },
     ],
-    theme: 'excalidraw',
+    theme: 'colorful',
     direction: 'TB',
   });
   matchSvgSnapshot('tree-knowledge', svg);

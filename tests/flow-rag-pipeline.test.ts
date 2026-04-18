@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('RAG (retrieval-augmented generation) pipeline — clean theme, TB direction, 3 groups', () => {
+it('RAG (retrieval-augmented generation) pipeline — minimal theme, TB direction, 3 groups', () => {
   const svg = fig({
     figure: 'flow',
     nodes: [
@@ -30,7 +30,7 @@ it('RAG (retrieval-augmented generation) pipeline — clean theme, TB direction,
       { id: 'retrieval', label: 'Retrieval', nodes: ['embed_q', 'vector_search', 'top_k', 'rerank'] },
       { id: 'generation', label: 'Generation', nodes: ['context', 'prompt', 'llm'] },
     ],
-    theme: 'clean',
+    theme: 'minimal',
     direction: 'TB',
   });
   matchSvgSnapshot('flow-rag-pipeline', svg);

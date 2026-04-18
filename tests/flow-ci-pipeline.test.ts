@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('CI/CD pipeline — clean theme, TB direction, 3 groups', () => {
+it('CI/CD pipeline — minimal theme, TB direction, 3 groups', () => {
   const svg = fig({
     figure: 'flow',
     nodes: [
@@ -38,7 +38,7 @@ it('CI/CD pipeline — clean theme, TB direction, 3 groups', () => {
       { id: 'staging_env', label: 'Staging', nodes: ['staging', 'e2e'] },
       { id: 'production', label: 'Production', nodes: ['prod', 'done'] },
     ],
-    theme: 'clean',
+    theme: 'minimal',
     direction: 'TB',
   });
   matchSvgSnapshot('flow-ci-pipeline', svg);

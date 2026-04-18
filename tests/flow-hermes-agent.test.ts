@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('hermes agent architecture — excalidraw theme, TB direction, 4 groups', () => {
+it('hermes agent architecture — colorful theme, TB direction, 4 groups', () => {
   const svg = fig({
     figure: 'flow',
     nodes: [
@@ -39,7 +39,7 @@ it('hermes agent architecture — excalidraw theme, TB direction, 4 groups', () 
       { id: 'g_tools', label: 'Tool Execution', nodes: ['tool_select', 'web_search', 'code_exec', 'memory_store'] },
       { id: 'g_output', label: 'Output', nodes: ['synthesize', 'final_out'] },
     ],
-    theme: 'excalidraw',
+    theme: 'colorful',
     direction: 'TB',
   });
   matchSvgSnapshot('flow-hermes-agent', svg);

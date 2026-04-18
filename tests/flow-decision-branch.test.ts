@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('decision branch — excalidraw theme, TB direction', () => {
+it('decision branch — colorful theme, TB direction', () => {
   const svg = fig({
     figure: 'flow',
     nodes: [
@@ -18,7 +18,7 @@ it('decision branch — excalidraw theme, TB direction', () => {
       { from: 'decision', to: 'success', label: 'Yes' },
       { from: 'decision', to: 'failure', label: 'No' },
     ],
-    theme: 'excalidraw',
+    theme: 'colorful',
     direction: 'TB',
   });
   matchSvgSnapshot('flow-decision-branch', svg);

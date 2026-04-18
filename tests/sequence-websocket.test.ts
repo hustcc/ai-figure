@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('sequence diagram — WebSocket handshake, excalidraw theme', () => {
+it('sequence diagram — WebSocket handshake, colorful theme', () => {
   const svg = fig({
     figure: 'sequence',
     actors: ['Client', 'Server'],
@@ -14,7 +14,7 @@ it('sequence diagram — WebSocket handshake, excalidraw theme', () => {
       { from: 'Client', to: 'Server', label: 'close frame' },
       { from: 'Server', to: 'Client', label: 'close ack',     style: 'return' },
     ],
-    theme: 'excalidraw',
+    theme: 'colorful',
   });
   matchSvgSnapshot('sequence-websocket', svg);
 });

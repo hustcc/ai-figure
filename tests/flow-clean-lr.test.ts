@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('read-parse-ok pipeline — clean theme, LR direction', () => {
+it('read-parse-ok pipeline — minimal theme, LR direction', () => {
   const svg = fig({
     figure: 'flow',
     nodes: [
@@ -18,7 +18,7 @@ it('read-parse-ok pipeline — clean theme, LR direction', () => {
       { from: 'ok', to: 'save', label: 'Yes' },
       { from: 'ok', to: 'retry', label: 'No' },
     ],
-    theme: 'clean',
+    theme: 'minimal',
     direction: 'LR',
   });
   matchSvgSnapshot('flow-clean-lr', svg);

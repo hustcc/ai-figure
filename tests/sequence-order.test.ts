@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('sequence diagram — order payment flow, clean theme', () => {
+it('sequence diagram — order payment flow, minimal theme', () => {
   const svg = fig({
     figure: 'sequence',
     actors: ['User', 'Order Service', 'Payment Service', 'Inventory', 'Notify Service'],
@@ -15,7 +15,7 @@ it('sequence diagram — order payment flow, clean theme', () => {
       { from: 'Order Service',   to: 'Notify Service',  label: 'sendConfirmation' },
       { from: 'Order Service',   to: 'User',            label: '200 Order placed', style: 'return' },
     ],
-    theme: 'clean',
+    theme: 'minimal',
   });
   matchSvgSnapshot('sequence-order', svg);
 });

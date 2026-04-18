@@ -50,12 +50,12 @@ export function createQuadrantChart(options: QuadrantChartOptions): string {
     yAxis,
     quadrants,
     points,
-    theme: themeName = 'excalidraw',
+    theme: themeName = 'colorful',
   } = options;
 
   const theme = Object.prototype.hasOwnProperty.call(themes, themeName)
     ? themes[themeName as keyof typeof themes]
-    : themes['excalidraw'];
+    : themes['colorful'];
 
   // Canvas scales with point count: 640 base, +24 px per extra point above 4, max 1024
   const SIZE   = Math.min(MAX_SIZE, Math.max(BASE_SIZE, BASE_SIZE + (points.length - 4) * 24));

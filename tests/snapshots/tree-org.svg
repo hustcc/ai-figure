@@ -36,32 +36,32 @@
 
 </g>
 <g class="node node-terminal" data-id="ceo">
-<rect x="350" y="20" width="160" height="56" rx="28" ry="28" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
-<text x="430" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1b5e20">CEO</text>
+<rect x="350" y="20" width="160" height="56" rx="28" ry="28" fill="#bbdefb" stroke="#1565c0" stroke-width="1"/>
+<text x="430" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0a3566">CEO</text>
 </g>
 <g class="node node-process" data-id="cto">
-<rect x="130" y="156" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="130" y="156" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="210" y="186" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">CTO</text>
 </g>
 <g class="node node-process" data-id="coo">
-<rect x="570" y="156" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="570" y="156" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="650" y="186" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">COO</text>
 </g>
 <g class="node node-decision" data-id="fe_lead">
-<polygon points="100,296 180,336 100,376 20,336" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5" stroke-linejoin="round"/>
-<text x="100" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e65100">FE Lead</text>
+<polygon points="100,296 180,336 100,376 20,336" fill="#d4eaf9" stroke="#1976d2" stroke-width="1" stroke-linejoin="round"/>
+<text x="100" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0d47a1">FE Lead</text>
 </g>
 <g class="node node-decision" data-id="be_lead">
-<polygon points="320,296 400,336 320,376 240,336" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5" stroke-linejoin="round"/>
-<text x="320" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e65100">BE Lead</text>
+<polygon points="320,296 400,336 320,376 240,336" fill="#d4eaf9" stroke="#1976d2" stroke-width="1" stroke-linejoin="round"/>
+<text x="320" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0d47a1">BE Lead</text>
 </g>
 <g class="node node-decision" data-id="ops">
-<polygon points="540,296 620,336 540,376 460,336" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5" stroke-linejoin="round"/>
-<text x="540" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e65100">Operations</text>
+<polygon points="540,296 620,336 540,376 460,336" fill="#d4eaf9" stroke="#1976d2" stroke-width="1" stroke-linejoin="round"/>
+<text x="540" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0d47a1">Operations</text>
 </g>
 <g class="node node-decision" data-id="hr">
-<polygon points="760,296 840,336 760,376 680,336" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5" stroke-linejoin="round"/>
-<text x="760" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e65100">HR</text>
+<polygon points="760,296 840,336 760,376 680,336" fill="#d4eaf9" stroke="#1976d2" stroke-width="1" stroke-linejoin="round"/>
+<text x="760" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0d47a1">HR</text>
 </g>
 </g>
 </svg>

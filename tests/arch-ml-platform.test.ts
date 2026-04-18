@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('arch diagram — ML platform, clean theme, TB direction', () => {
+it('arch diagram — ML platform, minimal theme, TB direction', () => {
   const svg = fig({
     figure: 'arch',
     layers: [
@@ -37,7 +37,7 @@ it('arch diagram — ML platform, clean theme, TB direction', () => {
         ],
       },
     ],
-    theme: 'clean',
+    theme: 'minimal',
     direction: 'TB',
     width: 800,
   });

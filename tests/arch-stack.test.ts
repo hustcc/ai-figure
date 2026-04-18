@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('arch diagram — tech stack, excalidraw theme, TB direction', () => {
+it('arch diagram — tech stack, colorful theme, TB direction', () => {
   const svg = fig({
     figure: 'arch',
     layers: [
@@ -31,7 +31,7 @@ it('arch diagram — tech stack, excalidraw theme, TB direction', () => {
         ],
       },
     ],
-    theme: 'excalidraw',
+    theme: 'colorful',
     direction: 'TB',
     width: 800,
   });

@@ -34,12 +34,12 @@
 <text x="210" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Start</text>
 </g>
 <g class="node node-process" data-id="process">
-<rect x="130" y="156" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
-<text x="210" y="186" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Process</text>
+<rect x="130" y="156" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="210" y="186" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Process</text>
 </g>
 <g class="node node-decision" data-id="decision">
-<polygon points="210,296 290,336 210,376 130,336" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
-<text x="210" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Is Valid?</text>
+<polygon points="210,296 290,336 210,376 130,336" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="210" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Is Valid?</text>
 </g>
 <g class="node node-terminal" data-id="success">
 <rect x="20" y="456" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>

@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('tree diagram — file system tree, excalidraw theme, LR direction', () => {
+it('tree diagram — file system tree, colorful theme, LR direction', () => {
   const svg = fig({
     figure: 'tree',
     nodes: [
@@ -18,7 +18,7 @@ it('tree diagram — file system tree, excalidraw theme, LR direction', () => {
       { id: 'format',   label: 'format.ts',    parent: 'utils' },
       { id: 'http',     label: 'http.ts',      parent: 'utils' },
     ],
-    theme: 'excalidraw',
+    theme: 'colorful',
     direction: 'LR',
   });
   matchSvgSnapshot('tree-filesystem', svg);

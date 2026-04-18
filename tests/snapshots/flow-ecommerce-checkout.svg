@@ -63,8 +63,8 @@
 <text x="210" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">View Cart</text>
 </g>
 <g class="node node-decision" data-id="login_check">
-<polygon points="210,156 290,196 210,236 130,196" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
-<text x="210" y="196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Logged In?</text>
+<polygon points="210,156 290,196 210,236 130,196" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="210" y="196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Logged In?</text>
 </g>
 <g class="node node-io" data-id="login">
 <polygon points="204,316 350,316 336,376 190,376" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
@@ -75,24 +75,24 @@
 <text x="210" y="486" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">Enter Address</text>
 </g>
 <g class="node node-process" data-id="shipping">
-<rect x="130" y="596" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
-<text x="210" y="626" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Choose Shipping</text>
+<rect x="130" y="596" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="210" y="626" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Choose Shipping</text>
 </g>
 <g class="node node-io" data-id="payment">
 <polygon points="144,736 290,736 276,796 130,796" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
 <text x="210" y="766" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">Enter Payment</text>
 </g>
 <g class="node node-decision" data-id="validate">
-<polygon points="110,876 190,916 110,956 30,916" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
-<text x="110" y="916" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Payment Valid?</text>
+<polygon points="110,876 190,916 110,956 30,916" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="110" y="916" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Payment Valid?</text>
 </g>
 <g class="node node-terminal" data-id="confirm">
 <rect x="20" y="1038" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
 <text x="100" y="1066" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Order Confirmed</text>
 </g>
 <g class="node node-process" data-id="retry">
-<rect x="240" y="1036" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
-<text x="320" y="1066" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Retry Payment</text>
+<rect x="240" y="1036" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="320" y="1066" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Retry Payment</text>
 </g>
 </g>
 </svg>

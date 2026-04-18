@@ -85,7 +85,7 @@ fs.writeFileSync('chart.svg', svg);
   "groups": [
     { "id": "g1", "label": "Auth Layer", "nodes": ["auth", "check"] }
   ],
-  "theme": "clean",
+  "theme": "minimal",
   "direction": "TB"
 }
 ```
@@ -105,7 +105,7 @@ fs.writeFileSync('chart.svg', svg);
 
 | Field       | Type   | Default        | Values                       |
 |-------------|--------|----------------|------------------------------|
-| `theme`     | string | `"excalidraw"` | `"excalidraw"` or `"clean"`  |
+| `theme`     | string | `"colorful"` | `"colorful"` or `"minimal"`  |
 | `direction` | string | `"TB"`         | `"TB"` or `"LR"`             |
 
 ### Rules for generating good flowchart configs
@@ -125,7 +125,7 @@ interface FlowChartOptions {
   nodes:      FlowNode[];
   edges:      FlowEdge[];
   groups?:    FlowGroup[];
-  theme?:     'excalidraw' | 'clean';
+  theme?:     'colorful' | 'minimal';
   direction?: 'TB' | 'LR';
 }
 interface FlowNode  { id: string; label: string; type?: 'process' | 'decision' | 'terminal' | 'io' }
@@ -148,7 +148,7 @@ Renders a hierarchy from a flat node list with `parent` references. Nodes are co
     { "id": "coo", "label": "COO", "parent": "ceo" },
     { "id": "fe",  "label": "FE Lead", "parent": "cto" }
   ],
-  "theme": "clean",
+  "theme": "minimal",
   "direction": "TB"
 }
 ```
@@ -173,7 +173,7 @@ Renders a tech-stack / architecture landscape grid: color-coded layer cards, no 
     { "id": "fe", "label": "Frontend", "nodes": [{ "id": "react", "label": "React" }, { "id": "vue", "label": "Vue" }] },
     { "id": "be", "label": "Backend",  "nodes": [{ "id": "node",  "label": "Node.js" }] }
   ],
-  "theme": "excalidraw",
+  "theme": "colorful",
   "direction": "TB",
   "width": 800
 }
@@ -203,7 +203,7 @@ Renders a sequence diagram with vertical lifelines (animated) and horizontal mes
     { "from": "DB",      "to": "API", "label": "user row",   "style": "return" },
     { "from": "API",     "to": "Browser", "label": "200 OK", "style": "return" }
   ],
-  "theme": "excalidraw"
+  "theme": "colorful"
 }
 ```
 
@@ -233,13 +233,13 @@ Renders a 2×2 matrix with two labelled axes and data points positioned by norma
     { "id": "b", "label": "推荐系统",  "x": 0.8, "y": 0.8 },
     { "id": "c", "label": "暗黑模式",  "x": 0.3, "y": 0.2 }
   ],
-  "theme": "excalidraw"
+  "theme": "colorful"
 }
 ```
 
 `quadrants` order: **[top-left, top-right, bottom-left, bottom-right]**.  
 Point coordinates: `x=0` is left, `x=1` is right; `y=0` is bottom, `y=1` is top.  
-Points are auto-colored by their quadrant (top-left=green, top-right=orange, bottom-left=purple, bottom-right=blue for excalidraw theme).
+Points are auto-colored by their quadrant (top-left=green, top-right=orange, bottom-left=purple, bottom-right=blue for colorful theme).
 
 ### TypeScript types
 
@@ -249,7 +249,7 @@ interface QuadrantChartOptions {
   yAxis:     { label: string; min: string; max: string };
   quadrants: [string, string, string, string];
   points:    QuadrantPoint[];
-  theme?:    'excalidraw' | 'clean';
+  theme?:    'colorful' | 'minimal';
 }
 interface QuadrantPoint { id: string; label: string; x: number; y: number }
 ```

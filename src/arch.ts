@@ -23,7 +23,7 @@ const LAYER_NODE_TYPES: NodeType[] = ['process', 'decision', 'terminal', 'io'];
 export function createArchDiagram(options: ArchDiagramOptions): string {
   const {
     layers,
-    theme: themeName = 'excalidraw',
+    theme: themeName = 'colorful',
     direction = 'TB',
     width: totalWidth = 800,
   } = options;
@@ -34,7 +34,7 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
 
   const theme = Object.prototype.hasOwnProperty.call(themes, themeName)
     ? themes[themeName as keyof typeof themes]
-    : themes['excalidraw'];
+    : themes['colorful'];
 
   const sw = theme.strokeWidth;
 

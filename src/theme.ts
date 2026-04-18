@@ -16,29 +16,30 @@ export interface ThemeConfig {
 
 export const themes: Record<ThemeType, ThemeConfig> = {
   /**
-   * Colorful theme — vibrant pastel fills with matched border/text colors.
-   * Inspired by Excalidraw's color palette, rendered as crisp clean SVG.
+   * Colorful theme — vibrant pastel fills with semantically consistent colors.
+   * process=blue, decision=amber, terminal=green, io=purple.
+   * Crisp clean SVG with 2px strokes and a lively multi-hue palette.
    */
-  excalidraw: {
+  colorful: {
     fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
     fontSize: 14,
     strokeWidth: 2,
     cornerRadius: 6,
     nodeFills: {
-      process:  '#fff7e6',
-      decision: '#e7f5ff',
+      process:  '#e7f5ff',
+      decision: '#fff7e6',
       terminal: '#ebfbee',
       io:       '#fdf4ff',
     },
     nodeStrokes: {
-      process:  '#f59f00',
-      decision: '#339af0',
+      process:  '#339af0',
+      decision: '#f59f00',
       terminal: '#51cf66',
       io:       '#cc5de8',
     },
     textColors: {
-      process:  '#e67700',
-      decision: '#1971c2',
+      process:  '#1971c2',
+      decision: '#e67700',
       terminal: '#2f9e44',
       io:       '#862e9c',
     },
@@ -49,35 +50,35 @@ export const themes: Record<ThemeType, ThemeConfig> = {
   },
 
   /**
-   * Minimal theme — excalidraw-inspired clean shapes.
-   * Neutral fills, typed border/text colors, Inter font.
+   * Minimal theme — single blue hue family; fill depth (not hue) differentiates
+   * node types. Thin 1px strokes, larger corner radius, neutral group/edge colors.
    */
-  clean: {
+  minimal: {
     fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
     fontSize: 14,
-    strokeWidth: 1.5,
-    cornerRadius: 6,
+    strokeWidth: 1,
+    cornerRadius: 8,
     nodeFills: {
       process:  '#e8f4fd',
-      decision: '#fef9e7',
-      terminal: '#eafaf1',
-      io:       '#fdf2f8',
+      decision: '#d4eaf9',
+      terminal: '#bbdefb',
+      io:       '#f0f8ff',
     },
     nodeStrokes: {
-      process:  '#2196f3',
-      decision: '#f39c12',
-      terminal: '#27ae60',
-      io:       '#8e44ad',
+      process:  '#42a5f5',
+      decision: '#1976d2',
+      terminal: '#1565c0',
+      io:       '#90caf9',
     },
     textColors: {
       process:  '#1565c0',
-      decision: '#e65100',
-      terminal: '#1b5e20',
-      io:       '#6a1b9a',
+      decision: '#0d47a1',
+      terminal: '#0a3566',
+      io:       '#1976d2',
     },
     edgeColor: '#555555',
     edgeWidth: 1.5,
-    groupColor: '#555555',
-    groupFill:  'rgba(85,85,85,0.06)',
+    groupColor: '#adb5bd',
+    groupFill:  'rgba(173,181,189,0.06)',
   },
 };

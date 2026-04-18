@@ -60,12 +60,12 @@ describe('fig', () => {
     expect(svg).toContain('class="group"');
   });
 
-  it('supports the clean theme', () => {
+  it('supports the minimal theme', () => {
     const svg = fig({
       figure: 'flow',
       nodes: [{ id: 'x', label: 'Node X', type: 'process' }],
       edges: [],
-      theme: 'clean',
+      theme: 'minimal',
     });
 
     expect(svg).toContain('<svg');
@@ -114,7 +114,7 @@ describe('fig', () => {
       groups: [
         { id: 'g1', label: 'Validation', nodes: ['process1', 'decision'] },
       ],
-      theme: 'excalidraw',
+      theme: 'colorful',
       direction: 'TB',
     });
 
@@ -137,7 +137,7 @@ describe('fig', () => {
     expect(svg).toContain('&lt;');
   });
 
-  it('unknown theme falls back to excalidraw without crashing', () => {
+  it('unknown theme falls back to colorful without crashing', () => {
     const svg = fig({
       figure: 'flow',
       nodes: [{ id: 'a', label: 'A', type: 'process' }],

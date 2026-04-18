@@ -11,7 +11,7 @@ export type NodeType = 'process' | 'decision' | 'terminal' | 'io';
 export type Direction = 'TB' | 'LR';
 
 /** Visual theme. */
-export type ThemeType = 'excalidraw' | 'clean';
+export type ThemeType = 'colorful' | 'minimal';
 
 /** A single node in the flowchart. */
 export interface FlowNode {
@@ -51,7 +51,7 @@ export interface FlowChartOptions {
   edges: FlowEdge[];
   /** Optional logical groups. */
   groups?: FlowGroup[];
-  /** Visual theme (default: 'excalidraw'). */
+  /** Visual theme (default: 'colorful'). */
   theme?: ThemeType;
   /** Graph layout direction (default: 'TB' — top to bottom). */
   direction?: Direction;
@@ -75,7 +75,7 @@ export interface TreeNode {
 export interface TreeDiagramOptions {
   /** Flat list of nodes with optional parent references. */
   nodes: TreeNode[];
-  /** Visual theme (default: 'excalidraw'). */
+  /** Visual theme (default: 'colorful'). */
   theme?: ThemeType;
   /** Layout direction (default: 'TB'). */
   direction?: Direction;
@@ -107,7 +107,7 @@ export interface ArchLayer {
 export interface ArchDiagramOptions {
   /** List of layers from top to bottom (TB) or left to right (LR). */
   layers: ArchLayer[];
-  /** Visual theme (default: 'excalidraw'). */
+  /** Visual theme (default: 'colorful'). */
   theme?: ThemeType;
   /** Direction: TB = layers top-to-bottom, LR = layers left-to-right (default: 'TB'). */
   direction?: Direction;
@@ -137,7 +137,7 @@ export interface SequenceDiagramOptions {
   actors: string[];
   /** Ordered list of messages between actors. */
   messages: SeqMessage[];
-  /** Visual theme (default: 'excalidraw'). */
+  /** Visual theme (default: 'colorful'). */
   theme?: ThemeType;
 }
 
@@ -167,7 +167,7 @@ export interface QuadrantChartOptions {
   quadrants: [string, string, string, string];
   /** Data points to plot. */
   points: QuadrantPoint[];
-  /** Visual theme (default: 'excalidraw'). */
+  /** Visual theme (default: 'colorful'). */
   theme?: ThemeType;
 }
 

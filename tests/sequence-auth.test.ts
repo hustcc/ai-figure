@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('sequence diagram — login auth flow, excalidraw theme', () => {
+it('sequence diagram — login auth flow, colorful theme', () => {
   const svg = fig({
     figure: 'sequence',
     actors: ['Browser', 'API Gateway', 'Auth Service', 'Database'],
@@ -14,7 +14,7 @@ it('sequence diagram — login auth flow, excalidraw theme', () => {
       { from: 'Auth Service', to: 'API Gateway',   label: 'JWT token',       style: 'return' },
       { from: 'API Gateway',  to: 'Browser',       label: '200 OK + token',  style: 'return' },
     ],
-    theme: 'excalidraw',
+    theme: 'colorful',
   });
   matchSvgSnapshot('sequence-auth', svg);
 });

@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('quadrant chart — risk matrix: probability vs impact, excalidraw theme', () => {
+it('quadrant chart — risk matrix: probability vs impact, colorful theme', () => {
   const svg = fig({
     figure: 'quadrant',
     xAxis: { label: 'Probability', min: 'Unlikely', max: 'Likely' },
@@ -18,7 +18,7 @@ it('quadrant chart — risk matrix: probability vs impact, excalidraw theme', ()
       { id: 'r7', label: 'Compliance fine',  x: 0.20, y: 0.80 },
       { id: 'r8', label: 'UI bug',           x: 0.85, y: 0.15 },
     ],
-    theme: 'excalidraw',
+    theme: 'colorful',
   });
   matchSvgSnapshot('quadrant-risk-matrix', svg);
 });

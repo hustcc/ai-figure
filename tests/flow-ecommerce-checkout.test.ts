@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('e-commerce checkout flow — excalidraw theme, TB direction', () => {
+it('e-commerce checkout flow — colorful theme, TB direction', () => {
   const svg = fig({
     figure: 'flow',
     nodes: [
@@ -31,7 +31,7 @@ it('e-commerce checkout flow — excalidraw theme, TB direction', () => {
     groups: [
       { id: 'checkout', label: 'Checkout', nodes: ['address', 'shipping', 'payment'] },
     ],
-    theme: 'excalidraw',
+    theme: 'colorful',
     direction: 'TB',
   });
   matchSvgSnapshot('flow-ecommerce-checkout', svg);

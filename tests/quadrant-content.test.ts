@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('quadrant chart — content strategy: reach vs conversion rate, excalidraw theme', () => {
+it('quadrant chart — content strategy: reach vs conversion rate, colorful theme', () => {
   const svg = fig({
     figure: 'quadrant',
     xAxis: { label: 'Reach',           min: 'Niche',  max: 'Mass' },
@@ -18,7 +18,7 @@ it('quadrant chart — content strategy: reach vs conversion rate, excalidraw th
       { id: 'c7', label: 'Blog Posts',     x: 0.60, y: 0.38 },
       { id: 'c8', label: 'Infographics',   x: 0.50, y: 0.20 },
     ],
-    theme: 'excalidraw',
+    theme: 'colorful',
   });
   matchSvgSnapshot('quadrant-content', svg);
 });

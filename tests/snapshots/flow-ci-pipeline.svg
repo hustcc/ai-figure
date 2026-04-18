@@ -11,16 +11,16 @@
   </defs>
 <g class="flowchart">
 <g class="group" data-id="ci">
-<rect x="106" y="110" width="208" height="550" rx="8" fill="rgba(85,85,85,0.06)" stroke="#555555" stroke-width="1.5" stroke-dasharray="6 3"/>
-<text x="116" y="128" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#555555" font-weight="500">CI</text>
+<rect x="106" y="110" width="208" height="550" rx="8" fill="rgba(173,181,189,0.06)" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="116" y="128" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd" font-weight="500">CI</text>
 </g>
 <g class="group" data-id="staging_env">
-<rect x="6" y="830" width="208" height="270" rx="8" fill="rgba(85,85,85,0.06)" stroke="#555555" stroke-width="1.5" stroke-dasharray="6 3"/>
-<text x="16" y="848" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#555555" font-weight="500">Staging</text>
+<rect x="6" y="830" width="208" height="270" rx="8" fill="rgba(173,181,189,0.06)" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="16" y="848" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd" font-weight="500">Staging</text>
 </g>
 <g class="group" data-id="production">
-<rect x="-4" y="1270" width="208" height="266" rx="8" fill="rgba(85,85,85,0.06)" stroke="#555555" stroke-width="1.5" stroke-dasharray="6 3"/>
-<text x="6" y="1288" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#555555" font-weight="500">Production</text>
+<rect x="-4" y="1270" width="208" height="266" rx="8" fill="rgba(173,181,189,0.06)" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="6" y="1288" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd" font-weight="500">Production</text>
 </g>
 <g class="edge" data-from="commit" data-to="lint">
 <path d="M210,76 L210,106 Q210,116 210,126 L210,156" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
@@ -75,52 +75,52 @@
 
 </g>
 <g class="node node-terminal" data-id="commit">
-<rect x="130" y="20" width="160" height="56" rx="28" ry="28" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
-<text x="210" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1b5e20">Git Commit</text>
+<rect x="130" y="20" width="160" height="56" rx="28" ry="28" fill="#bbdefb" stroke="#1565c0" stroke-width="1"/>
+<text x="210" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0a3566">Git Commit</text>
 </g>
 <g class="node node-process" data-id="lint">
-<rect x="130" y="156" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="130" y="156" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="210" y="186" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Lint</text>
 </g>
 <g class="node node-process" data-id="unit">
-<rect x="130" y="296" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="130" y="296" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="210" y="326" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Unit Tests</text>
 </g>
 <g class="node node-process" data-id="build">
-<rect x="130" y="436" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="130" y="436" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="210" y="466" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Build</text>
 </g>
 <g class="node node-process" data-id="docker">
-<rect x="130" y="576" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="130" y="576" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="210" y="606" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Docker Build</text>
 </g>
 <g class="node node-decision" data-id="gate">
-<polygon points="210,716 290,756 210,796 130,756" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5" stroke-linejoin="round"/>
-<text x="210" y="756" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e65100">Quality Gate?</text>
+<polygon points="210,716 290,756 210,796 130,756" fill="#d4eaf9" stroke="#1976d2" stroke-width="1" stroke-linejoin="round"/>
+<text x="210" y="756" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0d47a1">Quality Gate?</text>
 </g>
 <g class="node node-process" data-id="staging">
-<rect x="30" y="876" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="30" y="876" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="110" y="906" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Deploy Staging</text>
 </g>
 <g class="node node-process" data-id="e2e">
-<rect x="30" y="1016" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="30" y="1016" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="110" y="1046" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">E2E Tests</text>
 </g>
 <g class="node node-decision" data-id="approve">
-<polygon points="110,1156 190,1196 110,1236 30,1196" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5" stroke-linejoin="round"/>
-<text x="110" y="1196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e65100">Approved?</text>
+<polygon points="110,1156 190,1196 110,1236 30,1196" fill="#d4eaf9" stroke="#1976d2" stroke-width="1" stroke-linejoin="round"/>
+<text x="110" y="1196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0d47a1">Approved?</text>
 </g>
 <g class="node node-process" data-id="prod">
-<rect x="20" y="1316" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="20" y="1316" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="100" y="1346" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Deploy Prod</text>
 </g>
 <g class="node node-io" data-id="notify_fail">
-<polygon points="254,1316 400,1316 386,1376 240,1376" fill="#fdf2f8" stroke="#8e44ad" stroke-width="1.5" stroke-linejoin="round"/>
-<text x="320" y="1346" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#6a1b9a">Notify Failure</text>
+<polygon points="254,1316 400,1316 386,1376 240,1376" fill="#f0f8ff" stroke="#90caf9" stroke-width="1" stroke-linejoin="round"/>
+<text x="320" y="1346" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1976d2">Notify Failure</text>
 </g>
 <g class="node node-terminal" data-id="done">
-<rect x="20" y="1456" width="160" height="56" rx="28" ry="28" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
-<text x="100" y="1484" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1b5e20">Released</text>
+<rect x="20" y="1456" width="160" height="56" rx="28" ry="28" fill="#bbdefb" stroke="#1565c0" stroke-width="1"/>
+<text x="100" y="1484" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0a3566">Released</text>
 </g>
 </g>
 </svg>

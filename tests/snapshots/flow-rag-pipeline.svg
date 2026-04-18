@@ -11,12 +11,12 @@
   </defs>
 <g class="flowchart">
 <g class="group" data-id="retrieval">
-<rect x="-4" y="114" width="208" height="550" rx="8" fill="rgba(85,85,85,0.06)" stroke="#555555" stroke-width="1.5" stroke-dasharray="6 3"/>
-<text x="6" y="132" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#555555" font-weight="500">Retrieval</text>
+<rect x="-4" y="114" width="208" height="550" rx="8" fill="rgba(173,181,189,0.06)" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="6" y="132" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd" font-weight="500">Retrieval</text>
 </g>
 <g class="group" data-id="generation">
-<rect x="-4" y="674" width="208" height="410" rx="8" fill="rgba(85,85,85,0.06)" stroke="#555555" stroke-width="1.5" stroke-dasharray="6 3"/>
-<text x="6" y="692" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#555555" font-weight="500">Generation</text>
+<rect x="-4" y="674" width="208" height="410" rx="8" fill="rgba(173,181,189,0.06)" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="6" y="692" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd" font-weight="500">Generation</text>
 </g>
 <g class="edge" data-from="query" data-to="embed_q">
 <path d="M100,80 L100,110 Q100,120 100,130 L100,160" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
@@ -51,40 +51,40 @@
 
 </g>
 <g class="node node-io" data-id="query">
-<polygon points="34,20 180,20 166,80 20,80" fill="#fdf2f8" stroke="#8e44ad" stroke-width="1.5" stroke-linejoin="round"/>
-<text x="100" y="50" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#6a1b9a">User Query</text>
+<polygon points="34,20 180,20 166,80 20,80" fill="#f0f8ff" stroke="#90caf9" stroke-width="1" stroke-linejoin="round"/>
+<text x="100" y="50" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1976d2">User Query</text>
 </g>
 <g class="node node-process" data-id="embed_q">
-<rect x="20" y="160" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="20" y="160" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="100" y="190" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Embed Query</text>
 </g>
 <g class="node node-process" data-id="vector_search">
-<rect x="20" y="300" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="20" y="300" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="100" y="330" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Vector Search</text>
 </g>
 <g class="node node-process" data-id="top_k">
-<rect x="20" y="440" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="20" y="440" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="100" y="470" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Top-K Chunks</text>
 </g>
 <g class="node node-process" data-id="rerank">
-<rect x="20" y="580" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="20" y="580" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="100" y="610" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Rerank</text>
 </g>
 <g class="node node-process" data-id="context">
-<rect x="20" y="720" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="20" y="720" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="100" y="750" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Build Context</text>
 </g>
 <g class="node node-process" data-id="prompt">
-<rect x="20" y="860" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="20" y="860" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="100" y="890" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Compose Prompt</text>
 </g>
 <g class="node node-process" data-id="llm">
-<rect x="20" y="1000" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<rect x="20" y="1000" width="160" height="60" rx="8" ry="8" fill="#e8f4fd" stroke="#42a5f5" stroke-width="1"/>
 <text x="100" y="1030" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">LLM Inference</text>
 </g>
 <g class="node node-io" data-id="answer">
-<polygon points="34,1140 180,1140 166,1200 20,1200" fill="#fdf2f8" stroke="#8e44ad" stroke-width="1.5" stroke-linejoin="round"/>
-<text x="100" y="1170" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#6a1b9a">Answer</text>
+<polygon points="34,1140 180,1140 166,1200 20,1200" fill="#f0f8ff" stroke="#90caf9" stroke-width="1" stroke-linejoin="round"/>
+<text x="100" y="1170" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1976d2">Answer</text>
 </g>
 </g>
 </svg>

@@ -24,7 +24,7 @@ let _seqDiagramCount = 0;
  * Each actor is assigned a distinct color from the theme palette.
  */
 export function createSequenceDiagram(options: SequenceDiagramOptions): string {
-  const { actors, messages, theme: themeName = 'excalidraw' } = options;
+  const { actors, messages, theme: themeName = 'colorful' } = options;
 
   if (actors.length === 0) {
     return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
@@ -41,7 +41,7 @@ export function createSequenceDiagram(options: SequenceDiagramOptions): string {
 
   const theme = Object.prototype.hasOwnProperty.call(themes, themeName)
     ? themes[themeName as keyof typeof themes]
-    : themes['excalidraw'];
+    : themes['colorful'];
 
   const sw = theme.strokeWidth;
 

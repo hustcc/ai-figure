@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('sequence diagram — CI/CD build pipeline, clean theme', () => {
+it('sequence diagram — CI/CD build pipeline, minimal theme', () => {
   const svg = fig({
     figure: 'sequence',
     actors: ['Developer', 'GitHub', 'CI Runner', 'Registry', 'Cluster'],
@@ -17,7 +17,7 @@ it('sequence diagram — CI/CD build pipeline, clean theme', () => {
       { from: 'Cluster',    to: 'CI Runner',  label: 'rollout complete',  style: 'return' },
       { from: 'CI Runner',  to: 'GitHub',     label: 'status: success',   style: 'return' },
     ],
-    theme: 'clean',
+    theme: 'minimal',
   });
   matchSvgSnapshot('sequence-ci-build', svg);
 });

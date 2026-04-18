@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('user authentication flow — excalidraw theme, TB direction', () => {
+it('user authentication flow — colorful theme, TB direction', () => {
   const svg = fig({
     figure: 'flow',
     nodes: [
@@ -33,7 +33,7 @@ it('user authentication flow — excalidraw theme, TB direction', () => {
       { from: 'mfa_ok', to: 'deny', label: 'Fail' },
       { from: 'session', to: 'dashboard' },
     ],
-    theme: 'excalidraw',
+    theme: 'colorful',
     direction: 'TB',
   });
   matchSvgSnapshot('flow-auth', svg);

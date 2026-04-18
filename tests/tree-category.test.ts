@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('tree diagram — category taxonomy, excalidraw theme, TB direction', () => {
+it('tree diagram — category taxonomy, colorful theme, TB direction', () => {
   const svg = fig({
     figure: 'tree',
     nodes: [
@@ -17,7 +17,7 @@ it('tree diagram — category taxonomy, excalidraw theme, TB direction', () => {
       { id: 'headphone', label: 'Headphone',    parent: 'audio' },
       { id: 'speaker',   label: 'Speaker',      parent: 'audio' },
     ],
-    theme: 'excalidraw',
+    theme: 'colorful',
     direction: 'TB',
   });
   matchSvgSnapshot('tree-category', svg);

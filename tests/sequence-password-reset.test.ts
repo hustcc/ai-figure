@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('sequence diagram — password reset flow, excalidraw theme', () => {
+it('sequence diagram — password reset flow, colorful theme', () => {
   const svg = fig({
     figure: 'sequence',
     actors: ['User', 'Frontend', 'Auth API', 'Email Service', 'Redis'],
@@ -18,7 +18,7 @@ it('sequence diagram — password reset flow, excalidraw theme', () => {
       { from: 'Redis',         to: 'Auth API',       label: 'token valid',     style: 'return' },
       { from: 'Auth API',      to: 'Frontend',       label: '200 password updated', style: 'return' },
     ],
-    theme: 'excalidraw',
+    theme: 'colorful',
   });
   matchSvgSnapshot('sequence-password-reset', svg);
 });
