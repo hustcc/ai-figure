@@ -8190,6 +8190,9 @@ var CELL_H = 72;
 var CELL_GAP = 10;
 var LAYER_GAP = 14;
 var CARD_RX = 10;
+var MIN_ARCH_W = 480;
+var MAX_ARCH_W = 1600;
+var CELL_MIN_W = 140;
 var LAYER_NODE_TYPES = ["process", "decision", "terminal", "io"];
 function createArchDiagram(options) {
   const {
@@ -8197,7 +8200,6 @@ function createArchDiagram(options) {
     theme: mode = "light",
     palette,
     direction = "TB",
-    width: totalWidth = 800,
     title,
     subtitle
   } = options;
@@ -8209,7 +8211,10 @@ function createArchDiagram(options) {
   const sw = theme.strokeWidth;
   if (direction === "LR") {
     const maxRows = Math.max(...layers.map((l) => l.nodes.length));
-    const totalCardArea = totalWidth - PAD * 2;
+    const cardMinW = CELL_MIN_W + CARD_PAD * 2;
+    const autoW2 = PAD * 2 + layers.length * cardMinW + Math.max(layers.length - 1, 0) * LAYER_GAP;
+    const totalWidth2 = Math.min(MAX_ARCH_W, Math.max(MIN_ARCH_W, autoW2));
+    const totalCardArea = totalWidth2 - PAD * 2;
     const cardW = Math.floor(
       (totalCardArea - LAYER_GAP * (layers.length - 1)) / Math.max(layers.length, 1)
     );
@@ -8275,8 +8280,10 @@ function createArchDiagram(options) {
       `</svg>`
     ].join("\n");
   }
-  const innerW = totalWidth - PAD * 2;
   const maxCols = Math.max(...layers.map((l) => l.nodes.length));
+  const autoW = PAD * 2 + CARD_PAD * 2 + maxCols * CELL_MIN_W + Math.max(maxCols - 1, 0) * CELL_GAP;
+  const totalWidth = Math.min(MAX_ARCH_W, Math.max(MIN_ARCH_W, autoW));
+  const innerW = totalWidth - PAD * 2;
   const availW = innerW - CARD_PAD * 2;
   const cellW = Math.floor(
     (availW - CELL_GAP * Math.max(maxCols - 1, 0)) / Math.max(maxCols, 1)
