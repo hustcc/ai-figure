@@ -52,6 +52,9 @@ function pointsToSmoothPath(points: { x: number; y: number }[]): string {
 /** Incrementing counter for unique per-diagram SVG IDs. */
 let _flowChartCount = 0;
 
+/** Approximate character-width-to-height ratio for Inter at typical sizes (used for label width estimation). */
+const LABEL_CHAR_WIDTH_RATIO = 0.58;
+
 // ---------------------------------------------------------------------------
 // Node rendering
 // ---------------------------------------------------------------------------
@@ -145,7 +148,7 @@ function renderEdge(
     const labelFontSize = theme.fontSize - 2;
     const padX = 5;
     const padY = 3;
-    const labelW = edge.label.length * (labelFontSize * 0.58) + padX * 2;
+    const labelW = edge.label.length * (labelFontSize * LABEL_CHAR_WIDTH_RATIO) + padX * 2;
     const labelH = labelFontSize + padY * 2;
     const bg =
       `<rect x="${mid.x - labelW / 2}" y="${mid.y - labelH / 2}" ` +
