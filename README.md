@@ -6,7 +6,9 @@
 [![Build](https://github.com/hustcc/ai-figure/actions/workflows/build.yml/badge.svg)](https://github.com/hustcc/ai-figure/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
----
+| ![Hermes Agent](./hermes-agent.svg) | ![CI Pipeline](./ci-pipeline.svg) | ![E-commerce Checkout](./ecommerce-checkout.svg) |
+|:---:|:---:|:---:|
+| Hermes Agent | CI Pipeline | E-commerce Checkout |
 
 ## Features ✨
 
