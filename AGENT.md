@@ -1,6 +1,6 @@
 # AGENT.md — ai-figure contributor guide for AI agents
 
-This file records the conventions and sync-points agents must respect when working on this repo.
+This file records the conventions, sync-points, and UI design language that all agents must respect when working on this repo. Read it before writing any renderer code.
 
 ---
 
@@ -45,36 +45,191 @@ When **adding or modifying a diagram type**, update **all** of the following:
 
 ---
 
-## Key design conventions
+## UI design language
 
-### Dimensions
-- **Flow / Tree / Sequence**: auto-sized from content (no user input).
-- **Arch**: `width` is the only size knob (default 800 px); height is auto.
-- **Quadrant**: fully auto-sized — `640 + (n−4)×24` px, clamped to `[640, 1024]`. Do **not** expose `width`/`height` to callers.
+All diagram types share one visual language. When building a new renderer, follow every rule below so the output looks like it belongs to the same family.
 
 ### Themes
-Two themes: `'excalidraw'` (colorful, rounded) and `'clean'` (minimal, sharp). Both are defined in `src/theme.ts`. New renderers must support both.
 
-### No external coordinates
-Callers never specify `x`/`y` positions for flow/tree/sequence diagrams — layout is computed by Dagre (`src/layout.ts`). Quadrant points use normalized `[0,1]` coordinates.
+Two themes are defined in `src/theme.ts`. Every renderer **must support both**.
 
-### SVG output
-- Fully self-contained SVG strings (no external fonts, no `<script>`).
-- Inter font embedded via `@import` in a `<style>` block.
-- Unique IDs for any `<defs>` elements (markers, filters) — use a module-level counter or UUID to avoid clashes when multiple SVGs appear on the same page.
+| Property | `excalidraw` | `clean` |
+|----------|-------------|---------|
+| `fontFamily` | `Inter, system-ui, -apple-system, sans-serif` | same |
+| `fontSize` | `14` px | same |
+| `strokeWidth` | `2` | `1.5` |
+| `cornerRadius` | `6` px | `6` px |
+| `edgeColor` | `#495057` (dark gray) | `#555555` |
+| `edgeWidth` | `1.5` | `1.5` |
+| `groupColor` | `#868e96` (muted gray) | `#555555` |
+| `groupFill` | `rgba(134,142,150,0.06)` | `rgba(85,85,85,0.06)` |
 
-### Axis / arrow styling (quadrant)
-- Axis lines and arrowheads use `theme.groupColor` (muted gray) — **no `opacity` attribute**.
-- Grid lines are dashed, at 25% and 75% intervals.
-- Data point circles are solid-filled (no opacity), colored by quadrant, with a minimal `feDropShadow` filter.
+Node-type colors (4 types: `process`, `decision`, `terminal`, `io`):
 
-### Snapshot tests
+| NodeType | excalidraw fill | excalidraw stroke | excalidraw text |
+|----------|----------------|-------------------|-----------------|
+| `process` | `#fff7e6` | `#f59f00` (amber) | `#e67700` |
+| `decision` | `#e7f5ff` | `#339af0` (blue) | `#1971c2` |
+| `terminal` | `#ebfbee` | `#51cf66` (green) | `#2f9e44` |
+| `io` | `#fdf4ff` | `#cc5de8` (purple) | `#862e9c` |
+
+| NodeType | clean fill | clean stroke | clean text |
+|----------|-----------|--------------|------------|
+| `process` | `#e8f4fd` | `#2196f3` | `#1565c0` |
+| `decision` | `#fef9e7` | `#f39c12` | `#e65100` |
+| `terminal` | `#eafaf1` | `#27ae60` | `#1b5e20` |
+| `io` | `#fdf2f8` | `#8e44ad` | `#6a1b9a` |
+
+### Color assignment patterns
+
+Each renderer cycles node types to give visual variety without requiring per-element color input:
+
+- **Tree**: cycle `[terminal, process, decision, io]` by **depth level**.
+- **Arch**: cycle `[process, decision, terminal, io]` by **layer index**.
+- **Sequence**: cycle `[terminal, process, decision, io]` by **actor index**.
+- **Quadrant**: fixed mapping — TL=`terminal` (green), TR=`process` (amber), BL=`io` (purple), BR=`decision` (blue).
+
+Always use `theme.nodeStrokes[type]` for dot/box fill/stroke colors and `theme.textColors[type]` for the label color inside that element.
+
+### Typography
+
+- **Font**: always `theme.fontFamily` — never hard-code a font name.
+- **Body font size**: `theme.fontSize` (14 px).
+- **Line height**: `theme.fontSize * 1.4`.
+- **Multi-line wrapping**: use `wrapText(label, availableWidth, theme.fontSize)` from `src/utils.ts`; it estimates avg char width as `fontSize × 0.58`.
+- **Vertical centering**: `dominant-baseline="middle"` + compute `startY = centerY - (lines × lineHeight) / 2 + lineHeight × 0.5`.
+- **font-weight conventions**:
+  - Node / actor / cell labels → default weight (no `font-weight` attr).
+  - Layer / section header labels → `font-weight="700"`.
+  - Axis / group labels (quadrant, sequence) → `font-weight="600"`.
+  - Corner quadrant-name labels → `font-weight="600"`.
+  - Group border labels (flowchart) → `font-weight="500"`.
+- **Secondary text** (axis min/max ticks, muted hints) → `opacity="0.6"` on the `<text>` element, `fill` uses `theme.edgeColor`.
+- Always call `escapeXml()` on every string inserted into SVG attributes or text content.
+
+### Shapes and node geometry
+
+| Shape | Diagram | SVG element | Notes |
+|-------|---------|-------------|-------|
+| `process` | flow/tree/arch/seq | `<rect>` | `rx = theme.cornerRadius` (6 px) |
+| `terminal` | flow/tree/seq | `<rect>` | `rx = min(height/2, 28)` — pill shape |
+| `decision` | flow/tree | `<polygon>` | Diamond: 4 mid-edge points, `stroke-linejoin="round"` |
+| `io` | flow/tree | `<polygon>` | Parallelogram with `skew=14 px`, `stroke-linejoin="round"` |
+| Actor box | sequence | `<rect>` | `rx = min(ACTOR_H/2, 22)` = pill |
+| Layer card | arch | `<rect>` | `rx=10`, `fill-opacity="0.08"`, `stroke-opacity="0.4"` |
+| Node cell | arch | `<rect>` | `rx = theme.cornerRadius`, `stroke-opacity="0.6"` |
+| Group border | flow | `<rect>` | `rx=8`, `stroke-dasharray="6 3"`, `stroke-width="1.5"` |
+| Data point | quadrant | `<circle>` | `r=4`, solid fill, no stroke, `feDropShadow` filter |
+
+### Stroke widths and line styles
+
+- **Node/box border**: `stroke-width = theme.strokeWidth` (2 or 1.5).
+- **Edges (flow)**: `stroke-width = theme.edgeWidth` (1.5), **always dashed** `stroke-dasharray="8 5"`, animated.
+- **Sequence arrows**: `stroke-width="1.5"`, solid for requests, `stroke-dasharray="6 4"` + CSS animation for return arrows.
+- **Sequence lifelines**: `stroke-width="1.5"`, `stroke-dasharray="4 4"`, `opacity="0.4"`, animated.
+- **Arch separator lines**: `stroke-width="1"`, `opacity="0.4"`.
+- **Quadrant axis lines**: `stroke-width = theme.strokeWidth` (2 or 1.5), **no opacity**, color = `theme.groupColor`.
+- **Quadrant outer border**: `stroke-width="1"`, color = `theme.groupColor`.
+- **Quadrant grid lines (25%/75%)**: `stroke-width="1"`, `stroke-dasharray="4 4"`, `opacity="0.25"`.
+- **Group borders**: `stroke-width="1.5"`, `stroke-dasharray="6 3"`.
+
+### Opacity rules — what CAN vs MUST NOT have opacity
+
+**Allowed opacity (cosmetic layers):**
+- Arch layer card background: `fill-opacity="0.08"`.
+- Arch layer card border: `stroke-opacity="0.4"`.
+- Arch node cell border: `stroke-opacity="0.6"`.
+- Arch separator line: `opacity="0.4"`.
+- Quadrant grid lines: `opacity="0.25"` (subtle graph-paper effect).
+- Sequence lifelines: `opacity="0.4"`.
+- Secondary tick labels (quadrant min/max): `opacity="0.6"` on `<text>`.
+- Edge label backgrounds: `opacity="0.9"` on white `<rect>`.
+- Quadrant tint regions: `fill-opacity="0.13"`.
+
+**Forbidden opacity:**
+- Axis lines / arrowheads (quadrant, sequence, flow) — use lighter colors instead.
+- Data point fills (quadrant circles) — use solid hex color, no opacity.
+- Node/actor box fills and borders — no opacity.
+- All `<text>` except secondary tick labels.
+- Outer border of any diagram.
+
+### Arrowheads
+
+All arrowheads use the same polygon shape: `points="0 0, 8 3, 0 6, 1.5 3"` (a slim, slightly concave arrow). Dimensions: `markerWidth="8" markerHeight="6"`, `refX="7" refY="3"`, `orient="auto"`, `markerUnits="strokeWidth"`.
+
+**Critical**: every renderer that defines `<marker>` elements must use a **unique ID** scoped to the diagram instance to prevent conflicts when multiple SVGs appear on the same HTML page. Use a module-level counter:
+```ts
+let _diagramCount = 0;
+// inside the render function:
+const uid = `my-diagram-${++_diagramCount}`;
+// then use uid in marker id and marker-end references
+```
+
+### Drop-shadow filters (feDropShadow)
+
+Used only on quadrant data points. Keep it very subtle:
+```xml
+<feDropShadow dx="0" dy="0.8" stdDeviation="1" flood-color="rgba(0,0,0,0.18)"/>
+```
+Filter bounding box: `x="-40%" y="-40%" width="180%" height="180%"` to avoid clipping.
+
+Do **not** add drop-shadows to node boxes, cards, or text.
+
+### Edge / label background pattern
+
+When an edge or message needs an inline label, render a white background pill first, then the text on top:
+```xml
+<rect x="..." y="..." width="..." height="..." fill="white" rx="3" opacity="0.9"/>
+<text ...>label</text>
+```
+Label font size: `theme.fontSize - 2`. Padding: `padX=5, padY=3`. Estimated width: `chars × (fontSize × 0.58) + padX×2`.
+
+### Animation
+
+Flow chart edges and sequence diagram elements use CSS keyframe animations declared in `<defs><style>`. Keep animation class names namespaced to avoid collisions (`ai-fc-edge`, `seq-lifeline`, `seq-return`). Never add `<script>` — animations are CSS-only.
+
+### Auto-sizing rules
+
+Never expose `width`/`height` to callers except where noted:
+
+| Diagram | Size rule |
+|---------|-----------|
+| Flow / Tree | Auto-sized by Dagre layout; padded viewBox from `src/layout.ts` |
+| Arch | `width` caller-provided (default 800 px); height auto from layer count |
+| Sequence | Auto-sized from actor count × `ACTOR_SPACING` and message count × `MSG_SPACING` |
+| Quadrant | `clamp(640, 640 + (n−4)×24, 1024)` px square, where n = point count |
+
+### Padding constants
+
+These values are used consistently and should not be changed without updating all renderers:
+
+- **Flow groups**: `padding=24`, label height = `theme.fontSize + 8`.
+- **Arch outer margin**: `PAD=24`; card inner: `CARD_PAD=14`; layer gap: `LAYER_GAP=14`; cell height: `CELL_H=72`; cell gap: `CELL_GAP=10`.
+- **Sequence**: `TOP_PAD=24`, `BOTTOM_PAD=32`, actor `W=120 H=44`, spacing `180` px center-to-center, message spacing `56` px.
+- **Quadrant**: `PAD_LEFT=56` (Y-axis label), `PAD_RIGHT=24`, `PAD_TOP=32`, `PAD_BOTTOM=52` (X-axis label).
+
+### SVG output requirements
+
+- Fully self-contained SVG string — no external fonts, no `<script>`, no `<image>` with external URLs.
+- Font: Inter is loaded by the browser/environment; the SVG specifies `font-family` but does **not** embed a font file.
+- The root `<svg>` element must always have `xmlns="http://www.w3.org/2000/svg"`, `width`, `height`, and `viewBox`.
+- Group all diagram elements inside a `<g class="<diagram-type>">` wrapper.
+- Always use `escapeXml()` from `src/utils.ts` on **every** string inserted into SVG (labels, colors, font names).
+
+---
+
+## Snapshot tests
+
 - One `.test.ts` file per scenario, one `.svg` snapshot per test.
 - Snapshots live in `tests/snapshots/`.
+- Custom helper: `matchSvgSnapshot` in `tests/helpers.ts`.
 - To regenerate: `UPDATE_SNAPSHOTS=1 npm test`.
-- Never hand-edit snapshot files.
+- Never hand-edit snapshot files — always regenerate.
 
-### Assets
+---
+
+## Assets
+
 - `assets/` holds the representative preview images shown in `README.md`.
 - Generate them from the built CJS bundle: `node -e "require('./dist/index.cjs')"`.
-- Commit the SVG files directly (they are small, human-readable, and diff well).
+- Commit the SVG files directly (small, human-readable, diff-friendly).
