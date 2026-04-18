@@ -115,6 +115,38 @@ interface SequenceDiagramOptions {
     /** Visual theme (default: 'excalidraw'). */
     theme?: ThemeType;
 }
+/** A single data point in a quadrant chart. */
+interface QuadrantPoint {
+    /** Unique identifier. */
+    id: string;
+    /** Text label displayed next to the point. */
+    label: string;
+    /** Horizontal position, 0 = left edge, 1 = right edge. */
+    x: number;
+    /** Vertical position, 0 = bottom, 1 = top (internally flipped for SVG). */
+    y: number;
+}
+/** Options passed to {@link createQuadrantChart}. */
+interface QuadrantChartOptions {
+    /** X-axis configuration. */
+    xAxis: {
+        label: string;
+        min: string;
+        max: string;
+    };
+    /** Y-axis configuration. */
+    yAxis: {
+        label: string;
+        min: string;
+        max: string;
+    };
+    /** Labels for the four quadrants: [top-left, top-right, bottom-left, bottom-right]. */
+    quadrants: [string, string, string, string];
+    /** Data points to plot. */
+    points: QuadrantPoint[];
+    /** Visual theme (default: 'excalidraw'). */
+    theme?: ThemeType;
+}
 /** Options for the unified {@link fig} function — select the diagram type with `figure`. */
 type FigOptions = ({
     figure: 'flow';
@@ -124,7 +156,9 @@ type FigOptions = ({
     figure: 'arch';
 } & ArchDiagramOptions) | ({
     figure: 'sequence';
-} & SequenceDiagramOptions);
+} & SequenceDiagramOptions) | ({
+    figure: 'quadrant';
+} & QuadrantChartOptions);
 
 /**
  * Generate an SVG diagram. The `figure` field selects the diagram type:
@@ -132,9 +166,10 @@ type FigOptions = ({
  * - `'tree'`     — tree / hierarchy (flat node list with parent refs)
  * - `'arch'`     — architecture diagram (layered grid, no edges)
  * - `'sequence'` — sequence diagram (actors + message arrows)
+ * - `'quadrant'` — quadrant chart (2×2 matrix with data points)
  *
  * Returns a fully self-contained SVG string; no coordinates needed.
  */
 declare function fig(options: FigOptions): string;
 
-export { type ArchDiagramOptions, type ArchLayer, type ArchNode, type Direction, type FigOptions, type FlowChartOptions, type FlowEdge, type FlowGroup, type FlowNode, type NodeType, type SeqMessage, type SequenceDiagramOptions, type ThemeType, type TreeDiagramOptions, type TreeNode, fig };
+export { type ArchDiagramOptions, type ArchLayer, type ArchNode, type Direction, type FigOptions, type FlowChartOptions, type FlowEdge, type FlowGroup, type FlowNode, type NodeType, type QuadrantChartOptions, type QuadrantPoint, type SeqMessage, type SequenceDiagramOptions, type ThemeType, type TreeDiagramOptions, type TreeNode, fig };

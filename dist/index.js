@@ -7892,7 +7892,8 @@ function pointsToSmoothPath(points) {
   }
   return d;
 }
-var EDGE_LABEL_CHAR_WIDTH = 7;
+var _flowChartCount = 0;
+var LABEL_CHAR_WIDTH_RATIO = 0.58;
 function renderNode(node, layout2, theme) {
   const { x, y, width, height } = layout2;
   const type = node.type ?? "process";
@@ -7937,18 +7938,18 @@ ${shapeSvg}
 ${textSvg}
 </g>`;
 }
-function renderEdge(edge, layoutEdge, theme) {
+function renderEdge(edge, layoutEdge, theme, arrowMarkerId) {
   const { points } = layoutEdge;
   if (points.length < 2) return "";
   const d = pointsToSmoothPath(points);
-  const edgeSvg = `<path d="${d}" fill="none" stroke="${theme.edgeColor}" stroke-width="${theme.edgeWidth}" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>`;
+  const edgeSvg = `<path d="${d}" fill="none" stroke="${theme.edgeColor}" stroke-width="${theme.edgeWidth}" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#${arrowMarkerId})"/>`;
   let labelSvg = "";
   if (edge.label) {
     const mid = points[Math.floor(points.length / 2)];
     const labelFontSize = theme.fontSize - 2;
-    const padX = 6;
-    const padY = 4;
-    const labelW = edge.label.length * EDGE_LABEL_CHAR_WIDTH + padX * 2;
+    const padX = 5;
+    const padY = 3;
+    const labelW = edge.label.length * (labelFontSize * LABEL_CHAR_WIDTH_RATIO) + padX * 2;
     const labelH = labelFontSize + padY * 2;
     const bg = `<rect x="${mid.x - labelW / 2}" y="${mid.y - labelH / 2}" width="${labelW}" height="${labelH}" fill="white" rx="3" opacity="0.9"/>`;
     labelSvg = bg + `
@@ -7990,8 +7991,10 @@ function renderFlowChart(options) {
   }
   const theme = Object.prototype.hasOwnProperty.call(themes, themeName) ? themes[themeName] : themes["excalidraw"];
   const layout2 = computeLayout(nodes, edges, direction);
+  const uid = `fc-${++_flowChartCount}`;
+  const arrowMarkerId = `${uid}-arrow`;
   const defs = `<defs>
-    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+    <marker id="${arrowMarkerId}" markerWidth="8" markerHeight="6"
       refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
       <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="${theme.edgeColor}"/>
     </marker>
@@ -8008,7 +8011,7 @@ function renderFlowChart(options) {
   const edgesSvg = edges.map((edge, i) => {
     const layoutEdge = layoutEdgeByIndex.get(i);
     if (!layoutEdge) return "";
-    return renderEdge(edge, layoutEdge, theme);
+    return renderEdge(edge, layoutEdge, theme, arrowMarkerId);
   }).join("\n");
   const nodesSvg = nodes.map((node) => {
     const layoutNode = layout2.nodes.get(node.id);
@@ -8362,6 +8365,145 @@ function createSequenceDiagram(options) {
   ].join("\n");
 }
 
+// src/quadrant.ts
+var BASE_SIZE = 640;
+var MAX_SIZE = 1024;
+var PAD_LEFT = 56;
+var PAD_RIGHT = 24;
+var PAD_TOP = 32;
+var PAD_BOTTOM = 52;
+var POINT_R = 4;
+var CORNER_PAD = 10;
+var LABEL_FLIP_THRESHOLD = 0.82;
+var LABEL_Y_OFFSET_RATIO = 0.38;
+var QUAD_NODE_TYPES = ["terminal", "process", "io", "decision"];
+var _quadrantCount = 0;
+function quadrantOf(x, y) {
+  const right = x >= 0.5;
+  const top = y >= 0.5;
+  if (!right && top) return 0;
+  if (right && top) return 1;
+  if (!right && !top) return 2;
+  return 3;
+}
+function createQuadrantChart(options) {
+  const {
+    xAxis,
+    yAxis,
+    quadrants,
+    points,
+    theme: themeName = "excalidraw"
+  } = options;
+  const theme = Object.prototype.hasOwnProperty.call(themes, themeName) ? themes[themeName] : themes["excalidraw"];
+  const SIZE = Math.min(MAX_SIZE, Math.max(BASE_SIZE, BASE_SIZE + (points.length - 4) * 24));
+  const WIDTH = SIZE;
+  const HEIGHT = SIZE;
+  const PLOT_W = WIDTH - PAD_LEFT - PAD_RIGHT;
+  const PLOT_H = HEIGHT - PAD_TOP - PAD_BOTTOM;
+  const sw = theme.strokeWidth;
+  const axisColor = theme.groupColor;
+  const groupColor = theme.groupColor;
+  const textColor = theme.edgeColor;
+  const labelFs = theme.fontSize - 1;
+  const cornerFs = theme.fontSize - 2;
+  const plotX = PAD_LEFT;
+  const plotY = PAD_TOP;
+  const midX = plotX + PLOT_W / 2;
+  const midY = plotY + PLOT_H / 2;
+  const halfW = PLOT_W / 2;
+  const halfH = PLOT_H / 2;
+  const uid = `qd-${++_quadrantCount}`;
+  const parts = [];
+  parts.push(
+    `<defs><filter id="${uid}-shadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0.8" stdDeviation="1" flood-color="rgba(0,0,0,0.18)"/></filter><marker id="${uid}-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="${escapeXml(axisColor)}"/></marker></defs>`
+  );
+  const quadRegions = [
+    { x: plotX, y: plotY, nt: QUAD_NODE_TYPES[0] },
+    // TL
+    { x: plotX + halfW, y: plotY, nt: QUAD_NODE_TYPES[1] },
+    // TR
+    { x: plotX, y: plotY + halfH, nt: QUAD_NODE_TYPES[2] },
+    // BL
+    { x: plotX + halfW, y: plotY + halfH, nt: QUAD_NODE_TYPES[3] }
+    // BR
+  ];
+  for (const q of quadRegions) {
+    parts.push(
+      `<rect x="${q.x}" y="${q.y}" width="${halfW}" height="${halfH}" fill="${escapeXml(theme.nodeFills[q.nt])}" fill-opacity="0.13" stroke="none"/>`
+    );
+  }
+  parts.push(
+    `<rect x="${plotX}" y="${plotY}" width="${PLOT_W}" height="${PLOT_H}" fill="none" stroke="${escapeXml(groupColor)}" stroke-width="1"/>`
+  );
+  for (const frac of [0.25, 0.75]) {
+    const gx = Math.round(plotX + PLOT_W * frac);
+    parts.push(
+      `<line x1="${gx}" y1="${plotY}" x2="${gx}" y2="${plotY + PLOT_H}" stroke="${escapeXml(axisColor)}" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>`
+    );
+  }
+  for (const frac of [0.25, 0.75]) {
+    const gy = Math.round(plotY + PLOT_H * frac);
+    parts.push(
+      `<line x1="${plotX}" y1="${gy}" x2="${plotX + PLOT_W}" y2="${gy}" stroke="${escapeXml(axisColor)}" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>`
+    );
+  }
+  parts.push(
+    `<line x1="${plotX}" y1="${midY}" x2="${plotX + PLOT_W}" y2="${midY}" stroke="${escapeXml(axisColor)}" stroke-width="${sw}" marker-end="url(#${uid}-arrow)"/>`
+  );
+  parts.push(
+    `<line x1="${midX}" y1="${plotY + PLOT_H}" x2="${midX}" y2="${plotY}" stroke="${escapeXml(axisColor)}" stroke-width="${sw}" marker-end="url(#${uid}-arrow)"/>`
+  );
+  parts.push(
+    `<text x="${plotX + 4}" y="${midY + 16}" text-anchor="start" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" fill="${escapeXml(textColor)}" opacity="0.6">${escapeXml(xAxis.min)}</text>`,
+    `<text x="${plotX + PLOT_W - 30}" y="${midY + 16}" text-anchor="end" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" fill="${escapeXml(textColor)}" opacity="0.6">${escapeXml(xAxis.max)}</text>`
+  );
+  parts.push(
+    `<text x="${midX}" y="${HEIGHT - 12}" text-anchor="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" font-weight="600" fill="${escapeXml(textColor)}">${escapeXml(xAxis.label)}</text>`
+  );
+  parts.push(
+    `<text x="${midX - 8}" y="${plotY + PLOT_H - 4}" text-anchor="end" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" fill="${escapeXml(textColor)}" opacity="0.6">${escapeXml(yAxis.min)}</text>`,
+    `<text x="${midX - 8}" y="${plotY + 14}" text-anchor="end" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" fill="${escapeXml(textColor)}" opacity="0.6">${escapeXml(yAxis.max)}</text>`
+  );
+  const yLabelX = Math.round(PAD_LEFT / 2);
+  const yLabelY = plotY + PLOT_H / 2;
+  parts.push(
+    `<text x="${yLabelX}" y="${yLabelY}" text-anchor="middle" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" font-weight="600" fill="${escapeXml(textColor)}" transform="rotate(-90, ${yLabelX}, ${yLabelY})">${escapeXml(yAxis.label)}</text>`
+  );
+  const qCorners = [
+    { x: plotX + CORNER_PAD, y: plotY + CORNER_PAD + cornerFs, label: quadrants[0], anchor: "start" },
+    { x: plotX + PLOT_W - CORNER_PAD, y: plotY + CORNER_PAD + cornerFs, label: quadrants[1], anchor: "end" },
+    { x: plotX + CORNER_PAD, y: plotY + PLOT_H - CORNER_PAD, label: quadrants[2], anchor: "start" },
+    { x: plotX + PLOT_W - CORNER_PAD, y: plotY + PLOT_H - CORNER_PAD, label: quadrants[3], anchor: "end" }
+  ];
+  for (const q of qCorners) {
+    parts.push(
+      `<text x="${q.x}" y="${q.y}" text-anchor="${q.anchor}" font-family="${escapeXml(theme.fontFamily)}" font-size="${cornerFs}" font-weight="600" fill="${escapeXml(groupColor)}">${escapeXml(q.label)}</text>`
+    );
+  }
+  for (const pt of points) {
+    const cx = plotX + pt.x * PLOT_W;
+    const cy = plotY + (1 - pt.y) * PLOT_H;
+    const qi = quadrantOf(pt.x, pt.y);
+    const ptFill = theme.nodeStrokes[QUAD_NODE_TYPES[qi]];
+    parts.push(
+      `<circle cx="${cx}" cy="${cy}" r="${POINT_R}" fill="${escapeXml(ptFill)}" stroke="none" filter="url(#${uid}-shadow)"/>`
+    );
+    const nearRight = pt.x > LABEL_FLIP_THRESHOLD;
+    const labelX = nearRight ? cx - POINT_R - 5 : cx + POINT_R + 6;
+    const anchor = nearRight ? "end" : "start";
+    parts.push(
+      `<text x="${labelX}" y="${cy + labelFs * LABEL_Y_OFFSET_RATIO}" text-anchor="${anchor}" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" fill="${escapeXml(textColor)}">${escapeXml(pt.label)}</text>`
+    );
+  }
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}">`,
+    `<g class="quadrant-chart">`,
+    ...parts,
+    `</g>`,
+    `</svg>`
+  ].join("\n");
+}
+
 // src/index.ts
 function fig(options) {
   switch (options.figure) {
@@ -8373,6 +8515,8 @@ function fig(options) {
       return createArchDiagram(options);
     case "sequence":
       return createSequenceDiagram(options);
+    case "quadrant":
+      return createQuadrantChart(options);
     default: {
       const _exhaustive = options;
       throw new Error(`Unknown figure type: ${_exhaustive.figure}`);
