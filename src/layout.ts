@@ -46,8 +46,8 @@ export function computeLayout(
     rankdir: direction,
     marginx: 20,
     marginy: 20,
-    nodesep: 50,
-    ranksep: 60,
+    nodesep: 60,
+    ranksep: 80,
     edgesep: 20,
   });
   g.setDefaultEdgeLabel(() => ({}));
