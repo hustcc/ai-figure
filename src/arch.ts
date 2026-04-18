@@ -1,5 +1,5 @@
 import { resolveTheme } from './theme';
-import { escapeXml, wrapText } from './utils';
+import { escapeXml, wrapText, titleBlockHeight, renderTitleBlock } from './utils';
 import type { ArchDiagramOptions, NodeType } from './types';
 
 const PAD = 24;         // outer SVG margin
@@ -32,6 +32,8 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
     theme: mode = 'light',
     palette,
     direction = 'TB',
+    title,
+    subtitle,
   } = options;
 
   if (layers.length === 0) {
@@ -39,6 +41,13 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
   }
 
   const theme = resolveTheme(palette, mode);
+
+  // ── Title / subtitle block ───────────────────────────────────────────────
+  // Compute how much vertical space the title block needs.  When non-zero, the
+  // SVG height is enlarged and the diagram content is shifted down via a
+  // `transform="translate(0, titleH)"` on the wrapper <g> so that existing
+  // layout coordinates require no adjustment.
+  const titleH = titleBlockHeight(title, subtitle, theme.fontSize);
 
   const sw = theme.strokeWidth;
 
@@ -62,7 +71,8 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
       CARD_PAD;
     const svgWidth =
       PAD * 2 + layers.length * cardW + LAYER_GAP * (layers.length - 1);
-    const svgHeight = PAD * 2 + cardH;
+    // Include the title block height in the total SVG height.
+    const svgHeight = PAD * 2 + cardH + titleH;
 
     const parts: string[] = [];
 
@@ -128,10 +138,17 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
     const bgParts: string[] = theme.background
       ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`]
       : [];
+    // Render the title/subtitle above the diagram content.
+    const titleSvg = renderTitleBlock(
+      title, subtitle, svgWidth / 2, 0,
+      theme.fontFamily, theme.fontSize, theme.edgeColor, theme.groupColor,
+    );
     return [
       `<svg xmlns="http://www.w3.org/2000/svg" width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${svgWidth} ${svgHeight}">`,
       ...bgParts,
-      `<g class="arch-diagram">`,
+      ...(titleSvg ? [titleSvg] : []),
+      // Shift all diagram content down by titleH so the title block has room.
+      `<g class="arch-diagram"${titleH > 0 ? ` transform="translate(0,${titleH})"` : ''}>`,
       ...parts,
       `</g>`,
       `</svg>`,
@@ -149,8 +166,9 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
     (availW - CELL_GAP * Math.max(maxCols - 1, 0)) / Math.max(maxCols, 1),
   );
   const cardH = LABEL_H + CARD_PAD + CELL_H + CARD_PAD;
+  // Include the title block height in the total SVG height.
   const totalHeight =
-    PAD + layers.length * cardH + LAYER_GAP * (layers.length - 1) + PAD;
+    PAD + layers.length * cardH + LAYER_GAP * (layers.length - 1) + PAD + titleH;
 
   const parts: string[] = [];
 
@@ -216,10 +234,17 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
   const bgParts: string[] = theme.background
     ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`]
     : [];
+  // Render the title/subtitle above the diagram content.
+  const titleSvg = renderTitleBlock(
+    title, subtitle, totalWidth / 2, 0,
+    theme.fontFamily, theme.fontSize, theme.edgeColor, theme.groupColor,
+  );
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${totalWidth}" height="${totalHeight}" viewBox="0 0 ${totalWidth} ${totalHeight}">`,
     ...bgParts,
-    `<g class="arch-diagram">`,
+    ...(titleSvg ? [titleSvg] : []),
+    // Shift all diagram content down by titleH so the title block has room.
+    `<g class="arch-diagram"${titleH > 0 ? ` transform="translate(0,${titleH})"` : ''}>`,
     ...parts,
     `</g>`,
     `</svg>`,

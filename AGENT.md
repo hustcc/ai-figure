@@ -114,8 +114,28 @@ Always use `theme.nodeStrokes[type]` for dot/box fill/stroke colors and `theme.t
   - Axis / group labels (quadrant, sequence) → `font-weight="600"`.
   - Corner quadrant-name labels → `font-weight="600"`.
   - Group border labels (flowchart) → `font-weight="500"`.
+  - **Chart title** → `font-weight="700"`, `font-size = theme.fontSize + 4` (18 px).
+  - **Chart subtitle** → default weight, `font-size = theme.fontSize − 1` (13 px), `fill = theme.groupColor`.
 - **Secondary text** (axis min/max ticks, muted hints) → `opacity="0.6"` on the `<text>` element, `fill` uses `theme.edgeColor`.
 - Always call `escapeXml()` on every string inserted into SVG attributes or text content.
+
+### Title / subtitle block
+
+Every diagram type supports optional `title?: string` and `subtitle?: string` fields. The title block appears above all chart content; its height is computed by `titleBlockHeight()` in `src/utils.ts`. The SVG is enlarged by that amount and content is shifted down (via `transform="translate(0,titleH)"` for arch/sequence/quadrant, or by expanding the Dagre viewBox upward for flow/tree).
+
+Layout constants (all in px):
+
+| Constant | Value | Description |
+|----------|-------|-------------|
+| `PAD_TOP` | 16 | Space above first text baseline |
+| `TITLE_FS` | fontSize + 4 = **18** | Title font size |
+| `INTER_GAP` | 6 | Gap between title baseline and subtitle |
+| `SUBTITLE_FS` | fontSize − 1 = **13** | Subtitle font size |
+| `PAD_BOTTOM` | 14 | Space below last text baseline |
+
+- Title: `text-anchor="middle"`, `font-weight="700"`, `fill = theme.edgeColor`.
+- Subtitle: `text-anchor="middle"`, default weight, `fill = theme.groupColor` (no opacity — lighter fill provides the visual hierarchy).
+- Both helpers (`titleBlockHeight`, `renderTitleBlock`) live in `src/utils.ts` and are shared across all renderers.
 
 ### Shapes and node geometry
 

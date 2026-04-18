@@ -24,6 +24,7 @@
 - 🌗 **Light / dark mode** — `theme: 'light' | 'dark'` for background and text rendering
 - 🎨 **Flexible palette** — built-in `'default'`, any [`d3-scale-chromatic`](https://github.com/d3/d3-scale-chromatic) scheme (categorical, sequential, diverging), or custom hex array
 - 📊 **Five diagram types** — flowchart, tree, architecture, sequence, quadrant
+- 🏷️ **Title & subtitle** — optional centered title and subtitle above every diagram type
 
 ---
 
@@ -100,6 +101,8 @@ fig({ figure: 'quadrant', ...quadrantOptions }); // quadrant chart
 | `nodes`     | `FlowNode[]`    | **required**   | List of nodes                            |
 | `edges`     | `FlowEdge[]`    | **required**   | List of directed edges                   |
 | `groups`    | `FlowGroup[]`   | `[]`           | Optional logical groups                  |
+| `title`     | `string`        | `undefined`    | Optional centered title above the diagram |
+| `subtitle`  | `string`        | `undefined`    | Optional centered subtitle below the title |
 | `theme`     | `ThemeType`     | `'light'`    | Light or dark rendering mode (`'light'` \| `'dark'`) |
 | `palette`   | `PaletteType`   | `'default'`    | Color palette — see [Palette API](#palette-api) below |
 | `direction` | `Direction`     | `'TB'`         | Layout direction (`'TB'` or `'LR'`)      |
@@ -147,6 +150,8 @@ Renders a hierarchy from a flat node list with `parent` references. Uses Dagre f
 |-------------|---------------|----------------|------------------------------------|
 | `figure`    | `'tree'`      | **required**   | Selects the tree renderer          |
 | `nodes`     | `TreeNode[]`  | **required**   | Flat list with optional parent ref |
+| `title`     | `string`      | `undefined`    | Optional centered title above the diagram |
+| `subtitle`  | `string`      | `undefined`    | Optional centered subtitle below the title |
 | `theme`     | `ThemeType`   | `'light'`    | Light or dark rendering mode (`'light'` \| `'dark'`) |
 | `palette`   | `PaletteType` | `'default'`    | Color palette — see [Palette API](#palette-api) below |
 | `direction` | `Direction`   | `'TB'`         | Layout direction                   |
@@ -174,6 +179,8 @@ Renders a tech-stack landscape as layered, color-coded cards — no edges needed
 |-------------|---------------|----------------|------------------------------------------|
 | `figure`    | `'arch'`      | **required**   | Selects the architecture renderer        |
 | `layers`    | `ArchLayer[]` | **required**   | Layers from top to bottom (TB) or left to right (LR) |
+| `title`     | `string`      | `undefined`    | Optional centered title above the diagram |
+| `subtitle`  | `string`      | `undefined`    | Optional centered subtitle below the title |
 | `theme`     | `ThemeType`   | `'light'`    | Light or dark rendering mode (`'light'` \| `'dark'`) |
 | `palette`   | `PaletteType` | `'default'`    | Color palette — see [Palette API](#palette-api) below |
 | `direction` | `Direction`   | `'TB'`         | `'TB'` = layers stacked, `'LR'` = layers side-by-side |
@@ -199,6 +206,8 @@ Renders a sequence diagram with vertical lifelines and horizontal message arrows
 | `figure`   | `'sequence'`   | **required**   | Selects the sequence renderer         |
 | `actors`   | `string[]`     | **required**   | Ordered list of participant names     |
 | `messages` | `SeqMessage[]` | **required**   | Ordered list of message arrows        |
+| `title`    | `string`       | `undefined`    | Optional centered title above the diagram |
+| `subtitle` | `string`       | `undefined`    | Optional centered subtitle below the title |
 | `theme`    | `ThemeType`    | `'light'`    | Light or dark rendering mode (`'light'` \| `'dark'`) |
 | `palette`  | `PaletteType`  | `'default'`    | Color palette — see [Palette API](#palette-api) below |
 
@@ -228,6 +237,8 @@ Renders a 2D quadrant scatter plot. Points are placed by normalized `x`/`y` valu
 | `yAxis`     | `AxisConfig`       | **required**   | Y-axis label, min and max tick labels               |
 | `quadrants` | `[TL, TR, BL, BR]` | **required**   | Corner labels: top-left, top-right, bottom-left, bottom-right |
 | `points`    | `QuadrantPoint[]`  | **required**   | Data points to plot                                 |
+| `title`     | `string`           | `undefined`    | Optional centered title above the diagram           |
+| `subtitle`  | `string`           | `undefined`    | Optional centered subtitle below the title          |
 | `theme`     | `ThemeType`        | `'light'`    | Light or dark rendering mode (`'light'` \| `'dark'`) |
 | `palette`   | `PaletteType`      | `'default'`    | Color palette — see [Palette API](#palette-api) below |
 

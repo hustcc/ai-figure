@@ -10,7 +10,7 @@ const DEPTH_NODE_TYPES: NodeType[] = ['terminal', 'process', 'decision', 'io'];
  * Internally converts to FlowChartOptions and delegates to renderFlowChart.
  */
 export function createTreeDiagram(options: TreeDiagramOptions): string {
-  const { nodes, theme, palette, direction = 'TB' } = options;
+  const { nodes, theme, palette, direction = 'TB', title, subtitle } = options;
 
   // Build child→parent map for depth computation
   const parentMap = new Map<string, string>();
@@ -40,5 +40,5 @@ export function createTreeDiagram(options: TreeDiagramOptions): string {
     .filter((n) => n.parent !== undefined)
     .map((n) => ({ from: n.parent!, to: n.id }));
 
-  return renderFlowChart({ nodes: flowNodes, edges, theme, palette, direction });
+  return renderFlowChart({ nodes: flowNodes, edges, theme, palette, direction, title, subtitle });
 }

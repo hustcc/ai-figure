@@ -1,5 +1,5 @@
 import { resolveTheme } from './theme';
-import { escapeXml } from './utils';
+import { escapeXml, titleBlockHeight, renderTitleBlock } from './utils';
 import type { QuadrantChartOptions, NodeType } from './types';
 
 // Canvas size — auto-calculated from point count, clamped to [640, 1024]
@@ -52,9 +52,16 @@ export function createQuadrantChart(options: QuadrantChartOptions): string {
     points,
     theme: mode = 'light',
     palette,
+    title,
+    subtitle,
   } = options;
 
   const theme = resolveTheme(palette, mode);
+
+  // ── Title / subtitle block ───────────────────────────────────────────────
+  // Compute vertical space needed for the optional title and subtitle.  The SVG
+  // height is enlarged and the diagram content is shifted down via transform.
+  const titleH = titleBlockHeight(title, subtitle, theme.fontSize);
 
   // Canvas scales with point count: 640 base, +24 px per extra point above 4, max 1024
   const SIZE   = Math.min(MAX_SIZE, Math.max(BASE_SIZE, BASE_SIZE + (points.length - 4) * 24));
@@ -229,10 +236,18 @@ export function createQuadrantChart(options: QuadrantChartOptions): string {
   const bgParts: string[] = theme.background
     ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`]
     : [];
+  // Render the title/subtitle above the diagram content.
+  const titleSvg = renderTitleBlock(
+    title, subtitle, WIDTH / 2, 0,
+    theme.fontFamily, theme.fontSize, theme.edgeColor, theme.groupColor,
+  );
+  // The total SVG height grows by titleH; chart content is shifted down via transform.
   return [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}">`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT + titleH}" viewBox="0 0 ${WIDTH} ${HEIGHT + titleH}">`,
     ...bgParts,
-    `<g class="quadrant-chart">`,
+    ...(titleSvg ? [titleSvg] : []),
+    // Shift all diagram content down by titleH so the title block has room.
+    `<g class="quadrant-chart"${titleH > 0 ? ` transform="translate(0,${titleH})"` : ''}>`,
     ...parts,
     `</g>`,
     `</svg>`,

@@ -73,6 +73,10 @@ export interface FlowChartOptions {
   palette?: PaletteType;
   /** Graph layout direction (default: 'TB' — top to bottom). */
   direction?: Direction;
+  /** Optional chart title displayed above the diagram. */
+  title?: string;
+  /** Optional subtitle displayed beneath the title. */
+  subtitle?: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -99,6 +103,10 @@ export interface TreeDiagramOptions {
   palette?: PaletteType;
   /** Layout direction (default: 'TB'). */
   direction?: Direction;
+  /** Optional chart title displayed above the diagram. */
+  title?: string;
+  /** Optional subtitle displayed beneath the title. */
+  subtitle?: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -133,6 +141,10 @@ export interface ArchDiagramOptions {
   palette?: PaletteType;
   /** Direction: TB = layers top-to-bottom, LR = layers left-to-right (default: 'TB'). */
   direction?: Direction;
+  /** Optional chart title displayed above the diagram. */
+  title?: string;
+  /** Optional subtitle displayed beneath the title. */
+  subtitle?: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -161,6 +173,10 @@ export interface SequenceDiagramOptions {
   theme?: ThemeType;
   /** Color palette — `'default'` (built-in), d3-scale-chromatic short name (e.g. `'blues'`), or custom hex array (default: `'default'`). */
   palette?: PaletteType;
+  /** Optional chart title displayed above the diagram. */
+  title?: string;
+  /** Optional subtitle displayed beneath the title. */
+  subtitle?: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -193,6 +209,10 @@ export interface QuadrantChartOptions {
   theme?: ThemeType;
   /** Color palette — `'default'` (built-in), d3-scale-chromatic short name (e.g. `'blues'`), or custom hex array (default: `'default'`). */
   palette?: PaletteType;
+  /** Optional chart title displayed above the diagram. */
+  title?: string;
+  /** Optional subtitle displayed beneath the title. */
+  subtitle?: string;
 }
 
 // ---------------------------------------------------------------------------
