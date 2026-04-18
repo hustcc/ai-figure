@@ -20,5 +20,5 @@ it('read-parse-ok pipeline — clean theme, LR direction', () => {
     theme: 'clean',
     direction: 'LR',
   });
-  matchSvgSnapshot('clean-lr', svg);
+  matchSvgSnapshot('flow-clean-lr', svg);
 });

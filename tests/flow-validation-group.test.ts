@@ -21,5 +21,5 @@ it('validation group — excalidraw theme, TB direction', () => {
     theme: 'excalidraw',
     direction: 'TB',
   });
-  matchSvgSnapshot('validation-group', svg);
+  matchSvgSnapshot('flow-validation-group', svg);
 });

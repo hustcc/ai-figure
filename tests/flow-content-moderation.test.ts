@@ -38,5 +38,5 @@ it('content moderation pipeline — excalidraw theme, TB direction, 3 groups', (
     theme: 'excalidraw',
     direction: 'TB',
   });
-  matchSvgSnapshot('content-moderation', svg);
+  matchSvgSnapshot('flow-content-moderation', svg);
 });

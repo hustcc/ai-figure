@@ -32,5 +32,5 @@ it('RAG (retrieval-augmented generation) pipeline — clean theme, TB direction,
     theme: 'clean',
     direction: 'TB',
   });
-  matchSvgSnapshot('rag-pipeline', svg);
+  matchSvgSnapshot('flow-rag-pipeline', svg);
 });

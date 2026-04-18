@@ -39,5 +39,5 @@ it('order fulfillment workflow — excalidraw theme, TB direction, 3 groups', ()
     theme: 'excalidraw',
     direction: 'TB',
   });
-  matchSvgSnapshot('order-fulfillment', svg);
+  matchSvgSnapshot('flow-order-fulfillment', svg);
 });

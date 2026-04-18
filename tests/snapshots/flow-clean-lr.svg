@@ -22,12 +22,12 @@
 <g class="edge" data-from="ok" data-to="save">
 <path d="M660,69.66666666666666 L691.0260148929267,54.41220934431106 Q700,50 710,50 L740,50" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="683.5" y="40" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="700" y="50" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Yes</text>
+<text x="700" y="50" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Yes</text>
 </g>
 <g class="edge" data-from="ok" data-to="retry">
 <path d="M660,148.33333333333334 L691.0260148929267,163.58779065568893 Q700,168 710,168 L740,168" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="687" y="158" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="700" y="168" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">No</text>
+<text x="700" y="168" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">No</text>
 </g>
 <g class="node node-io" data-id="read">
 <polygon points="34,79 180,79 166,139 20,139" fill="#fdf2f8" stroke="#8e44ad" stroke-width="1.5" stroke-linejoin="round"/>

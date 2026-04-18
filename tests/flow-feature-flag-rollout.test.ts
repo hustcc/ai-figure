@@ -29,5 +29,5 @@ it('feature flag rollout — clean theme, TB direction', () => {
     theme: 'clean',
     direction: 'TB',
   });
-  matchSvgSnapshot('feature-flag-rollout', svg);
+  matchSvgSnapshot('flow-feature-flag-rollout', svg);
 });

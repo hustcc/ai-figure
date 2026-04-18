@@ -45,12 +45,12 @@
 <g class="edge" data-from="dispatch" data-to="tool_select">
 <path d="M230,653.6470588235294 L310.9518129779901,691.7420296367012 Q320,696 320,706 L320,736" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="296.5" y="686" width="47" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="320" y="696" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">tools</text>
+<text x="320" y="696" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">tools</text>
 </g>
 <g class="edge" data-from="dispatch" data-to="synthesize">
 <path d="M70,653.6470588235294 L-10.951812977990059,691.7420296367012 Q-20,696 -20,706 L-20,756 Q-20,766 -20,776 L-20,826 Q-20,836 -20,846 L-20,896 Q-20,906 -20,916 L-20,966 Q-20,976 -10.433261195711417,978.911616157827 L130,1021.6521739130435" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="-47" y="826" width="54" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="-20" y="836" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">direct</text>
+<text x="-20" y="836" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">direct</text>
 </g>
 <g class="edge" data-from="tool_select" data-to="web_search">
 <path d="M240,791.4545454545455 L109.52925780013263,832.9679634272305 Q100,836 100,846 L100,876" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>

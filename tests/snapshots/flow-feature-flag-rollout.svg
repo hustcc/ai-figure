@@ -18,32 +18,32 @@
 <g class="edge" data-from="flag_enabled" data-to="user_segment">
 <path d="M200,236 L176,268 Q170,276 170,286 L170,316" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="153.5" y="266" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="170" y="276" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Yes</text>
+<text x="170" y="276" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Yes</text>
 </g>
 <g class="edge" data-from="flag_enabled" data-to="old_feature">
 <path d="M290,236 L341.6794970566216,270.4529980377477 Q350,276 350,286 L350,346 Q350,356 350,366 L350,426 Q350,436 350,446 L350,506 Q350,516 350,526 L350,586 Q350,596 347.2527887210262,605.6152394764082 L338.57142857142856,636" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="337" y="426" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="350" y="436" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">No</text>
+<text x="350" y="436" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">No</text>
 </g>
 <g class="edge" data-from="user_segment" data-to="canary">
 <path d="M140,396 L116,428 Q110,436 110,446 L110,476" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="93.5" y="426" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="110" y="436" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Yes</text>
+<text x="110" y="436" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Yes</text>
 </g>
 <g class="edge" data-from="user_segment" data-to="old_feature">
 <path d="M225,396 L271.9126391569681,430.11828302324955 Q280,436 280,446 L280,506 Q280,516 280,526 L280,586 Q280,596 285.81238193719093,604.1373347120674 L308.57142857142856,636" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="267" y="506" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="280" y="516" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">No</text>
+<text x="280" y="516" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">No</text>
 </g>
 <g class="edge" data-from="canary" data-to="new_feature">
 <path d="M105,556 L101.24034734589209,586.0772212328633 Q100,596 100,606 L100,636" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="87" y="586" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="100" y="596" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">In</text>
+<text x="100" y="596" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">In</text>
 </g>
 <g class="edge" data-from="canary" data-to="old_feature">
 <path d="M160,556 L202.1913119055697,589.7530495244557 Q210,596 218.63778900898433,601.0387102552409 L278.57142857142856,636" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="193.5" y="586" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="210" y="596" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Out</text>
+<text x="210" y="596" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Out</text>
 </g>
 <g class="edge" data-from="new_feature" data-to="log_metrics">
 <path d="M100,696 L100,726 Q100,736 107.07106781186548,743.0710678118654 L140,776" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>

@@ -138,8 +138,8 @@ export function createSequenceDiagram(options: SequenceDiagramOptions): string {
           `width="${labelW}" height="${labelH}" fill="white" rx="3" opacity="0.9"/>`,
       );
       parts.push(
-        `<text x="${midX}" y="${labelY - padY}" ` +
-          `text-anchor="middle" dominant-baseline="auto" ` +
+        `<text x="${midX}" y="${labelY - labelH / 2}" ` +
+          `text-anchor="middle" dominant-baseline="middle" ` +
           `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFontSize}" ` +
           `fill="${escapeXml(arrowColor)}">${escapeXml(msg.label)}</text>`,
       );

@@ -37,5 +37,5 @@ it('data ETL pipeline — clean theme, TB direction, 3 groups', () => {
     theme: 'clean',
     direction: 'TB',
   });
-  matchSvgSnapshot('etl-pipeline', svg);
+  matchSvgSnapshot('flow-etl-pipeline', svg);
 });

@@ -49,12 +49,12 @@
 <g class="edge" data-from="best_node" data-to="bind">
 <path d="M265,796 L218.0873608430319,830.1182830232495 Q210,836 210,846 L210,876" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="193.5" y="826" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="210" y="836" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Yes</text>
+<text x="210" y="836" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Yes</text>
 </g>
 <g class="edge" data-from="best_node" data-to="pending">
 <path d="M375,796 L421.9126391569681,830.1182830232495 Q430,836 430,846 L430,878" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="417" y="826" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="430" y="836" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">No</text>
+<text x="430" y="836" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">No</text>
 </g>
 <g class="edge" data-from="bind" data-to="kubelet">
 <path d="M210,936 L210,966 Q210,976 210,986 L210,1016" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>

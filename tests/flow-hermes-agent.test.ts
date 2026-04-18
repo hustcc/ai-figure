@@ -41,5 +41,5 @@ it('hermes agent architecture — excalidraw theme, TB direction, 4 groups', () 
     theme: 'excalidraw',
     direction: 'TB',
   });
-  matchSvgSnapshot('hermes-agent', svg);
+  matchSvgSnapshot('flow-hermes-agent', svg);
 });

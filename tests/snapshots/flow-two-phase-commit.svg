@@ -41,32 +41,32 @@
 <g class="edge" data-from="vote1" data-to="all_ok">
 <path d="M140,516 L116,548 Q110,556 110,566 L110,596" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="93.5" y="546" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="110" y="556" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
+<text x="110" y="556" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
 </g>
 <g class="edge" data-from="vote2" data-to="all_ok">
 <path d="M355,516 L308.0873608430319,550.1182830232495 Q300,556 290.78364624861933,559.8805700005813 L190,602.3157894736842" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="283.5" y="546" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="300" y="556" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
+<text x="300" y="556" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
 </g>
 <g class="edge" data-from="vote1" data-to="rollback">
 <path d="M225,516 L271.9126391569681,550.1182830232495 Q280,556 280,566 L280,626 Q280,636 280,646 L280,706 Q280,716 287.89352217376324,722.1394061351492 L331.42857142857144,756" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="267" y="626" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="280" y="636" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
+<text x="280" y="636" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
 </g>
 <g class="edge" data-from="vote2" data-to="rollback">
 <path d="M410,516 L410,546 Q410,556 410,566 L410,626 Q410,636 410,646 L410,706 Q410,716 405.03861061643164,724.6824314212446 L387.14285714285717,756" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="397" y="626" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="410" y="636" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
+<text x="410" y="636" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
 </g>
 <g class="edge" data-from="all_ok" data-to="commit">
 <path d="M105,676 L101.24034734589209,706.0772212328633 Q100,716 100,726 L100,756" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="83.5" y="706" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="100" y="716" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
+<text x="100" y="716" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
 </g>
 <g class="edge" data-from="all_ok" data-to="rollback">
 <path d="M160,676 L202.1913119055697,709.7530495244557 Q210,716 219.1615733490219,720.0081883401971 L301.42857142857144,756" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="197" y="706" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="210" y="716" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
+<text x="210" y="716" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
 </g>
 <g class="edge" data-from="commit" data-to="done">
 <path d="M100,816 L100,846 Q100,856 107.17279380859227,862.9678568426325 L141.1764705882353,896" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>

@@ -33,5 +33,5 @@ it('e-commerce checkout flow — excalidraw theme, TB direction', () => {
     theme: 'excalidraw',
     direction: 'TB',
   });
-  matchSvgSnapshot('ecommerce-checkout', svg);
+  matchSvgSnapshot('flow-ecommerce-checkout', svg);
 });

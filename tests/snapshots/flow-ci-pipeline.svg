@@ -45,12 +45,12 @@
 <g class="edge" data-from="gate" data-to="staging">
 <path d="M160,796 L117.80868809443031,829.7530495244557 Q110,836 110,846 L110,876" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="90" y="826" width="40" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="110" y="836" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Pass</text>
+<text x="110" y="836" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Pass</text>
 </g>
 <g class="edge" data-from="gate" data-to="notify_fail">
 <path d="M270,796 L321.6794970566216,830.4529980377478 Q330,836 330,846 L330,896 Q330,906 330,916 L330,966 Q330,976 330,986 L330,1036 Q330,1046 330,1056 L330,1106 Q330,1116 330,1126 L330,1186 Q330,1196 330,1206 L330,1266 Q330,1276 328.5857864376269,1285.8994949366117 L324.2857142857143,1316" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="310" y="1036" width="40" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="330" y="1046" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Fail</text>
+<text x="330" y="1046" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Fail</text>
 </g>
 <g class="edge" data-from="staging" data-to="e2e">
 <path d="M110,936 L110,966 Q110,976 110,986 L110,1016" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
@@ -63,12 +63,12 @@
 <g class="edge" data-from="approve" data-to="prod">
 <path d="M105,1236 L101.24034734589209,1266.0772212328634 Q100,1276 100,1286 L100,1316" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="83.5" y="1266" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="100" y="1276" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Yes</text>
+<text x="100" y="1276" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Yes</text>
 </g>
 <g class="edge" data-from="approve" data-to="notify_fail">
 <path d="M165,1236 L211.9126391569681,1270.1182830232494 Q220,1276 228.19231920519042,1281.7346234436334 L277.14285714285717,1316" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
 <rect x="207" y="1266" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
-<text x="220" y="1276" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">No</text>
+<text x="220" y="1276" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">No</text>
 </g>
 <g class="edge" data-from="prod" data-to="done">
 <path d="M100,1376 L100,1406 Q100,1416 100,1426 L100,1456" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>

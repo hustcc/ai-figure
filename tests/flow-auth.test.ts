@@ -35,5 +35,5 @@ it('user authentication flow — excalidraw theme, TB direction', () => {
     theme: 'excalidraw',
     direction: 'TB',
   });
-  matchSvgSnapshot('auth-flow', svg);
+  matchSvgSnapshot('flow-auth', svg);
 });

@@ -151,7 +151,7 @@ function renderEdge(
       `width="${labelW}" height="${labelH}" fill="white" rx="3" opacity="0.9"/>`;
     labelSvg =
       bg +
-      `\n<text x="${mid.x}" y="${mid.y}" text-anchor="middle" dominant-baseline="middle" ` +
+      `\n<text x="${mid.x}" y="${mid.y}" dy="0.35em" text-anchor="middle" ` +
       `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFontSize}" ` +
       `fill="${escapeXml(theme.edgeColor)}">${escapeXml(edge.label)}</text>`;
   }

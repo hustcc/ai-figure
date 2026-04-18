@@ -36,5 +36,5 @@ it('incident response runbook — clean theme, TB direction', () => {
     theme: 'clean',
     direction: 'TB',
   });
-  matchSvgSnapshot('incident-response', svg);
+  matchSvgSnapshot('flow-incident-response', svg);
 });

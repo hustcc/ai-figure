@@ -38,5 +38,5 @@ it('two-phase commit (2PC) protocol — excalidraw theme, TB direction, 2 groups
     theme: 'excalidraw',
     direction: 'TB',
   });
-  matchSvgSnapshot('two-phase-commit', svg);
+  matchSvgSnapshot('flow-two-phase-commit', svg);
 });

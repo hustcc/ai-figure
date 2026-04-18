@@ -20,5 +20,5 @@ it('decision branch — excalidraw theme, TB direction', () => {
     theme: 'excalidraw',
     direction: 'TB',
   });
-  matchSvgSnapshot('decision-branch', svg);
+  matchSvgSnapshot('flow-decision-branch', svg);
 });

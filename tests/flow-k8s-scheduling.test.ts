@@ -37,5 +37,5 @@ it('Kubernetes pod scheduling — clean theme, TB direction, 3 groups', () => {
     theme: 'clean',
     direction: 'TB',
   });
-  matchSvgSnapshot('k8s-scheduling', svg);
+  matchSvgSnapshot('flow-k8s-scheduling', svg);
 });

@@ -34,5 +34,5 @@ it('microservices request flow — excalidraw theme, TB direction, 2 groups', ()
     theme: 'excalidraw',
     direction: 'TB',
   });
-  matchSvgSnapshot('microservices-flow', svg);
+  matchSvgSnapshot('flow-microservices', svg);
 });

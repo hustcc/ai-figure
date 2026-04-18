@@ -40,5 +40,5 @@ it('CI/CD pipeline — clean theme, TB direction, 3 groups', () => {
     theme: 'clean',
     direction: 'TB',
   });
-  matchSvgSnapshot('ci-pipeline', svg);
+  matchSvgSnapshot('flow-ci-pipeline', svg);
 });

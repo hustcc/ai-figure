@@ -24,24 +24,24 @@
 <text x="800" y="55.8" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1b5e20">Service</text>
 <line x1="80" y1="124" x2="260" y2="124" stroke="#555555" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow)"/>
 <rect x="116.28" y="100" width="107.43999999999998" height="18" fill="white" rx="3" opacity="0.9"/>
-<text x="170" y="115" text-anchor="middle" dominant-baseline="auto" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">POST /checkout</text>
+<text x="170" y="109" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">POST /checkout</text>
 <line x1="260" y1="180" x2="620" y2="180" stroke="#555555" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow)"/>
 <rect x="393.24" y="156" width="93.51999999999998" height="18" fill="white" rx="3" opacity="0.9"/>
-<text x="440" y="171" text-anchor="middle" dominant-baseline="auto" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">reserveStock</text>
+<text x="440" y="165" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">reserveStock</text>
 <line x1="620" y1="236" x2="260" y2="236" stroke="#555555" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow)" stroke-dasharray="6 4"/>
 <rect x="407.16" y="212" width="65.67999999999999" height="18" fill="white" rx="3" opacity="0.9"/>
-<text x="440" y="227" text-anchor="middle" dominant-baseline="auto" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">reserved</text>
+<text x="440" y="221" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">reserved</text>
 <line x1="260" y1="292" x2="440" y2="292" stroke="#555555" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow)"/>
 <rect x="310.2" y="268" width="79.6" height="18" fill="white" rx="3" opacity="0.9"/>
-<text x="350" y="283" text-anchor="middle" dominant-baseline="auto" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">chargeCard</text>
+<text x="350" y="277" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">chargeCard</text>
 <line x1="440" y1="348" x2="260" y2="348" stroke="#555555" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow)" stroke-dasharray="6 4"/>
 <rect x="306.72" y="324" width="86.55999999999999" height="18" fill="white" rx="3" opacity="0.9"/>
-<text x="350" y="339" text-anchor="middle" dominant-baseline="auto" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">txn success</text>
+<text x="350" y="333" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">txn success</text>
 <line x1="260" y1="404" x2="800" y2="404" stroke="#555555" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow)"/>
 <rect x="469.32" y="380" width="121.35999999999999" height="18" fill="white" rx="3" opacity="0.9"/>
-<text x="530" y="395" text-anchor="middle" dominant-baseline="auto" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">sendConfirmation</text>
+<text x="530" y="389" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">sendConfirmation</text>
 <line x1="260" y1="460" x2="80" y2="460" stroke="#555555" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow)" stroke-dasharray="6 4"/>
 <rect x="109.32000000000001" y="436" width="121.35999999999999" height="18" fill="white" rx="3" opacity="0.9"/>
-<text x="170" y="451" text-anchor="middle" dominant-baseline="auto" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">200 Order placed</text>
+<text x="170" y="445" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">200 Order placed</text>
 </g>
 </svg>
