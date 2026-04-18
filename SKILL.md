@@ -1,6 +1,6 @@
 ---
 name: ai-figure
-version: "0.3.0"
+version: "0.1.0"
 description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence) from a JSON config via a single fig() API. Auto-layout, zero coordinates needed. Works in browser and Node.js.
 author: hustcc
 license: MIT
