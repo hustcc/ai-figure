@@ -140,3 +140,14 @@ export interface SequenceDiagramOptions {
   /** Visual theme (default: 'excalidraw'). */
   theme?: ThemeType;
 }
+
+// ---------------------------------------------------------------------------
+// Unified fig() API
+// ---------------------------------------------------------------------------
+
+/** Options for the unified {@link fig} function — select the diagram type with `figure`. */
+export type FigOptions =
+  | ({ figure: 'flow' } & FlowChartOptions)
+  | ({ figure: 'tree' } & TreeDiagramOptions)
+  | ({ figure: 'arch' } & ArchDiagramOptions)
+  | ({ figure: 'sequence' } & SequenceDiagramOptions);

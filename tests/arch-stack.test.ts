@@ -1,9 +1,10 @@
 import { it } from 'vitest';
-import { createArchDiagram } from '../src/index';
+import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
 it('arch diagram — tech stack, excalidraw theme, TB direction', () => {
-  const svg = createArchDiagram({
+  const svg = fig({
+    figure: 'arch',
     layers: [
       {
         id: 'fe', label: 'Frontend',

@@ -1,9 +1,10 @@
 import { it } from 'vitest';
-import { createTreeDiagram } from '../src/index';
+import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
 it('tree diagram — package dependency tree, clean theme, LR direction', () => {
-  const svg = createTreeDiagram({
+  const svg = fig({
+    figure: 'tree',
     nodes: [
       { id: 'app',       label: 'my-app' },
       { id: 'react',     label: 'react',           parent: 'app' },

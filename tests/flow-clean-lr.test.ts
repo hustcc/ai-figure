@@ -1,9 +1,10 @@
 import { it } from 'vitest';
-import { createFlowChart } from '../src/index';
+import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
 it('read-parse-ok pipeline — clean theme, LR direction', () => {
-  const svg = createFlowChart({
+  const svg = fig({
+    figure: 'flow',
     nodes: [
       { id: 'read', label: 'Read File', type: 'io' },
       { id: 'parse', label: 'Parse', type: 'process' },

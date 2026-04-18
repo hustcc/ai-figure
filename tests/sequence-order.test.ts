@@ -1,9 +1,10 @@
 import { it } from 'vitest';
-import { createSequenceDiagram } from '../src/index';
+import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
 it('sequence diagram — order payment flow, clean theme', () => {
-  const svg = createSequenceDiagram({
+  const svg = fig({
+    figure: 'sequence',
     actors: ['User', 'Order Service', 'Payment Service', 'Inventory', 'Notify Service'],
     messages: [
       { from: 'User',            to: 'Order Service',   label: 'POST /checkout' },

@@ -1,9 +1,10 @@
 import { it } from 'vitest';
-import { createFlowChart } from '../src/index';
+import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
 it('user authentication flow — excalidraw theme, TB direction', () => {
-  const svg = createFlowChart({
+  const svg = fig({
+    figure: 'flow',
     nodes: [
       { id: 'start', label: 'User Login', type: 'terminal' },
       { id: 'input', label: 'Enter Credentials', type: 'io' },

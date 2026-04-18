@@ -1,9 +1,10 @@
 import { it } from 'vitest';
-import { createArchDiagram } from '../src/index';
+import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
 it('arch diagram — microservices platform, excalidraw theme, TB direction', () => {
-  const svg = createArchDiagram({
+  const svg = fig({
+    figure: 'arch',
     layers: [
       {
         id: 'gateway', label: 'API Gateway',

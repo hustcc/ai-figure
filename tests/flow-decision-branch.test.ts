@@ -1,9 +1,10 @@
 import { it } from 'vitest';
-import { createFlowChart } from '../src/index';
+import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
 it('decision branch — excalidraw theme, TB direction', () => {
-  const svg = createFlowChart({
+  const svg = fig({
+    figure: 'flow',
     nodes: [
       { id: 'start', label: 'Start', type: 'terminal' },
       { id: 'process', label: 'Process', type: 'process' },

@@ -1,6 +1,6 @@
 # ai-figure
 
-> Clean SVG flowchart renderer — define nodes & edges, get beautiful diagrams. Works in browser **and** Node.js.
+> Clean SVG diagram renderer — define config, get beautiful diagrams. Works in browser **and** Node.js.
 
 [![npm version](https://img.shields.io/npm/v/ai-figure.svg)](https://www.npmjs.com/package/ai-figure)
 [![Build](https://github.com/hustcc/ai-figure/actions/workflows/build.yml/badge.svg)](https://github.com/hustcc/ai-figure/actions/workflows/build.yml)
@@ -16,8 +16,9 @@
 - 📐 **Auto layout** — powered by [Dagre](https://github.com/dagrejs/dagre), no manual coordinates
 - 📦 **Groups** — logical node groups rendered with dashed borders and labels
 - 🌐 **Browser + Node.js** — pure SVG output, zero DOM dependency
-- 🤖 **AI-friendly API** — simple, semantic, TypeScript-first
+- 🤖 **AI-friendly API** — single `fig()` entry point, semantic JSON config, TypeScript-first
 - 🎭 **Two themes** — `excalidraw` (colorful) or `clean` (minimal)
+- 📊 **Four diagram types** — flowchart, tree, architecture, sequence
 
 ---
 
@@ -32,9 +33,11 @@ npm install ai-figure
 ### Usage
 
 ```typescript
-import { createFlowChart } from 'ai-figure';
+import { fig } from 'ai-figure';
 
-const svg = createFlowChart({
+// Flowchart
+const svg = fig({
+  figure: 'flow',
   nodes: [
     { id: 'start',    label: 'Start',        type: 'terminal' },
     { id: 'process1', label: 'Process Data', type: 'process'  },
@@ -60,36 +63,46 @@ document.body.innerHTML = svg;
 
 // Node.js: write to file
 import { writeFileSync } from 'fs';
-writeFileSync('flowchart.svg', svg);
+writeFileSync('diagram.svg', svg);
 ```
 
 ---
 
 ## API Reference
 
-### `createFlowChart(options): string`
+### `fig(options): string`
 
-Returns an SVG string. All layout is computed automatically.
+The single entry point. Returns a fully self-contained SVG string. Select the diagram type with the required `figure` field.
 
-#### `FlowChartOptions`
+```typescript
+import { fig } from 'ai-figure';
 
-| Field       | Type            | Default        | Description                              |
-|-------------|-----------------|----------------|------------------------------------------|
-| `nodes`     | `FlowNode[]`    | **required**   | List of nodes                            |
-| `edges`     | `FlowEdge[]`    | **required**   | List of directed edges                   |
-| `groups`    | `FlowGroup[]`   | `[]`           | Optional logical groups                  |
-| `theme`     | `ThemeType`     | `'excalidraw'` | Visual theme (`'excalidraw'` or `'clean'`) |
-| `direction` | `Direction`     | `'TB'`         | Layout direction (`'TB'` or `'LR'`)       |
+fig({ figure: 'flow',     ...flowOptions     }); // flowchart
+fig({ figure: 'tree',     ...treeOptions     }); // tree / hierarchy
+fig({ figure: 'arch',     ...archOptions     }); // architecture diagram
+fig({ figure: 'sequence', ...sequenceOptions }); // sequence diagram
+```
 
 ---
 
+### `figure: 'flow'` — Flowchart
+
+| Field       | Type            | Default        | Description                              |
+|-------------|-----------------|----------------|------------------------------------------|
+| `figure`    | `'flow'`        | **required**   | Selects the flowchart renderer           |
+| `nodes`     | `FlowNode[]`    | **required**   | List of nodes                            |
+| `edges`     | `FlowEdge[]`    | **required**   | List of directed edges                   |
+| `groups`    | `FlowGroup[]`   | `[]`           | Optional logical groups                  |
+| `theme`     | `ThemeType`     | `'excalidraw'` | Visual theme                             |
+| `direction` | `Direction`     | `'TB'`         | Layout direction (`'TB'` or `'LR'`)      |
+
 #### `FlowNode`
 
-| Field   | Type       | Default     | Description                |
-|---------|------------|-------------|----------------------------|
+| Field   | Type       | Default      | Description                |
+|---------|------------|--------------|----------------------------|
 | `id`    | `string`   | **required** | Unique node identifier     |
 | `label` | `string`   | **required** | Text displayed in the node |
-| `type`  | `NodeType` | `'process'` | Visual shape               |
+| `type`  | `NodeType` | `'process'`  | Visual shape               |
 
 **Node types (`NodeType`)**
 
@@ -100,17 +113,13 @@ Returns an SVG string. All layout is computed automatically.
 | `terminal` | Rounded rectangle   | Start / End               |
 | `io`       | Parallelogram       | Input / Output            |
 
----
-
 #### `FlowEdge`
 
-| Field   | Type     | Default      | Description              |
-|---------|----------|--------------|--------------------------|
-| `from`  | `string` | **required** | Source node ID           |
-| `to`    | `string` | **required** | Target node ID           |
-| `label` | `string` | `undefined`  | Optional edge label      |
-
----
+| Field   | Type     | Default      | Description         |
+|---------|----------|--------------|---------------------|
+| `from`  | `string` | **required** | Source node ID      |
+| `to`    | `string` | **required** | Target node ID      |
+| `label` | `string` | `undefined`  | Optional edge label |
 
 #### `FlowGroup`
 
@@ -122,36 +131,95 @@ Returns an SVG string. All layout is computed automatically.
 
 ---
 
-## Examples
+### `figure: 'tree'` — Tree Diagram
 
-### Simple linear flow
+Renders a hierarchy from a flat node list with `parent` references. Uses Dagre for layout.
+
+| Field       | Type          | Default        | Description                        |
+|-------------|---------------|----------------|------------------------------------|
+| `figure`    | `'tree'`      | **required**   | Selects the tree renderer          |
+| `nodes`     | `TreeNode[]`  | **required**   | Flat list with optional parent ref |
+| `theme`     | `ThemeType`   | `'excalidraw'` | Visual theme                       |
+| `direction` | `Direction`   | `'TB'`         | Layout direction                   |
 
 ```typescript
-const svg = createFlowChart({
+fig({
+  figure: 'tree',
   nodes: [
-    { id: 'a', label: 'Start',   type: 'terminal' },
-    { id: 'b', label: 'Process', type: 'process'  },
-    { id: 'c', label: 'End',     type: 'terminal' },
+    { id: 'ceo', label: 'CEO' },
+    { id: 'cto', label: 'CTO', parent: 'ceo' },
+    { id: 'coo', label: 'COO', parent: 'ceo' },
   ],
-  edges: [
-    { from: 'a', to: 'b' },
-    { from: 'b', to: 'c' },
+  theme: 'clean',
+});
+```
+
+---
+
+### `figure: 'arch'` — Architecture Diagram
+
+Renders a tech-stack landscape as layered, color-coded cards — no edges needed.
+
+| Field       | Type          | Default        | Description                              |
+|-------------|---------------|----------------|------------------------------------------|
+| `figure`    | `'arch'`      | **required**   | Selects the architecture renderer        |
+| `layers`    | `ArchLayer[]` | **required**   | Layers from top to bottom (TB) or left to right (LR) |
+| `theme`     | `ThemeType`   | `'excalidraw'` | Visual theme                             |
+| `direction` | `Direction`   | `'TB'`         | `'TB'` = layers stacked, `'LR'` = layers side-by-side |
+| `width`     | `number`      | `800`          | Total diagram width in pixels            |
+
+```typescript
+fig({
+  figure: 'arch',
+  layers: [
+    { id: 'fe', label: 'Frontend', nodes: [{ id: 'react', label: 'React' }, { id: 'vue', label: 'Vue' }] },
+    { id: 'be', label: 'Backend',  nodes: [{ id: 'node', label: 'Node.js' }] },
+  ],
+  width: 800,
+});
+```
+
+---
+
+### `figure: 'sequence'` — Sequence Diagram
+
+Renders a sequence diagram with vertical lifelines and horizontal message arrows.
+
+| Field      | Type           | Default        | Description                           |
+|------------|----------------|----------------|---------------------------------------|
+| `figure`   | `'sequence'`   | **required**   | Selects the sequence renderer         |
+| `actors`   | `string[]`     | **required**   | Ordered list of participant names     |
+| `messages` | `SeqMessage[]` | **required**   | Ordered list of message arrows        |
+| `theme`    | `ThemeType`    | `'excalidraw'` | Visual theme                          |
+
+```typescript
+fig({
+  figure: 'sequence',
+  actors: ['Browser', 'API', 'DB'],
+  messages: [
+    { from: 'Browser', to: 'API', label: 'POST /login' },
+    { from: 'API',     to: 'DB',  label: 'SELECT user' },
+    { from: 'DB',      to: 'API', label: 'user row',  style: 'return' },
+    { from: 'API',     to: 'Browser', label: '200 OK', style: 'return' },
   ],
 });
 ```
 
 ---
 
-### Decision branch
+## Examples
+
+### Decision branch (flowchart)
 
 ```typescript
-const svg = createFlowChart({
+const svg = fig({
+  figure: 'flow',
   nodes: [
-    { id: 'start',    label: 'Start',        type: 'terminal' },
-    { id: 'proc',     label: 'Process',      type: 'process'  },
-    { id: 'decision', label: 'Is Valid?',    type: 'decision' },
-    { id: 'ok',       label: 'Success',      type: 'terminal' },
-    { id: 'fail',     label: 'Failure',      type: 'terminal' },
+    { id: 'start',    label: 'Start',     type: 'terminal' },
+    { id: 'proc',     label: 'Process',   type: 'process'  },
+    { id: 'decision', label: 'Is Valid?', type: 'decision' },
+    { id: 'ok',       label: 'Success',   type: 'terminal' },
+    { id: 'fail',     label: 'Failure',   type: 'terminal' },
   ],
   edges: [
     { from: 'start',    to: 'proc'                 },
@@ -162,30 +230,32 @@ const svg = createFlowChart({
 });
 ```
 
----
-
-### Groups + clean theme + horizontal layout
+### Org chart (tree)
 
 ```typescript
-const svg = createFlowChart({
+const svg = fig({
+  figure: 'tree',
   nodes: [
-    { id: 'input',   label: 'User Input',   type: 'io'       },
-    { id: 'parse',   label: 'Parse',        type: 'process'  },
-    { id: 'valid',   label: 'Valid?',       type: 'decision' },
-    { id: 'store',   label: 'Store in DB',  type: 'process'  },
-    { id: 'error',   label: 'Return Error', type: 'terminal' },
-  ],
-  edges: [
-    { from: 'input', to: 'parse'              },
-    { from: 'parse', to: 'valid'              },
-    { from: 'valid', to: 'store', label: '✓' },
-    { from: 'valid', to: 'error', label: '✗' },
-  ],
-  groups: [
-    { id: 'g1', label: 'Validation Layer', nodes: ['parse', 'valid'] },
+    { id: 'ceo',  label: 'CEO' },
+    { id: 'cto',  label: 'CTO', parent: 'ceo' },
+    { id: 'coo',  label: 'COO', parent: 'ceo' },
+    { id: 'fe',   label: 'FE Lead', parent: 'cto' },
+    { id: 'be',   label: 'BE Lead', parent: 'cto' },
   ],
   theme: 'clean',
-  direction: 'LR',
+});
+```
+
+### Full-stack architecture
+
+```typescript
+const svg = fig({
+  figure: 'arch',
+  layers: [
+    { id: 'fe', label: 'Frontend', nodes: [{ id: 'react', label: 'React' }, { id: 'vue', label: 'Vue' }] },
+    { id: 'be', label: 'Backend',  nodes: [{ id: 'node',  label: 'Node.js' }, { id: 'go', label: 'Go' }] },
+    { id: 'db', label: 'Data',     nodes: [{ id: 'pg',    label: 'PostgreSQL' }] },
+  ],
 });
 ```
 
@@ -193,23 +263,22 @@ const svg = createFlowChart({
 
 ## Using with AI
 
-This library ships a **[`SKILL.md`](./SKILL.md)** — a machine-readable skill file that AI agents (Copilot, Cursor, Claude, etc.) can load as context. It contains YAML frontmatter metadata, a complete guide on how to generate the JSON config, node-type rules, and the full TypeScript type reference. Point your AI at it and it will produce correct configs without any manual prompting.
+This library ships a **[`SKILL.md`](./SKILL.md)** — a machine-readable skill file that AI agents (Copilot, Cursor, Claude, etc.) can load as context. It contains YAML frontmatter metadata, complete guides on how to generate configs for every diagram type, and full TypeScript type references.
 
 ```
 # Load the skill into your AI context:
 @SKILL.md
 ```
 
-This API is designed to be easy for AI agents to call. Just describe the flow in natural language and ask the AI to generate the `createFlowChart(...)` call.
-
 **Prompt example:**
 > "Draw a flowchart showing the user login process: start → enter credentials → validate → if valid go to dashboard, if invalid show error → end."
 
 **AI-generated code:**
 ```typescript
-import { createFlowChart } from 'ai-figure';
+import { fig } from 'ai-figure';
 
-const svg = createFlowChart({
+const svg = fig({
+  figure: 'flow',
   nodes: [
     { id: 'start',       label: 'Start',             type: 'terminal' },
     { id: 'credentials', label: 'Enter Credentials', type: 'io'       },
@@ -219,11 +288,11 @@ const svg = createFlowChart({
     { id: 'error',       label: 'Show Error',        type: 'terminal' },
   ],
   edges: [
-    { from: 'start',       to: 'credentials'                    },
-    { from: 'credentials', to: 'validate'                       },
-    { from: 'validate',    to: 'check'                         },
-    { from: 'check',       to: 'dashboard', label: 'Valid'     },
-    { from: 'check',       to: 'error',     label: 'Invalid'   },
+    { from: 'start',       to: 'credentials'                  },
+    { from: 'credentials', to: 'validate'                     },
+    { from: 'validate',    to: 'check'                        },
+    { from: 'check',       to: 'dashboard', label: 'Valid'    },
+    { from: 'check',       to: 'error',     label: 'Invalid'  },
   ],
   theme: 'excalidraw',
   direction: 'TB',

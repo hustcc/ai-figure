@@ -1,9 +1,10 @@
 import { it } from 'vitest';
-import { createTreeDiagram } from '../src/index';
+import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
 it('tree diagram — org chart, clean theme, TB direction', () => {
-  const svg = createTreeDiagram({
+  const svg = fig({
+    figure: 'tree',
     nodes: [
       { id: 'ceo',     label: 'CEO' },
       { id: 'cto',     label: 'CTO',         parent: 'ceo' },

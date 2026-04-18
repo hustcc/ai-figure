@@ -1,9 +1,10 @@
 import { it } from 'vitest';
-import { createSequenceDiagram } from '../src/index';
+import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
 it('sequence diagram — password reset flow, excalidraw theme', () => {
-  const svg = createSequenceDiagram({
+  const svg = fig({
+    figure: 'sequence',
     actors: ['User', 'Frontend', 'Auth API', 'Email Service', 'Redis'],
     messages: [
       { from: 'User',          to: 'Frontend',      label: 'click Forgot Password' },

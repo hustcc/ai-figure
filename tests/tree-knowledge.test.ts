@@ -1,9 +1,10 @@
 import { it } from 'vitest';
-import { createTreeDiagram } from '../src/index';
+import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
 it('tree diagram — knowledge domain taxonomy, excalidraw theme, TB direction', () => {
-  const svg = createTreeDiagram({
+  const svg = fig({
+    figure: 'tree',
     nodes: [
       { id: 'ai',      label: 'AI' },
       { id: 'ml',      label: 'Machine Learning',   parent: 'ai' },

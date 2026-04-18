@@ -1,9 +1,10 @@
 import { it } from 'vitest';
-import { createFlowChart } from '../src/index';
+import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
 it('microservices request flow — excalidraw theme, TB direction, 2 groups', () => {
-  const svg = createFlowChart({
+  const svg = fig({
+    figure: 'flow',
     nodes: [
       { id: 'client', label: 'Client', type: 'terminal' },
       { id: 'gateway', label: 'API Gateway', type: 'process' },

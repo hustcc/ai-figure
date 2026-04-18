@@ -1,9 +1,10 @@
 import { it } from 'vitest';
-import { createFlowChart } from '../src/index';
+import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
 it('RAG (retrieval-augmented generation) pipeline — clean theme, TB direction, 3 groups', () => {
-  const svg = createFlowChart({
+  const svg = fig({
+    figure: 'flow',
     nodes: [
       { id: 'query', label: 'User Query', type: 'io' },
       { id: 'embed_q', label: 'Embed Query', type: 'process' },

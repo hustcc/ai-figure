@@ -1,13 +1,14 @@
 import { describe, it, expect } from 'vitest';
-import { createFlowChart } from '../src/index';
+import { fig } from '../src/index';
 
 // ---------------------------------------------------------------------------
 // Unit tests — verify structural and semantic properties of the output.
 // ---------------------------------------------------------------------------
 
-describe('createFlowChart', () => {
+describe('fig', () => {
   it('returns a valid SVG string', () => {
-    const svg = createFlowChart({
+    const svg = fig({
+      figure: 'flow',
       nodes: [
         { id: 'start', label: 'Start', type: 'terminal' },
         { id: 'end', label: 'End', type: 'terminal' },
@@ -21,7 +22,8 @@ describe('createFlowChart', () => {
   });
 
   it('renders all four node types', () => {
-    const svg = createFlowChart({
+    const svg = fig({
+      figure: 'flow',
       nodes: [
         { id: 'a', label: 'Process', type: 'process' },
         { id: 'b', label: 'Decision', type: 'decision' },
@@ -44,7 +46,8 @@ describe('createFlowChart', () => {
   });
 
   it('renders groups with label', () => {
-    const svg = createFlowChart({
+    const svg = fig({
+      figure: 'flow',
       nodes: [
         { id: 'a', label: 'A' },
         { id: 'b', label: 'B' },
@@ -58,7 +61,8 @@ describe('createFlowChart', () => {
   });
 
   it('supports the clean theme', () => {
-    const svg = createFlowChart({
+    const svg = fig({
+      figure: 'flow',
       nodes: [{ id: 'x', label: 'Node X', type: 'process' }],
       edges: [],
       theme: 'clean',
@@ -69,7 +73,8 @@ describe('createFlowChart', () => {
   });
 
   it('supports LR direction', () => {
-    const svg = createFlowChart({
+    const svg = fig({
+      figure: 'flow',
       nodes: [
         { id: 'a', label: 'A' },
         { id: 'b', label: 'B' },
@@ -86,12 +91,13 @@ describe('createFlowChart', () => {
   });
 
   it('handles empty nodes array gracefully', () => {
-    const svg = createFlowChart({ nodes: [], edges: [] });
+    const svg = fig({ figure: 'flow', nodes: [], edges: [] });
     expect(svg).toContain('<svg');
   });
 
   it('renders the full example from the README', () => {
-    const svg = createFlowChart({
+    const svg = fig({
+      figure: 'flow',
       nodes: [
         { id: 'start', label: 'Start', type: 'terminal' },
         { id: 'process1', label: 'Process Data', type: 'process' },
@@ -121,7 +127,8 @@ describe('createFlowChart', () => {
   });
 
   it('escapes special XML characters in labels', () => {
-    const svg = createFlowChart({
+    const svg = fig({
+      figure: 'flow',
       nodes: [{ id: 'a', label: 'A & B <test>' }],
       edges: [],
     });
@@ -131,7 +138,8 @@ describe('createFlowChart', () => {
   });
 
   it('unknown theme falls back to excalidraw without crashing', () => {
-    const svg = createFlowChart({
+    const svg = fig({
+      figure: 'flow',
       nodes: [{ id: 'a', label: 'A', type: 'process' }],
       edges: [],
       theme: 'nonexistent' as any,
@@ -142,7 +150,8 @@ describe('createFlowChart', () => {
   });
 
   it('unknown node type falls back to process dimensions', () => {
-    const svg = createFlowChart({
+    const svg = fig({
+      figure: 'flow',
       nodes: [{ id: 'a', label: 'Custom', type: 'custom' as any }],
       edges: [],
     });
@@ -153,7 +162,8 @@ describe('createFlowChart', () => {
 
   it('throws for an edge referencing a missing node', () => {
     expect(() =>
-      createFlowChart({
+      fig({
+        figure: 'flow',
         nodes: [{ id: 'a', label: 'A' }],
         edges: [{ from: 'a', to: 'missing' }],
       }),
@@ -161,7 +171,8 @@ describe('createFlowChart', () => {
   });
 
   it('renders multigraph edges (two edges between the same pair of nodes)', () => {
-    const svg = createFlowChart({
+    const svg = fig({
+      figure: 'flow',
       nodes: [
         { id: 'a', label: 'A', type: 'process' },
         { id: 'b', label: 'B', type: 'process' },
@@ -177,7 +188,8 @@ describe('createFlowChart', () => {
   });
 
   it('includes dashed-stroke flow animation in SVG defs', () => {
-    const svg = createFlowChart({
+    const svg = fig({
+      figure: 'flow',
       nodes: [
         { id: 'a', label: 'A' },
         { id: 'b', label: 'B' },
@@ -190,7 +202,8 @@ describe('createFlowChart', () => {
   });
 
   it('renders edge labels with background rect', () => {
-    const svg = createFlowChart({
+    const svg = fig({
+      figure: 'flow',
       nodes: [
         { id: 'a', label: 'A', type: 'decision' },
         { id: 'b', label: 'B', type: 'terminal' },
@@ -208,7 +221,8 @@ describe('createFlowChart', () => {
   });
 
   it('groups render dashed borders', () => {
-    const svg = createFlowChart({
+    const svg = fig({
+      figure: 'flow',
       nodes: [
         { id: 'a', label: 'A' },
         { id: 'b', label: 'B' },

@@ -1,9 +1,10 @@
 import { it } from 'vitest';
-import { createSequenceDiagram } from '../src/index';
+import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
 it('sequence diagram — login auth flow, excalidraw theme', () => {
-  const svg = createSequenceDiagram({
+  const svg = fig({
+    figure: 'sequence',
     actors: ['Browser', 'API Gateway', 'Auth Service', 'Database'],
     messages: [
       { from: 'Browser',      to: 'API Gateway',   label: 'POST /login' },

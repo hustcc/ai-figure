@@ -1,9 +1,10 @@
 import { it } from 'vitest';
-import { createFlowChart } from '../src/index';
+import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
 it('CI/CD pipeline — clean theme, TB direction, 3 groups', () => {
-  const svg = createFlowChart({
+  const svg = fig({
+    figure: 'flow',
     nodes: [
       { id: 'commit', label: 'Git Commit', type: 'terminal' },
       { id: 'lint', label: 'Lint', type: 'process' },

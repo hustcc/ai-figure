@@ -1,9 +1,10 @@
 import { it } from 'vitest';
-import { createFlowChart } from '../src/index';
+import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
 it('hermes agent architecture — excalidraw theme, TB direction, 4 groups', () => {
-  const svg = createFlowChart({
+  const svg = fig({
+    figure: 'flow',
     nodes: [
       { id: 'user_req', label: 'User Request', type: 'terminal' },
       { id: 'ctx_load', label: 'Load Context', type: 'process' },

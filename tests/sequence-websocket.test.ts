@@ -1,9 +1,10 @@
 import { it } from 'vitest';
-import { createSequenceDiagram } from '../src/index';
+import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
 it('sequence diagram — WebSocket handshake, excalidraw theme', () => {
-  const svg = createSequenceDiagram({
+  const svg = fig({
+    figure: 'sequence',
     actors: ['Client', 'Server'],
     messages: [
       { from: 'Client', to: 'Server', label: 'GET /ws (Upgrade)' },

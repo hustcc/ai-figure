@@ -1,9 +1,10 @@
 import { it } from 'vitest';
-import { createSequenceDiagram } from '../src/index';
+import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
 it('sequence diagram — CI/CD build pipeline, clean theme', () => {
-  const svg = createSequenceDiagram({
+  const svg = fig({
+    figure: 'sequence',
     actors: ['Developer', 'GitHub', 'CI Runner', 'Registry', 'Cluster'],
     messages: [
       { from: 'Developer',  to: 'GitHub',     label: 'git push' },
