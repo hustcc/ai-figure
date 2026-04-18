@@ -16,15 +16,10 @@
 
 ## Features ✨
 
-- 🎨 **Clean style** — clean crisp shapes, Inter font, modern color palette
-- 📐 **Auto layout** — no x/y coordinates needed; AI only describes the graph, layout is computed automatically
-- 📦 **Groups** — logical node groups rendered with dashed borders and labels
-- 🌐 **Browser + Node.js** — pure SVG output, zero DOM dependency
-- 🤖 **AI-friendly API** — single `fig()` entry point, semantic JSON config, TypeScript-first
-- 🌗 **Light / dark mode** — `theme: 'light' | 'dark'` for background and text rendering
-- 🎨 **Flexible palette** — built-in `'default'`, any [`d3-scale-chromatic`](https://github.com/d3/d3-scale-chromatic) scheme (categorical, sequential, diverging), or custom hex array
-- 📊 **Five diagram types** — flowchart, tree, architecture, sequence, quadrant
-- 🏷️ **Title & subtitle** — optional centered title and subtitle above every diagram type
+- 🎨 **Rich visual styles** — light/dark mode, built-in palette plus any [`d3-scale-chromatic`](https://github.com/d3/d3-scale-chromatic) scheme or custom hex array; every diagram supports optional title & subtitle, node groups, and color-coded layers
+- 📐 **Auto layout** — just describe the graph; x/y coordinates are computed automatically, and diagram dimensions scale to fit the content
+- 🤖 **AI-friendly** — single `fig()` entry point, unified semantic JSON config, TypeScript-first; ships a [`SKILL.md`](./SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
+- 📊 **5 diagram types** — flowchart, tree, architecture, sequence, and quadrant; pure SVG output with zero DOM dependency, works in browser and Node.js
 
 ---
 
