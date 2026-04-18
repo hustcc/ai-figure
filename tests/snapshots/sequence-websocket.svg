@@ -3,10 +3,16 @@
   <marker id="seq-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
     <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
   </marker>
+  <style>
+    .seq-lifeline { animation: seq-lifeline-march 1.2s linear infinite; }
+    .seq-return   { animation: seq-dash-march 0.8s linear infinite; }
+    @keyframes seq-lifeline-march { to { stroke-dashoffset: -8; } }
+    @keyframes seq-dash-march     { to { stroke-dashoffset: -10; } }
+  </style>
 </defs>
 <g class="sequence-diagram">
-<line x1="80" y1="68" x2="80" y2="492" stroke="#51cf66" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
-<line x1="260" y1="68" x2="260" y2="492" stroke="#f59f00" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
+<line x1="80" y1="68" x2="80" y2="492" stroke="#51cf66" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4" class="seq-lifeline"/>
+<line x1="260" y1="68" x2="260" y2="492" stroke="#f59f00" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4" class="seq-lifeline"/>
 <rect x="20" y="24" width="120" height="44" rx="22" ry="22" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
 <text x="80" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Client</text>
 <rect x="200" y="24" width="120" height="44" rx="22" ry="22" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
@@ -14,19 +20,19 @@
 <line x1="80" y1="124" x2="260" y2="124" stroke="#495057" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow)"/>
 <rect x="105.84" y="100" width="128.32" height="18" fill="white" rx="3" opacity="0.9"/>
 <text x="170" y="109" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">GET /ws (Upgrade)</text>
-<line x1="260" y1="180" x2="80" y2="180" stroke="#495057" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow)" stroke-dasharray="6 4"/>
+<line x1="260" y1="180" x2="80" y2="180" stroke="#495057" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow)" stroke-dasharray="6 4" class="seq-return"/>
 <rect x="119.76" y="156" width="100.47999999999999" height="18" fill="white" rx="3" opacity="0.9"/>
 <text x="170" y="165" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">101 Switching</text>
 <line x1="80" y1="236" x2="260" y2="236" stroke="#495057" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow)"/>
 <rect x="123.24000000000001" y="212" width="93.51999999999998" height="18" fill="white" rx="3" opacity="0.9"/>
 <text x="170" y="221" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">send message</text>
-<line x1="260" y1="292" x2="80" y2="292" stroke="#495057" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow)" stroke-dasharray="6 4"/>
+<line x1="260" y1="292" x2="80" y2="292" stroke="#495057" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow)" stroke-dasharray="6 4" class="seq-return"/>
 <rect x="133.68" y="268" width="72.63999999999999" height="18" fill="white" rx="3" opacity="0.9"/>
 <text x="170" y="277" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">broadcast</text>
 <line x1="80" y1="348" x2="260" y2="348" stroke="#495057" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow)"/>
 <rect x="126.72" y="324" width="86.55999999999999" height="18" fill="white" rx="3" opacity="0.9"/>
 <text x="170" y="333" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">close frame</text>
-<line x1="260" y1="404" x2="80" y2="404" stroke="#495057" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow)" stroke-dasharray="6 4"/>
+<line x1="260" y1="404" x2="80" y2="404" stroke="#495057" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow)" stroke-dasharray="6 4" class="seq-return"/>
 <rect x="133.68" y="380" width="72.63999999999999" height="18" fill="white" rx="3" opacity="0.9"/>
 <text x="170" y="389" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">close ack</text>
 </g>

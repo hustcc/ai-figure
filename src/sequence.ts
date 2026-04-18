@@ -52,13 +52,19 @@ export function createSequenceDiagram(options: SequenceDiagramOptions): string {
 
   const parts: string[] = [];
 
-  // Arrowhead marker definitions
+  // Arrowhead marker definitions + animation styles
   const arrowColor = theme.edgeColor;
   const defs =
     `<defs>\n` +
     `  <marker id="seq-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">\n` +
     `    <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="${escapeXml(arrowColor)}"/>\n` +
     `  </marker>\n` +
+    `  <style>\n` +
+    `    .seq-lifeline { animation: seq-lifeline-march 1.2s linear infinite; }\n` +
+    `    .seq-return   { animation: seq-dash-march 0.8s linear infinite; }\n` +
+    `    @keyframes seq-lifeline-march { to { stroke-dashoffset: -8; } }\n` +
+    `    @keyframes seq-dash-march     { to { stroke-dashoffset: -10; } }\n` +
+    `  </style>\n` +
     `</defs>`;
 
   // Lifelines (drawn first, behind everything) — colored per actor
@@ -68,7 +74,7 @@ export function createSequenceDiagram(options: SequenceDiagramOptions): string {
     parts.push(
       `<line x1="${cx}" y1="${actorBottomY}" x2="${cx}" y2="${lifelineEndY}" ` +
         `stroke="${escapeXml(lifelineColor)}" stroke-width="1.5" ` +
-        `stroke-dasharray="${LIFELINE_DASH}" opacity="0.4"/>`,
+        `stroke-dasharray="${LIFELINE_DASH}" opacity="0.4" class="seq-lifeline"/>`,
     );
   });
 
@@ -118,6 +124,7 @@ export function createSequenceDiagram(options: SequenceDiagramOptions): string {
       `fill="none"`,
       `marker-end="url(#seq-arrow)"`,
       dashArray ? `stroke-dasharray="${dashArray}"` : '',
+      isReturn ? `class="seq-return"` : '',
     ]
       .filter(Boolean)
       .join(' ');
