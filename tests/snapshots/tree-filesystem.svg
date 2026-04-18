@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="736" height="876" viewBox="-28 -28 736 876">
+<defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<g class="flowchart">
+
+<g class="edge" data-from="root" data-to="comps">
+<path d="M112,440 L216.28609323645895,179.2847669088526 Q220,170 230,170 L260,170" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="root" data-to="pages">
+<path d="M180,470 L210,470 Q220,470 230,470 L260,470" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="root" data-to="utils">
+<path d="M115,500 L215.52786404500043,701.0557280900008 Q220,710 230,710 L260,710" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="comps" data-to="button">
+<path d="M370,140 L452.9289321881345,57.071067811865476 Q460,50 470,50 L500,50" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="comps" data-to="input">
+<path d="M420,170 L450,170 Q460,170 470,170 L500,170" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="comps" data-to="modal">
+<path d="M370,200 L452.9289321881345,282.9289321881345 Q460,290 470,290 L500,290" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="pages" data-to="home">
+<path d="M400,440 L451.05572809000085,414.4721359549996 Q460,410 470,410 L500,410" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="pages" data-to="settings">
+<path d="M400,500 L451.05572809000085,525.5278640450005 Q460,530 470,530 L500,530" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="utils" data-to="format">
+<path d="M400,680 L451.05572809000085,654.4721359549995 Q460,650 470,650 L500,650" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="utils" data-to="http">
+<path d="M400,740 L451.05572809000085,765.5278640450005 Q460,770 470,770 L500,770" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="node node-process" data-id="root">
+<rect x="20" y="440" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="100" y="470" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">src</text>
+</g>
+<g class="node node-process" data-id="comps">
+<rect x="260" y="140" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="340" y="170" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">components</text>
+</g>
+<g class="node node-process" data-id="pages">
+<rect x="260" y="440" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="340" y="470" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">pages</text>
+</g>
+<g class="node node-process" data-id="utils">
+<rect x="260" y="680" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="340" y="710" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">utils</text>
+</g>
+<g class="node node-process" data-id="button">
+<rect x="500" y="20" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="580" y="50" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Button.tsx</text>
+</g>
+<g class="node node-process" data-id="input">
+<rect x="500" y="140" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="580" y="170" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Input.tsx</text>
+</g>
+<g class="node node-process" data-id="modal">
+<rect x="500" y="260" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="580" y="290" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Modal.tsx</text>
+</g>
+<g class="node node-process" data-id="home">
+<rect x="500" y="380" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="580" y="410" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Home.tsx</text>
+</g>
+<g class="node node-process" data-id="settings">
+<rect x="500" y="500" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="580" y="530" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Settings.tsx</text>
+</g>
+<g class="node node-process" data-id="format">
+<rect x="500" y="620" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="580" y="650" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">format.ts</text>
+</g>
+<g class="node node-process" data-id="http">
+<rect x="500" y="740" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="580" y="770" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">http.ts</text>
+</g>
+</g>
+</svg>
