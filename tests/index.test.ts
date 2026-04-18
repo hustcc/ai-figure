@@ -214,6 +214,7 @@ describe('fig', () => {
   });
 
   it("palette='minimal' + theme='dark' renders dark minimal", () => {
+    // 'minimal' is not a built-in palette; falls back to 'default' dark
     const svg = fig({
       figure: 'flow',
       nodes: [{ id: 'a', label: 'A', type: 'process' }],
@@ -222,8 +223,8 @@ describe('fig', () => {
       palette: 'minimal',
     });
 
+    // Falls back to default dark (minimal is no longer a named palette)
     expect(svg).toContain('#1a1b1e');
-    expect(svg).toContain('#4dabf7'); // dark minimal process stroke
   });
 
   it("palette='schemeCategory10' (D3) uses first color for process nodes", () => {
@@ -267,6 +268,34 @@ describe('fig', () => {
 
     expect(svg).toContain('#1a1b1e');
     expect(svg).toContain('#4e79a7'); // schemeTableau10[0]
+  });
+
+  it("palette='schemeBlues' (D3 sequential) picks 4 spread colors", () => {
+    const svg = fig({
+      figure: 'flow',
+      nodes: [
+        { id: 'a', label: 'A', type: 'process' },
+        { id: 'b', label: 'B', type: 'decision' },
+      ],
+      edges: [{ from: 'a', to: 'b' }],
+      palette: 'schemeBlues',
+    });
+
+    expect(svg).toContain('<svg');
+    expect(svg).toContain('#deebf7'); // schemeBlues[9][1] — process stroke
+    expect(svg).toContain('#9ecae1'); // schemeBlues[9][3] — decision stroke
+  });
+
+  it("palette='schemeBrBG' (D3 diverging) renders flow diagram", () => {
+    const svg = fig({
+      figure: 'flow',
+      nodes: [{ id: 'a', label: 'A', type: 'process' }],
+      edges: [],
+      palette: 'schemeBrBG',
+    });
+
+    expect(svg).toContain('<svg');
+    expect(svg).toContain('#bf812d'); // schemeBrBG[9][1] — process stroke
   });
 
   it("palette='schemeAccent' (D3) renders arch diagram", () => {

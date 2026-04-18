@@ -1,36 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="650" viewBox="0 0 800 650">
 <g class="arch-diagram">
-<rect x="24" y="24" width="752" height="140" rx="10" fill="#e8f4fd" fill-opacity="0.08" stroke="#42a5f5" stroke-opacity="0.4" stroke-width="1"/>
-<text x="40" y="46" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#42a5f5" font-weight="700">Data Ingestion</text>
-<line x1="32" y1="64" x2="768" y2="64" stroke="#42a5f5" stroke-width="1" opacity="0.4"/>
-<rect x="38" y="78" width="234" height="72" rx="8" fill="#e8f4fd" stroke="#42a5f5" stroke-opacity="0.6" stroke-width="1"/>
-<text x="155" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Kafka</text>
-<rect x="282" y="78" width="234" height="72" rx="8" fill="#e8f4fd" stroke="#42a5f5" stroke-opacity="0.6" stroke-width="1"/>
-<text x="399" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Flink</text>
-<rect x="24" y="178" width="752" height="140" rx="10" fill="#d4eaf9" fill-opacity="0.08" stroke="#1976d2" stroke-opacity="0.4" stroke-width="1"/>
-<text x="40" y="200" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#1976d2" font-weight="700">Storage</text>
-<line x1="32" y1="218" x2="768" y2="218" stroke="#1976d2" stroke-width="1" opacity="0.4"/>
-<rect x="38" y="232" width="234" height="72" rx="8" fill="#d4eaf9" stroke="#1976d2" stroke-opacity="0.6" stroke-width="1"/>
-<text x="155" y="268" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0d47a1">HDFS</text>
-<rect x="282" y="232" width="234" height="72" rx="8" fill="#d4eaf9" stroke="#1976d2" stroke-opacity="0.6" stroke-width="1"/>
-<text x="399" y="268" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0d47a1">Hive</text>
-<rect x="526" y="232" width="234" height="72" rx="8" fill="#d4eaf9" stroke="#1976d2" stroke-opacity="0.6" stroke-width="1"/>
-<text x="643" y="268" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0d47a1">Feature Store</text>
-<rect x="24" y="332" width="752" height="140" rx="10" fill="#bbdefb" fill-opacity="0.08" stroke="#1565c0" stroke-opacity="0.4" stroke-width="1"/>
-<text x="40" y="354" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#1565c0" font-weight="700">Training</text>
-<line x1="32" y1="372" x2="768" y2="372" stroke="#1565c0" stroke-width="1" opacity="0.4"/>
-<rect x="38" y="386" width="234" height="72" rx="8" fill="#bbdefb" stroke="#1565c0" stroke-opacity="0.6" stroke-width="1"/>
-<text x="155" y="422" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0a3566">Spark</text>
-<rect x="282" y="386" width="234" height="72" rx="8" fill="#bbdefb" stroke="#1565c0" stroke-opacity="0.6" stroke-width="1"/>
-<text x="399" y="422" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0a3566">TensorFlow</text>
-<rect x="526" y="386" width="234" height="72" rx="8" fill="#bbdefb" stroke="#1565c0" stroke-opacity="0.6" stroke-width="1"/>
-<text x="643" y="422" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0a3566">PyTorch</text>
-<rect x="24" y="486" width="752" height="140" rx="10" fill="#f0f8ff" fill-opacity="0.08" stroke="#90caf9" stroke-opacity="0.4" stroke-width="1"/>
-<text x="40" y="508" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#90caf9" font-weight="700">Serving</text>
-<line x1="32" y1="526" x2="768" y2="526" stroke="#90caf9" stroke-width="1" opacity="0.4"/>
-<rect x="38" y="540" width="234" height="72" rx="8" fill="#f0f8ff" stroke="#90caf9" stroke-opacity="0.6" stroke-width="1"/>
-<text x="155" y="576" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1976d2">Triton</text>
-<rect x="282" y="540" width="234" height="72" rx="8" fill="#f0f8ff" stroke="#90caf9" stroke-opacity="0.6" stroke-width="1"/>
-<text x="399" y="576" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1976d2">Seldon</text>
+<rect x="24" y="24" width="752" height="140" rx="10" fill="#e7f5ff" fill-opacity="0.08" stroke="#339af0" stroke-opacity="0.4" stroke-width="2"/>
+<text x="40" y="46" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#339af0" font-weight="700">Data Ingestion</text>
+<line x1="32" y1="64" x2="768" y2="64" stroke="#339af0" stroke-width="1" opacity="0.4"/>
+<rect x="38" y="78" width="234" height="72" rx="6" fill="#e7f5ff" stroke="#339af0" stroke-opacity="0.6" stroke-width="2"/>
+<text x="155" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Kafka</text>
+<rect x="282" y="78" width="234" height="72" rx="6" fill="#e7f5ff" stroke="#339af0" stroke-opacity="0.6" stroke-width="2"/>
+<text x="399" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Flink</text>
+<rect x="24" y="178" width="752" height="140" rx="10" fill="#fff7e6" fill-opacity="0.08" stroke="#f59f00" stroke-opacity="0.4" stroke-width="2"/>
+<text x="40" y="200" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#f59f00" font-weight="700">Storage</text>
+<line x1="32" y1="218" x2="768" y2="218" stroke="#f59f00" stroke-width="1" opacity="0.4"/>
+<rect x="38" y="232" width="234" height="72" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-opacity="0.6" stroke-width="2"/>
+<text x="155" y="268" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">HDFS</text>
+<rect x="282" y="232" width="234" height="72" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-opacity="0.6" stroke-width="2"/>
+<text x="399" y="268" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Hive</text>
+<rect x="526" y="232" width="234" height="72" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-opacity="0.6" stroke-width="2"/>
+<text x="643" y="268" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Feature Store</text>
+<rect x="24" y="332" width="752" height="140" rx="10" fill="#ebfbee" fill-opacity="0.08" stroke="#51cf66" stroke-opacity="0.4" stroke-width="2"/>
+<text x="40" y="354" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#51cf66" font-weight="700">Training</text>
+<line x1="32" y1="372" x2="768" y2="372" stroke="#51cf66" stroke-width="1" opacity="0.4"/>
+<rect x="38" y="386" width="234" height="72" rx="6" fill="#ebfbee" stroke="#51cf66" stroke-opacity="0.6" stroke-width="2"/>
+<text x="155" y="422" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Spark</text>
+<rect x="282" y="386" width="234" height="72" rx="6" fill="#ebfbee" stroke="#51cf66" stroke-opacity="0.6" stroke-width="2"/>
+<text x="399" y="422" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">TensorFlow</text>
+<rect x="526" y="386" width="234" height="72" rx="6" fill="#ebfbee" stroke="#51cf66" stroke-opacity="0.6" stroke-width="2"/>
+<text x="643" y="422" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">PyTorch</text>
+<rect x="24" y="486" width="752" height="140" rx="10" fill="#fdf4ff" fill-opacity="0.08" stroke="#cc5de8" stroke-opacity="0.4" stroke-width="2"/>
+<text x="40" y="508" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#cc5de8" font-weight="700">Serving</text>
+<line x1="32" y1="526" x2="768" y2="526" stroke="#cc5de8" stroke-width="1" opacity="0.4"/>
+<rect x="38" y="540" width="234" height="72" rx="6" fill="#fdf4ff" stroke="#cc5de8" stroke-opacity="0.6" stroke-width="2"/>
+<text x="155" y="576" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">Triton</text>
+<rect x="282" y="540" width="234" height="72" rx="6" fill="#fdf4ff" stroke="#cc5de8" stroke-opacity="0.6" stroke-width="2"/>
+<text x="399" y="576" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">Seldon</text>
 </g>
 </svg>
