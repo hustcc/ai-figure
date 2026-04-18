@@ -8,6 +8,14 @@
 
 ---
 
+## Examples Preview
+
+| Hermes Agent | CI Pipeline | E-commerce Checkout |
+|:---:|:---:|:---:|
+| ![Hermes Agent](./hermes-agent.svg) | ![CI Pipeline](./ci-pipeline.svg) | ![E-commerce Checkout](./ecommerce-checkout.svg) |
+
+---
+
 ## Features ✨
 
 - 🎨 **Excalidraw-inspired style** — clean crisp shapes, Inter font, modern color palette
