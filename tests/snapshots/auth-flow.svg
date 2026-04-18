@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="523.5" height="1308" viewBox="-28 -28 523.5 1308">
+<defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<g class="flowchart">
+
+<g class="edge" data-from="start" data-to="input">
+<path d="M272.5,76 L272.5,96 Q272.5,106 272.5,116 L272.5,136" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="input" data-to="check_user">
+<path d="M272.5,196 L272.5,216 Q272.5,226 272.5,236 L272.5,256" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="check_user" data-to="verify_pwd">
+<path d="M239.64285714285714,336 L221.34739423360014,358.27273745474764 Q215,366 215,376 L215,396" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="198.5" y="356" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="215" y="366" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
+</g>
+<g class="edge" data-from="check_user" data-to="deny">
+<path d="M338.2142857142857,336 L378.95801444385563,360.80053053104257 Q387.5,366 387.5,376 L387.5,416 Q387.5,426 387.5,436 L387.5,476 Q387.5,486 387.5,496 L387.5,546 Q387.5,556 387.5,566 L387.5,616 Q387.5,626 387.5,636 L387.5,686 Q387.5,696 387.5,706 L387.5,756 Q387.5,766 387.5,776 L387.5,816 Q387.5,826 387.5,836 L387.5,876 Q387.5,886 387.5,896 L387.5,946 Q387.5,956 387.5,966 L387.5,1016 Q387.5,1026 384.3377223398316,1035.4868329805051 L376.8333333333333,1058" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="374.5" y="686" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="387.5" y="696" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
+</g>
+<g class="edge" data-from="verify_pwd" data-to="pwd_ok">
+<path d="M215,456 L215,476 Q215,486 215,496 L215,516" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="pwd_ok" data-to="mfa_enabled">
+<path d="M182.14285714285714,596 L163.84739423360014,618.2727374547477 Q157.5,626 157.5,636 L157.5,656" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="144.5" y="616" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="157.5" y="626" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">OK</text>
+</g>
+<g class="edge" data-from="pwd_ok" data-to="deny">
+<path d="M275,596 L311.6794970566216,620.4529980377478 Q320,626 320,636 L320,686 Q320,696 320,706 L320,756 Q320,766 320,776 L320,816 Q320,826 320,836 L320,876 Q320,886 320,896 L320,946 Q320,956 320,966 L320,1016 Q320,1026 326.2070294436556,1033.8404582446176 L345.3333333333333,1058" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="300" y="816" width="40" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="320" y="826" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Fail</text>
+</g>
+<g class="edge" data-from="mfa_enabled" data-to="mfa">
+<path d="M124.64285714285714,736 L106.34739423360014,758.2727374547477 Q100,766 100,776 L100,796" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="83.5" y="756" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="100" y="766" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
+</g>
+<g class="edge" data-from="mfa_enabled" data-to="session">
+<path d="M211.78571428571428,736 L244.44944162646632,760.0680096195015 Q252.5,766 252.5,776 L252.5,816 Q252.5,826 252.5,836 L252.5,876 Q252.5,886 252.5,896 L252.5,946 Q252.5,956 252.5,966 L252.5,1016 Q252.5,1026 244.04511096969028,1031.3399299138798 L205,1056" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="239.5" y="876" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="252.5" y="886" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
+</g>
+<g class="edge" data-from="mfa" data-to="mfa_ok">
+<path d="M100,856 L100,876 Q100,886 100,896 L100,916" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="mfa_ok" data-to="session">
+<path d="M94.28571428571429,996 L91.41421356237309,1016.1005050633884 Q90,1026 97.4740931868366,1032.6436383882992 L123.75,1056" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="70" y="1016" width="40" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="90" y="1026" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Pass</text>
+</g>
+<g class="edge" data-from="mfa_ok" data-to="deny">
+<path d="M148.57142857142856,996 L177.2806976438295,1019.642927471389 Q185,1026 194.49976602947322,1029.1232107494159 L287.5,1059.6986301369864" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="165" y="1016" width="40" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="185" y="1026" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Fail</text>
+</g>
+<g class="edge" data-from="session" data-to="dashboard">
+<path d="M157.5,1116 L157.5,1136 Q157.5,1146 157.5,1156 L157.5,1176" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="node node-terminal" data-id="start">
+<rect x="192.5" y="20" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="272.5" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">User Login</text>
+</g>
+<g class="node node-io" data-id="input">
+<polygon points="206.5,136 352.5,136 338.5,196 192.5,196" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
+<text x="272.5" y="166" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">Enter Credentials</text>
+</g>
+<g class="node node-decision" data-id="check_user">
+<polygon points="272.5,256 352.5,296 272.5,336 192.5,296" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="272.5" y="296" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">User Exists?</text>
+</g>
+<g class="node node-process" data-id="verify_pwd">
+<rect x="135" y="396" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="215" y="426" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Verify Password</text>
+</g>
+<g class="node node-decision" data-id="pwd_ok">
+<polygon points="215,516 295,556 215,596 135,556" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="215" y="556" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Password OK?</text>
+</g>
+<g class="node node-decision" data-id="mfa_enabled">
+<polygon points="157.5,656 237.5,696 157.5,736 77.5,696" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="157.5" y="696" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">MFA Enabled?</text>
+</g>
+<g class="node node-io" data-id="mfa">
+<polygon points="34,796 180,796 166,856 20,856" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
+<text x="100" y="826" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">MFA Challenge</text>
+</g>
+<g class="node node-decision" data-id="mfa_ok">
+<polygon points="100,916 180,956 100,996 20,956" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="100" y="956" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">MFA Valid?</text>
+</g>
+<g class="node node-process" data-id="session">
+<rect x="77.5" y="1056" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="157.5" y="1086" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Create Session</text>
+</g>
+<g class="node node-terminal" data-id="deny">
+<rect x="287.5" y="1058" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="367.5" y="1086" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Access Denied</text>
+</g>
+<g class="node node-terminal" data-id="dashboard">
+<rect x="77.5" y="1176" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="157.5" y="1204" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Dashboard</text>
+</g>
+</g>
+</svg>

@@ -44,8 +44,8 @@ export const themes: Record<ThemeType, ThemeConfig> = {
     },
     edgeColor: '#495057',
     edgeWidth: 1.5,
-    groupColor: '#adb5bd',
-    groupFill:  'rgba(173,181,189,0.06)',
+    groupColor: '#868e96',
+    groupFill:  'rgba(134,142,150,0.06)',
   },
 
   /**
@@ -77,7 +77,7 @@ export const themes: Record<ThemeType, ThemeConfig> = {
     },
     edgeColor: '#555555',
     edgeWidth: 1.5,
-    groupColor: '#999999',
-    groupFill:  'rgba(153,153,153,0.06)',
+    groupColor: '#555555',
+    groupFill:  'rgba(85,85,85,0.06)',
   },
 };

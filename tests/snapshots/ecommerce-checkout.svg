@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="466" height="1032" viewBox="-28 -28 466 1032">
+<defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<g class="flowchart">
+<g class="group" data-id="checkout">
+<rect x="101" y="350" width="208" height="370" rx="8" fill="rgba(134,142,150,0.06)" stroke="#868e96" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="111" y="368" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#868e96" font-weight="500">Checkout</text>
+</g>
+<g class="edge" data-from="cart" data-to="login_check">
+<path d="M205,76 L205,96 Q205,106 205,116 L205,136" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="login_check" data-to="address">
+<path d="M172.14285714285714,216 L153.84739423360014,238.27273745474767 Q147.5,246 147.5,256 L147.5,296 Q147.5,306 147.5,316 L147.5,356 Q147.5,366 154.41905363235614,373.21988205115423 L176.25,396" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="131" y="296" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="147.5" y="306" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
+</g>
+<g class="edge" data-from="login_check" data-to="login">
+<path d="M237.85714285714286,216 L256.15260576639986,238.27273745474767 Q262.5,246 262.5,256 L262.5,276" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="249.5" y="236" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="262.5" y="246" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
+</g>
+<g class="edge" data-from="login" data-to="address">
+<path d="M262.5,336 L262.5,356 Q262.5,366 255.58094636764386,373.21988205115423 L233.75,396" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="address" data-to="shipping">
+<path d="M205,456 L205,476 Q205,486 205,496 L205,516" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="shipping" data-to="payment">
+<path d="M205,576 L205,596 Q205,606 205,616 L205,636" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="payment" data-to="validate">
+<path d="M157.5,696 L118.45488903030972,720.6600700861202 Q110,726 110,736 L110,756" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="validate" data-to="confirm">
+<path d="M104.28571428571429,836 L101.41421356237309,856.1005050633884 Q100,866 100,876 L100,898" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="87" y="856" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="100" y="866" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">OK</text>
+</g>
+<g class="edge" data-from="validate" data-to="retry">
+<path d="M170,836 L206.67949705662156,860.4529980377478 Q215,866 223.45488903030972,871.3399299138798 L262.5,896" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="195" y="856" width="40" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="215" y="866" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Fail</text>
+</g>
+<g class="edge" data-from="retry" data-to="payment">
+<path d="M315,896 L318.35601012694644,875.8639392383214 Q320,866 320,856 L320,806 Q320,796 320,786 L320,736 Q320,726 311.13415153834546,721.3743399330498 L262.5,696" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="node node-terminal" data-id="cart">
+<rect x="125" y="20" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="205" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">View Cart</text>
+</g>
+<g class="node node-decision" data-id="login_check">
+<polygon points="205,136 285,176 205,216 125,176" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="205" y="176" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Logged In?</text>
+</g>
+<g class="node node-io" data-id="login">
+<polygon points="196.5,276 342.5,276 328.5,336 182.5,336" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
+<text x="262.5" y="306" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">Login / Register</text>
+</g>
+<g class="node node-io" data-id="address">
+<polygon points="139,396 285,396 271,456 125,456" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
+<text x="205" y="426" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">Enter Address</text>
+</g>
+<g class="node node-process" data-id="shipping">
+<rect x="125" y="516" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="205" y="546" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Choose Shipping</text>
+</g>
+<g class="node node-io" data-id="payment">
+<polygon points="139,636 285,636 271,696 125,696" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
+<text x="205" y="666" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">Enter Payment</text>
+</g>
+<g class="node node-decision" data-id="validate">
+<polygon points="110,756 190,796 110,836 30,796" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="110" y="796" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Payment Valid?</text>
+</g>
+<g class="node node-terminal" data-id="confirm">
+<rect x="20" y="898" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="100" y="926" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Order Confirmed</text>
+</g>
+<g class="node node-process" data-id="retry">
+<rect x="230" y="896" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="310" y="926" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Retry Payment</text>
+</g>
+</g>
+</svg>

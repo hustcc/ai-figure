@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="571" height="1268" viewBox="-28 -28 571 1268">
+<defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<g class="flowchart">
+<g class="group" data-id="risk">
+<rect x="101" y="90" width="208" height="270" rx="8" fill="rgba(134,142,150,0.06)" stroke="#868e96" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="111" y="108" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#868e96" font-weight="500">Risk</text>
+</g>
+<g class="group" data-id="payment_grp">
+<rect x="206" y="350" width="208" height="270" rx="8" fill="rgba(134,142,150,0.06)" stroke="#868e96" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="216" y="368" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#868e96" font-weight="500">Payment</text>
+</g>
+<g class="group" data-id="fulfillment">
+<rect x="311" y="610" width="208" height="490" rx="8" fill="rgba(134,142,150,0.06)" stroke="#868e96" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="321" y="628" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#868e96" font-weight="500">Fulfillment</text>
+</g>
+<g class="edge" data-from="order" data-to="fraud">
+<path d="M205,76 L205,96 Q205,106 205,116 L205,136" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="fraud" data-to="fraud_ok">
+<path d="M205,196 L205,216 Q205,226 205,236 L205,256" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="fraud_ok" data-to="cancel">
+<path d="M145,336 L108.32050294337844,360.4529980377477 Q100,366 100,376 L100,398" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="83.5" y="356" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="100" y="366" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
+</g>
+<g class="edge" data-from="fraud_ok" data-to="payment">
+<path d="M265,336 L301.6794970566216,360.4529980377477 Q310,366 310,376 L310,396" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="297" y="356" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="310" y="366" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
+</g>
+<g class="edge" data-from="payment" data-to="pay_ok">
+<path d="M310,456 L310,476 Q310,486 310,496 L310,516" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="pay_ok" data-to="reserve">
+<path d="M370,596 L406.6794970566216,620.4529980377478 Q415,626 415,636 L415,656" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="402" y="616" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="415" y="626" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">OK</text>
+</g>
+<g class="edge" data-from="pay_ok" data-to="refund">
+<path d="M250,596 L213.32050294337844,620.4529980377478 Q205,626 205,636 L205,656" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="185" y="616" width="40" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="205" y="626" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Fail</text>
+</g>
+<g class="edge" data-from="reserve" data-to="pick">
+<path d="M415,716 L415,736 Q415,746 415,756 L415,776" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="pick" data-to="label">
+<path d="M415,836 L415,856 Q415,866 415,876 L415,896" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="label" data-to="ship">
+<path d="M415,956 L415,976 Q415,986 415,996 L415,1016" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="ship" data-to="delivered">
+<path d="M415,1076 L415,1096 Q415,1106 415,1116 L415,1136" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="node node-terminal" data-id="order">
+<rect x="125" y="20" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="205" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">New Order</text>
+</g>
+<g class="node node-process" data-id="fraud">
+<rect x="125" y="136" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="205" y="166" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Fraud Check</text>
+</g>
+<g class="node node-decision" data-id="fraud_ok">
+<polygon points="205,256 285,296 205,336 125,296" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="205" y="296" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Fraud Detected?</text>
+</g>
+<g class="node node-terminal" data-id="cancel">
+<rect x="20" y="398" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="100" y="426" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Cancel &amp; Notify</text>
+</g>
+<g class="node node-process" data-id="payment">
+<rect x="230" y="396" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="310" y="426" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Charge Payment</text>
+</g>
+<g class="node node-decision" data-id="pay_ok">
+<polygon points="310,516 390,556 310,596 230,556" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="310" y="556" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Payment OK?</text>
+</g>
+<g class="node node-io" data-id="refund">
+<polygon points="139,656 285,656 271,716 125,716" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
+<text x="205" y="686" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">Notify Failure</text>
+</g>
+<g class="node node-process" data-id="reserve">
+<rect x="335" y="656" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="415" y="686" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Reserve Inventory</text>
+</g>
+<g class="node node-process" data-id="pick">
+<rect x="335" y="776" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="415" y="806" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Pick &amp; Pack</text>
+</g>
+<g class="node node-process" data-id="label">
+<rect x="335" y="896" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="415" y="916.1999999999999" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Print Shipping</text>
+<text x="415" y="935.8" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Label</text>
+</g>
+<g class="node node-process" data-id="ship">
+<rect x="335" y="1016" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="415" y="1046" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Ship</text>
+</g>
+<g class="node node-terminal" data-id="delivered">
+<rect x="335" y="1136" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="415" y="1164" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Delivered</text>
+</g>
+</g>
+</svg>
