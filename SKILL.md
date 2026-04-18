@@ -215,3 +215,76 @@ interface SequenceDiagramOptions { actors: string[]; messages: SeqMessage[]; the
 interface SeqMessage { from: string; to: string; label?: string; style?: 'solid' | 'return' }
 ```
 
+---
+
+## figure: 'quadrant' — Quadrant Chart
+
+Renders a 2×2 matrix with two labelled axes and data points positioned by normalised `x`/`y` coordinates (0–1).
+
+```json
+{
+  "figure": "quadrant",
+  "xAxis": { "label": "实现难度", "min": "低", "max": "高" },
+  "yAxis": { "label": "业务价值", "min": "低", "max": "高" },
+  "quadrants": ["立即做", "计划做", "搁置", "外包"],
+  "points": [
+    { "id": "a", "label": "登录优化",  "x": 0.2, "y": 0.9 },
+    { "id": "b", "label": "推荐系统",  "x": 0.8, "y": 0.8 },
+    { "id": "c", "label": "暗黑模式",  "x": 0.3, "y": 0.2 }
+  ],
+  "theme": "excalidraw",
+  "width": 600,
+  "height": 600
+}
+```
+
+`quadrants` order: **[top-left, top-right, bottom-left, bottom-right]**.  
+Point coordinates: `x=0` is left, `x=1` is right; `y=0` is bottom, `y=1` is top.
+
+### TypeScript types
+
+```typescript
+interface QuadrantChartOptions {
+  xAxis:     { label: string; min: string; max: string };
+  yAxis:     { label: string; min: string; max: string };
+  quadrants: [string, string, string, string];
+  points:    QuadrantPoint[];
+  theme?:    'excalidraw' | 'clean';
+  width?:    number;
+  height?:   number;
+}
+interface QuadrantPoint { id: string; label: string; x: number; y: number }
+```
+
+---
+
+## figure: 'comparison' — Comparison Table
+
+Renders a feature-matrix table. The first column lists feature names; subsequent columns are the items being compared. Special cell values receive distinct colours: `✓` green, `✗` red, `★`-only strings use the theme's terminal accent colour.
+
+```json
+{
+  "figure": "comparison",
+  "columns": ["Feature", "React", "Vue", "Svelte"],
+  "rows": [
+    { "feature": "学习成本", "values": ["中",    "低",    "低"   ] },
+    { "feature": "生态",     "values": ["★★★★★", "★★★★",  "★★★" ] },
+    { "feature": "SSO 支持", "values": ["✓",     "✓",     "✗"   ] }
+  ],
+  "theme": "clean",
+  "width": 720
+}
+```
+
+### TypeScript types
+
+```typescript
+interface ComparisonTableOptions {
+  columns: string[];
+  rows:    ComparisonRow[];
+  theme?:  'excalidraw' | 'clean';
+  width?:  number;
+}
+interface ComparisonRow { feature: string; values: string[] }
+```
+
