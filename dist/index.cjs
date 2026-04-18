@@ -7841,7 +7841,7 @@ var themes = {
   }
 };
 
-// src/render.ts
+// src/utils.ts
 function escapeXml(str) {
   return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 }
@@ -7864,6 +7864,8 @@ function wrapText(text, maxWidth, fontSize) {
   if (current) lines.push(current);
   return lines.length > 0 ? lines : [text];
 }
+
+// src/render.ts
 function pointsToSmoothPath(points) {
   if (points.length < 2) return "";
   const r = 10;
@@ -7952,7 +7954,7 @@ function renderEdge(edge, layoutEdge, theme) {
     const labelH = labelFontSize + padY * 2;
     const bg = `<rect x="${mid.x - labelW / 2}" y="${mid.y - labelH / 2}" width="${labelW}" height="${labelH}" fill="white" rx="3" opacity="0.9"/>`;
     labelSvg = bg + `
-<text x="${mid.x}" y="${mid.y}" text-anchor="middle" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFontSize}" fill="${escapeXml(theme.edgeColor)}">${escapeXml(edge.label)}</text>`;
+<text x="${mid.x}" y="${mid.y}" dy="0.35em" text-anchor="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFontSize}" fill="${escapeXml(theme.edgeColor)}">${escapeXml(edge.label)}</text>`;
   }
   return `<g class="edge" data-from="${escapeXml(edge.from)}" data-to="${escapeXml(edge.to)}">
 ${edgeSvg}
@@ -8051,6 +8053,335 @@ function renderFlowChart(options) {
   ].join("\n");
 }
 
-exports.createFlowChart = renderFlowChart;
+// src/tree.ts
+var DEPTH_NODE_TYPES = ["terminal", "process", "decision", "io"];
+function createTreeDiagram(options) {
+  const { nodes, theme, direction = "TB" } = options;
+  const parentMap = /* @__PURE__ */ new Map();
+  nodes.forEach((n) => {
+    if (n.parent !== void 0) parentMap.set(n.id, n.parent);
+  });
+  const depthMap = /* @__PURE__ */ new Map();
+  const getDepth = (id, visiting = /* @__PURE__ */ new Set()) => {
+    if (depthMap.has(id)) return depthMap.get(id);
+    if (visiting.has(id)) {
+      throw new Error(`Tree cycle detected at node "${id}". Nodes must form a tree, not a graph.`);
+    }
+    visiting.add(id);
+    const parent = parentMap.get(id);
+    const depth = parent === void 0 ? 0 : getDepth(parent, visiting) + 1;
+    depthMap.set(id, depth);
+    return depth;
+  };
+  nodes.forEach((n) => getDepth(n.id));
+  const flowNodes = nodes.map((n) => ({
+    id: n.id,
+    label: n.label,
+    type: DEPTH_NODE_TYPES[getDepth(n.id) % DEPTH_NODE_TYPES.length]
+  }));
+  const edges = nodes.filter((n) => n.parent !== void 0).map((n) => ({ from: n.parent, to: n.id }));
+  return renderFlowChart({ nodes: flowNodes, edges, theme, direction });
+}
+
+// src/arch.ts
+var PAD = 24;
+var CARD_PAD = 14;
+var LABEL_H = 40;
+var CELL_H = 72;
+var CELL_GAP = 10;
+var LAYER_GAP = 14;
+var CARD_RX = 10;
+var LAYER_NODE_TYPES = ["process", "decision", "terminal", "io"];
+function createArchDiagram(options) {
+  const {
+    layers,
+    theme: themeName = "excalidraw",
+    direction = "TB",
+    width: totalWidth = 800
+  } = options;
+  if (layers.length === 0) {
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
+  }
+  const theme = Object.prototype.hasOwnProperty.call(themes, themeName) ? themes[themeName] : themes["excalidraw"];
+  const sw = theme.strokeWidth;
+  if (direction === "LR") {
+    const maxRows = Math.max(...layers.map((l) => l.nodes.length));
+    const totalCardArea = totalWidth - PAD * 2;
+    const cardW = Math.floor(
+      (totalCardArea - LAYER_GAP * (layers.length - 1)) / Math.max(layers.length, 1)
+    );
+    const nodeW = cardW - CARD_PAD * 2;
+    const cardH2 = LABEL_H + CARD_PAD + maxRows * CELL_H + Math.max(maxRows - 1, 0) * CELL_GAP + CARD_PAD;
+    const svgWidth = PAD * 2 + layers.length * cardW + LAYER_GAP * (layers.length - 1);
+    const svgHeight = PAD * 2 + cardH2;
+    const parts2 = [];
+    for (let li = 0; li < layers.length; li++) {
+      const layer = layers[li];
+      const nodeType = LAYER_NODE_TYPES[li % LAYER_NODE_TYPES.length];
+      const layerFill = theme.nodeFills[nodeType];
+      const layerStroke = theme.nodeStrokes[nodeType];
+      const layerText = theme.textColors[nodeType];
+      const cardX = PAD + li * (cardW + LAYER_GAP);
+      const cardY = PAD;
+      parts2.push(
+        `<rect x="${cardX}" y="${cardY}" width="${cardW}" height="${cardH2}" rx="${CARD_RX}" fill="${escapeXml(layerFill)}" fill-opacity="0.08" stroke="${escapeXml(layerStroke)}" stroke-opacity="0.4" stroke-width="${sw}"/>`
+      );
+      parts2.push(
+        `<text x="${cardX + cardW / 2}" y="${cardY + LABEL_H / 2 + 2}" text-anchor="middle" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize + 1}" fill="${escapeXml(layerStroke)}" font-weight="700">${escapeXml(layer.label)}</text>`
+      );
+      parts2.push(
+        `<line x1="${cardX + 8}" y1="${cardY + LABEL_H}" x2="${cardX + cardW - 8}" y2="${cardY + LABEL_H}" stroke="${escapeXml(layerStroke)}" stroke-width="1" opacity="0.4"/>`
+      );
+      for (let ni = 0; ni < layer.nodes.length; ni++) {
+        const node = layer.nodes[ni];
+        const nx = cardX + CARD_PAD;
+        const ny = cardY + LABEL_H + CARD_PAD + ni * (CELL_H + CELL_GAP);
+        parts2.push(
+          `<rect x="${nx}" y="${ny}" width="${nodeW}" height="${CELL_H}" rx="${theme.cornerRadius}" fill="${escapeXml(layerFill)}" stroke="${escapeXml(layerStroke)}" stroke-opacity="0.6" stroke-width="${sw}"/>`
+        );
+        const lines = wrapText(node.label, nodeW - 16, theme.fontSize);
+        const lineHeight = theme.fontSize * 1.4;
+        const totalH = lines.length * lineHeight;
+        const startY = ny + CELL_H / 2 - totalH / 2 + lineHeight * 0.5;
+        for (let idx = 0; idx < lines.length; idx++) {
+          parts2.push(
+            `<text x="${nx + nodeW / 2}" y="${startY + idx * lineHeight}" text-anchor="middle" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize}" fill="${escapeXml(layerText)}">${escapeXml(lines[idx])}</text>`
+          );
+        }
+      }
+    }
+    return [
+      `<svg xmlns="http://www.w3.org/2000/svg" width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${svgWidth} ${svgHeight}">`,
+      `<g class="arch-diagram">`,
+      ...parts2,
+      `</g>`,
+      `</svg>`
+    ].join("\n");
+  }
+  const innerW = totalWidth - PAD * 2;
+  const maxCols = Math.max(...layers.map((l) => l.nodes.length));
+  const availW = innerW - CARD_PAD * 2;
+  const cellW = Math.floor(
+    (availW - CELL_GAP * Math.max(maxCols - 1, 0)) / Math.max(maxCols, 1)
+  );
+  const cardH = LABEL_H + CARD_PAD + CELL_H + CARD_PAD;
+  const totalHeight = PAD + layers.length * cardH + LAYER_GAP * (layers.length - 1) + PAD;
+  const parts = [];
+  for (let li = 0; li < layers.length; li++) {
+    const layer = layers[li];
+    const nodeType = LAYER_NODE_TYPES[li % LAYER_NODE_TYPES.length];
+    const layerFill = theme.nodeFills[nodeType];
+    const layerStroke = theme.nodeStrokes[nodeType];
+    const layerText = theme.textColors[nodeType];
+    const cardX = PAD;
+    const cardY = PAD + li * (cardH + LAYER_GAP);
+    parts.push(
+      `<rect x="${cardX}" y="${cardY}" width="${innerW}" height="${cardH}" rx="${CARD_RX}" fill="${escapeXml(layerFill)}" fill-opacity="0.08" stroke="${escapeXml(layerStroke)}" stroke-opacity="0.4" stroke-width="${sw}"/>`
+    );
+    parts.push(
+      `<text x="${cardX + 16}" y="${cardY + LABEL_H / 2 + 2}" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize + 1}" fill="${escapeXml(layerStroke)}" font-weight="700">${escapeXml(layer.label)}</text>`
+    );
+    parts.push(
+      `<line x1="${cardX + 8}" y1="${cardY + LABEL_H}" x2="${cardX + innerW - 8}" y2="${cardY + LABEL_H}" stroke="${escapeXml(layerStroke)}" stroke-width="1" opacity="0.4"/>`
+    );
+    for (let ni = 0; ni < layer.nodes.length; ni++) {
+      const node = layer.nodes[ni];
+      const nx = cardX + CARD_PAD + ni * (cellW + CELL_GAP);
+      const ny = cardY + LABEL_H + CARD_PAD;
+      parts.push(
+        `<rect x="${nx}" y="${ny}" width="${cellW}" height="${CELL_H}" rx="${theme.cornerRadius}" fill="${escapeXml(layerFill)}" stroke="${escapeXml(layerStroke)}" stroke-opacity="0.6" stroke-width="${sw}"/>`
+      );
+      const lines = wrapText(node.label, cellW - 16, theme.fontSize);
+      const lineHeight = theme.fontSize * 1.4;
+      const totalLabelH = lines.length * lineHeight;
+      const startY = ny + CELL_H / 2 - totalLabelH / 2 + lineHeight * 0.5;
+      for (let idx = 0; idx < lines.length; idx++) {
+        parts.push(
+          `<text x="${nx + cellW / 2}" y="${startY + idx * lineHeight}" text-anchor="middle" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize}" fill="${escapeXml(layerText)}">${escapeXml(lines[idx])}</text>`
+        );
+      }
+    }
+  }
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${totalWidth}" height="${totalHeight}" viewBox="0 0 ${totalWidth} ${totalHeight}">`,
+    `<g class="arch-diagram">`,
+    ...parts,
+    `</g>`,
+    `</svg>`
+  ].join("\n");
+}
+
+// src/sequence.ts
+var ACTOR_W = 120;
+var ACTOR_H = 44;
+var ACTOR_SPACING = 180;
+var MSG_SPACING = 56;
+var TOP_PAD = 24;
+var BOTTOM_PAD = 32;
+var LIFELINE_DASH = "4 4";
+var SELF_LOOP_W = 44;
+var SELF_LOOP_H = 28;
+var ACTOR_NODE_TYPES = ["terminal", "process", "decision", "io"];
+var _seqDiagramCount = 0;
+function createSequenceDiagram(options) {
+  const { actors, messages, theme: themeName = "excalidraw" } = options;
+  if (actors.length === 0) {
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
+  }
+  const seenActors = /* @__PURE__ */ new Set();
+  for (const actor of actors) {
+    if (seenActors.has(actor)) {
+      throw new Error(`Duplicate actor name "${actor}". Actor names must be unique.`);
+    }
+    seenActors.add(actor);
+  }
+  const theme = Object.prototype.hasOwnProperty.call(themes, themeName) ? themes[themeName] : themes["excalidraw"];
+  const sw = theme.strokeWidth;
+  const actorType = (i) => ACTOR_NODE_TYPES[i % ACTOR_NODE_TYPES.length];
+  const sideMargin = ACTOR_W / 2 + 20;
+  const actorCenterX = /* @__PURE__ */ new Map();
+  actors.forEach((a, i) => {
+    actorCenterX.set(a, sideMargin + i * ACTOR_SPACING);
+  });
+  const hasSelfMessage = messages.some((m) => m.from === m.to);
+  const selfMessageRightPad = hasSelfMessage ? SELF_LOOP_W + 60 : 0;
+  const svgWidth = sideMargin * 2 + (actors.length - 1) * ACTOR_SPACING + selfMessageRightPad;
+  const actorTopY = TOP_PAD;
+  const actorBottomY = actorTopY + ACTOR_H;
+  const firstMsgY = actorBottomY + MSG_SPACING;
+  const lifelineEndY = firstMsgY + Math.max(messages.length, 1) * MSG_SPACING + BOTTOM_PAD;
+  const svgHeight = lifelineEndY + BOTTOM_PAD;
+  const parts = [];
+  const markerId = `seq-arrow-${++_seqDiagramCount}`;
+  const arrowColor = theme.edgeColor;
+  const defs = `<defs>
+  <marker id="${markerId}" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+    <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="${escapeXml(arrowColor)}"/>
+  </marker>
+  <style>
+    .seq-lifeline { animation: seq-lifeline-march 1.2s linear infinite; }
+    .seq-return   { animation: seq-dash-march 0.8s linear infinite; }
+    @keyframes seq-lifeline-march { to { stroke-dashoffset: -8; } }
+    @keyframes seq-dash-march     { to { stroke-dashoffset: -10; } }
+  </style>
+</defs>`;
+  actors.forEach((actor, i) => {
+    const cx = actorCenterX.get(actor);
+    const lifelineColor = theme.nodeStrokes[actorType(i)];
+    parts.push(
+      `<line x1="${cx}" y1="${actorBottomY}" x2="${cx}" y2="${lifelineEndY}" stroke="${escapeXml(lifelineColor)}" stroke-width="1.5" stroke-dasharray="${LIFELINE_DASH}" opacity="0.4" class="seq-lifeline"/>`
+    );
+  });
+  actors.forEach((actor, i) => {
+    const cx = actorCenterX.get(actor);
+    const ax = cx - ACTOR_W / 2;
+    const ay = actorTopY;
+    const rx = Math.min(ACTOR_H / 2, 22);
+    const actorFill = theme.nodeFills[actorType(i)];
+    const actorStroke = theme.nodeStrokes[actorType(i)];
+    const actorText = theme.textColors[actorType(i)];
+    parts.push(
+      `<rect x="${ax}" y="${ay}" width="${ACTOR_W}" height="${ACTOR_H}" rx="${rx}" ry="${rx}" fill="${escapeXml(actorFill)}" stroke="${escapeXml(actorStroke)}" stroke-width="${sw}"/>`
+    );
+    const lines = wrapText(actor, ACTOR_W - 12, theme.fontSize);
+    const lineHeight = theme.fontSize * 1.4;
+    const totalH = lines.length * lineHeight;
+    const startY = ay + ACTOR_H / 2 - totalH / 2 + lineHeight * 0.5;
+    for (let idx = 0; idx < lines.length; idx++) {
+      parts.push(
+        `<text x="${cx}" y="${startY + idx * lineHeight}" text-anchor="middle" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize}" fill="${escapeXml(actorText)}">${escapeXml(lines[idx])}</text>`
+      );
+    }
+  });
+  for (let mi = 0; mi < messages.length; mi++) {
+    const msg = messages[mi];
+    const fromX = actorCenterX.get(msg.from);
+    const toX = actorCenterX.get(msg.to);
+    if (fromX === void 0 || toX === void 0) {
+      const unknownActors = [
+        fromX === void 0 ? `"from" actor "${msg.from}"` : "",
+        toX === void 0 ? `"to" actor "${msg.to}"` : ""
+      ].filter(Boolean).join(" and ");
+      throw new Error(`Invalid sequence message at index ${mi}: unknown ${unknownActors}.`);
+    }
+    const msgY = firstMsgY + mi * MSG_SPACING;
+    const isReturn = msg.style === "return";
+    const dashArray = isReturn ? "6 4" : void 0;
+    const pathAttrs = [
+      `stroke="${escapeXml(arrowColor)}"`,
+      `stroke-width="1.5"`,
+      `fill="none"`,
+      `marker-end="url(#${markerId})"`,
+      dashArray ? `stroke-dasharray="${dashArray}"` : "",
+      isReturn ? `class="seq-return"` : ""
+    ].filter(Boolean).join(" ");
+    if (fromX === toX) {
+      const loopX = fromX + SELF_LOOP_W;
+      const loopBottomY = msgY + SELF_LOOP_H;
+      const pathD = `M ${fromX},${msgY} H ${loopX} V ${loopBottomY} H ${fromX}`;
+      parts.push(`<path d="${pathD}" ${pathAttrs}/>`);
+      if (msg.label) {
+        const labelX = loopX + 6;
+        const labelFontSize = theme.fontSize - 2;
+        const padX = 5;
+        const padY = 3;
+        const labelW = msg.label.length * (labelFontSize * 0.58) + padX * 2;
+        const labelH = labelFontSize + padY * 2;
+        const labelMidY = msgY + SELF_LOOP_H / 2;
+        parts.push(
+          `<rect x="${labelX}" y="${labelMidY - labelH / 2}" width="${labelW}" height="${labelH}" fill="white" rx="3" opacity="0.9"/>`
+        );
+        parts.push(
+          `<text x="${labelX + labelW / 2}" y="${labelMidY}" text-anchor="middle" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFontSize}" fill="${escapeXml(arrowColor)}">${escapeXml(msg.label)}</text>`
+        );
+      }
+    } else {
+      parts.push(`<line x1="${fromX}" y1="${msgY}" x2="${toX}" y2="${msgY}" ${pathAttrs}/>`);
+      if (msg.label) {
+        const midX = (fromX + toX) / 2;
+        const labelFontSize = theme.fontSize - 2;
+        const padX = 5;
+        const padY = 3;
+        const labelW = msg.label.length * (labelFontSize * 0.58) + padX * 2;
+        const labelH = labelFontSize + padY * 2;
+        const labelY = msgY - 6;
+        parts.push(
+          `<rect x="${midX - labelW / 2}" y="${labelY - labelH}" width="${labelW}" height="${labelH}" fill="white" rx="3" opacity="0.9"/>`
+        );
+        parts.push(
+          `<text x="${midX}" y="${labelY - labelH / 2}" text-anchor="middle" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFontSize}" fill="${escapeXml(arrowColor)}">${escapeXml(msg.label)}</text>`
+        );
+      }
+    }
+  }
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${svgWidth} ${svgHeight}">`,
+    defs,
+    `<g class="sequence-diagram">`,
+    ...parts,
+    `</g>`,
+    `</svg>`
+  ].join("\n");
+}
+
+// src/index.ts
+function fig(options) {
+  switch (options.figure) {
+    case "flow":
+      return renderFlowChart(options);
+    case "tree":
+      return createTreeDiagram(options);
+    case "arch":
+      return createArchDiagram(options);
+    case "sequence":
+      return createSequenceDiagram(options);
+    default: {
+      const _exhaustive = options;
+      throw new Error(`Unknown figure type: ${_exhaustive.figure}`);
+    }
+  }
+}
+
+exports.fig = fig;
 //# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map

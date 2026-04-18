@@ -50,7 +50,91 @@ interface FlowChartOptions {
     /** Graph layout direction (default: 'TB' — top to bottom). */
     direction?: Direction;
 }
+/** A node in a tree diagram (flat array with parent reference). */
+interface TreeNode {
+    /** Unique identifier. */
+    id: string;
+    /** Text displayed inside the node. */
+    label: string;
+    /** ID of the parent node. Root nodes omit this field. */
+    parent?: string;
+}
+/** Options passed to {@link createTreeDiagram}. */
+interface TreeDiagramOptions {
+    /** Flat list of nodes with optional parent references. */
+    nodes: TreeNode[];
+    /** Visual theme (default: 'excalidraw'). */
+    theme?: ThemeType;
+    /** Layout direction (default: 'TB'). */
+    direction?: Direction;
+}
+/** A single node inside an architecture layer. */
+interface ArchNode {
+    /** Unique identifier. */
+    id: string;
+    /** Text displayed inside the node. */
+    label: string;
+}
+/** A horizontal layer in an architecture diagram. */
+interface ArchLayer {
+    /** Unique identifier. */
+    id: string;
+    /** Label shown at the top of the layer row. */
+    label: string;
+    /** Nodes displayed inside this layer. */
+    nodes: ArchNode[];
+}
+/** Options passed to {@link createArchDiagram}. */
+interface ArchDiagramOptions {
+    /** List of layers from top to bottom (TB) or left to right (LR). */
+    layers: ArchLayer[];
+    /** Visual theme (default: 'excalidraw'). */
+    theme?: ThemeType;
+    /** Direction: TB = layers top-to-bottom, LR = layers left-to-right (default: 'TB'). */
+    direction?: Direction;
+    /** Total diagram width in pixels (default: 800). */
+    width?: number;
+}
+/** A message arrow between two actors in a sequence diagram. */
+interface SeqMessage {
+    /** Name of the sending actor. */
+    from: string;
+    /** Name of the receiving actor. */
+    to: string;
+    /** Optional label shown above the arrow. */
+    label?: string;
+    /** Arrow style: solid line (default) or dashed return line. */
+    style?: 'solid' | 'return';
+}
+/** Options passed to {@link createSequenceDiagram}. */
+interface SequenceDiagramOptions {
+    /** Ordered list of participant names. */
+    actors: string[];
+    /** Ordered list of messages between actors. */
+    messages: SeqMessage[];
+    /** Visual theme (default: 'excalidraw'). */
+    theme?: ThemeType;
+}
+/** Options for the unified {@link fig} function — select the diagram type with `figure`. */
+type FigOptions = ({
+    figure: 'flow';
+} & FlowChartOptions) | ({
+    figure: 'tree';
+} & TreeDiagramOptions) | ({
+    figure: 'arch';
+} & ArchDiagramOptions) | ({
+    figure: 'sequence';
+} & SequenceDiagramOptions);
 
-declare function renderFlowChart(options: FlowChartOptions): string;
+/**
+ * Generate an SVG diagram. The `figure` field selects the diagram type:
+ * - `'flow'`     — flowchart (nodes + edges + optional groups)
+ * - `'tree'`     — tree / hierarchy (flat node list with parent refs)
+ * - `'arch'`     — architecture diagram (layered grid, no edges)
+ * - `'sequence'` — sequence diagram (actors + message arrows)
+ *
+ * Returns a fully self-contained SVG string; no coordinates needed.
+ */
+declare function fig(options: FigOptions): string;
 
-export { type Direction, type FlowChartOptions, type FlowEdge, type FlowGroup, type FlowNode, type NodeType, type ThemeType, renderFlowChart as createFlowChart };
+export { type ArchDiagramOptions, type ArchLayer, type ArchNode, type Direction, type FigOptions, type FlowChartOptions, type FlowEdge, type FlowGroup, type FlowNode, type NodeType, type SeqMessage, type SequenceDiagramOptions, type ThemeType, type TreeDiagramOptions, type TreeNode, fig };
