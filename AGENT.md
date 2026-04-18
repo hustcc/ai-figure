@@ -42,6 +42,9 @@ When **adding or modifying a diagram type**, update **all** of the following:
 | `README.md` | • Preview image table at top<br>• Features bullet (diagram count)<br>• `fig()` call list in API reference<br>• Full option table + example for the new type |
 | `SKILL.md` | • Frontmatter `description` and `tags`<br>• Diagram type table under "How to use"<br>• Full section with example JSON and TypeScript types |
 | `assets/<diagram>.svg` | Representative preview image (generate via the built CJS bundle) |
+| `AGENT.md` | Update any section whose documented values change (theme colors, padding constants, arrowhead spec, opacity rules, auto-sizing formula, etc.) |
+
+> **Rule:** If a change affects anything documented in `AGENT.md` (design language, constants, sync checklist, commands), update `AGENT.md` in the same commit.
 
 ---
 
