@@ -3,7 +3,7 @@ import { computeLayout } from './layout';
 import type { LayoutNode, LayoutEdge } from './layout';
 import { resolveTheme } from './theme';
 import type { ThemeConfig } from './theme';
-import { escapeXml, wrapText } from './utils';
+import { escapeXml, wrapText, titleBlockHeight, renderTitleBlock } from './utils';
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -212,6 +212,8 @@ export function renderFlowChart(options: FlowChartOptions): string {
     theme: mode = 'light',
     palette,
     direction = 'TB',
+    title,
+    subtitle,
   } = options;
 
   if (nodes.length === 0) {
@@ -298,6 +300,27 @@ export function renderFlowChart(options: FlowChartOptions): string {
     height = maxY - minY;
   }
 
+  // ── Title / subtitle block ─────────────────────────────────────────────
+  // When a title (and/or subtitle) is provided, the viewBox is expanded upward
+  // by `titleH` so the chart content retains its original coordinates while the
+  // title block occupies the new space at the top.  No existing layout values
+  // are modified — only vb.y, vb.height, and the SVG height grow.
+  const titleH = titleBlockHeight(title, subtitle, theme.fontSize);
+  let titleSvg = '';
+  if (titleH > 0) {
+    vb.y      -= titleH;
+    vb.height += titleH;
+    height    += titleH;
+    // Center title horizontally over the diagram content.
+    const cx = vb.x + vb.width / 2;
+    titleSvg = renderTitleBlock(
+      title, subtitle, cx, vb.y,
+      theme.fontFamily, theme.fontSize, theme.edgeColor, theme.groupColor,
+    );
+  }
+
+  // Background rect is computed after title expansion so it covers the full
+  // (possibly enlarged) viewBox area including the title block.
   const bgParts: string[] = theme.background
     ? [`<rect x="${vb.x}" y="${vb.y}" width="${vb.width}" height="${vb.height}" fill="${theme.background}"/>`]
     : [];
@@ -306,6 +329,7 @@ export function renderFlowChart(options: FlowChartOptions): string {
     `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="${vb.x} ${vb.y} ${vb.width} ${vb.height}">`,
     defs,
     ...bgParts,
+    ...(titleSvg ? [titleSvg] : []),
     `<g class="flowchart">`,
     groupsSvg,
     edgesSvg,

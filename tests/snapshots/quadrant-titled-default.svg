@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="707" viewBox="0 0 640 707">
+<text x="320" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Product Roadmap Priority</text>
+<text x="320" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">Q1 initiative assessment</text>
+<g class="quadrant-chart" transform="translate(0,67)">
+<defs><filter id="qd-4-shadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0.8" stdDeviation="1" flood-color="rgba(0,0,0,0.18)"/></filter><marker id="qd-4-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#868e96"/></marker></defs>
+<rect x="56" y="32" width="280" height="278" fill="#ebfbee" fill-opacity="0.13" stroke="none"/>
+<rect x="336" y="32" width="280" height="278" fill="#e7f5ff" fill-opacity="0.13" stroke="none"/>
+<rect x="56" y="310" width="280" height="278" fill="#fdf4ff" fill-opacity="0.13" stroke="none"/>
+<rect x="336" y="310" width="280" height="278" fill="#fff7e6" fill-opacity="0.13" stroke="none"/>
+<rect x="56" y="32" width="560" height="556" fill="none" stroke="#868e96" stroke-width="1"/>
+<line x1="196" y1="32" x2="196" y2="588" stroke="#868e96" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
+<line x1="476" y1="32" x2="476" y2="588" stroke="#868e96" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
+<line x1="56" y1="171" x2="616" y2="171" stroke="#868e96" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
+<line x1="56" y1="449" x2="616" y2="449" stroke="#868e96" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
+<line x1="56" y1="310" x2="616" y2="310" stroke="#868e96" stroke-width="2" marker-end="url(#qd-4-arrow)"/>
+<line x1="336" y1="588" x2="336" y2="32" stroke="#868e96" stroke-width="2" marker-end="url(#qd-4-arrow)"/>
+<text x="60" y="326" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" opacity="0.6">Low</text>
+<text x="586" y="326" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" opacity="0.6">High</text>
+<text x="336" y="628" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#495057">Implementation Cost</text>
+<text x="328" y="584" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" opacity="0.6">Low</text>
+<text x="328" y="46" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" opacity="0.6">High</text>
+<text x="28" y="310" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#495057" transform="rotate(-90, 28, 310)">Business Value</text>
+<text x="66" y="54" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#868e96">Do Now</text>
+<text x="606" y="54" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#868e96">Plan</text>
+<text x="66" y="578" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#868e96">Deprioritise</text>
+<text x="606" y="578" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#868e96">Outsource</text>
+<circle cx="140" cy="115.4" r="4" fill="#51cf66" stroke="none" filter="url(#qd-4-shadow)"/>
+<text x="150" y="120.34" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057">Login UX</text>
+<circle cx="476" cy="143.2" r="4" fill="#339af0" stroke="none" filter="url(#qd-4-shadow)"/>
+<text x="486" y="148.14" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057">Recommender</text>
+<circle cx="224" cy="449" r="4" fill="#cc5de8" stroke="none" filter="url(#qd-4-shadow)"/>
+<text x="234" y="453.94" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057">Dark Mode</text>
+<circle cx="392" cy="282.2" r="4" fill="#339af0" stroke="none" filter="url(#qd-4-shadow)"/>
+<text x="402" y="287.14" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057">A/B Testing</text>
+</g>
+</svg>
