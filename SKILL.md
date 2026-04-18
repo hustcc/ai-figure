@@ -220,7 +220,7 @@ interface SeqMessage { from: string; to: string; label?: string; style?: 'solid'
 
 ## figure: 'quadrant' — Quadrant Chart
 
-Renders a 2×2 matrix with two labelled axes and data points positioned by normalised `x`/`y` coordinates (0–1). Canvas is fixed at 640×640 — no need to specify width or height. Each quadrant has a distinct background tint; data points are solid-filled and automatically colored by the quadrant they fall into.
+Renders a 2×2 matrix with two labelled axes and data points positioned by normalised `x`/`y` coordinates (0–1). The canvas auto-sizes based on the number of points: it starts at 640×640, grows by 24px per point beyond the first four, and is capped at 1024×1024 — no need to specify width or height. Each quadrant has a distinct background tint; data points are solid-filled and automatically colored by the quadrant they fall into.
 
 ```json
 {
