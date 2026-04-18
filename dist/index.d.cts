@@ -66,6 +66,10 @@ interface FlowChartOptions {
     palette?: PaletteType;
     /** Graph layout direction (default: 'TB' — top to bottom). */
     direction?: Direction;
+    /** Optional chart title displayed above the diagram. */
+    title?: string;
+    /** Optional subtitle displayed beneath the title. */
+    subtitle?: string;
 }
 /** A node in a tree diagram (flat array with parent reference). */
 interface TreeNode {
@@ -86,6 +90,10 @@ interface TreeDiagramOptions {
     palette?: PaletteType;
     /** Layout direction (default: 'TB'). */
     direction?: Direction;
+    /** Optional chart title displayed above the diagram. */
+    title?: string;
+    /** Optional subtitle displayed beneath the title. */
+    subtitle?: string;
 }
 /** A single node inside an architecture layer. */
 interface ArchNode {
@@ -115,6 +123,10 @@ interface ArchDiagramOptions {
     direction?: Direction;
     /** Total diagram width in pixels (default: 800). */
     width?: number;
+    /** Optional chart title displayed above the diagram. */
+    title?: string;
+    /** Optional subtitle displayed beneath the title. */
+    subtitle?: string;
 }
 /** A message arrow between two actors in a sequence diagram. */
 interface SeqMessage {
@@ -137,6 +149,10 @@ interface SequenceDiagramOptions {
     theme?: ThemeType;
     /** Color palette — `'default'` (built-in), d3-scale-chromatic short name (e.g. `'blues'`), or custom hex array (default: `'default'`). */
     palette?: PaletteType;
+    /** Optional chart title displayed above the diagram. */
+    title?: string;
+    /** Optional subtitle displayed beneath the title. */
+    subtitle?: string;
 }
 /** A single data point in a quadrant chart. */
 interface QuadrantPoint {
@@ -171,6 +187,10 @@ interface QuadrantChartOptions {
     theme?: ThemeType;
     /** Color palette — `'default'` (built-in), d3-scale-chromatic short name (e.g. `'blues'`), or custom hex array (default: `'default'`). */
     palette?: PaletteType;
+    /** Optional chart title displayed above the diagram. */
+    title?: string;
+    /** Optional subtitle displayed beneath the title. */
+    subtitle?: string;
 }
 /** Options for the unified {@link fig} function — select the diagram type with `figure`. */
 type FigOptions = ({

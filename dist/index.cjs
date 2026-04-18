@@ -7928,6 +7928,36 @@ function wrapText(text, maxWidth, fontSize) {
   if (current) lines.push(current);
   return lines.length > 0 ? lines : [text];
 }
+function titleBlockHeight(title, subtitle, fontSize) {
+  if (!title && !subtitle) return 0;
+  const TITLE_FS = fontSize + 4;
+  const SUBTITLE_FS = fontSize - 1;
+  const PAD_TOP2 = 16;
+  const INTER_GAP = 6;
+  const PAD_BOTTOM2 = 14;
+  return PAD_TOP2 + (title ? TITLE_FS : 0) + (title && subtitle ? INTER_GAP : 0) + (subtitle ? SUBTITLE_FS : 0) + PAD_BOTTOM2;
+}
+function renderTitleBlock(title, subtitle, cx, topY, fontFamily, fontSize, titleColor, subtitleColor) {
+  if (!title && !subtitle) return "";
+  const TITLE_FS = fontSize + 4;
+  const SUBTITLE_FS = fontSize - 1;
+  const PAD_TOP2 = 16;
+  const INTER_GAP = 6;
+  const parts = [];
+  if (title) {
+    const titleY = topY + PAD_TOP2 + TITLE_FS;
+    parts.push(
+      `<text x="${cx}" y="${titleY}" text-anchor="middle" font-family="${escapeXml(fontFamily)}" font-size="${TITLE_FS}" font-weight="700" fill="${escapeXml(titleColor)}">${escapeXml(title)}</text>`
+    );
+  }
+  if (subtitle) {
+    const subtitleY = title ? topY + PAD_TOP2 + TITLE_FS + INTER_GAP + SUBTITLE_FS : topY + PAD_TOP2 + SUBTITLE_FS;
+    parts.push(
+      `<text x="${cx}" y="${subtitleY}" text-anchor="middle" font-family="${escapeXml(fontFamily)}" font-size="${SUBTITLE_FS}" fill="${escapeXml(subtitleColor)}">${escapeXml(subtitle)}</text>`
+    );
+  }
+  return parts.join("\n");
+}
 
 // src/render.ts
 function pointsToSmoothPath(points) {
@@ -8051,7 +8081,9 @@ function renderFlowChart(options) {
     groups = [],
     theme: mode = "light",
     palette,
-    direction = "TB"
+    direction = "TB",
+    title,
+    subtitle
   } = options;
   if (nodes.length === 0) {
     return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
@@ -8109,11 +8141,30 @@ function renderFlowChart(options) {
     width = maxX - minX;
     height = maxY - minY;
   }
+  const titleH = titleBlockHeight(title, subtitle, theme.fontSize);
+  let titleSvg = "";
+  if (titleH > 0) {
+    vb.y -= titleH;
+    vb.height += titleH;
+    height += titleH;
+    const cx = vb.x + vb.width / 2;
+    titleSvg = renderTitleBlock(
+      title,
+      subtitle,
+      cx,
+      vb.y,
+      theme.fontFamily,
+      theme.fontSize,
+      theme.edgeColor,
+      theme.groupColor
+    );
+  }
   const bgParts = theme.background ? [`<rect x="${vb.x}" y="${vb.y}" width="${vb.width}" height="${vb.height}" fill="${theme.background}"/>`] : [];
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="${vb.x} ${vb.y} ${vb.width} ${vb.height}">`,
     defs,
     ...bgParts,
+    ...titleSvg ? [titleSvg] : [],
     `<g class="flowchart">`,
     groupsSvg,
     edgesSvg,
@@ -8126,7 +8177,7 @@ function renderFlowChart(options) {
 // src/tree.ts
 var DEPTH_NODE_TYPES = ["terminal", "process", "decision", "io"];
 function createTreeDiagram(options) {
-  const { nodes, theme, palette, direction = "TB" } = options;
+  const { nodes, theme, palette, direction = "TB", title, subtitle } = options;
   const parentMap = /* @__PURE__ */ new Map();
   nodes.forEach((n) => {
     if (n.parent !== void 0) parentMap.set(n.id, n.parent);
@@ -8150,7 +8201,7 @@ function createTreeDiagram(options) {
     type: DEPTH_NODE_TYPES[getDepth(n.id) % DEPTH_NODE_TYPES.length]
   }));
   const edges = nodes.filter((n) => n.parent !== void 0).map((n) => ({ from: n.parent, to: n.id }));
-  return renderFlowChart({ nodes: flowNodes, edges, theme, palette, direction });
+  return renderFlowChart({ nodes: flowNodes, edges, theme, palette, direction, title, subtitle });
 }
 
 // src/arch.ts
@@ -8168,12 +8219,15 @@ function createArchDiagram(options) {
     theme: mode = "light",
     palette,
     direction = "TB",
-    width: totalWidth = 800
+    width: totalWidth = 800,
+    title,
+    subtitle
   } = options;
   if (layers.length === 0) {
     return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
   }
   const theme = resolveTheme(palette, mode);
+  const titleH = titleBlockHeight(title, subtitle, theme.fontSize);
   const sw = theme.strokeWidth;
   if (direction === "LR") {
     const maxRows = Math.max(...layers.map((l) => l.nodes.length));
@@ -8184,7 +8238,7 @@ function createArchDiagram(options) {
     const nodeW = cardW - CARD_PAD * 2;
     const cardH2 = LABEL_H + CARD_PAD + maxRows * CELL_H + Math.max(maxRows - 1, 0) * CELL_GAP + CARD_PAD;
     const svgWidth = PAD * 2 + layers.length * cardW + LAYER_GAP * (layers.length - 1);
-    const svgHeight = PAD * 2 + cardH2;
+    const svgHeight = PAD * 2 + cardH2 + titleH;
     const parts2 = [];
     for (let li = 0; li < layers.length; li++) {
       const layer = layers[li];
@@ -8222,10 +8276,22 @@ function createArchDiagram(options) {
       }
     }
     const bgParts2 = theme.background ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`] : [];
+    const titleSvg2 = renderTitleBlock(
+      title,
+      subtitle,
+      svgWidth / 2,
+      0,
+      theme.fontFamily,
+      theme.fontSize,
+      theme.edgeColor,
+      theme.groupColor
+    );
     return [
       `<svg xmlns="http://www.w3.org/2000/svg" width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${svgWidth} ${svgHeight}">`,
       ...bgParts2,
-      `<g class="arch-diagram">`,
+      ...titleSvg2 ? [titleSvg2] : [],
+      // Shift all diagram content down by titleH so the title block has room.
+      `<g class="arch-diagram"${titleH > 0 ? ` transform="translate(0,${titleH})"` : ""}>`,
       ...parts2,
       `</g>`,
       `</svg>`
@@ -8238,7 +8304,7 @@ function createArchDiagram(options) {
     (availW - CELL_GAP * Math.max(maxCols - 1, 0)) / Math.max(maxCols, 1)
   );
   const cardH = LABEL_H + CARD_PAD + CELL_H + CARD_PAD;
-  const totalHeight = PAD + layers.length * cardH + LAYER_GAP * (layers.length - 1) + PAD;
+  const totalHeight = PAD + layers.length * cardH + LAYER_GAP * (layers.length - 1) + PAD + titleH;
   const parts = [];
   for (let li = 0; li < layers.length; li++) {
     const layer = layers[li];
@@ -8276,10 +8342,22 @@ function createArchDiagram(options) {
     }
   }
   const bgParts = theme.background ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`] : [];
+  const titleSvg = renderTitleBlock(
+    title,
+    subtitle,
+    totalWidth / 2,
+    0,
+    theme.fontFamily,
+    theme.fontSize,
+    theme.edgeColor,
+    theme.groupColor
+  );
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${totalWidth}" height="${totalHeight}" viewBox="0 0 ${totalWidth} ${totalHeight}">`,
     ...bgParts,
-    `<g class="arch-diagram">`,
+    ...titleSvg ? [titleSvg] : [],
+    // Shift all diagram content down by titleH so the title block has room.
+    `<g class="arch-diagram"${titleH > 0 ? ` transform="translate(0,${titleH})"` : ""}>`,
     ...parts,
     `</g>`,
     `</svg>`
@@ -8299,9 +8377,32 @@ var SELF_LOOP_H = 28;
 var ACTOR_NODE_TYPES = ["terminal", "process", "decision", "io"];
 var _seqDiagramCount = 0;
 function createSequenceDiagram(options) {
-  const { actors, messages, theme: mode = "light", palette } = options;
+  const { actors, messages, theme: mode = "light", palette, title, subtitle } = options;
+  const theme = resolveTheme(palette, mode);
+  const titleH = titleBlockHeight(title, subtitle, theme.fontSize);
   if (actors.length === 0) {
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
+    if (titleH === 0) {
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
+    }
+    const svgW = 400;
+    const svgH = titleH + 20;
+    const bgRect = theme.background ? `<rect width="100%" height="100%" fill="${theme.background}"/>` : "";
+    const titleSvg2 = renderTitleBlock(
+      title,
+      subtitle,
+      svgW / 2,
+      0,
+      theme.fontFamily,
+      theme.fontSize,
+      theme.edgeColor,
+      theme.groupColor
+    );
+    return [
+      `<svg xmlns="http://www.w3.org/2000/svg" width="${svgW}" height="${svgH}" viewBox="0 0 ${svgW} ${svgH}">`,
+      ...bgRect ? [bgRect] : [],
+      titleSvg2,
+      `</svg>`
+    ].join("\n");
   }
   const seenActors = /* @__PURE__ */ new Set();
   for (const actor of actors) {
@@ -8310,7 +8411,6 @@ function createSequenceDiagram(options) {
     }
     seenActors.add(actor);
   }
-  const theme = resolveTheme(palette, mode);
   const sw = theme.strokeWidth;
   const actorType = (i) => ACTOR_NODE_TYPES[i % ACTOR_NODE_TYPES.length];
   const sideMargin = ACTOR_W / 2 + 20;
@@ -8325,7 +8425,7 @@ function createSequenceDiagram(options) {
   const actorBottomY = actorTopY + ACTOR_H;
   const firstMsgY = actorBottomY + MSG_SPACING;
   const lifelineEndY = firstMsgY + Math.max(messages.length, 1) * MSG_SPACING + BOTTOM_PAD;
-  const svgHeight = lifelineEndY + BOTTOM_PAD;
+  const svgHeight = lifelineEndY + BOTTOM_PAD + titleH;
   const parts = [];
   const markerId = `seq-arrow-${++_seqDiagramCount}`;
   const arrowColor = theme.edgeColor;
@@ -8430,11 +8530,23 @@ function createSequenceDiagram(options) {
     }
   }
   const bgParts = theme.background ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`] : [];
+  const titleSvg = renderTitleBlock(
+    title,
+    subtitle,
+    svgWidth / 2,
+    0,
+    theme.fontFamily,
+    theme.fontSize,
+    theme.edgeColor,
+    theme.groupColor
+  );
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${svgWidth} ${svgHeight}">`,
     defs,
     ...bgParts,
-    `<g class="sequence-diagram">`,
+    ...titleSvg ? [titleSvg] : [],
+    // Shift all diagram content down by titleH so the title block has room.
+    `<g class="sequence-diagram"${titleH > 0 ? ` transform="translate(0,${titleH})"` : ""}>`,
     ...parts,
     `</g>`,
     `</svg>`
@@ -8469,9 +8581,12 @@ function createQuadrantChart(options) {
     quadrants,
     points,
     theme: mode = "light",
-    palette
+    palette,
+    title,
+    subtitle
   } = options;
   const theme = resolveTheme(palette, mode);
+  const titleH = titleBlockHeight(title, subtitle, theme.fontSize);
   const SIZE = Math.min(MAX_SIZE, Math.max(BASE_SIZE, BASE_SIZE + (points.length - 4) * 24));
   const WIDTH = SIZE;
   const HEIGHT = SIZE;
@@ -8573,10 +8688,22 @@ function createQuadrantChart(options) {
     );
   }
   const bgParts = theme.background ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`] : [];
+  const titleSvg = renderTitleBlock(
+    title,
+    subtitle,
+    WIDTH / 2,
+    0,
+    theme.fontFamily,
+    theme.fontSize,
+    theme.edgeColor,
+    theme.groupColor
+  );
   return [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}">`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT + titleH}" viewBox="0 0 ${WIDTH} ${HEIGHT + titleH}">`,
     ...bgParts,
-    `<g class="quadrant-chart">`,
+    ...titleSvg ? [titleSvg] : [],
+    // Shift all diagram content down by titleH so the title block has room.
+    `<g class="quadrant-chart"${titleH > 0 ? ` transform="translate(0,${titleH})"` : ""}>`,
     ...parts,
     `</g>`,
     `</svg>`
