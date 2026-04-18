@@ -3,14 +3,14 @@
 > Clean SVG flowchart renderer — define nodes & edges, get beautiful diagrams. Works in browser **and** Node.js.
 
 [![npm version](https://img.shields.io/npm/v/ai-figure.svg)](https://www.npmjs.com/package/ai-figure)
-[![Build](https://github.com/hustcc/ai-flowchart/actions/workflows/build.yml/badge.svg)](https://github.com/hustcc/ai-flowchart/actions/workflows/build.yml)
+[![Build](https://github.com/hustcc/ai-figure/actions/workflows/build.yml/badge.svg)](https://github.com/hustcc/ai-figure/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
 
 ## Features ✨
 
-- 🎨 **Excalidraw-inspired style** — clean crisp shapes, Inter font, modern color palette
+- 🎨 **Clean style** — clean crisp shapes, Inter font, modern color palette
 - 📐 **Auto layout** — powered by [Dagre](https://github.com/dagrejs/dagre), no manual coordinates
 - 📦 **Groups** — logical node groups rendered with dashed borders and labels
 - 🌐 **Browser + Node.js** — pure SVG output, zero DOM dependency
