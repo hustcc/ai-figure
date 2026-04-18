@@ -105,7 +105,13 @@ export function computeLayout(
     });
   }
 
-  // Compute tight bounding box from all node positions and edge waypoints.
+  // Compute tight bounding box from node positions only.
+  // Edge waypoints are intentionally excluded: back-edges and other detoured
+  // routes can produce waypoints far outside the node area (e.g. negative Y
+  // in TB diagrams), which would push the viewBox origin far away from the
+  // actual content and create hundreds of pixels of empty space above/below
+  // the diagram. The uniform PAD_X / PAD_Y padding provides enough clearance
+  // for normal edge routing without being distorted by outlier waypoints.
   const PAD_X = 48;
   const PAD_Y = 48;
   let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
@@ -114,14 +120,6 @@ export function computeLayout(
     minY = Math.min(minY, n.y);
     maxX = Math.max(maxX, n.x + n.width);
     maxY = Math.max(maxY, n.y + n.height);
-  }
-  for (const e of layoutEdges) {
-    for (const p of e.points) {
-      minX = Math.min(minX, p.x);
-      minY = Math.min(minY, p.y);
-      maxX = Math.max(maxX, p.x);
-      maxY = Math.max(maxY, p.y);
-    }
   }
 
   return {
