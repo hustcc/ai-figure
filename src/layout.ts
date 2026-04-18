@@ -106,8 +106,8 @@ export function computeLayout(
   }
 
   // Compute tight bounding box from all node positions and edge waypoints.
-  const PAD_X = 40;
-  const PAD_Y = 20;
+  const PAD_X = 48;
+  const PAD_Y = 48;
   let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
   for (const n of layoutNodes.values()) {
     minX = Math.min(minX, n.x);
