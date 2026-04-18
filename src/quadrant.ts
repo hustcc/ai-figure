@@ -2,15 +2,13 @@ import { themes } from './theme';
 import { escapeXml } from './utils';
 import type { QuadrantChartOptions, NodeType } from './types';
 
-// Auto-calculated canvas size — not user-configurable
-const WIDTH = 640;
-const HEIGHT = 640;
-const PAD_LEFT = 56;    // room for rotated Y-axis label
-const PAD_RIGHT = 24;
-const PAD_TOP = 32;
-const PAD_BOTTOM = 52;  // room for X-axis label
-const PLOT_W = WIDTH - PAD_LEFT - PAD_RIGHT;   // 560
-const PLOT_H = HEIGHT - PAD_TOP - PAD_BOTTOM;  // 556
+// Canvas size — auto-calculated from point count, clamped to [640, 1024]
+const BASE_SIZE = 640;
+const MAX_SIZE  = 1024;
+const PAD_LEFT   = 56;   // room for rotated Y-axis label
+const PAD_RIGHT  = 24;
+const PAD_TOP    = 32;
+const PAD_BOTTOM = 52;   // room for X-axis label
 
 const POINT_R = 4;
 const MARKER_SIZE = 7;
@@ -43,7 +41,7 @@ function quadrantOf(x: number, y: number): number {
 /**
  * Generate an SVG quadrant chart (2×2 matrix).
  *
- * Canvas is fixed at 640×640 — no need to specify width/height.
+ * Canvas auto-sizes from 640×640 (base) up to 1024×1024 based on point count.
  * Quadrant backgrounds use distinct theme colors; data points are solid filled
  * and colored by the quadrant they fall into, with a subtle drop-shadow.
  */
@@ -59,6 +57,13 @@ export function createQuadrantChart(options: QuadrantChartOptions): string {
   const theme = Object.prototype.hasOwnProperty.call(themes, themeName)
     ? themes[themeName as keyof typeof themes]
     : themes['excalidraw'];
+
+  // Canvas scales with point count: 640 base, +24 px per extra point above 4, max 1024
+  const SIZE   = Math.min(MAX_SIZE, Math.max(BASE_SIZE, BASE_SIZE + (points.length - 4) * 24));
+  const WIDTH  = SIZE;
+  const HEIGHT = SIZE;
+  const PLOT_W = WIDTH  - PAD_LEFT - PAD_RIGHT;
+  const PLOT_H = HEIGHT - PAD_TOP  - PAD_BOTTOM;
 
   const sw = theme.strokeWidth;
   const axisColor  = theme.groupColor;  // muted gray — axis lines + arrows (lighter, no opacity needed)
@@ -150,7 +155,7 @@ export function createQuadrantChart(options: QuadrantChartOptions): string {
     `<text x="${plotX + 4}" y="${midY + 16}" text-anchor="start" ` +
       `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
       `fill="${escapeXml(textColor)}" opacity="0.6">${escapeXml(xAxis.min)}</text>`,
-    `<text x="${plotX + PLOT_W - 4}" y="${midY + 16}" text-anchor="end" ` +
+    `<text x="${plotX + PLOT_W - 30}" y="${midY + 16}" text-anchor="end" ` +
       `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
       `fill="${escapeXml(textColor)}" opacity="0.6">${escapeXml(xAxis.max)}</text>`,
   );
