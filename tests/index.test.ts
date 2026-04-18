@@ -60,12 +60,12 @@ describe('fig', () => {
     expect(svg).toContain('class="group"');
   });
 
-  it('supports the minimal palette', () => {
+  it('supports the default palette (unknown name falls back to default)', () => {
     const svg = fig({
       figure: 'flow',
       nodes: [{ id: 'x', label: 'Node X', type: 'process' }],
       edges: [],
-      palette: 'minimal',
+      palette: 'default',
     });
 
     expect(svg).toContain('<svg');
@@ -115,7 +115,7 @@ describe('fig', () => {
         { id: 'g1', label: 'Validation', nodes: ['process1', 'decision'] },
       ],
       theme: 'light',
-      palette: 'colorful',
+      palette: 'default',
       direction: 'TB',
     });
 
@@ -213,7 +213,7 @@ describe('fig', () => {
     expect(svg).toContain('#74c0fc'); // dark process text color
   });
 
-  it("palette='minimal' + theme='dark' renders dark minimal", () => {
+  it("unknown palette name falls back to default dark theme", () => {
     // 'minimal' is not a built-in palette; falls back to 'default' dark
     const svg = fig({
       figure: 'flow',

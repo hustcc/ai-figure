@@ -21,7 +21,8 @@
 - 📦 **Groups** — logical node groups rendered with dashed borders and labels
 - 🌐 **Browser + Node.js** — pure SVG output, zero DOM dependency
 - 🤖 **AI-friendly API** — single `fig()` entry point, semantic JSON config, TypeScript-first
-- 🎭 **Two themes** — `colorful` (vibrant multi-hue) or `minimal` (single blue family)
+- 🌗 **Light / dark mode** — `theme: 'light' | 'dark'` for background and text rendering
+- 🎨 **Flexible palette** — built-in `'default'`, any [`d3-scale-chromatic`](https://github.com/d3/d3-scale-chromatic) scheme (categorical, sequential, diverging), or custom hex array
 - 📊 **Five diagram types** — flowchart, tree, architecture, sequence, quadrant
 
 ---
@@ -58,8 +59,9 @@ const svg = fig({
   groups: [
     { id: 'g1', label: 'Validation', nodes: ['process1', 'decision'] },
   ],
-  theme: 'colorful', // 'colorful' | 'minimal'
-  direction: 'TB',     // 'TB' (top→bottom) | 'LR' (left→right)
+  theme: 'light',         // 'light' | 'dark'
+  palette: 'default',     // 'default' | any d3-scale-chromatic name | string[]
+  direction: 'TB',        // 'TB' (top→bottom) | 'LR' (left→right)
 });
 
 // Browser: inject into the DOM
@@ -98,7 +100,8 @@ fig({ figure: 'quadrant', ...quadrantOptions }); // quadrant chart
 | `nodes`     | `FlowNode[]`    | **required**   | List of nodes                            |
 | `edges`     | `FlowEdge[]`    | **required**   | List of directed edges                   |
 | `groups`    | `FlowGroup[]`   | `[]`           | Optional logical groups                  |
-| `theme`     | `ThemeType`     | `'colorful'` | Visual theme                             |
+| `theme`     | `ThemeType`     | `'light'`    | Light or dark rendering mode (`'light'` \| `'dark'`) |
+| `palette`   | `PaletteType`   | `'default'`    | Color palette — see [Palette API](#palette-api) below |
 | `direction` | `Direction`     | `'TB'`         | Layout direction (`'TB'` or `'LR'`)      |
 
 #### `FlowNode`
@@ -144,7 +147,8 @@ Renders a hierarchy from a flat node list with `parent` references. Uses Dagre f
 |-------------|---------------|----------------|------------------------------------|
 | `figure`    | `'tree'`      | **required**   | Selects the tree renderer          |
 | `nodes`     | `TreeNode[]`  | **required**   | Flat list with optional parent ref |
-| `theme`     | `ThemeType`   | `'colorful'` | Visual theme                       |
+| `theme`     | `ThemeType`   | `'light'`    | Light or dark rendering mode (`'light'` \| `'dark'`) |
+| `palette`   | `PaletteType` | `'default'`    | Color palette — see [Palette API](#palette-api) below |
 | `direction` | `Direction`   | `'TB'`         | Layout direction                   |
 
 ```typescript
@@ -155,7 +159,8 @@ fig({
     { id: 'cto', label: 'CTO', parent: 'ceo' },
     { id: 'coo', label: 'COO', parent: 'ceo' },
   ],
-  theme: 'minimal',
+  theme: 'light',
+  palette: 'default',
 });
 ```
 
@@ -169,7 +174,8 @@ Renders a tech-stack landscape as layered, color-coded cards — no edges needed
 |-------------|---------------|----------------|------------------------------------------|
 | `figure`    | `'arch'`      | **required**   | Selects the architecture renderer        |
 | `layers`    | `ArchLayer[]` | **required**   | Layers from top to bottom (TB) or left to right (LR) |
-| `theme`     | `ThemeType`   | `'colorful'` | Visual theme                             |
+| `theme`     | `ThemeType`   | `'light'`    | Light or dark rendering mode (`'light'` \| `'dark'`) |
+| `palette`   | `PaletteType` | `'default'`    | Color palette — see [Palette API](#palette-api) below |
 | `direction` | `Direction`   | `'TB'`         | `'TB'` = layers stacked, `'LR'` = layers side-by-side |
 | `width`     | `number`      | `800`          | Total diagram width in pixels            |
 
@@ -195,7 +201,8 @@ Renders a sequence diagram with vertical lifelines and horizontal message arrows
 | `figure`   | `'sequence'`   | **required**   | Selects the sequence renderer         |
 | `actors`   | `string[]`     | **required**   | Ordered list of participant names     |
 | `messages` | `SeqMessage[]` | **required**   | Ordered list of message arrows        |
-| `theme`    | `ThemeType`    | `'colorful'` | Visual theme                          |
+| `theme`    | `ThemeType`    | `'light'`    | Light or dark rendering mode (`'light'` \| `'dark'`) |
+| `palette`  | `PaletteType`  | `'default'`    | Color palette — see [Palette API](#palette-api) below |
 
 ```typescript
 fig({
@@ -223,7 +230,8 @@ Renders a 2D quadrant scatter plot. Points are placed by normalized `x`/`y` valu
 | `yAxis`     | `AxisConfig`       | **required**   | Y-axis label, min and max tick labels               |
 | `quadrants` | `[TL, TR, BL, BR]` | **required**   | Corner labels: top-left, top-right, bottom-left, bottom-right |
 | `points`    | `QuadrantPoint[]`  | **required**   | Data points to plot                                 |
-| `theme`     | `ThemeType`        | `'colorful'` | Visual theme                                        |
+| `theme`     | `ThemeType`        | `'light'`    | Light or dark rendering mode (`'light'` \| `'dark'`) |
+| `palette`   | `PaletteType`      | `'default'`    | Color palette — see [Palette API](#palette-api) below |
 
 #### `AxisConfig`
 
@@ -255,8 +263,45 @@ fig({
     { id: 'd', label: 'Feature D', x: 0.3,  y: 0.2  },
     { id: 'e', label: 'Feature E', x: 0.8,  y: 0.25 },
   ],
-  theme: 'colorful',
+  theme: 'light',
+  palette: 'default',
 });
+```
+
+---
+
+### Palette API
+
+All five diagram types accept two independent styling parameters:
+
+| Field     | Type                   | Default       | Description                          |
+|-----------|------------------------|---------------|--------------------------------------|
+| `theme`   | `'light' \| 'dark'`   | `'light'`     | Background and text rendering mode   |
+| `palette` | `string \| string[]`  | `'default'`   | Color palette for nodes              |
+
+**`palette` values:**
+
+| Value | Description |
+|-------|-------------|
+| `'default'` | Built-in multi-hue palette — `process`=blue, `decision`=amber, `terminal`=green, `io`=purple |
+| Any [`d3-scale-chromatic`](https://github.com/d3/d3-scale-chromatic) name | Categorical (e.g. `'schemeCategory10'`, `'schemeTableau10'`, `'schemeSet1'`), sequential (e.g. `'schemeBlues'`, `'schemeGreens'`), or diverging (e.g. `'schemeBrBG'`, `'schemeRdBu'`) — passed directly to the package |
+| `string[]` | 4-element hex array mapped to `[process, decision, terminal, io]` |
+
+```typescript
+// Built-in palette, dark mode
+fig({ figure: 'flow', nodes, edges, theme: 'dark', palette: 'default' });
+
+// D3 categorical scheme
+fig({ figure: 'flow', nodes, edges, palette: 'schemeTableau10' });
+
+// D3 sequential scheme (9-color variant, sampled at [1,3,5,7])
+fig({ figure: 'flow', nodes, edges, palette: 'schemeBlues' });
+
+// D3 diverging scheme with dark background
+fig({ figure: 'flow', nodes, edges, theme: 'dark', palette: 'schemeBrBG' });
+
+// Custom hex palette
+fig({ figure: 'flow', nodes, edges, palette: ['#e64980', '#ae3ec9', '#7048e8', '#1098ad'] });
 ```
 
 ---
@@ -294,7 +339,8 @@ const svg = fig({
     { from: 'check',       to: 'dashboard', label: 'Valid'    },
     { from: 'check',       to: 'error',     label: 'Invalid'  },
   ],
-  theme: 'colorful',
+  theme: 'light',
+  palette: 'default',
   direction: 'TB',
 });
 ```

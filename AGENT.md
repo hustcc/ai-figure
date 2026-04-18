@@ -52,36 +52,42 @@ When **adding or modifying a diagram type**, update **all** of the following:
 
 All diagram types share one visual language. When building a new renderer, follow every rule below so the output looks like it belongs to the same family.
 
-### Themes
+### Theme and Palette API
 
-Two themes are defined in `src/theme.ts`. Every renderer **must support both**.
+Every renderer accepts two independent parameters:
 
-| Property | `colorful` | `minimal` |
-|----------|-----------|----------|
-| `fontFamily` | `Inter, system-ui, -apple-system, sans-serif` | same |
-| `fontSize` | `14` px | same |
-| `strokeWidth` | `2` | `1` |
-| `cornerRadius` | `6` px | `8` px |
-| `edgeColor` | `#495057` (dark gray) | `#555555` |
-| `edgeWidth` | `1.5` | `1.5` |
-| `groupColor` | `#868e96` (muted gray) | `#adb5bd` (light gray) |
-| `groupFill` | `rgba(134,142,150,0.06)` | `rgba(173,181,189,0.06)` |
+- **`theme: 'light' | 'dark'`** — rendering mode (default: `'light'`). Dark mode injects a `#1a1b1e` background rect and uses brightened text.
+- **`palette: string | string[]`** — color palette (default: `'default'`). Resolved by `resolveTheme(palette, mode)` in `src/theme.ts`.
 
-Node-type colors (4 types: `process`, `decision`, `terminal`, `io`):
+**Palette resolution order:**
+1. `'default'` → built-in multi-hue palette
+2. Any [`d3-scale-chromatic`](https://github.com/d3/d3-scale-chromatic) scheme name — passed to `resolveD3Scheme()`:
+   - Categorical (flat `string[]`): used directly, first 4 colors = `[process, decision, terminal, io]`
+   - Sequential / Diverging (nested `string[][]`): 9-color variant sampled at indices `[1, 3, 5, 7]`
+3. `string[]` array: 4 hex values mapped to `[process, decision, terminal, io]`
+4. Unknown string → falls back to `'default'`
 
-| NodeType | colorful fill | colorful stroke | colorful text |
-|----------|--------------|-----------------|---------------|
+**Built-in `'default'` palette** (light mode) — node-type colors:
+
+| NodeType | fill | stroke | text |
+|----------|------|--------|------|
 | `process` | `#e7f5ff` | `#339af0` (blue) | `#1971c2` |
 | `decision` | `#fff7e6` | `#f59f00` (amber) | `#e67700` |
 | `terminal` | `#ebfbee` | `#51cf66` (green) | `#2f9e44` |
 | `io` | `#fdf4ff` | `#cc5de8` (purple) | `#862e9c` |
 
-| NodeType | minimal fill | minimal stroke | minimal text |
-|----------|-------------|----------------|--------------|
-| `process` | `#e8f4fd` | `#42a5f5` | `#1565c0` |
-| `decision` | `#d4eaf9` | `#1976d2` | `#0d47a1` |
-| `terminal` | `#bbdefb` | `#1565c0` | `#0a3566` |
-| `io` | `#f0f8ff` | `#90caf9` | `#1976d2` |
+**Structural properties** (same for all palettes):
+
+| Property | Value |
+|----------|-------|
+| `fontFamily` | `Inter, system-ui, -apple-system, sans-serif` |
+| `fontSize` | `14` px |
+| `strokeWidth` | `2` |
+| `cornerRadius` | `6` px |
+| `edgeColor` | `#495057` (light) / `#adb5bd` (dark) |
+| `edgeWidth` | `1.5` |
+| `groupColor` | `#868e96` (light) / `#495057` (dark) |
+| `groupFill` | `rgba(134,142,150,0.06)` |
 
 ### Color assignment patterns
 
@@ -126,7 +132,7 @@ Always use `theme.nodeStrokes[type]` for dot/box fill/stroke colors and `theme.t
 
 ### Stroke widths and line styles
 
-- **Node/box border**: `stroke-width = theme.strokeWidth` (2 or 1.5).
+- **Node/box border**: `stroke-width = theme.strokeWidth` (2).
 - **Edges (flow)**: `stroke-width = theme.edgeWidth` (1.5), **always dashed** `stroke-dasharray="8 5"`, animated.
 - **Sequence arrows**: `stroke-width="1.5"`, solid for requests, `stroke-dasharray="6 4"` + CSS animation for return arrows.
 - **Sequence lifelines**: `stroke-width="1.5"`, `stroke-dasharray="4 4"`, `opacity="0.4"`, animated.

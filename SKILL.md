@@ -85,7 +85,8 @@ fs.writeFileSync('chart.svg', svg);
   "groups": [
     { "id": "g1", "label": "Auth Layer", "nodes": ["auth", "check"] }
   ],
-  "theme": "minimal",
+  "theme": "light",
+  "palette": "default",
   "direction": "TB"
 }
 ```
@@ -103,10 +104,13 @@ fs.writeFileSync('chart.svg', svg);
 
 ### Options
 
-| Field       | Type   | Default        | Values                       |
-|-------------|--------|----------------|------------------------------|
-| `theme`     | string | `"colorful"` | `"colorful"` or `"minimal"`  |
-| `direction` | string | `"TB"`         | `"TB"` or `"LR"`             |
+| Field       | Type           | Default       | Description                           |
+|-------------|----------------|---------------|---------------------------------------|
+| `theme`     | string         | `"light"`     | `"light"` or `"dark"` rendering mode  |
+| `palette`   | string\|array  | `"default"`   | See palette values below              |
+| `direction` | string         | `"TB"`        | `"TB"` or `"LR"`                      |
+
+**Palette values:** `"default"` (built-in), any [`d3-scale-chromatic`](https://github.com/d3/d3-scale-chromatic) scheme name (e.g. `"schemeCategory10"`, `"schemeBlues"`, `"schemeBrBG"`), or a 4-element hex array `["#aaa", "#bbb", "#ccc", "#ddd"]`.
 
 ### Rules for generating good flowchart configs
 
@@ -125,7 +129,8 @@ interface FlowChartOptions {
   nodes:      FlowNode[];
   edges:      FlowEdge[];
   groups?:    FlowGroup[];
-  theme?:     'colorful' | 'minimal';
+  theme?:     'light' | 'dark';
+  palette?:   string | string[];
   direction?: 'TB' | 'LR';
 }
 interface FlowNode  { id: string; label: string; type?: 'process' | 'decision' | 'terminal' | 'io' }
@@ -148,7 +153,8 @@ Renders a hierarchy from a flat node list with `parent` references. Nodes are co
     { "id": "coo", "label": "COO", "parent": "ceo" },
     { "id": "fe",  "label": "FE Lead", "parent": "cto" }
   ],
-  "theme": "minimal",
+  "theme": "light",
+  "palette": "default",
   "direction": "TB"
 }
 ```
@@ -156,7 +162,7 @@ Renders a hierarchy from a flat node list with `parent` references. Nodes are co
 ### TypeScript types
 
 ```typescript
-interface TreeDiagramOptions { nodes: TreeNode[]; theme?: ThemeType; direction?: Direction }
+interface TreeDiagramOptions { nodes: TreeNode[]; theme?: 'light'|'dark'; palette?: string|string[]; direction?: Direction }
 interface TreeNode { id: string; label: string; parent?: string }
 ```
 
@@ -173,7 +179,8 @@ Renders a tech-stack / architecture landscape grid: color-coded layer cards, no 
     { "id": "fe", "label": "Frontend", "nodes": [{ "id": "react", "label": "React" }, { "id": "vue", "label": "Vue" }] },
     { "id": "be", "label": "Backend",  "nodes": [{ "id": "node",  "label": "Node.js" }] }
   ],
-  "theme": "colorful",
+  "theme": "light",
+  "palette": "default",
   "direction": "TB",
   "width": 800
 }
@@ -182,7 +189,7 @@ Renders a tech-stack / architecture landscape grid: color-coded layer cards, no 
 ### TypeScript types
 
 ```typescript
-interface ArchDiagramOptions { layers: ArchLayer[]; theme?: ThemeType; direction?: Direction; width?: number }
+interface ArchDiagramOptions { layers: ArchLayer[]; theme?: 'light'|'dark'; palette?: string|string[]; direction?: Direction; width?: number }
 interface ArchLayer { id: string; label: string; nodes: ArchNode[] }
 interface ArchNode  { id: string; label: string }
 ```
@@ -203,7 +210,8 @@ Renders a sequence diagram with vertical lifelines (animated) and horizontal mes
     { "from": "DB",      "to": "API", "label": "user row",   "style": "return" },
     { "from": "API",     "to": "Browser", "label": "200 OK", "style": "return" }
   ],
-  "theme": "colorful"
+  "theme": "light",
+  "palette": "default"
 }
 ```
 
@@ -212,7 +220,7 @@ Use `"style": "return"` for dashed response arrows; omit or use `"style": "solid
 ### TypeScript types
 
 ```typescript
-interface SequenceDiagramOptions { actors: string[]; messages: SeqMessage[]; theme?: ThemeType }
+interface SequenceDiagramOptions { actors: string[]; messages: SeqMessage[]; theme?: 'light'|'dark'; palette?: string|string[] }
 interface SeqMessage { from: string; to: string; label?: string; style?: 'solid' | 'return' }
 ```
 
@@ -233,13 +241,14 @@ Renders a 2×2 matrix with two labelled axes and data points positioned by norma
     { "id": "b", "label": "推荐系统",  "x": 0.8, "y": 0.8 },
     { "id": "c", "label": "暗黑模式",  "x": 0.3, "y": 0.2 }
   ],
-  "theme": "colorful"
+  "theme": "light",
+  "palette": "default"
 }
 ```
 
 `quadrants` order: **[top-left, top-right, bottom-left, bottom-right]**.  
 Point coordinates: `x=0` is left, `x=1` is right; `y=0` is bottom, `y=1` is top.  
-Points are auto-colored by their quadrant (top-left=green, top-right=orange, bottom-left=purple, bottom-right=blue for colorful theme).
+Points are auto-colored by their quadrant (top-left=green, top-right=orange, bottom-left=purple, bottom-right=blue for `default` palette).
 
 ### TypeScript types
 
@@ -249,7 +258,8 @@ interface QuadrantChartOptions {
   yAxis:     { label: string; min: string; max: string };
   quadrants: [string, string, string, string];
   points:    QuadrantPoint[];
-  theme?:    'colorful' | 'minimal';
+  theme?:    'light' | 'dark';
+  palette?:  string | string[];
 }
 interface QuadrantPoint { id: string; label: string; x: number; y: number }
 ```
