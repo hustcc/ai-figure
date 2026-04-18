@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1356" height="452" viewBox="-28 -28 1356 452">
+<defs>
+    <marker id="fc-1-arrow" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<g class="flowchart">
+
+<g class="edge" data-from="ai" data-to="ml">
+<path d="M680,60.36363636363636 L329.88267602905194,114.47267734096471 Q320,116 320,126 L320,156" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="ai" data-to="nlp">
+<path d="M760,76 L760,106 Q760,116 760,126 L760,156" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="ai" data-to="cv">
+<path d="M840,64.48484848484848 L1080.2057745343634,113.98179596465671 Q1090,116 1090,126 L1090,156" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="ml" data-to="sup">
+<path d="M240,211.45454545454544 L109.52925780013263,252.96796342723053 Q100,256 100,266 L100,296" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="ml" data-to="unsup">
+<path d="M320,216 L320,246 Q320,256 320,266 L320,296" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="ml" data-to="rl">
+<path d="M400,211.45454545454544 L530.4707421998673,252.96796342723053 Q540,256 540,266 L540,296" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="nlp" data-to="llm">
+<path d="M760,216 L760,246 Q760,256 760,266 L760,296" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="cv" data-to="detect">
+<path d="M1042.857142857143,216 L988.4366148773211,250.63124507806842 Q980,256 980,266 L980,296" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="cv" data-to="segment">
+<path d="M1137.142857142857,216 L1191.563385122679,250.63124507806842 Q1200,256 1200,266 L1200,296" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="node node-terminal" data-id="ai">
+<rect x="680" y="20" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="760" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">AI</text>
+</g>
+<g class="node node-process" data-id="ml">
+<rect x="240" y="156" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="320" y="186" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Machine Learning</text>
+</g>
+<g class="node node-process" data-id="nlp">
+<rect x="680" y="156" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="760" y="186" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">NLP</text>
+</g>
+<g class="node node-process" data-id="cv">
+<rect x="1010" y="156" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="1090" y="186" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Computer Vision</text>
+</g>
+<g class="node node-decision" data-id="sup">
+<polygon points="100,296 180,336 100,376 20,336" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="100" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Supervised</text>
+</g>
+<g class="node node-decision" data-id="unsup">
+<polygon points="320,296 400,336 320,376 240,336" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="320" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Unsupervised</text>
+</g>
+<g class="node node-decision" data-id="rl">
+<polygon points="540,296 620,336 540,376 460,336" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="540" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Reinforcement</text>
+</g>
+<g class="node node-decision" data-id="llm">
+<polygon points="760,296 840,336 760,376 680,336" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="760" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">LLM</text>
+</g>
+<g class="node node-decision" data-id="detect">
+<polygon points="980,296 1060,336 980,376 900,336" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="980" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Detection</text>
+</g>
+<g class="node node-decision" data-id="segment">
+<polygon points="1200,296 1280,336 1200,376 1120,336" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="1200" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Segmentation</text>
+</g>
+</g>
+</svg>

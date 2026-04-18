@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="1276" viewBox="-28 -28 256 1276">
+<defs>
+    <marker id="fc-1-arrow" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<g class="flowchart">
+<g class="group" data-id="retrieval">
+<rect x="-4" y="114" width="208" height="550" rx="8" fill="rgba(134,142,150,0.06)" stroke="#868e96" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="6" y="132" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#868e96" font-weight="500">Retrieval</text>
+</g>
+<g class="group" data-id="generation">
+<rect x="-4" y="674" width="208" height="410" rx="8" fill="rgba(134,142,150,0.06)" stroke="#868e96" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="6" y="692" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#868e96" font-weight="500">Generation</text>
+</g>
+<g class="edge" data-from="query" data-to="embed_q">
+<path d="M100,80 L100,110 Q100,120 100,130 L100,160" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="embed_q" data-to="vector_search">
+<path d="M100,220 L100,250 Q100,260 100,270 L100,300" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="vector_search" data-to="top_k">
+<path d="M100,360 L100,390 Q100,400 100,410 L100,440" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="top_k" data-to="rerank">
+<path d="M100,500 L100,530 Q100,540 100,550 L100,580" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="rerank" data-to="context">
+<path d="M100,640 L100,670 Q100,680 100,690 L100,720" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="context" data-to="prompt">
+<path d="M100,780 L100,810 Q100,820 100,830 L100,860" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="prompt" data-to="llm">
+<path d="M100,920 L100,950 Q100,960 100,970 L100,1000" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="llm" data-to="answer">
+<path d="M100,1060 L100,1090 Q100,1100 100,1110 L100,1140" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="node node-io" data-id="query">
+<polygon points="34,20 180,20 166,80 20,80" fill="#decbe41a" stroke="#decbe4" stroke-width="2" stroke-linejoin="round"/>
+<text x="100" y="50" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#decbe4">User Query</text>
+</g>
+<g class="node node-process" data-id="embed_q">
+<rect x="20" y="160" width="160" height="60" rx="6" ry="6" fill="#fbb4ae1a" stroke="#fbb4ae" stroke-width="2"/>
+<text x="100" y="190" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#fbb4ae">Embed Query</text>
+</g>
+<g class="node node-process" data-id="vector_search">
+<rect x="20" y="300" width="160" height="60" rx="6" ry="6" fill="#fbb4ae1a" stroke="#fbb4ae" stroke-width="2"/>
+<text x="100" y="330" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#fbb4ae">Vector Search</text>
+</g>
+<g class="node node-process" data-id="top_k">
+<rect x="20" y="440" width="160" height="60" rx="6" ry="6" fill="#fbb4ae1a" stroke="#fbb4ae" stroke-width="2"/>
+<text x="100" y="470" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#fbb4ae">Top-K Chunks</text>
+</g>
+<g class="node node-process" data-id="rerank">
+<rect x="20" y="580" width="160" height="60" rx="6" ry="6" fill="#fbb4ae1a" stroke="#fbb4ae" stroke-width="2"/>
+<text x="100" y="610" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#fbb4ae">Rerank</text>
+</g>
+<g class="node node-process" data-id="context">
+<rect x="20" y="720" width="160" height="60" rx="6" ry="6" fill="#fbb4ae1a" stroke="#fbb4ae" stroke-width="2"/>
+<text x="100" y="750" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#fbb4ae">Build Context</text>
+</g>
+<g class="node node-process" data-id="prompt">
+<rect x="20" y="860" width="160" height="60" rx="6" ry="6" fill="#fbb4ae1a" stroke="#fbb4ae" stroke-width="2"/>
+<text x="100" y="890" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#fbb4ae">Compose Prompt</text>
+</g>
+<g class="node node-process" data-id="llm">
+<rect x="20" y="1000" width="160" height="60" rx="6" ry="6" fill="#fbb4ae1a" stroke="#fbb4ae" stroke-width="2"/>
+<text x="100" y="1030" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#fbb4ae">LLM Inference</text>
+</g>
+<g class="node node-io" data-id="answer">
+<polygon points="34,1140 180,1140 166,1200 20,1200" fill="#decbe41a" stroke="#decbe4" stroke-width="2" stroke-linejoin="round"/>
+<text x="100" y="1170" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#decbe4">Answer</text>
+</g>
+</g>
+</svg>

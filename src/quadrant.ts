@@ -1,4 +1,4 @@
-import { themes } from './theme';
+import { resolveTheme } from './theme';
 import { escapeXml } from './utils';
 import type { QuadrantChartOptions, NodeType } from './types';
 
@@ -50,12 +50,11 @@ export function createQuadrantChart(options: QuadrantChartOptions): string {
     yAxis,
     quadrants,
     points,
-    theme: themeName = 'excalidraw',
+    theme: mode = 'light',
+    palette,
   } = options;
 
-  const theme = Object.prototype.hasOwnProperty.call(themes, themeName)
-    ? themes[themeName as keyof typeof themes]
-    : themes['excalidraw'];
+  const theme = resolveTheme(palette, mode);
 
   // Canvas scales with point count: 640 base, +24 px per extra point above 4, max 1024
   const SIZE   = Math.min(MAX_SIZE, Math.max(BASE_SIZE, BASE_SIZE + (points.length - 4) * 24));
@@ -227,8 +226,12 @@ export function createQuadrantChart(options: QuadrantChartOptions): string {
     );
   }
 
+  const bgParts: string[] = theme.background
+    ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`]
+    : [];
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}">`,
+    ...bgParts,
     `<g class="quadrant-chart">`,
     ...parts,
     `</g>`,

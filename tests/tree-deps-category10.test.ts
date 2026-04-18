@@ -1,0 +1,22 @@
+import { it } from 'vitest';
+import { fig } from '../src/index';
+import { matchSvgSnapshot } from './helpers';
+
+it('tree diagram — package dependency tree, category10 palette, LR direction', () => {
+  const svg = fig({
+    figure: 'tree',
+    nodes: [
+      { id: 'app',       label: 'my-app' },
+      { id: 'react',     label: 'react',           parent: 'app' },
+      { id: 'router',    label: 'react-router',     parent: 'app' },
+      { id: 'query',     label: 'react-query',      parent: 'app' },
+      { id: 'scheduler', label: 'scheduler',        parent: 'react' },
+      { id: 'jsxrt',     label: 'react-jsx-runtime', parent: 'react' },
+      { id: 'history',   label: 'history',          parent: 'router' },
+      { id: 'axios',     label: 'axios',            parent: 'query' },
+    ],
+    palette: 'category10',
+    direction: 'LR',
+  });
+  matchSvgSnapshot('tree-deps-category10', svg);
+});

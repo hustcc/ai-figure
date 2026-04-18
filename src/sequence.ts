@@ -1,4 +1,4 @@
-import { themes } from './theme';
+import { resolveTheme } from './theme';
 import { escapeXml, wrapText } from './utils';
 import type { SequenceDiagramOptions, NodeType } from './types';
 
@@ -24,7 +24,7 @@ let _seqDiagramCount = 0;
  * Each actor is assigned a distinct color from the theme palette.
  */
 export function createSequenceDiagram(options: SequenceDiagramOptions): string {
-  const { actors, messages, theme: themeName = 'excalidraw' } = options;
+  const { actors, messages, theme: mode = 'light', palette } = options;
 
   if (actors.length === 0) {
     return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
@@ -39,9 +39,7 @@ export function createSequenceDiagram(options: SequenceDiagramOptions): string {
     seenActors.add(actor);
   }
 
-  const theme = Object.prototype.hasOwnProperty.call(themes, themeName)
-    ? themes[themeName as keyof typeof themes]
-    : themes['excalidraw'];
+  const theme = resolveTheme(palette, mode);
 
   const sw = theme.strokeWidth;
 
@@ -212,9 +210,13 @@ export function createSequenceDiagram(options: SequenceDiagramOptions): string {
     }
   }
 
+  const bgParts: string[] = theme.background
+    ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`]
+    : [];
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${svgWidth} ${svgHeight}">`,
     defs,
+    ...bgParts,
     `<g class="sequence-diagram">`,
     ...parts,
     `</g>`,
