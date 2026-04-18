@@ -6,7 +6,7 @@
 [![Build](https://github.com/hustcc/ai-figure/actions/workflows/build.yml/badge.svg)](https://github.com/hustcc/ai-figure/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-| ![Flow](./flow.svg) | ![Tree](./tree.svg) | ![Architecture](./arch.svg) | ![Sequence](./sequence.svg) |
+| ![Flow](./assets/flow.svg) | ![Tree](./assets/tree.svg) | ![Architecture](./assets/arch.svg) | ![Sequence](./assets/sequence.svg) |
 |:---:|:---:|:---:|:---:|
 | Flow | Tree | Architecture | Sequence |
 
