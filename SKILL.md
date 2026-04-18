@@ -1,12 +1,12 @@
 ---
 name: ai-figure
 version: "0.1.0"
-description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence) from a JSON config via a single fig() API. Auto-layout, zero coordinates needed. Works in browser and Node.js.
+description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence, quadrant) from a JSON config via a single fig() API. Auto-layout, zero coordinates needed. Works in browser and Node.js.
 author: hustcc
 license: MIT
 package: ai-figure
 api: fig(options) → string (SVG)
-tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, svg, layout, visualization]
+tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, svg, layout, visualization]
 ---
 
 # ai-figure Skill
@@ -27,6 +27,7 @@ A single `fig()` function handles all diagram types. Select the type via the req
 | `'tree'`       | Tree / hierarchy   | `nodes` (with `parent` refs) |
 | `'arch'`       | Architecture grid  | `layers`                |
 | `'sequence'`   | Sequence diagram   | `actors`, `messages`    |
+| `'quadrant'`   | Quadrant chart     | `xAxis`, `yAxis`, `quadrants`, `points` |
 
 **Step 2 — Call the API**
 
