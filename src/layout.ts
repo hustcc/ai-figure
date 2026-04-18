@@ -106,7 +106,8 @@ export function computeLayout(
   }
 
   // Compute tight bounding box from all node positions and edge waypoints.
-  const PAD = 20;
+  const PAD_X = 40;
+  const PAD_Y = 20;
   let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
   for (const n of layoutNodes.values()) {
     minX = Math.min(minX, n.x);
@@ -127,8 +128,8 @@ export function computeLayout(
     nodes: layoutNodes,
     edges: layoutEdges,
     // viewBox origin and size for the tight bounding box + padding
-    viewBox: { x: minX - PAD, y: minY - PAD, width: maxX - minX + PAD * 2, height: maxY - minY + PAD * 2 },
-    width: maxX - minX + PAD * 2,
-    height: maxY - minY + PAD * 2,
+    viewBox: { x: minX - PAD_X, y: minY - PAD_Y, width: maxX - minX + PAD_X * 2, height: maxY - minY + PAD_Y * 2 },
+    width: maxX - minX + PAD_X * 2,
+    height: maxY - minY + PAD_Y * 2,
   };
 }
