@@ -71,8 +71,8 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
       // Card background
       parts.push(
         `<rect x="${cardX}" y="${cardY}" width="${cardW}" height="${cardH}" ` +
-          `rx="${CARD_RX}" fill="${escapeXml(layerFill)}" fill-opacity="0.25" ` +
-          `stroke="${escapeXml(layerStroke)}" stroke-width="${sw}"/>`,
+          `rx="${CARD_RX}" fill="${escapeXml(layerFill)}" fill-opacity="0.08" ` +
+          `stroke="${escapeXml(layerStroke)}" stroke-opacity="0.4" stroke-width="${sw}"/>`,
       );
 
       // Layer label
@@ -98,8 +98,8 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
 
         parts.push(
           `<rect x="${nx}" y="${ny}" width="${nodeW}" height="${CELL_H}" ` +
-            `rx="${theme.cornerRadius}" fill="white" ` +
-            `stroke="${escapeXml(layerStroke)}" stroke-width="${sw}"/>`,
+            `rx="${theme.cornerRadius}" fill="${escapeXml(layerFill)}" ` +
+            `stroke="${escapeXml(layerStroke)}" stroke-opacity="0.6" stroke-width="${sw}"/>`,
         );
 
         const lines = wrapText(node.label, nodeW - 16, theme.fontSize);
@@ -152,8 +152,8 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
     // Card background
     parts.push(
       `<rect x="${cardX}" y="${cardY}" width="${innerW}" height="${cardH}" ` +
-        `rx="${CARD_RX}" fill="${escapeXml(layerFill)}" fill-opacity="0.25" ` +
-        `stroke="${escapeXml(layerStroke)}" stroke-width="${sw}"/>`,
+        `rx="${CARD_RX}" fill="${escapeXml(layerFill)}" fill-opacity="0.08" ` +
+        `stroke="${escapeXml(layerStroke)}" stroke-opacity="0.4" stroke-width="${sw}"/>`,
     );
 
     // Layer label
@@ -179,8 +179,8 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
 
       parts.push(
         `<rect x="${nx}" y="${ny}" width="${cellW}" height="${CELL_H}" ` +
-          `rx="${theme.cornerRadius}" fill="white" ` +
-          `stroke="${escapeXml(layerStroke)}" stroke-width="${sw}"/>`,
+          `rx="${theme.cornerRadius}" fill="${escapeXml(layerFill)}" ` +
+          `stroke="${escapeXml(layerStroke)}" stroke-opacity="0.6" stroke-width="${sw}"/>`,
       );
 
       const lines = wrapText(node.label, cellW - 16, theme.fontSize);
