@@ -1,17 +1,24 @@
 import { themes } from './theme';
 import { escapeXml, wrapText } from './utils';
-import type { ArchDiagramOptions } from './types';
+import type { ArchDiagramOptions, NodeType } from './types';
 
-const PAD = 20;
-const LABEL_H = 28;
-const CELL_H = 70;
-const NODE_PAD = 8;
-const LAYER_GAP = 0; // layers are separated by a divider line, no extra gap
+const PAD = 24;         // outer SVG margin
+const CARD_PAD = 14;    // padding inside each layer card
+const LABEL_H = 40;     // layer label row height
+const CELL_H = 72;      // node cell height
+const CELL_GAP = 10;    // gap between adjacent node cells
+const LAYER_GAP = 14;   // gap between layer cards
+const CARD_RX = 10;     // card corner radius
+
+/** Node types cycled per layer index to give each layer a distinct color. */
+const LAYER_NODE_TYPES: NodeType[] = ['process', 'decision', 'terminal', 'io'];
 
 /**
  * Generate an SVG architecture / tech-landscape diagram.
- * Layers are rendered as rows (TB) or columns (LR) of equal-width node cells
- * with no connecting lines.
+ *
+ * Each layer is rendered as a rounded card with its own color.
+ * TB: cards stacked vertically; LR: cards arranged horizontally.
+ * Node cells inside each card are white with a colored border.
  */
 export function createArchDiagram(options: ArchDiagramOptions): string {
   const {
@@ -29,76 +36,82 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
     ? themes[themeName as keyof typeof themes]
     : themes['excalidraw'];
 
-  const nodeFill = theme.nodeFills['process'];
-  const nodeStroke = theme.nodeStrokes['process'];
-  const textColor = theme.textColors['process'];
   const sw = theme.strokeWidth;
 
   if (direction === 'LR') {
-    // Layers placed left-to-right (each layer is a column)
+    // Each layer is a column card placed left-to-right
     const maxRows = Math.max(...layers.map((l) => l.nodes.length));
-    // For LR: width dimension corresponds to per-layer column width
-    // totalWidth is interpreted as total height in LR mode; we use it for height
-    const totalHeight = totalWidth; // reuse the width param as height in LR
-    const colW = Math.floor((totalHeight - PAD * 2) / layers.length);
-    const cellW = colW - NODE_PAD * 2;
-    const rowH = Math.floor(
-      (totalHeight - PAD * 2 - LABEL_H - NODE_PAD) / Math.max(maxRows, 1),
+    const totalCardArea = totalWidth - PAD * 2;
+    const cardW = Math.floor(
+      (totalCardArea - LAYER_GAP * (layers.length - 1)) / Math.max(layers.length, 1),
     );
-    const cellHeight = Math.min(CELL_H, rowH - NODE_PAD);
-    const svgHeight = LABEL_H + maxRows * (cellHeight + NODE_PAD) + PAD * 2;
-    const svgWidth = layers.length * colW + PAD * 2;
+    const nodeW = cardW - CARD_PAD * 2;
+    const cardH =
+      LABEL_H +
+      CARD_PAD +
+      maxRows * CELL_H +
+      Math.max(maxRows - 1, 0) * CELL_GAP +
+      CARD_PAD;
+    const svgWidth =
+      PAD * 2 + layers.length * cardW + LAYER_GAP * (layers.length - 1);
+    const svgHeight = PAD * 2 + cardH;
 
     const parts: string[] = [];
 
-    // Outer border
-    parts.push(
-      `<rect x="${PAD}" y="${PAD}" width="${svgWidth - PAD * 2}" height="${svgHeight - PAD * 2}" ` +
-        `rx="8" fill="none" stroke="${escapeXml(theme.groupColor)}" stroke-width="1.5"/>`,
-    );
-
     for (let li = 0; li < layers.length; li++) {
       const layer = layers[li];
-      const colX = PAD + li * colW;
+      const nodeType = LAYER_NODE_TYPES[li % LAYER_NODE_TYPES.length];
+      const layerFill = theme.nodeFills[nodeType];
+      const layerStroke = theme.nodeStrokes[nodeType];
+      const layerText = theme.textColors[nodeType];
 
-      // Vertical divider (except before first column)
-      if (li > 0) {
-        parts.push(
-          `<line x1="${colX}" y1="${PAD}" x2="${colX}" y2="${svgHeight - PAD}" ` +
-            `stroke="${escapeXml(theme.groupColor)}" stroke-width="1"/>`,
-        );
-      }
+      const cardX = PAD + li * (cardW + LAYER_GAP);
+      const cardY = PAD;
+
+      // Card background
+      parts.push(
+        `<rect x="${cardX}" y="${cardY}" width="${cardW}" height="${cardH}" ` +
+          `rx="${CARD_RX}" fill="${escapeXml(layerFill)}" fill-opacity="0.25" ` +
+          `stroke="${escapeXml(layerStroke)}" stroke-width="${sw}"/>`,
+      );
 
       // Layer label
       parts.push(
-        `<text x="${colX + colW / 2}" y="${PAD + LABEL_H / 2 + 4}" ` +
+        `<text x="${cardX + cardW / 2}" y="${cardY + LABEL_H / 2 + 2}" ` +
           `text-anchor="middle" dominant-baseline="middle" ` +
-          `font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize}" ` +
-          `fill="${escapeXml(theme.groupColor)}" font-weight="600">${escapeXml(layer.label)}</text>`,
+          `font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize + 1}" ` +
+          `fill="${escapeXml(layerStroke)}" font-weight="700">${escapeXml(layer.label)}</text>`,
       );
 
-      // Nodes
+      // Separator below label
+      parts.push(
+        `<line x1="${cardX + 8}" y1="${cardY + LABEL_H}" ` +
+          `x2="${cardX + cardW - 8}" y2="${cardY + LABEL_H}" ` +
+          `stroke="${escapeXml(layerStroke)}" stroke-width="1" opacity="0.4"/>`,
+      );
+
+      // Node cells
       for (let ni = 0; ni < layer.nodes.length; ni++) {
         const node = layer.nodes[ni];
-        const nx = colX + NODE_PAD;
-        const ny = PAD + LABEL_H + ni * (cellHeight + NODE_PAD) + NODE_PAD;
+        const nx = cardX + CARD_PAD;
+        const ny = cardY + LABEL_H + CARD_PAD + ni * (CELL_H + CELL_GAP);
 
         parts.push(
-          `<rect x="${nx}" y="${ny}" width="${cellW}" height="${cellHeight}" ` +
-            `rx="${theme.cornerRadius}" fill="${escapeXml(nodeFill)}" ` +
-            `stroke="${escapeXml(nodeStroke)}" stroke-width="${sw}"/>`,
+          `<rect x="${nx}" y="${ny}" width="${nodeW}" height="${CELL_H}" ` +
+            `rx="${theme.cornerRadius}" fill="white" ` +
+            `stroke="${escapeXml(layerStroke)}" stroke-width="${sw}"/>`,
         );
 
-        const lines = wrapText(node.label, cellW - 12, theme.fontSize);
+        const lines = wrapText(node.label, nodeW - 16, theme.fontSize);
         const lineHeight = theme.fontSize * 1.4;
         const totalH = lines.length * lineHeight;
-        const startY = ny + cellHeight / 2 - totalH / 2 + lineHeight * 0.5;
+        const startY = ny + CELL_H / 2 - totalH / 2 + lineHeight * 0.5;
         for (let idx = 0; idx < lines.length; idx++) {
           parts.push(
-            `<text x="${nx + cellW / 2}" y="${startY + idx * lineHeight}" ` +
+            `<text x="${nx + nodeW / 2}" y="${startY + idx * lineHeight}" ` +
               `text-anchor="middle" dominant-baseline="middle" ` +
               `font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize}" ` +
-              `fill="${escapeXml(textColor)}">${escapeXml(lines[idx])}</text>`,
+              `fill="${escapeXml(layerText)}">${escapeXml(lines[idx])}</text>`,
           );
         }
       }
@@ -113,66 +126,73 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
     ].join('\n');
   }
 
-  // TB (default): layers stacked top-to-bottom
-  const maxCols = Math.max(...layers.map((l) => l.nodes.length));
+  // TB (default): layers stacked top-to-bottom, each rendered as a card
   const innerW = totalWidth - PAD * 2;
-  const cellW = Math.floor(innerW / Math.max(maxCols, 1));
+  const maxCols = Math.max(...layers.map((l) => l.nodes.length));
+  const availW = innerW - CARD_PAD * 2;
+  const cellW = Math.floor(
+    (availW - CELL_GAP * Math.max(maxCols - 1, 0)) / Math.max(maxCols, 1),
+  );
+  const cardH = LABEL_H + CARD_PAD + CELL_H + CARD_PAD;
+  const totalHeight =
+    PAD + layers.length * cardH + LAYER_GAP * (layers.length - 1) + PAD;
 
   const parts: string[] = [];
 
-  // Compute total height first (need it for outer border)
-  const layerH = LABEL_H + CELL_H + NODE_PAD * 2;
-  const totalHeight = PAD * 2 + layers.length * layerH + LAYER_GAP * (layers.length - 1);
-
-  // Outer border
-  parts.push(
-    `<rect x="${PAD}" y="${PAD}" width="${innerW}" height="${totalHeight - PAD * 2}" ` +
-      `rx="8" fill="none" stroke="${escapeXml(theme.groupColor)}" stroke-width="1.5"/>`,
-  );
-
   for (let li = 0; li < layers.length; li++) {
     const layer = layers[li];
-    const layerY = PAD + li * layerH;
+    const nodeType = LAYER_NODE_TYPES[li % LAYER_NODE_TYPES.length];
+    const layerFill = theme.nodeFills[nodeType];
+    const layerStroke = theme.nodeStrokes[nodeType];
+    const layerText = theme.textColors[nodeType];
 
-    // Horizontal divider (except before first row)
-    if (li > 0) {
-      parts.push(
-        `<line x1="${PAD}" y1="${layerY}" x2="${PAD + innerW}" y2="${layerY}" ` +
-          `stroke="${escapeXml(theme.groupColor)}" stroke-width="1"/>`,
-      );
-    }
+    const cardX = PAD;
+    const cardY = PAD + li * (cardH + LAYER_GAP);
+
+    // Card background
+    parts.push(
+      `<rect x="${cardX}" y="${cardY}" width="${innerW}" height="${cardH}" ` +
+        `rx="${CARD_RX}" fill="${escapeXml(layerFill)}" fill-opacity="0.25" ` +
+        `stroke="${escapeXml(layerStroke)}" stroke-width="${sw}"/>`,
+    );
 
     // Layer label
     parts.push(
-      `<text x="${PAD + 12}" y="${layerY + LABEL_H / 2 + 4}" ` +
+      `<text x="${cardX + 16}" y="${cardY + LABEL_H / 2 + 2}" ` +
         `dominant-baseline="middle" ` +
-        `font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize}" ` +
-        `fill="${escapeXml(theme.groupColor)}" font-weight="600">${escapeXml(layer.label)}</text>`,
+        `font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize + 1}" ` +
+        `fill="${escapeXml(layerStroke)}" font-weight="700">${escapeXml(layer.label)}</text>`,
     );
 
-    // Nodes
+    // Separator below label
+    parts.push(
+      `<line x1="${cardX + 8}" y1="${cardY + LABEL_H}" ` +
+        `x2="${cardX + innerW - 8}" y2="${cardY + LABEL_H}" ` +
+        `stroke="${escapeXml(layerStroke)}" stroke-width="1" opacity="0.4"/>`,
+    );
+
+    // Node cells
     for (let ni = 0; ni < layer.nodes.length; ni++) {
       const node = layer.nodes[ni];
-      const nx = PAD + ni * cellW + NODE_PAD;
-      const ny = layerY + LABEL_H + NODE_PAD;
-      const nodeW = cellW - NODE_PAD * 2;
+      const nx = cardX + CARD_PAD + ni * (cellW + CELL_GAP);
+      const ny = cardY + LABEL_H + CARD_PAD;
 
       parts.push(
-        `<rect x="${nx}" y="${ny}" width="${nodeW}" height="${CELL_H}" ` +
-          `rx="${theme.cornerRadius}" fill="${escapeXml(nodeFill)}" ` +
-          `stroke="${escapeXml(nodeStroke)}" stroke-width="${sw}"/>`,
+        `<rect x="${nx}" y="${ny}" width="${cellW}" height="${CELL_H}" ` +
+          `rx="${theme.cornerRadius}" fill="white" ` +
+          `stroke="${escapeXml(layerStroke)}" stroke-width="${sw}"/>`,
       );
 
-      const lines = wrapText(node.label, nodeW - 12, theme.fontSize);
+      const lines = wrapText(node.label, cellW - 16, theme.fontSize);
       const lineHeight = theme.fontSize * 1.4;
       const totalLabelH = lines.length * lineHeight;
       const startY = ny + CELL_H / 2 - totalLabelH / 2 + lineHeight * 0.5;
       for (let idx = 0; idx < lines.length; idx++) {
         parts.push(
-          `<text x="${nx + nodeW / 2}" y="${startY + idx * lineHeight}" ` +
+          `<text x="${nx + cellW / 2}" y="${startY + idx * lineHeight}" ` +
             `text-anchor="middle" dominant-baseline="middle" ` +
             `font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize}" ` +
-            `fill="${escapeXml(textColor)}">${escapeXml(lines[idx])}</text>`,
+            `fill="${escapeXml(layerText)}">${escapeXml(lines[idx])}</text>`,
         );
       }
     }

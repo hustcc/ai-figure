@@ -1,6 +1,6 @@
 import { themes } from './theme';
 import { escapeXml, wrapText } from './utils';
-import type { SequenceDiagramOptions } from './types';
+import type { SequenceDiagramOptions, NodeType } from './types';
 
 const ACTOR_W = 120;
 const ACTOR_H = 44;
@@ -10,9 +10,13 @@ const TOP_PAD = 24;
 const BOTTOM_PAD = 32;
 const LIFELINE_DASH = '4 4';
 
+/** Node types cycled by actor index so each participant has a distinct color. */
+const ACTOR_NODE_TYPES: NodeType[] = ['terminal', 'process', 'decision', 'io'];
+
 /**
  * Generate an SVG sequence diagram with vertical lifelines and horizontal
  * message arrows. No Dagre — layout is fully hand-computed.
+ * Each actor is assigned a distinct color from the theme palette.
  */
 export function createSequenceDiagram(options: SequenceDiagramOptions): string {
   const { actors, messages, theme: themeName = 'excalidraw' } = options;
@@ -25,10 +29,10 @@ export function createSequenceDiagram(options: SequenceDiagramOptions): string {
     ? themes[themeName as keyof typeof themes]
     : themes['excalidraw'];
 
-  const actorFill = theme.nodeFills['terminal'];
-  const actorStroke = theme.nodeStrokes['terminal'];
-  const actorText = theme.textColors['terminal'];
   const sw = theme.strokeWidth;
+
+  // Helper: NodeType for actor at index i
+  const actorType = (i: number): NodeType => ACTOR_NODE_TYPES[i % ACTOR_NODE_TYPES.length];
 
   // Actor center X positions (left-to-right)
   const sideMargin = ACTOR_W / 2 + 20;
@@ -57,22 +61,26 @@ export function createSequenceDiagram(options: SequenceDiagramOptions): string {
     `  </marker>\n` +
     `</defs>`;
 
-  // Lifelines (drawn first, behind everything)
-  for (const actor of actors) {
+  // Lifelines (drawn first, behind everything) — colored per actor
+  actors.forEach((actor, i) => {
     const cx = actorCenterX.get(actor)!;
+    const lifelineColor = theme.nodeStrokes[actorType(i)];
     parts.push(
       `<line x1="${cx}" y1="${actorBottomY}" x2="${cx}" y2="${lifelineEndY}" ` +
-        `stroke="${escapeXml(arrowColor)}" stroke-width="1.5" ` +
+        `stroke="${escapeXml(lifelineColor)}" stroke-width="1.5" ` +
         `stroke-dasharray="${LIFELINE_DASH}" opacity="0.4"/>`,
     );
-  }
+  });
 
-  // Actor boxes
-  for (const actor of actors) {
+  // Actor boxes — each gets its own color
+  actors.forEach((actor, i) => {
     const cx = actorCenterX.get(actor)!;
     const ax = cx - ACTOR_W / 2;
     const ay = actorTopY;
     const rx = Math.min(ACTOR_H / 2, 22);
+    const actorFill = theme.nodeFills[actorType(i)];
+    const actorStroke = theme.nodeStrokes[actorType(i)];
+    const actorText = theme.textColors[actorType(i)];
     parts.push(
       `<rect x="${ax}" y="${ay}" width="${ACTOR_W}" height="${ACTOR_H}" ` +
         `rx="${rx}" ry="${rx}" fill="${escapeXml(actorFill)}" ` +
@@ -90,7 +98,7 @@ export function createSequenceDiagram(options: SequenceDiagramOptions): string {
           `fill="${escapeXml(actorText)}">${escapeXml(lines[idx])}</text>`,
       );
     }
-  }
+  });
 
   // Message arrows
   for (let mi = 0; mi < messages.length; mi++) {

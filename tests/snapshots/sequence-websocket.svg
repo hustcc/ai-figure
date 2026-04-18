@@ -5,12 +5,12 @@
   </marker>
 </defs>
 <g class="sequence-diagram">
-<line x1="80" y1="68" x2="80" y2="492" stroke="#495057" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
-<line x1="260" y1="68" x2="260" y2="492" stroke="#495057" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
+<line x1="80" y1="68" x2="80" y2="492" stroke="#51cf66" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
+<line x1="260" y1="68" x2="260" y2="492" stroke="#f59f00" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
 <rect x="20" y="24" width="120" height="44" rx="22" ry="22" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
 <text x="80" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Client</text>
-<rect x="200" y="24" width="120" height="44" rx="22" ry="22" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
-<text x="260" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Server</text>
+<rect x="200" y="24" width="120" height="44" rx="22" ry="22" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="260" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Server</text>
 <line x1="80" y1="124" x2="260" y2="124" stroke="#495057" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow)"/>
 <rect x="105.84" y="100" width="128.32" height="18" fill="white" rx="3" opacity="0.9"/>
 <text x="170" y="115" text-anchor="middle" dominant-baseline="auto" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">GET /ws (Upgrade)</text>

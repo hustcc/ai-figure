@@ -5,20 +5,20 @@
   </marker>
 </defs>
 <g class="sequence-diagram">
-<line x1="80" y1="68" x2="80" y2="548" stroke="#555555" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
-<line x1="260" y1="68" x2="260" y2="548" stroke="#555555" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
-<line x1="440" y1="68" x2="440" y2="548" stroke="#555555" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
-<line x1="620" y1="68" x2="620" y2="548" stroke="#555555" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
-<line x1="800" y1="68" x2="800" y2="548" stroke="#555555" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
+<line x1="80" y1="68" x2="80" y2="548" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
+<line x1="260" y1="68" x2="260" y2="548" stroke="#2196f3" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
+<line x1="440" y1="68" x2="440" y2="548" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
+<line x1="620" y1="68" x2="620" y2="548" stroke="#8e44ad" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
+<line x1="800" y1="68" x2="800" y2="548" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
 <rect x="20" y="24" width="120" height="44" rx="22" ry="22" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
 <text x="80" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1b5e20">User</text>
-<rect x="200" y="24" width="120" height="44" rx="22" ry="22" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
-<text x="260" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1b5e20">Order Service</text>
-<rect x="380" y="24" width="120" height="44" rx="22" ry="22" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
-<text x="440" y="36.2" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1b5e20">Payment</text>
-<text x="440" y="55.8" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1b5e20">Service</text>
-<rect x="560" y="24" width="120" height="44" rx="22" ry="22" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
-<text x="620" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1b5e20">Inventory</text>
+<rect x="200" y="24" width="120" height="44" rx="22" ry="22" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<text x="260" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Order Service</text>
+<rect x="380" y="24" width="120" height="44" rx="22" ry="22" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/>
+<text x="440" y="36.2" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e65100">Payment</text>
+<text x="440" y="55.8" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e65100">Service</text>
+<rect x="560" y="24" width="120" height="44" rx="22" ry="22" fill="#fdf2f8" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="620" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#6a1b9a">Inventory</text>
 <rect x="740" y="24" width="120" height="44" rx="22" ry="22" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
 <text x="800" y="36.2" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1b5e20">Notify</text>
 <text x="800" y="55.8" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1b5e20">Service</text>
