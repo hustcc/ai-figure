@@ -1,39 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="598" height="352" viewBox="0 0 598 352">
+<svg xmlns="http://www.w3.org/2000/svg" width="762" height="352" viewBox="0 0 762 352">
 <g class="arch-diagram">
-<rect x="24" y="24" width="127" height="304" rx="10" fill="#4e79a71a" fill-opacity="0.08" stroke="#4e79a7" stroke-opacity="0.4" stroke-width="2"/>
-<text x="87.5" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#4e79a7" font-weight="700">Client</text>
-<line x1="32" y1="64" x2="143" y2="64" stroke="#4e79a7" stroke-width="1" opacity="0.4"/>
-<rect x="38" y="78" width="99" height="72" rx="6" fill="#4e79a71a" stroke="#4e79a7" stroke-opacity="0.6" stroke-width="2"/>
-<text x="87.5" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#4e79a7">Web App</text>
-<rect x="38" y="160" width="99" height="72" rx="6" fill="#4e79a71a" stroke="#4e79a7" stroke-opacity="0.6" stroke-width="2"/>
-<text x="87.5" y="196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#4e79a7">Mobile App</text>
-<rect x="165" y="24" width="127" height="304" rx="10" fill="#f28e2c1a" fill-opacity="0.08" stroke="#f28e2c" stroke-opacity="0.4" stroke-width="2"/>
-<text x="228.5" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#f28e2c" font-weight="700">Edge</text>
-<line x1="173" y1="64" x2="284" y2="64" stroke="#f28e2c" stroke-width="1" opacity="0.4"/>
-<rect x="179" y="78" width="99" height="72" rx="6" fill="#f28e2c1a" stroke="#f28e2c" stroke-opacity="0.6" stroke-width="2"/>
-<text x="228.5" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#f28e2c">CDN</text>
-<rect x="179" y="160" width="99" height="72" rx="6" fill="#f28e2c1a" stroke="#f28e2c" stroke-opacity="0.6" stroke-width="2"/>
-<text x="228.5" y="186.20000000000002" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#f28e2c">API</text>
-<text x="228.5" y="205.8" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#f28e2c">Gateway</text>
-<rect x="179" y="242" width="99" height="72" rx="6" fill="#f28e2c1a" stroke="#f28e2c" stroke-opacity="0.6" stroke-width="2"/>
-<text x="228.5" y="278" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#f28e2c">WAF</text>
-<rect x="306" y="24" width="127" height="304" rx="10" fill="#e157591a" fill-opacity="0.08" stroke="#e15759" stroke-opacity="0.4" stroke-width="2"/>
-<text x="369.5" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#e15759" font-weight="700">Services</text>
-<line x1="314" y1="64" x2="425" y2="64" stroke="#e15759" stroke-width="1" opacity="0.4"/>
-<rect x="320" y="78" width="99" height="72" rx="6" fill="#e157591a" stroke="#e15759" stroke-opacity="0.6" stroke-width="2"/>
-<text x="369.5" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e15759">Auth</text>
-<rect x="320" y="160" width="99" height="72" rx="6" fill="#e157591a" stroke="#e15759" stroke-opacity="0.6" stroke-width="2"/>
-<text x="369.5" y="196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e15759">Order</text>
-<rect x="320" y="242" width="99" height="72" rx="6" fill="#e157591a" stroke="#e15759" stroke-opacity="0.6" stroke-width="2"/>
-<text x="369.5" y="278" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e15759">Notify</text>
-<rect x="447" y="24" width="127" height="304" rx="10" fill="#76b7b21a" fill-opacity="0.08" stroke="#76b7b2" stroke-opacity="0.4" stroke-width="2"/>
-<text x="510.5" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#76b7b2" font-weight="700">Data</text>
-<line x1="455" y1="64" x2="566" y2="64" stroke="#76b7b2" stroke-width="1" opacity="0.4"/>
-<rect x="461" y="78" width="99" height="72" rx="6" fill="#76b7b21a" stroke="#76b7b2" stroke-opacity="0.6" stroke-width="2"/>
-<text x="510.5" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#76b7b2">PostgreSQL</text>
-<rect x="461" y="160" width="99" height="72" rx="6" fill="#76b7b21a" stroke="#76b7b2" stroke-opacity="0.6" stroke-width="2"/>
-<text x="510.5" y="196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#76b7b2">Redis</text>
-<rect x="461" y="242" width="99" height="72" rx="6" fill="#76b7b21a" stroke="#76b7b2" stroke-opacity="0.6" stroke-width="2"/>
-<text x="510.5" y="278" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#76b7b2">S3</text>
+<rect x="24" y="24" width="168" height="304" rx="10" fill="#4e79a71a" fill-opacity="0.08" stroke="#4e79a7" stroke-opacity="0.4" stroke-width="2"/>
+<text x="108" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#4e79a7" font-weight="700">Client</text>
+<line x1="32" y1="64" x2="184" y2="64" stroke="#4e79a7" stroke-width="1" opacity="0.4"/>
+<rect x="38" y="78" width="140" height="72" rx="6" fill="#4e79a71a" stroke="#4e79a7" stroke-opacity="0.6" stroke-width="2"/>
+<text x="108" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#4e79a7">Web App</text>
+<rect x="38" y="160" width="140" height="72" rx="6" fill="#4e79a71a" stroke="#4e79a7" stroke-opacity="0.6" stroke-width="2"/>
+<text x="108" y="196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#4e79a7">Mobile App</text>
+<rect x="206" y="24" width="168" height="304" rx="10" fill="#f28e2c1a" fill-opacity="0.08" stroke="#f28e2c" stroke-opacity="0.4" stroke-width="2"/>
+<text x="290" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#f28e2c" font-weight="700">Edge</text>
+<line x1="214" y1="64" x2="366" y2="64" stroke="#f28e2c" stroke-width="1" opacity="0.4"/>
+<rect x="220" y="78" width="140" height="72" rx="6" fill="#f28e2c1a" stroke="#f28e2c" stroke-opacity="0.6" stroke-width="2"/>
+<text x="290" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#f28e2c">CDN</text>
+<rect x="220" y="160" width="140" height="72" rx="6" fill="#f28e2c1a" stroke="#f28e2c" stroke-opacity="0.6" stroke-width="2"/>
+<text x="290" y="196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#f28e2c">API Gateway</text>
+<rect x="220" y="242" width="140" height="72" rx="6" fill="#f28e2c1a" stroke="#f28e2c" stroke-opacity="0.6" stroke-width="2"/>
+<text x="290" y="278" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#f28e2c">WAF</text>
+<rect x="388" y="24" width="168" height="304" rx="10" fill="#e157591a" fill-opacity="0.08" stroke="#e15759" stroke-opacity="0.4" stroke-width="2"/>
+<text x="472" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#e15759" font-weight="700">Services</text>
+<line x1="396" y1="64" x2="548" y2="64" stroke="#e15759" stroke-width="1" opacity="0.4"/>
+<rect x="402" y="78" width="140" height="72" rx="6" fill="#e157591a" stroke="#e15759" stroke-opacity="0.6" stroke-width="2"/>
+<text x="472" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e15759">Auth</text>
+<rect x="402" y="160" width="140" height="72" rx="6" fill="#e157591a" stroke="#e15759" stroke-opacity="0.6" stroke-width="2"/>
+<text x="472" y="196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e15759">Order</text>
+<rect x="402" y="242" width="140" height="72" rx="6" fill="#e157591a" stroke="#e15759" stroke-opacity="0.6" stroke-width="2"/>
+<text x="472" y="278" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e15759">Notify</text>
+<rect x="570" y="24" width="168" height="304" rx="10" fill="#76b7b21a" fill-opacity="0.08" stroke="#76b7b2" stroke-opacity="0.4" stroke-width="2"/>
+<text x="654" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#76b7b2" font-weight="700">Data</text>
+<line x1="578" y1="64" x2="730" y2="64" stroke="#76b7b2" stroke-width="1" opacity="0.4"/>
+<rect x="584" y="78" width="140" height="72" rx="6" fill="#76b7b21a" stroke="#76b7b2" stroke-opacity="0.6" stroke-width="2"/>
+<text x="654" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#76b7b2">PostgreSQL</text>
+<rect x="584" y="160" width="140" height="72" rx="6" fill="#76b7b21a" stroke="#76b7b2" stroke-opacity="0.6" stroke-width="2"/>
+<text x="654" y="196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#76b7b2">Redis</text>
+<rect x="584" y="242" width="140" height="72" rx="6" fill="#76b7b21a" stroke="#76b7b2" stroke-opacity="0.6" stroke-width="2"/>
+<text x="654" y="278" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#76b7b2">S3</text>
 </g>
 </svg>

@@ -33,7 +33,6 @@ it('arch diagram — tech stack, default palette, TB direction', () => {
     ],
     palette: 'default',
     direction: 'TB',
-    width: 800,
   });
   matchSvgSnapshot('arch-stack-default', svg);
 });

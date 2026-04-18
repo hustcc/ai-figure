@@ -41,7 +41,6 @@ it('arch diagram — microservices platform, default palette, TB direction', () 
     ],
     palette: 'default',
     direction: 'TB',
-    width: 900,
   });
   matchSvgSnapshot('arch-microservices-default', svg);
 });

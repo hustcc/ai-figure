@@ -39,7 +39,6 @@ it('arch diagram — data engineering pipeline, set2 palette, LR direction', () 
     ],
     palette: 'set2',
     direction: 'LR',
-    width: 700,
   });
   matchSvgSnapshot('arch-data-pipeline-set2', svg);
 });
