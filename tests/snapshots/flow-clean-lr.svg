@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="976" height="272" viewBox="-28 -28 976 272">
 <defs>
-    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+    <marker id="fc-1-arrow" markerWidth="8" markerHeight="6"
       refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
       <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#555555"/>
     </marker>
@@ -12,21 +12,21 @@
 <g class="flowchart">
 
 <g class="edge" data-from="read" data-to="parse">
-<path d="M180,109 L210,109 Q220,109 230,109 L260,109" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<path d="M180,109 L210,109 Q220,109 230,109 L260,109" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
 
 </g>
 <g class="edge" data-from="parse" data-to="ok">
-<path d="M420,109 L450,109 Q460,109 470,109 L500,109" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<path d="M420,109 L450,109 Q460,109 470,109 L500,109" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
 
 </g>
 <g class="edge" data-from="ok" data-to="save">
-<path d="M660,69.66666666666666 L691.0260148929267,54.41220934431106 Q700,50 710,50 L740,50" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
-<rect x="683.5" y="40" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
+<path d="M660,69.66666666666666 L691.0260148929267,54.41220934431106 Q700,50 710,50 L740,50" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+<rect x="684.56" y="41" width="30.879999999999995" height="18" fill="white" rx="3" opacity="0.9"/>
 <text x="700" y="50" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Yes</text>
 </g>
 <g class="edge" data-from="ok" data-to="retry">
-<path d="M660,148.33333333333334 L691.0260148929267,163.58779065568893 Q700,168 710,168 L740,168" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
-<rect x="687" y="158" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<path d="M660,148.33333333333334 L691.0260148929267,163.58779065568893 Q700,168 710,168 L740,168" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+<rect x="688.04" y="159" width="23.919999999999998" height="18" fill="white" rx="3" opacity="0.9"/>
 <text x="700" y="168" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">No</text>
 </g>
 <g class="node node-io" data-id="read">

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="736" height="736" viewBox="0 0 736 736">
 <g class="quadrant-chart">
-<defs><filter id="qd-1-shadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0.8" stdDeviation="1" flood-color="rgba(0,0,0,0.18)"/></filter><marker id="qd-1-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 7 3.5, 0 7, 1.5 3.5" fill="#868e96"/></marker></defs>
+<defs><filter id="qd-1-shadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0.8" stdDeviation="1" flood-color="rgba(0,0,0,0.18)"/></filter><marker id="qd-1-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#868e96"/></marker></defs>
 <rect x="56" y="32" width="328" height="326" fill="#ebfbee" fill-opacity="0.13" stroke="none"/>
 <rect x="384" y="32" width="328" height="326" fill="#fff7e6" fill-opacity="0.13" stroke="none"/>
 <rect x="56" y="358" width="328" height="326" fill="#fdf4ff" fill-opacity="0.13" stroke="none"/>

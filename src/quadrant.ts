@@ -11,7 +11,6 @@ const PAD_TOP    = 32;
 const PAD_BOTTOM = 52;   // room for X-axis label
 
 const POINT_R = 4;
-const MARKER_SIZE = 7;
 /** Corner padding for quadrant name labels. */
 const CORNER_PAD = 10;
 /** x-coordinate threshold above which the point label is placed to the left. */
@@ -88,9 +87,9 @@ export function createQuadrantChart(options: QuadrantChartOptions): string {
       `<filter id="${uid}-shadow" x="-40%" y="-40%" width="180%" height="180%">` +
       `<feDropShadow dx="0" dy="0.8" stdDeviation="1" flood-color="rgba(0,0,0,0.18)"/>` +
       `</filter>` +
-      `<marker id="${uid}-arrow" markerWidth="${MARKER_SIZE}" markerHeight="${MARKER_SIZE}" ` +
-      `refX="${MARKER_SIZE - 1}" refY="${MARKER_SIZE / 2}" orient="auto" markerUnits="strokeWidth">` +
-      `<polygon points="0 0, ${MARKER_SIZE} ${MARKER_SIZE / 2}, 0 ${MARKER_SIZE}, 1.5 ${MARKER_SIZE / 2}" ` +
+      `<marker id="${uid}-arrow" markerWidth="8" markerHeight="6" ` +
+      `refX="7" refY="3" orient="auto" markerUnits="strokeWidth">` +
+      `<polygon points="0 0, 8 3, 0 6, 1.5 3" ` +
       `fill="${escapeXml(axisColor)}"/>` +
       `</marker>` +
       `</defs>`,
