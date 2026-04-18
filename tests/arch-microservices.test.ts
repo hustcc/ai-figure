@@ -39,7 +39,7 @@ it('arch diagram — microservices platform, colorful theme, TB direction', () =
         ],
       },
     ],
-    theme: 'colorful',
+    palette: 'colorful',
     direction: 'TB',
     width: 900,
   });

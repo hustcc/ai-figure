@@ -33,7 +33,7 @@ it('user authentication flow — colorful theme, TB direction', () => {
       { from: 'mfa_ok', to: 'deny', label: 'Fail' },
       { from: 'session', to: 'dashboard' },
     ],
-    theme: 'colorful',
+    palette: 'colorful',
     direction: 'TB',
   });
   matchSvgSnapshot('flow-auth', svg);

@@ -17,7 +17,7 @@ it('sequence diagram — CI/CD build pipeline, minimal theme', () => {
       { from: 'Cluster',    to: 'CI Runner',  label: 'rollout complete',  style: 'return' },
       { from: 'CI Runner',  to: 'GitHub',     label: 'status: success',   style: 'return' },
     ],
-    theme: 'minimal',
+    palette: 'minimal',
   });
   matchSvgSnapshot('sequence-ci-build', svg);
 });

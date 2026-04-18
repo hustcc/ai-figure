@@ -10,8 +10,15 @@ export type NodeType = 'process' | 'decision' | 'terminal' | 'io';
 /** Layout direction of the graph. */
 export type Direction = 'TB' | 'LR';
 
-/** Visual theme. */
-export type ThemeType = 'colorful' | 'minimal';
+/** Light or dark rendering mode. */
+export type ThemeType = 'light' | 'dark';
+
+/**
+ * Color palette — either a built-in name (`'colorful'` | `'minimal'`) or an
+ * array of exactly 4 hex accent colors mapped to
+ * `[process, decision, terminal, io]` node types.
+ */
+export type PaletteType = string | string[];
 
 /** A single node in the flowchart. */
 export interface FlowNode {
@@ -51,8 +58,13 @@ export interface FlowChartOptions {
   edges: FlowEdge[];
   /** Optional logical groups. */
   groups?: FlowGroup[];
-  /** Visual theme (default: 'colorful'). */
+  /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
+  /**
+   * Color palette — built-in name (`'colorful'` | `'minimal'`) or a custom
+   * 4-element hex array `[process, decision, terminal, io]` (default: 'colorful').
+   */
+  palette?: PaletteType;
   /** Graph layout direction (default: 'TB' — top to bottom). */
   direction?: Direction;
 }
@@ -75,8 +87,10 @@ export interface TreeNode {
 export interface TreeDiagramOptions {
   /** Flat list of nodes with optional parent references. */
   nodes: TreeNode[];
-  /** Visual theme (default: 'colorful'). */
+  /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
+  /** Color palette — built-in name or custom 4-element hex array (default: 'colorful'). */
+  palette?: PaletteType;
   /** Layout direction (default: 'TB'). */
   direction?: Direction;
 }
@@ -107,8 +121,10 @@ export interface ArchLayer {
 export interface ArchDiagramOptions {
   /** List of layers from top to bottom (TB) or left to right (LR). */
   layers: ArchLayer[];
-  /** Visual theme (default: 'colorful'). */
+  /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
+  /** Color palette — built-in name or custom 4-element hex array (default: 'colorful'). */
+  palette?: PaletteType;
   /** Direction: TB = layers top-to-bottom, LR = layers left-to-right (default: 'TB'). */
   direction?: Direction;
   /** Total diagram width in pixels (default: 800). */
@@ -137,8 +153,10 @@ export interface SequenceDiagramOptions {
   actors: string[];
   /** Ordered list of messages between actors. */
   messages: SeqMessage[];
-  /** Visual theme (default: 'colorful'). */
+  /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
+  /** Color palette — built-in name or custom 4-element hex array (default: 'colorful'). */
+  palette?: PaletteType;
 }
 
 // ---------------------------------------------------------------------------
@@ -167,8 +185,10 @@ export interface QuadrantChartOptions {
   quadrants: [string, string, string, string];
   /** Data points to plot. */
   points: QuadrantPoint[];
-  /** Visual theme (default: 'colorful'). */
+  /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
+  /** Color palette — built-in name or custom 4-element hex array (default: 'colorful'). */
+  palette?: PaletteType;
 }
 
 // ---------------------------------------------------------------------------

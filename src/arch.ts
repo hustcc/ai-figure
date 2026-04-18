@@ -1,4 +1,4 @@
-import { themes } from './theme';
+import { resolveTheme } from './theme';
 import { escapeXml, wrapText } from './utils';
 import type { ArchDiagramOptions, NodeType } from './types';
 
@@ -23,7 +23,8 @@ const LAYER_NODE_TYPES: NodeType[] = ['process', 'decision', 'terminal', 'io'];
 export function createArchDiagram(options: ArchDiagramOptions): string {
   const {
     layers,
-    theme: themeName = 'colorful',
+    theme: mode = 'light',
+    palette,
     direction = 'TB',
     width: totalWidth = 800,
   } = options;
@@ -32,9 +33,7 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
     return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
   }
 
-  const theme = Object.prototype.hasOwnProperty.call(themes, themeName)
-    ? themes[themeName as keyof typeof themes]
-    : themes['colorful'];
+  const theme = resolveTheme(palette, mode);
 
   const sw = theme.strokeWidth;
 
@@ -117,8 +116,12 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
       }
     }
 
+    const bgParts: string[] = theme.background
+      ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`]
+      : [];
     return [
       `<svg xmlns="http://www.w3.org/2000/svg" width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${svgWidth} ${svgHeight}">`,
+      ...bgParts,
       `<g class="arch-diagram">`,
       ...parts,
       `</g>`,
@@ -198,8 +201,12 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
     }
   }
 
+  const bgParts: string[] = theme.background
+    ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`]
+    : [];
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${totalWidth}" height="${totalHeight}" viewBox="0 0 ${totalWidth} ${totalHeight}">`,
+    ...bgParts,
     `<g class="arch-diagram">`,
     ...parts,
     `</g>`,

@@ -32,7 +32,7 @@ it('microservices request flow — colorful theme, TB direction, 2 groups', () =
       { id: 'edge_layer', label: 'Edge Layer', nodes: ['gateway', 'auth_svc', 'rate_limit'] },
       { id: 'business', label: 'Business Services', nodes: ['user_svc', 'order_svc', 'inventory_svc', 'notify_svc'] },
     ],
-    theme: 'colorful',
+    palette: 'colorful',
     direction: 'TB',
   });
   matchSvgSnapshot('flow-microservices', svg);

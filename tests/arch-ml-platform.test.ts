@@ -37,7 +37,7 @@ it('arch diagram — ML platform, minimal theme, TB direction', () => {
         ],
       },
     ],
-    theme: 'minimal',
+    palette: 'minimal',
     direction: 'TB',
     width: 800,
   });

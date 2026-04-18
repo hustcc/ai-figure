@@ -17,7 +17,7 @@ it('tree diagram — knowledge domain taxonomy, colorful theme, TB direction', (
       { id: 'detect',  label: 'Detection',          parent: 'cv' },
       { id: 'segment', label: 'Segmentation',       parent: 'cv' },
     ],
-    theme: 'colorful',
+    palette: 'colorful',
     direction: 'TB',
   });
   matchSvgSnapshot('tree-knowledge', svg);

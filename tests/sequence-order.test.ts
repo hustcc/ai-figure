@@ -15,7 +15,7 @@ it('sequence diagram — order payment flow, minimal theme', () => {
       { from: 'Order Service',   to: 'Notify Service',  label: 'sendConfirmation' },
       { from: 'Order Service',   to: 'User',            label: '200 Order placed', style: 'return' },
     ],
-    theme: 'minimal',
+    palette: 'minimal',
   });
   matchSvgSnapshot('sequence-order', svg);
 });

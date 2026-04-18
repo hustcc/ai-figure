@@ -18,7 +18,7 @@ it('quadrant chart — tech stack adoption: effort vs value, minimal theme', () 
       { id: 'jquery', label: 'jQuery',      x: 0.12, y: 0.22 },
       { id: 'svelte', label: 'Svelte',      x: 0.45, y: 0.65 },
     ],
-    theme: 'minimal',
+    palette: 'minimal',
   });
   matchSvgSnapshot('quadrant-tech-stack', svg);
 });

@@ -18,7 +18,7 @@ it('decision branch — colorful theme, TB direction', () => {
       { from: 'decision', to: 'success', label: 'Yes' },
       { from: 'decision', to: 'failure', label: 'No' },
     ],
-    theme: 'colorful',
+    palette: 'colorful',
     direction: 'TB',
   });
   matchSvgSnapshot('flow-decision-branch', svg);

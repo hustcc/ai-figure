@@ -14,7 +14,7 @@ it('tree diagram — org chart, minimal theme, TB direction', () => {
       { id: 'ops',     label: 'Operations',  parent: 'coo' },
       { id: 'hr',      label: 'HR',          parent: 'coo' },
     ],
-    theme: 'minimal',
+    palette: 'minimal',
     direction: 'TB',
   });
   matchSvgSnapshot('tree-org', svg);

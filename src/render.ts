@@ -1,7 +1,7 @@
 import type { FlowNode, FlowEdge, FlowGroup, FlowChartOptions } from './types';
 import { computeLayout } from './layout';
 import type { LayoutNode, LayoutEdge } from './layout';
-import { themes } from './theme';
+import { resolveTheme } from './theme';
 import type { ThemeConfig } from './theme';
 import { escapeXml, wrapText } from './utils';
 
@@ -209,7 +209,8 @@ export function renderFlowChart(options: FlowChartOptions): string {
     nodes,
     edges,
     groups = [],
-    theme: themeName = 'colorful',
+    theme: mode = 'light',
+    palette,
     direction = 'TB',
   } = options;
 
@@ -217,9 +218,7 @@ export function renderFlowChart(options: FlowChartOptions): string {
     return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
   }
 
-  const theme = Object.prototype.hasOwnProperty.call(themes, themeName)
-    ? themes[themeName as keyof typeof themes]
-    : themes['colorful'];
+  const theme = resolveTheme(palette, mode);
   const layout = computeLayout(nodes, edges, direction);
 
   // Unique ID scoped to this diagram instance to avoid marker conflicts on the same HTML page.
@@ -299,9 +298,14 @@ export function renderFlowChart(options: FlowChartOptions): string {
     height = maxY - minY;
   }
 
+  const bgParts: string[] = theme.background
+    ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`]
+    : [];
+
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="${vb.x} ${vb.y} ${vb.width} ${vb.height}">`,
     defs,
+    ...bgParts,
     `<g class="flowchart">`,
     groupsSvg,
     edgesSvg,

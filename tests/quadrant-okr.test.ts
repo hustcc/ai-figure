@@ -18,7 +18,7 @@ it('quadrant chart — OKR initiatives: strategic value vs effort, minimal theme
       { id: 'o7', label: '内容生产',     x: 0.18, y: 0.28 },
       { id: 'o8', label: '广告投放',     x: 0.65, y: 0.30 },
     ],
-    theme: 'minimal',
+    palette: 'minimal',
   });
   matchSvgSnapshot('quadrant-okr', svg);
 });

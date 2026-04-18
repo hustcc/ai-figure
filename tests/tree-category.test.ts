@@ -17,7 +17,7 @@ it('tree diagram — category taxonomy, colorful theme, TB direction', () => {
       { id: 'headphone', label: 'Headphone',    parent: 'audio' },
       { id: 'speaker',   label: 'Speaker',      parent: 'audio' },
     ],
-    theme: 'colorful',
+    palette: 'colorful',
     direction: 'TB',
   });
   matchSvgSnapshot('tree-category', svg);

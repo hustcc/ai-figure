@@ -30,7 +30,7 @@ it('RAG (retrieval-augmented generation) pipeline — minimal theme, TB directio
       { id: 'retrieval', label: 'Retrieval', nodes: ['embed_q', 'vector_search', 'top_k', 'rerank'] },
       { id: 'generation', label: 'Generation', nodes: ['context', 'prompt', 'llm'] },
     ],
-    theme: 'minimal',
+    palette: 'minimal',
     direction: 'TB',
   });
   matchSvgSnapshot('flow-rag-pipeline', svg);

@@ -38,7 +38,7 @@ it('arch diagram — cloud architecture, minimal theme, LR direction', () => {
         ],
       },
     ],
-    theme: 'minimal',
+    palette: 'minimal',
     direction: 'LR',
     width: 600,
   });

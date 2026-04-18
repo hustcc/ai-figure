@@ -18,7 +18,7 @@ it('quadrant chart — product feature priority, colorful theme', () => {
       { id: 'g', label: '埋点系统',   x: 0.40, y: 0.60 },
       { id: 'h', label: '离线模式',   x: 0.85, y: 0.18 },
     ],
-    theme: 'colorful',
+    palette: 'colorful',
   });
   matchSvgSnapshot('quadrant-priority', svg);
 });

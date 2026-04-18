@@ -15,7 +15,7 @@ it('tree diagram — package dependency tree, minimal theme, LR direction', () =
       { id: 'history',   label: 'history',          parent: 'router' },
       { id: 'axios',     label: 'axios',            parent: 'query' },
     ],
-    theme: 'minimal',
+    palette: 'minimal',
     direction: 'LR',
   });
   matchSvgSnapshot('tree-deps', svg);

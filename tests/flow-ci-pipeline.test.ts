@@ -38,7 +38,7 @@ it('CI/CD pipeline — minimal theme, TB direction, 3 groups', () => {
       { id: 'staging_env', label: 'Staging', nodes: ['staging', 'e2e'] },
       { id: 'production', label: 'Production', nodes: ['prod', 'done'] },
     ],
-    theme: 'minimal',
+    palette: 'minimal',
     direction: 'TB',
   });
   matchSvgSnapshot('flow-ci-pipeline', svg);

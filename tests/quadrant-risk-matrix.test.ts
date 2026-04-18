@@ -18,7 +18,7 @@ it('quadrant chart — risk matrix: probability vs impact, colorful theme', () =
       { id: 'r7', label: 'Compliance fine',  x: 0.20, y: 0.80 },
       { id: 'r8', label: 'UI bug',           x: 0.85, y: 0.15 },
     ],
-    theme: 'colorful',
+    palette: 'colorful',
   });
   matchSvgSnapshot('quadrant-risk-matrix', svg);
 });

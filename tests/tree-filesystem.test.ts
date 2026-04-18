@@ -18,7 +18,7 @@ it('tree diagram — file system tree, colorful theme, LR direction', () => {
       { id: 'format',   label: 'format.ts',    parent: 'utils' },
       { id: 'http',     label: 'http.ts',      parent: 'utils' },
     ],
-    theme: 'colorful',
+    palette: 'colorful',
     direction: 'LR',
   });
   matchSvgSnapshot('tree-filesystem', svg);

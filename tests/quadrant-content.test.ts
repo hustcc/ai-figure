@@ -18,7 +18,7 @@ it('quadrant chart — content strategy: reach vs conversion rate, colorful them
       { id: 'c7', label: 'Blog Posts',     x: 0.60, y: 0.38 },
       { id: 'c8', label: 'Infographics',   x: 0.50, y: 0.20 },
     ],
-    theme: 'colorful',
+    palette: 'colorful',
   });
   matchSvgSnapshot('quadrant-content', svg);
 });

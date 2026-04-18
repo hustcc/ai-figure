@@ -31,7 +31,7 @@ it('arch diagram — tech stack, colorful theme, TB direction', () => {
         ],
       },
     ],
-    theme: 'colorful',
+    palette: 'colorful',
     direction: 'TB',
     width: 800,
   });

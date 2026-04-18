@@ -14,7 +14,7 @@ it('sequence diagram — WebSocket handshake, colorful theme', () => {
       { from: 'Client', to: 'Server', label: 'close frame' },
       { from: 'Server', to: 'Client', label: 'close ack',     style: 'return' },
     ],
-    theme: 'colorful',
+    palette: 'colorful',
   });
   matchSvgSnapshot('sequence-websocket', svg);
 });

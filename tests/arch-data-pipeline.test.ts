@@ -37,7 +37,7 @@ it('arch diagram — data engineering pipeline, minimal theme, LR direction', ()
         ],
       },
     ],
-    theme: 'minimal',
+    palette: 'minimal',
     direction: 'LR',
     width: 700,
   });

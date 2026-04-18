@@ -60,12 +60,12 @@ describe('fig', () => {
     expect(svg).toContain('class="group"');
   });
 
-  it('supports the minimal theme', () => {
+  it('supports the minimal palette', () => {
     const svg = fig({
       figure: 'flow',
       nodes: [{ id: 'x', label: 'Node X', type: 'process' }],
       edges: [],
-      theme: 'minimal',
+      palette: 'minimal',
     });
 
     expect(svg).toContain('<svg');
@@ -114,7 +114,8 @@ describe('fig', () => {
       groups: [
         { id: 'g1', label: 'Validation', nodes: ['process1', 'decision'] },
       ],
-      theme: 'colorful',
+      theme: 'light',
+      palette: 'colorful',
       direction: 'TB',
     });
 
@@ -137,12 +138,12 @@ describe('fig', () => {
     expect(svg).toContain('&lt;');
   });
 
-  it('unknown theme falls back to colorful without crashing', () => {
+  it('unknown palette falls back to colorful without crashing', () => {
     const svg = fig({
       figure: 'flow',
       nodes: [{ id: 'a', label: 'A', type: 'process' }],
       edges: [],
-      theme: 'nonexistent' as any,
+      palette: 'nonexistent',
     });
 
     expect(svg).toContain('<svg');
@@ -158,6 +159,33 @@ describe('fig', () => {
 
     expect(svg).toContain('<svg');
     expect(svg).toContain('Custom');
+  });
+
+  it('supports dark theme with background rect', () => {
+    const svg = fig({
+      figure: 'flow',
+      nodes: [{ id: 'a', label: 'A', type: 'process' }],
+      edges: [],
+      theme: 'dark',
+    });
+
+    expect(svg).toContain('<svg');
+    expect(svg).toContain('#1a1b1e');
+  });
+
+  it('supports custom palette array', () => {
+    const svg = fig({
+      figure: 'flow',
+      nodes: [
+        { id: 'a', label: 'A', type: 'process' },
+        { id: 'b', label: 'B', type: 'decision' },
+      ],
+      edges: [{ from: 'a', to: 'b' }],
+      palette: ['#ff6b6b', '#ffd43b', '#51cf66', '#cc5de8'],
+    });
+
+    expect(svg).toContain('<svg');
+    expect(svg).toContain('#ff6b6b');
   });
 
   it('throws for an edge referencing a missing node', () => {

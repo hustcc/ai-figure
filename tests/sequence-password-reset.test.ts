@@ -18,7 +18,7 @@ it('sequence diagram — password reset flow, colorful theme', () => {
       { from: 'Redis',         to: 'Auth API',       label: 'token valid',     style: 'return' },
       { from: 'Auth API',      to: 'Frontend',       label: '200 password updated', style: 'return' },
     ],
-    theme: 'colorful',
+    palette: 'colorful',
   });
   matchSvgSnapshot('sequence-password-reset', svg);
 });

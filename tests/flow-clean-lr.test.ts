@@ -18,7 +18,7 @@ it('read-parse-ok pipeline — minimal theme, LR direction', () => {
       { from: 'ok', to: 'save', label: 'Yes' },
       { from: 'ok', to: 'retry', label: 'No' },
     ],
-    theme: 'minimal',
+    palette: 'minimal',
     direction: 'LR',
   });
   matchSvgSnapshot('flow-clean-lr', svg);

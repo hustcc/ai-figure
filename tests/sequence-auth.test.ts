@@ -14,7 +14,7 @@ it('sequence diagram — login auth flow, colorful theme', () => {
       { from: 'Auth Service', to: 'API Gateway',   label: 'JWT token',       style: 'return' },
       { from: 'API Gateway',  to: 'Browser',       label: '200 OK + token',  style: 'return' },
     ],
-    theme: 'colorful',
+    palette: 'colorful',
   });
   matchSvgSnapshot('sequence-auth', svg);
 });

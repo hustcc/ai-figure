@@ -31,7 +31,7 @@ it('e-commerce checkout flow — colorful theme, TB direction', () => {
     groups: [
       { id: 'checkout', label: 'Checkout', nodes: ['address', 'shipping', 'payment'] },
     ],
-    theme: 'colorful',
+    palette: 'colorful',
     direction: 'TB',
   });
   matchSvgSnapshot('flow-ecommerce-checkout', svg);
