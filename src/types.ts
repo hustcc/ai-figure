@@ -14,9 +14,12 @@ export type Direction = 'TB' | 'LR';
 export type ThemeType = 'light' | 'dark';
 
 /**
- * Color palette — either a built-in name (`'colorful'` | `'minimal'`) or an
- * array of exactly 4 hex accent colors mapped to
- * `[process, decision, terminal, io]` node types.
+ * Color palette — one of:
+ * - Built-in name: `'default'` (alias `'colorful'`) | `'minimal'`
+ * - D3 categorical scheme name: `'schemeCategory10'`, `'schemeSet1'`,
+ *   `'schemeSet2'`, `'schemeSet3'`, `'schemeAccent'`, `'schemeDark2'`,
+ *   `'schemePaired'`, `'schemePastel1'`, `'schemePastel2'`, `'schemeTableau10'`
+ * - Custom 4-element hex array `[process, decision, terminal, io]`
  */
 export type PaletteType = string | string[];
 
@@ -61,8 +64,9 @@ export interface FlowChartOptions {
   /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
   /**
-   * Color palette — built-in name (`'colorful'` | `'minimal'`) or a custom
-   * 4-element hex array `[process, decision, terminal, io]` (default: 'colorful').
+   * Color palette — built-in name (`'default'` | `'colorful'` | `'minimal'`),
+   * D3 scheme name (e.g. `'schemeCategory10'`, `'schemeSet1'`), or a custom
+   * 4-element hex array `[process, decision, terminal, io]` (default: 'default').
    */
   palette?: PaletteType;
   /** Graph layout direction (default: 'TB' — top to bottom). */
@@ -89,7 +93,7 @@ export interface TreeDiagramOptions {
   nodes: TreeNode[];
   /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
-  /** Color palette — built-in name or custom 4-element hex array (default: 'colorful'). */
+  /** Color palette — built-in name ('default'/'colorful'/'minimal'), D3 scheme name, or custom hex array (default: 'default'). */
   palette?: PaletteType;
   /** Layout direction (default: 'TB'). */
   direction?: Direction;
@@ -123,7 +127,7 @@ export interface ArchDiagramOptions {
   layers: ArchLayer[];
   /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
-  /** Color palette — built-in name or custom 4-element hex array (default: 'colorful'). */
+  /** Color palette — built-in name ('default'/'colorful'/'minimal'), D3 scheme name, or custom hex array (default: 'default'). */
   palette?: PaletteType;
   /** Direction: TB = layers top-to-bottom, LR = layers left-to-right (default: 'TB'). */
   direction?: Direction;
@@ -155,7 +159,7 @@ export interface SequenceDiagramOptions {
   messages: SeqMessage[];
   /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
-  /** Color palette — built-in name or custom 4-element hex array (default: 'colorful'). */
+  /** Color palette — built-in name ('default'/'colorful'/'minimal'), D3 scheme name, or custom hex array (default: 'default'). */
   palette?: PaletteType;
 }
 
@@ -187,7 +191,7 @@ export interface QuadrantChartOptions {
   points: QuadrantPoint[];
   /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
-  /** Color palette — built-in name or custom 4-element hex array (default: 'colorful'). */
+  /** Color palette — built-in name ('default'/'colorful'/'minimal'), D3 scheme name, or custom hex array (default: 'default'). */
   palette?: PaletteType;
 }
 

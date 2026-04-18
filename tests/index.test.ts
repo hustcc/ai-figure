@@ -138,7 +138,7 @@ describe('fig', () => {
     expect(svg).toContain('&lt;');
   });
 
-  it('unknown palette falls back to colorful without crashing', () => {
+  it('unknown palette falls back to default without crashing', () => {
     const svg = fig({
       figure: 'flow',
       nodes: [{ id: 'a', label: 'A', type: 'process' }],
@@ -186,6 +186,114 @@ describe('fig', () => {
 
     expect(svg).toContain('<svg');
     expect(svg).toContain('#ff6b6b');
+  });
+
+  it("palette='default' (built-in) renders without crashing", () => {
+    const svg = fig({
+      figure: 'flow',
+      nodes: [{ id: 'a', label: 'A', type: 'process' }],
+      edges: [],
+      palette: 'default',
+    });
+
+    expect(svg).toContain('<svg');
+    expect(svg).toContain('#339af0'); // default process stroke
+  });
+
+  it("palette='default' + theme='dark' renders dark background", () => {
+    const svg = fig({
+      figure: 'flow',
+      nodes: [{ id: 'a', label: 'A', type: 'process' }],
+      edges: [],
+      theme: 'dark',
+      palette: 'default',
+    });
+
+    expect(svg).toContain('#1a1b1e');
+    expect(svg).toContain('#74c0fc'); // dark process text color
+  });
+
+  it("palette='minimal' + theme='dark' renders dark minimal", () => {
+    const svg = fig({
+      figure: 'flow',
+      nodes: [{ id: 'a', label: 'A', type: 'process' }],
+      edges: [],
+      theme: 'dark',
+      palette: 'minimal',
+    });
+
+    expect(svg).toContain('#1a1b1e');
+    expect(svg).toContain('#4dabf7'); // dark minimal process stroke
+  });
+
+  it("palette='schemeCategory10' (D3) uses first color for process nodes", () => {
+    const svg = fig({
+      figure: 'flow',
+      nodes: [{ id: 'a', label: 'A', type: 'process' }],
+      edges: [],
+      palette: 'schemeCategory10',
+    });
+
+    expect(svg).toContain('<svg');
+    expect(svg).toContain('#1f77b4'); // schemeCategory10[0]
+  });
+
+  it("palette='schemeSet1' (D3) light mode renders correctly", () => {
+    const svg = fig({
+      figure: 'flow',
+      nodes: [
+        { id: 'a', label: 'A', type: 'process' },
+        { id: 'b', label: 'B', type: 'decision' },
+        { id: 'c', label: 'C', type: 'terminal' },
+        { id: 'd', label: 'D', type: 'io' },
+      ],
+      edges: [{ from: 'a', to: 'b' }, { from: 'b', to: 'c' }, { from: 'c', to: 'd' }],
+      palette: 'schemeSet1',
+    });
+
+    expect(svg).toContain('<svg');
+    expect(svg).toContain('#e41a1c'); // schemeSet1[0] — process
+    expect(svg).toContain('#377eb8'); // schemeSet1[1] — decision
+  });
+
+  it("palette='schemeTableau10' + theme='dark' uses dark background", () => {
+    const svg = fig({
+      figure: 'flow',
+      nodes: [{ id: 'a', label: 'A', type: 'process' }],
+      edges: [],
+      theme: 'dark',
+      palette: 'schemeTableau10',
+    });
+
+    expect(svg).toContain('#1a1b1e');
+    expect(svg).toContain('#4e79a7'); // schemeTableau10[0]
+  });
+
+  it("palette='schemeAccent' (D3) renders arch diagram", () => {
+    const svg = fig({
+      figure: 'arch',
+      layers: [
+        { id: 'l1', label: 'Frontend', nodes: [{ id: 'n1', label: 'React' }, { id: 'n2', label: 'Vue' }] },
+        { id: 'l2', label: 'Backend', nodes: [{ id: 'n3', label: 'Node.js' }] },
+      ],
+      palette: 'schemeAccent',
+    });
+
+    expect(svg).toContain('<svg');
+    expect(svg).toContain('Frontend');
+    expect(svg).toContain('#7fc97f'); // schemeAccent[0]
+  });
+
+  it("palette='schemePastel1' (D3) renders sequence diagram", () => {
+    const svg = fig({
+      figure: 'sequence',
+      actors: ['Client', 'Server'],
+      messages: [{ from: 'Client', to: 'Server', label: 'request' }],
+      palette: 'schemePastel1',
+    });
+
+    expect(svg).toContain('<svg');
+    expect(svg).toContain('#fbb4ae'); // schemePastel1[0]
   });
 
   it('throws for an edge referencing a missing node', () => {
