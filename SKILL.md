@@ -219,7 +219,7 @@ interface SeqMessage { from: string; to: string; label?: string; style?: 'solid'
 
 ## figure: 'quadrant' — Quadrant Chart
 
-Renders a 2×2 matrix with two labelled axes and data points positioned by normalised `x`/`y` coordinates (0–1). Canvas size is fixed at 560×560 — no need to specify width or height.
+Renders a 2×2 matrix with two labelled axes and data points positioned by normalised `x`/`y` coordinates (0–1). Canvas is fixed at 640×640 — no need to specify width or height. Each quadrant has a distinct background tint; data points are solid-filled and automatically colored by the quadrant they fall into.
 
 ```json
 {
@@ -237,7 +237,8 @@ Renders a 2×2 matrix with two labelled axes and data points positioned by norma
 ```
 
 `quadrants` order: **[top-left, top-right, bottom-left, bottom-right]**.  
-Point coordinates: `x=0` is left, `x=1` is right; `y=0` is bottom, `y=1` is top.
+Point coordinates: `x=0` is left, `x=1` is right; `y=0` is bottom, `y=1` is top.  
+Points are auto-colored by their quadrant (top-left=green, top-right=orange, bottom-left=purple, bottom-right=blue for excalidraw theme).
 
 ### TypeScript types
 
@@ -251,35 +252,4 @@ interface QuadrantChartOptions {
 }
 interface QuadrantPoint { id: string; label: string; x: number; y: number }
 ```
-
----
-
-## figure: 'comparison' — Comparison Table
-
-Renders a feature-matrix table. The first column lists feature names; subsequent columns are the items being compared. Special cell values receive distinct colours: `✓` green, `✗` red, `★`-only strings use the theme's terminal accent colour. Width is auto-calculated from the number of columns (200 px feature column + 140 px per data column).
-
-```json
-{
-  "figure": "comparison",
-  "columns": ["Feature", "React", "Vue", "Svelte"],
-  "rows": [
-    { "feature": "学习成本", "values": ["中",    "低",    "低"   ] },
-    { "feature": "生态",     "values": ["★★★★★", "★★★★",  "★★★" ] },
-    { "feature": "SSO 支持", "values": ["✓",     "✓",     "✗"   ] }
-  ],
-  "theme": "clean"
-}
-```
-
-### TypeScript types
-
-```typescript
-interface ComparisonTableOptions {
-  columns: string[];
-  rows:    ComparisonRow[];
-  theme?:  'excalidraw' | 'clean';
-}
-interface ComparisonRow { feature: string; values: string[] }
-```
-
 

@@ -3,17 +3,15 @@ import { createTreeDiagram } from './tree';
 import { createArchDiagram } from './arch';
 import { createSequenceDiagram } from './sequence';
 import { createQuadrantChart } from './quadrant';
-import { createComparisonTable } from './comparison';
 import type { FigOptions } from './types';
 
 /**
  * Generate an SVG diagram. The `figure` field selects the diagram type:
- * - `'flow'`       — flowchart (nodes + edges + optional groups)
- * - `'tree'`       — tree / hierarchy (flat node list with parent refs)
- * - `'arch'`       — architecture diagram (layered grid, no edges)
- * - `'sequence'`   — sequence diagram (actors + message arrows)
- * - `'quadrant'`   — quadrant chart (2×2 matrix with data points)
- * - `'comparison'` — comparison table (feature matrix with ✓/✗/★)
+ * - `'flow'`     — flowchart (nodes + edges + optional groups)
+ * - `'tree'`     — tree / hierarchy (flat node list with parent refs)
+ * - `'arch'`     — architecture diagram (layered grid, no edges)
+ * - `'sequence'` — sequence diagram (actors + message arrows)
+ * - `'quadrant'` — quadrant chart (2×2 matrix with data points)
  *
  * Returns a fully self-contained SVG string; no coordinates needed.
  */
@@ -29,8 +27,6 @@ export function fig(options: FigOptions): string {
       return createSequenceDiagram(options);
     case 'quadrant':
       return createQuadrantChart(options);
-    case 'comparison':
-      return createComparisonTable(options);
     default: {
       const _exhaustive: never = options;
       throw new Error(`Unknown figure type: ${(_exhaustive as FigOptions).figure}`);
@@ -56,6 +52,4 @@ export type {
   SequenceDiagramOptions,
   QuadrantPoint,
   QuadrantChartOptions,
-  ComparisonRow,
-  ComparisonTableOptions,
 } from './types';

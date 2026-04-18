@@ -172,28 +172,6 @@ export interface QuadrantChartOptions {
 }
 
 // ---------------------------------------------------------------------------
-// ComparisonTable types
-// ---------------------------------------------------------------------------
-
-/** A single row in a comparison table. */
-export interface ComparisonRow {
-  /** Row title shown in the first column. */
-  feature: string;
-  /** Values for each data column; length must equal `columns.length - 1`. */
-  values: string[];
-}
-
-/** Options passed to {@link createComparisonTable}. */
-export interface ComparisonTableOptions {
-  /** Column headers; the first entry is the feature column header. */
-  columns: string[];
-  /** Data rows. */
-  rows: ComparisonRow[];
-  /** Visual theme (default: 'excalidraw'). */
-  theme?: ThemeType;
-}
-
-// ---------------------------------------------------------------------------
 // Unified fig() API
 // ---------------------------------------------------------------------------
 
@@ -203,5 +181,4 @@ export type FigOptions =
   | ({ figure: 'tree' } & TreeDiagramOptions)
   | ({ figure: 'arch' } & ArchDiagramOptions)
   | ({ figure: 'sequence' } & SequenceDiagramOptions)
-  | ({ figure: 'quadrant' } & QuadrantChartOptions)
-  | ({ figure: 'comparison' } & ComparisonTableOptions);
+  | ({ figure: 'quadrant' } & QuadrantChartOptions);

@@ -3,37 +3,49 @@ import { escapeXml } from './utils';
 import type { QuadrantChartOptions, NodeType } from './types';
 
 // Auto-calculated canvas size — not user-configurable
-const WIDTH = 560;
-const HEIGHT = 560;
-const PAD_LEFT = 52;    // room for rotated Y-axis label
-const PAD_RIGHT = 28;
-const PAD_TOP = 28;
+const WIDTH = 640;
+const HEIGHT = 640;
+const PAD_LEFT = 56;    // room for rotated Y-axis label
+const PAD_RIGHT = 24;
+const PAD_TOP = 32;
 const PAD_BOTTOM = 52;  // room for X-axis label
-const PLOT_W = WIDTH - PAD_LEFT - PAD_RIGHT;   // 480
-const PLOT_H = HEIGHT - PAD_TOP - PAD_BOTTOM;  // 480
-const PLOT_X = PAD_LEFT;
-const PLOT_Y = PAD_TOP;
-const POINT_R = 5;
+const PLOT_W = WIDTH - PAD_LEFT - PAD_RIGHT;   // 560
+const PLOT_H = HEIGHT - PAD_TOP - PAD_BOTTOM;  // 556
+
+const POINT_R = 4;
 const MARKER_SIZE = 7;
-/** x-coordinate threshold above which the label is placed to the left of the point. */
+/** Corner padding for quadrant name labels. */
+const CORNER_PAD = 10;
+/** x-coordinate threshold above which the point label is placed to the left. */
 const LABEL_FLIP_THRESHOLD = 0.82;
-/** Fractional offset applied to font-size to vertically centre the label next to a point. */
+/** Fractional offset applied to font-size to vertically align label with point. */
 const LABEL_Y_OFFSET_RATIO = 0.38;
 
-/** Node types assigned to quadrants: TL / TR / BL / BR. */
+/** Node types assigned to quadrants TL / TR / BL / BR. */
 const QUAD_NODE_TYPES: NodeType[] = ['terminal', 'process', 'io', 'decision'];
 
-/** Incrementing counter for unique per-diagram marker IDs. */
+/** Incrementing counter for unique per-diagram SVG IDs. */
 let _quadrantCount = 0;
+
+/**
+ * Return the quadrant index (0=TL, 1=TR, 2=BL, 3=BR) for a normalised point.
+ * x=0 is left, x=1 is right; y=0 is bottom, y=1 is top.
+ */
+function quadrantOf(x: number, y: number): number {
+  const right = x >= 0.5;
+  const top   = y >= 0.5;
+  if (!right &&  top) return 0; // TL
+  if ( right &&  top) return 1; // TR
+  if (!right && !top) return 2; // BL
+  return 3;                     // BR
+}
 
 /**
  * Generate an SVG quadrant chart (2×2 matrix).
  *
- * Each quadrant is rendered in a distinct theme color (matching the library's
- * other diagrams).  Data points use normalised coordinates (0–1 on each axis),
- * where x=0 is left, x=1 is right, y=0 is bottom, y=1 is top.
- *
- * Canvas size is fixed at 560×560 — no need to specify width/height.
+ * Canvas is fixed at 640×640 — no need to specify width/height.
+ * Quadrant backgrounds use distinct theme colors; data points are solid filled
+ * and colored by the quadrant they fall into, with a subtle drop-shadow.
  */
 export function createQuadrantChart(options: QuadrantChartOptions): string {
   const {
@@ -49,142 +61,147 @@ export function createQuadrantChart(options: QuadrantChartOptions): string {
     : themes['excalidraw'];
 
   const sw = theme.strokeWidth;
-  const axisColor = theme.edgeColor;
-  const labelFs = theme.fontSize - 1;
+  const axisColor  = theme.edgeColor;   // dark gray — axis lines + arrows
+  const groupColor = theme.groupColor;  // muted gray — corner labels + borders
+  const textColor  = theme.edgeColor;   // regular dark gray for all text labels
+  const labelFs    = theme.fontSize - 1;
+  const cornerFs   = theme.fontSize - 2;
 
-  const midX = PLOT_X + PLOT_W / 2;
-  const midY = PLOT_Y + PLOT_H / 2;
+  const plotX = PAD_LEFT;
+  const plotY = PAD_TOP;
+  const midX = plotX + PLOT_W / 2;
+  const midY = plotY + PLOT_H / 2;
   const halfW = PLOT_W / 2;
   const halfH = PLOT_H / 2;
 
-  // Unique marker ID to avoid conflicts when multiple diagrams are in one HTML page
   const uid = `qd-${++_quadrantCount}`;
-
   const parts: string[] = [];
 
-  // ── Defs: arrowhead marker ────────────────────────────────────────────
+  // ── Defs: drop-shadow filter + arrowhead marker ───────────────────────
   parts.push(
     `<defs>` +
+      `<filter id="${uid}-shadow" x="-40%" y="-40%" width="180%" height="180%">` +
+      `<feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="rgba(0,0,0,0.22)"/>` +
+      `</filter>` +
       `<marker id="${uid}-arrow" markerWidth="${MARKER_SIZE}" markerHeight="${MARKER_SIZE}" ` +
       `refX="${MARKER_SIZE - 1}" refY="${MARKER_SIZE / 2}" orient="auto" markerUnits="strokeWidth">` +
       `<polygon points="0 0, ${MARKER_SIZE} ${MARKER_SIZE / 2}, 0 ${MARKER_SIZE}, 1.5 ${MARKER_SIZE / 2}" ` +
-      `fill="${escapeXml(axisColor)}" opacity="0.6"/>` +
+      `fill="${escapeXml(axisColor)}"/>` +
       `</marker>` +
       `</defs>`,
   );
 
-  // ── Quadrant background regions (4 distinct theme colors) ─────────────
-  // Mapping: [0]=TL, [1]=TR, [2]=BL, [3]=BR
+  // ── Quadrant background regions (4 distinct theme fill colors) ────────
   const quadRegions = [
-    { x: PLOT_X,         y: PLOT_Y,         nt: QUAD_NODE_TYPES[0] },  // TL
-    { x: PLOT_X + halfW, y: PLOT_Y,         nt: QUAD_NODE_TYPES[1] },  // TR
-    { x: PLOT_X,         y: PLOT_Y + halfH, nt: QUAD_NODE_TYPES[2] },  // BL
-    { x: PLOT_X + halfW, y: PLOT_Y + halfH, nt: QUAD_NODE_TYPES[3] },  // BR
+    { x: plotX,          y: plotY,          nt: QUAD_NODE_TYPES[0] },  // TL
+    { x: plotX + halfW,  y: plotY,          nt: QUAD_NODE_TYPES[1] },  // TR
+    { x: plotX,          y: plotY + halfH,  nt: QUAD_NODE_TYPES[2] },  // BL
+    { x: plotX + halfW,  y: plotY + halfH,  nt: QUAD_NODE_TYPES[3] },  // BR
   ];
 
   for (const q of quadRegions) {
     parts.push(
       `<rect x="${q.x}" y="${q.y}" width="${halfW}" height="${halfH}" ` +
-        `fill="${escapeXml(theme.nodeFills[q.nt])}" fill-opacity="0.08" stroke="none"/>`,
+        `fill="${escapeXml(theme.nodeFills[q.nt])}" fill-opacity="0.10" stroke="none"/>`,
     );
   }
 
-  // ── Outer plot border ──────────────────────────────────────────────────
+  // ── Outer plot border ─────────────────────────────────────────────────
   parts.push(
-    `<rect x="${PLOT_X}" y="${PLOT_Y}" width="${PLOT_W}" height="${PLOT_H}" ` +
-      `fill="none" stroke="${escapeXml(theme.groupColor)}" stroke-width="1" opacity="0.4"/>`,
+    `<rect x="${plotX}" y="${plotY}" width="${PLOT_W}" height="${PLOT_H}" ` +
+      `fill="none" stroke="${escapeXml(groupColor)}" stroke-width="1" opacity="0.5"/>`,
   );
 
-  // ── Center divider lines (axis lines with arrowheads in + direction) ──
-  // Horizontal X-axis divider
+  // ── Center divider lines (no transparency) ────────────────────────────
+  // Horizontal X-axis divider (left → right, arrow at right end)
   parts.push(
-    `<line x1="${PLOT_X}" y1="${midY}" x2="${PLOT_X + PLOT_W}" y2="${midY}" ` +
-      `stroke="${escapeXml(axisColor)}" stroke-width="${sw}" opacity="0.45" ` +
+    `<line x1="${plotX}" y1="${midY}" x2="${plotX + PLOT_W}" y2="${midY}" ` +
+      `stroke="${escapeXml(axisColor)}" stroke-width="${sw}" ` +
       `marker-end="url(#${uid}-arrow)"/>`,
   );
-  // Vertical Y-axis divider (draws bottom→top so arrow points up)
+  // Vertical Y-axis divider (bottom → top, arrow at top end)
   parts.push(
-    `<line x1="${midX}" y1="${PLOT_Y + PLOT_H}" x2="${midX}" y2="${PLOT_Y}" ` +
-      `stroke="${escapeXml(axisColor)}" stroke-width="${sw}" opacity="0.45" ` +
+    `<line x1="${midX}" y1="${plotY + PLOT_H}" x2="${midX}" y2="${plotY}" ` +
+      `stroke="${escapeXml(axisColor)}" stroke-width="${sw}" ` +
       `marker-end="url(#${uid}-arrow)"/>`,
   );
 
-  // ── Axis min / max labels ─────────────────────────────────────────────
-  // X axis: min at left end, max at right end, displayed below the divider
+  // ── Axis min/max tick labels ──────────────────────────────────────────
+  // X axis: "min" below left end, "max" below right end
   parts.push(
-    `<text x="${PLOT_X + 4}" y="${midY + 16}" text-anchor="start" ` +
+    `<text x="${plotX + 4}" y="${midY + 16}" text-anchor="start" ` +
       `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
-      `fill="${escapeXml(axisColor)}" opacity="0.55">${escapeXml(xAxis.min)}</text>`,
-    `<text x="${PLOT_X + PLOT_W - 4}" y="${midY + 16}" text-anchor="end" ` +
+      `fill="${escapeXml(textColor)}" opacity="0.6">${escapeXml(xAxis.min)}</text>`,
+    `<text x="${plotX + PLOT_W - 4}" y="${midY + 16}" text-anchor="end" ` +
       `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
-      `fill="${escapeXml(axisColor)}" opacity="0.55">${escapeXml(xAxis.max)}</text>`,
+      `fill="${escapeXml(textColor)}" opacity="0.6">${escapeXml(xAxis.max)}</text>`,
   );
-  // X axis name: centered below the plot area
+  // X axis name: centered in the bottom margin
   parts.push(
     `<text x="${midX}" y="${HEIGHT - 12}" text-anchor="middle" ` +
       `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
-      `font-weight="600" fill="${escapeXml(axisColor)}" opacity="0.7">${escapeXml(xAxis.label)}</text>`,
+      `font-weight="600" fill="${escapeXml(textColor)}">${escapeXml(xAxis.label)}</text>`,
   );
 
-  // Y axis: min near bottom, max near top — displayed to the left of divider
+  // Y axis: "min" to the left of bottom end, "max" to the left of top end
   parts.push(
-    `<text x="${midX - 8}" y="${PLOT_Y + PLOT_H - 4}" text-anchor="end" ` +
+    `<text x="${midX - 8}" y="${plotY + PLOT_H - 4}" text-anchor="end" ` +
       `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
-      `fill="${escapeXml(axisColor)}" opacity="0.55">${escapeXml(yAxis.min)}</text>`,
-    `<text x="${midX - 8}" y="${PLOT_Y + 14}" text-anchor="end" ` +
+      `fill="${escapeXml(textColor)}" opacity="0.6">${escapeXml(yAxis.min)}</text>`,
+    `<text x="${midX - 8}" y="${plotY + 14}" text-anchor="end" ` +
       `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
-      `fill="${escapeXml(axisColor)}" opacity="0.55">${escapeXml(yAxis.max)}</text>`,
+      `fill="${escapeXml(textColor)}" opacity="0.6">${escapeXml(yAxis.max)}</text>`,
   );
-  // Y axis name: rotated label centred on the left margin
+  // Y axis name: rotated, centered in the left margin
   const yLabelX = Math.round(PAD_LEFT / 2);
-  const yLabelY = PLOT_Y + PLOT_H / 2;
+  const yLabelY = plotY + PLOT_H / 2;
   parts.push(
     `<text x="${yLabelX}" y="${yLabelY}" text-anchor="middle" dominant-baseline="middle" ` +
       `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
-      `font-weight="600" fill="${escapeXml(axisColor)}" opacity="0.7" ` +
+      `font-weight="600" fill="${escapeXml(textColor)}" ` +
       `transform="rotate(-90, ${yLabelX}, ${yLabelY})">${escapeXml(yAxis.label)}</text>`,
   );
 
-  // ── Quadrant name labels (centered within each quadrant cell) ─────────
-  const qLabels = [
-    { cx: PLOT_X + halfW / 2,   cy: PLOT_Y + halfH / 2,   label: quadrants[0], nt: QUAD_NODE_TYPES[0] },
-    { cx: PLOT_X + halfW * 1.5, cy: PLOT_Y + halfH / 2,   label: quadrants[1], nt: QUAD_NODE_TYPES[1] },
-    { cx: PLOT_X + halfW / 2,   cy: PLOT_Y + halfH * 1.5, label: quadrants[2], nt: QUAD_NODE_TYPES[2] },
-    { cx: PLOT_X + halfW * 1.5, cy: PLOT_Y + halfH * 1.5, label: quadrants[3], nt: QUAD_NODE_TYPES[3] },
+  // ── Quadrant corner labels (small, muted gray, outer corner of each quadrant)
+  // [0]=TL → top-left corner, [1]=TR → top-right, [2]=BL → bottom-left, [3]=BR → bottom-right
+  const qCorners = [
+    { x: plotX + CORNER_PAD,              y: plotY + CORNER_PAD + cornerFs,  label: quadrants[0], anchor: 'start' as const },
+    { x: plotX + PLOT_W - CORNER_PAD,     y: plotY + CORNER_PAD + cornerFs,  label: quadrants[1], anchor: 'end'   as const },
+    { x: plotX + CORNER_PAD,              y: plotY + PLOT_H - CORNER_PAD,    label: quadrants[2], anchor: 'start' as const },
+    { x: plotX + PLOT_W - CORNER_PAD,     y: plotY + PLOT_H - CORNER_PAD,    label: quadrants[3], anchor: 'end'   as const },
   ];
 
-  for (const q of qLabels) {
+  for (const q of qCorners) {
     parts.push(
-      `<text x="${q.cx}" y="${q.cy}" text-anchor="middle" dominant-baseline="middle" ` +
-        `font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize + 1}" ` +
-        `font-weight="700" fill="${escapeXml(theme.nodeStrokes[q.nt])}" opacity="0.3">${escapeXml(q.label)}</text>`,
+      `<text x="${q.x}" y="${q.y}" text-anchor="${q.anchor}" ` +
+        `font-family="${escapeXml(theme.fontFamily)}" font-size="${cornerFs}" ` +
+        `font-weight="600" fill="${escapeXml(groupColor)}">${escapeXml(q.label)}</text>`,
     );
   }
 
-  // ── Data points ────────────────────────────────────────────────────────
-  const ptColor = theme.nodeStrokes['process'];
-  const ptTextColor = theme.textColors['process'];
-
+  // ── Data points (solid fill, drop-shadow, colored by quadrant) ────────
   for (const pt of points) {
-    // x: 0=left→PLOT_X, 1=right→PLOT_X+PLOT_W
-    // y: 0=bottom→PLOT_Y+PLOT_H, 1=top→PLOT_Y  (SVG Y-flip)
-    const cx = PLOT_X + pt.x * PLOT_W;
-    const cy = PLOT_Y + (1 - pt.y) * PLOT_H;
+    // Normalised → SVG coordinates (Y is flipped: y=1 → top)
+    const cx = plotX + pt.x * PLOT_W;
+    const cy = plotY + (1 - pt.y) * PLOT_H;
 
-    // White-fill circle with colored stroke — matches node styling in other charts
+    // Color the point by whichever quadrant it falls in
+    const qi = quadrantOf(pt.x, pt.y);
+    const ptFill = theme.nodeStrokes[QUAD_NODE_TYPES[qi]];
+
     parts.push(
       `<circle cx="${cx}" cy="${cy}" r="${POINT_R}" ` +
-        `fill="white" stroke="${escapeXml(ptColor)}" stroke-width="2"/>`,
+        `fill="${escapeXml(ptFill)}" stroke="none" filter="url(#${uid}-shadow)"/>`,
     );
 
-    // Label placed to the right; near right edge → place to the left
+    // Label: to the right of the point; near right edge → place to the left
     const nearRight = pt.x > LABEL_FLIP_THRESHOLD;
     const labelX = nearRight ? cx - POINT_R - 5 : cx + POINT_R + 6;
-    const anchor = nearRight ? 'end' : 'start';
+    const anchor  = nearRight ? 'end' : 'start';
     parts.push(
       `<text x="${labelX}" y="${cy + labelFs * LABEL_Y_OFFSET_RATIO}" text-anchor="${anchor}" ` +
         `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
-        `fill="${escapeXml(ptTextColor)}">${escapeXml(pt.label)}</text>`,
+        `fill="${escapeXml(textColor)}">${escapeXml(pt.label)}</text>`,
     );
   }
 
@@ -196,4 +213,3 @@ export function createQuadrantChart(options: QuadrantChartOptions): string {
     `</svg>`,
   ].join('\n');
 }
-
