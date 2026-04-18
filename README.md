@@ -6,9 +6,13 @@
 [![Build](https://github.com/hustcc/ai-figure/actions/workflows/build.yml/badge.svg)](https://github.com/hustcc/ai-figure/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-| ![Flow](./assets/flow.svg) | ![Tree](./assets/tree.svg) | ![Architecture](./assets/arch.svg) | ![Sequence](./assets/sequence.svg) |
-|:---:|:---:|:---:|:---:|
-| Flow | Tree | Architecture | Sequence |
+| ![Flow](./assets/flow.svg) | ![Tree](./assets/tree.svg) | ![Architecture](./assets/arch.svg) |
+|:---:|:---:|:---:|
+| Flow | Tree | Architecture |
+
+| ![Sequence](./assets/sequence.svg) | ![Quadrant](./assets/quadrant.svg) |
+|:---:|:---:|
+| Sequence | Quadrant |
 
 ## Features ✨
 
@@ -18,7 +22,7 @@
 - 🌐 **Browser + Node.js** — pure SVG output, zero DOM dependency
 - 🤖 **AI-friendly API** — single `fig()` entry point, semantic JSON config, TypeScript-first
 - 🎭 **Two themes** — `excalidraw` (colorful) or `clean` (minimal)
-- 📊 **Four diagram types** — flowchart, tree, architecture, sequence
+- 📊 **Five diagram types** — flowchart, tree, architecture, sequence, quadrant
 
 ---
 
@@ -81,6 +85,7 @@ fig({ figure: 'flow',     ...flowOptions     }); // flowchart
 fig({ figure: 'tree',     ...treeOptions     }); // tree / hierarchy
 fig({ figure: 'arch',     ...archOptions     }); // architecture diagram
 fig({ figure: 'sequence', ...sequenceOptions }); // sequence diagram
+fig({ figure: 'quadrant', ...quadrantOptions }); // quadrant chart
 ```
 
 ---
@@ -202,6 +207,55 @@ fig({
     { from: 'DB',      to: 'API', label: 'user row',  style: 'return' },
     { from: 'API',     to: 'Browser', label: '200 OK', style: 'return' },
   ],
+});
+```
+
+---
+
+### `figure: 'quadrant'` — Quadrant Chart
+
+Renders a 2D quadrant scatter plot. Points are placed by normalized `x`/`y` values (0–1) and auto-colored by which quadrant they fall in.
+
+| Field       | Type               | Default        | Description                                         |
+|-------------|--------------------|----------------|-----------------------------------------------------|
+| `figure`    | `'quadrant'`       | **required**   | Selects the quadrant renderer                       |
+| `xAxis`     | `AxisConfig`       | **required**   | X-axis label, min and max tick labels               |
+| `yAxis`     | `AxisConfig`       | **required**   | Y-axis label, min and max tick labels               |
+| `quadrants` | `[TL, TR, BL, BR]` | **required**   | Corner labels: top-left, top-right, bottom-left, bottom-right |
+| `points`    | `QuadrantPoint[]`  | **required**   | Data points to plot                                 |
+| `theme`     | `ThemeType`        | `'excalidraw'` | Visual theme                                        |
+
+#### `AxisConfig`
+
+| Field   | Type     | Description              |
+|---------|----------|--------------------------|
+| `label` | `string` | Axis title               |
+| `min`   | `string` | Label at the low end     |
+| `max`   | `string` | Label at the high end    |
+
+#### `QuadrantPoint`
+
+| Field   | Type     | Description                             |
+|---------|----------|-----------------------------------------|
+| `id`    | `string` | Unique identifier                       |
+| `label` | `string` | Text shown next to the point            |
+| `x`     | `number` | Normalized X position (0 = left, 1 = right) |
+| `y`     | `number` | Normalized Y position (0 = bottom, 1 = top) |
+
+```typescript
+fig({
+  figure: 'quadrant',
+  xAxis: { label: 'Effort', min: 'Low', max: 'High' },
+  yAxis: { label: 'Value',  min: 'Low', max: 'High' },
+  quadrants: ['Quick Wins', 'Major Projects', 'Fill-ins', 'Thankless Tasks'],
+  points: [
+    { id: 'a', label: 'Feature A', x: 0.2,  y: 0.85 },
+    { id: 'b', label: 'Feature B', x: 0.75, y: 0.80 },
+    { id: 'c', label: 'Feature C', x: 0.5,  y: 0.6  },
+    { id: 'd', label: 'Feature D', x: 0.3,  y: 0.2  },
+    { id: 'e', label: 'Feature E', x: 0.8,  y: 0.25 },
+  ],
+  theme: 'excalidraw',
 });
 ```
 
