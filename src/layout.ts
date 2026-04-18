@@ -52,13 +52,26 @@ export function computeLayout(
   });
   g.setDefaultEdgeLabel(() => ({}));
 
+  const nodeIds = new Set<string>();
   for (const node of nodes) {
-    const dims = NODE_DIMS[node.type ?? 'process'];
+    // Fall back to 'process' dims when an unknown or missing type is supplied (JS callers).
+    const dims = NODE_DIMS[node.type as NodeType] ?? NODE_DIMS['process'];
     g.setNode(node.id, { width: dims.width, height: dims.height });
+    nodeIds.add(node.id);
   }
 
   for (let i = 0; i < edges.length; i++) {
     const edge = edges[i];
+    // Validate that both endpoints exist so dagre doesn't silently create
+    // dimension-less phantom nodes that produce NaN coordinates.
+    const missing: string[] = [];
+    if (!nodeIds.has(edge.from)) missing.push(`from "${edge.from}"`);
+    if (!nodeIds.has(edge.to)) missing.push(`to "${edge.to}"`);
+    if (missing.length > 0) {
+      throw new Error(
+        `computeLayout: edge at index ${i} references unknown node(s): ${missing.join(', ')}`,
+      );
+    }
     // Use index as edge name to support multiple edges between the same pair
     g.setEdge(edge.from, edge.to, { label: edge.label }, String(i));
   }

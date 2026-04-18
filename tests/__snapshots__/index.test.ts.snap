@@ -1,0 +1,303 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`snapshots > decision branch — excalidraw theme, TB direction 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="410" height="472" viewBox="0 0 410 472">
+<defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<g class="flowchart">
+
+<g class="edge" data-from="start" data-to="process">
+<path d="M205,76 L205,96 Q205,106 205,116 L205,136" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="process" data-to="decision">
+<path d="M205,196 L205,216 Q205,226 205,236 L205,256" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="decision" data-to="success">
+<path d="M145,336 L108.32050294337844,360.4529980377477 Q100,366 100,376 L100,396" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="83.5" y="356" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="100" y="366" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
+</g>
+<g class="edge" data-from="decision" data-to="failure">
+<path d="M265,336 L301.6794970566216,360.4529980377477 Q310,366 310,376 L310,396" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="297" y="356" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="310" y="366" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
+</g>
+<g class="node node-terminal" data-id="start">
+<rect x="125" y="20" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="205" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Start</text>
+</g>
+<g class="node node-process" data-id="process">
+<rect x="125" y="136" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="205" y="166" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Process</text>
+</g>
+<g class="node node-decision" data-id="decision">
+<polygon points="205,256 285,296 205,336 125,296" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="205" y="296" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Is Valid?</text>
+</g>
+<g class="node node-terminal" data-id="success">
+<rect x="20" y="396" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="100" y="424" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Success</text>
+</g>
+<g class="node node-terminal" data-id="failure">
+<rect x="230" y="396" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="310" y="424" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Failure</text>
+</g>
+</g>
+</svg>"
+`;
+
+exports[`snapshots > hermes agent architecture — excalidraw theme, LR direction, 4 groups 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="1968" height="359" viewBox="-4 -35 1968 359">
+<defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<g class="flowchart">
+<g class="group" data-id="g_input">
+<rect x="-4" y="-3.5" width="428" height="130" rx="8" fill="rgba(173,181,189,0.06)" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="6" y="14.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd" font-weight="500">Input</text>
+</g>
+<g class="group" data-id="g_core">
+<rect x="436" y="-13.5" width="648" height="150" rx="8" fill="rgba(173,181,189,0.06)" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="446" y="4.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd" font-weight="500">Hermes Core</text>
+</g>
+<g class="group" data-id="g_tools">
+<rect x="1096" y="-26" width="428" height="350" rx="8" fill="rgba(173,181,189,0.06)" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="1106" y="-8" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd" font-weight="500">Tool Execution</text>
+</g>
+<g class="group" data-id="g_output">
+<rect x="1536" y="29" width="428" height="130" rx="8" fill="rgba(173,181,189,0.06)" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="1546" y="47" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd" font-weight="500">Output</text>
+</g>
+<g class="edge" data-from="user_req" data-to="ctx_load">
+<path d="M180,72.5 L200,72.5 Q210,72.5 220,72.5 L240,72.5" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="ctx_load" data-to="orchestrator">
+<path d="M400,72.5 L420,72.5 Q430,72.5 440,72.5 L460,72.5" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="orchestrator" data-to="planner">
+<path d="M620,72.5 L640,72.5 Q650,72.5 660,72.5 L680,72.5" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="planner" data-to="dispatch">
+<path d="M840,72.5 L860,72.5 Q870,72.5 880,72.5 L900,72.5" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="dispatch" data-to="tool_select">
+<path d="M1030.2857142857142,112.5 L1082.1739894582436,153.77476434178462 Q1090,160 1100,160 L1120,160" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="1066.5" y="150" width="47" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="1090" y="160" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">tools</text>
+</g>
+<g class="edge" data-from="dispatch" data-to="synthesize">
+<path d="M1030.2857142857142,32.5 L1082.1739894582436,-8.774764341784618 Q1090,-15 1100,-15 L1190,-15 Q1200,-15 1210,-15 L1300,-15 Q1310,-15 1320,-15 L1410,-15 Q1420,-15 1430,-15 L1520,-15 Q1530,-15 1536.7572462851736,-7.628458597992585 L1612.5,75" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="1283" y="-25" width="54" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="1310" y="-15" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">direct</text>
+</g>
+<g class="edge" data-from="tool_select" data-to="web_search">
+<path d="M1230,130 L1302.9289321881345,57.071067811865476 Q1310,50 1320,50 L1340,50" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="tool_select" data-to="code_exec">
+<path d="M1280,160 L1300,160 Q1310,160 1320,160 L1340,160" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="tool_select" data-to="memory_store">
+<path d="M1230,190 L1302.9289321881345,262.9289321881345 Q1310,270 1320,270 L1340,270" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="web_search" data-to="synthesize">
+<path d="M1500,50 L1520,50 Q1530,50 1538.944271909999,54.47213595499958 L1580,75" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="code_exec" data-to="synthesize">
+<path d="M1500,160 L1520,160 Q1530,160 1538.944271909999,155.52786404500043 L1580,135" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="memory_store" data-to="synthesize">
+<path d="M1500,270 L1520,270 Q1530,270 1535.5470019622524,261.6794970566216 L1620,135" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="synthesize" data-to="final_out">
+<path d="M1720,105 L1740,105 Q1750,105 1760,105 L1780,105" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="node node-terminal" data-id="user_req">
+<rect x="20" y="44.5" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="100" y="72.5" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">User Request</text>
+</g>
+<g class="node node-process" data-id="ctx_load">
+<rect x="240" y="42.5" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="320" y="72.5" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Load Context</text>
+</g>
+<g class="node node-process" data-id="orchestrator">
+<rect x="460" y="42.5" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="540" y="72.5" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Orchestrator</text>
+</g>
+<g class="node node-process" data-id="planner">
+<rect x="680" y="42.5" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="760" y="72.5" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Task Planner</text>
+</g>
+<g class="node node-decision" data-id="dispatch">
+<polygon points="980,32.5 1060,72.5 980,112.5 900,72.5" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="980" y="72.5" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Route Task?</text>
+</g>
+<g class="node node-process" data-id="tool_select">
+<rect x="1120" y="130" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="1200" y="160" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Select Tool</text>
+</g>
+<g class="node node-io" data-id="web_search">
+<polygon points="1354,20 1500,20 1486,80 1340,80" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
+<text x="1420" y="50" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">Web Search</text>
+</g>
+<g class="node node-io" data-id="code_exec">
+<polygon points="1354,130 1500,130 1486,190 1340,190" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
+<text x="1420" y="160" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">Code Exec</text>
+</g>
+<g class="node node-io" data-id="memory_store">
+<polygon points="1354,240 1500,240 1486,300 1340,300" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
+<text x="1420" y="270" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">Memory</text>
+</g>
+<g class="node node-process" data-id="synthesize">
+<rect x="1560" y="75" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="1640" y="105" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Synthesize</text>
+</g>
+<g class="node node-terminal" data-id="final_out">
+<rect x="1780" y="77" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="1860" y="105" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Response</text>
+</g>
+</g>
+</svg>"
+`;
+
+exports[`snapshots > read-parse-ok pipeline — clean theme, LR direction 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="860" height="206" viewBox="0 0 860 206">
+<defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#555555"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<g class="flowchart">
+
+<g class="edge" data-from="read" data-to="parse">
+<path d="M180,104 L200,104 Q210,104 220,104 L240,104" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="parse" data-to="ok">
+<path d="M400,104 L420,104 Q430,104 440,104 L460,104" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="ok" data-to="save">
+<path d="M620,64.72727272727272 L641.0233238943823,54.40673190639414 Q650,50 660,50 L680,50" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="633.5" y="40" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="650" y="50" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">Yes</text>
+</g>
+<g class="edge" data-from="ok" data-to="retry">
+<path d="M620,143.27272727272728 L641.0233238943823,153.59326809360584 Q650,158 660,158 L680,158" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="637" y="148" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="650" y="158" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#555555">No</text>
+</g>
+<g class="node node-io" data-id="read">
+<polygon points="34,74 180,74 166,134 20,134" fill="#fdf2f8" stroke="#8e44ad" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="100" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#6a1b9a">Read File</text>
+</g>
+<g class="node node-process" data-id="parse">
+<rect x="240" y="74" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<text x="320" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Parse</text>
+</g>
+<g class="node node-decision" data-id="ok">
+<polygon points="540,64 620,104 540,144 460,104" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="540" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e65100">OK?</text>
+</g>
+<g class="node node-process" data-id="save">
+<rect x="680" y="20" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<text x="760" y="50" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Save</text>
+</g>
+<g class="node node-terminal" data-id="retry">
+<rect x="680" y="130" width="160" height="56" rx="28" ry="28" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="760" y="158" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1b5e20">Retry</text>
+</g>
+</g>
+</svg>"
+`;
+
+exports[`snapshots > validation group — excalidraw theme, TB direction 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="410" height="476" viewBox="0 0 410 476">
+<defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<g class="flowchart">
+<g class="group" data-id="g1">
+<rect x="101" y="94" width="208" height="270" rx="8" fill="rgba(173,181,189,0.06)" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="111" y="112" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd" font-weight="500">Validation</text>
+</g>
+<g class="edge" data-from="input" data-to="parse">
+<path d="M205,80 L205,100 Q205,110 205,120 L205,140" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="parse" data-to="valid">
+<path d="M205,200 L205,220 Q205,230 205,240 L205,260" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="valid" data-to="save">
+<path d="M145,340 L108.32050294337844,364.4529980377477 Q100,370 100,380 L100,400" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="83.5" y="360" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="100" y="370" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
+</g>
+<g class="edge" data-from="valid" data-to="error">
+<path d="M265,340 L301.6794970566216,364.4529980377477 Q310,370 310,380 L310,400" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="297" y="360" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="310" y="370" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
+</g>
+<g class="node node-io" data-id="input">
+<polygon points="139,20 285,20 271,80 125,80" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
+<text x="205" y="50" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">User Input</text>
+</g>
+<g class="node node-process" data-id="parse">
+<rect x="125" y="140" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="205" y="170" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Parse</text>
+</g>
+<g class="node node-decision" data-id="valid">
+<polygon points="205,260 285,300 205,340 125,300" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="205" y="300" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Valid?</text>
+</g>
+<g class="node node-terminal" data-id="save">
+<rect x="20" y="400" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="100" y="428" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Save</text>
+</g>
+<g class="node node-terminal" data-id="error">
+<rect x="230" y="400" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="310" y="428" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Error</text>
+</g>
+</g>
+</svg>"
+`;

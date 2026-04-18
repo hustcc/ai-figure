@@ -90,8 +90,8 @@ const EDGE_LABEL_CHAR_WIDTH = 7;
 function renderNode(node: FlowNode, layout: LayoutNode, theme: ThemeConfig): string {
   const { x, y, width, height } = layout;
   const type = node.type ?? 'process';
-  const fill = theme.nodeFills[type];
-  const stroke = theme.nodeStrokes[type];
+  const fill = theme.nodeFills[type] ?? theme.nodeFills['process'];
+  const stroke = theme.nodeStrokes[type] ?? theme.nodeStrokes['process'];
   const sw = theme.strokeWidth;
 
   let shapeSvg: string;
@@ -130,7 +130,7 @@ function renderNode(node: FlowNode, layout: LayoutNode, theme: ThemeConfig): str
   // Text label
   const labelX = x + width / 2;
   const labelY = y + height / 2;
-  const textColor = theme.textColors[type];
+  const textColor = theme.textColors[type] ?? theme.textColors['process'];
   const lines = wrapText(node.label, width - 16, theme.fontSize);
   const lineHeight = theme.fontSize * 1.4;
   const totalH = lines.length * lineHeight;
@@ -244,7 +244,9 @@ export function renderFlowChart(options: FlowChartOptions): string {
     return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
   }
 
-  const theme = themes[themeName] ?? themes['excalidraw'];
+  const theme = Object.prototype.hasOwnProperty.call(themes, themeName)
+    ? themes[themeName as keyof typeof themes]
+    : themes['excalidraw'];
   const layout = computeLayout(nodes, edges, direction);
 
   // SVG <defs> — arrowhead marker + edge animation
@@ -267,16 +269,15 @@ export function renderFlowChart(options: FlowChartOptions): string {
 
   // Build an O(1) index: input-edge-index → layout edge.
   // layout.ts names each dagre edge with String(i) where i is the input index.
-  const layoutEdgeByIndex = new Map<string, LayoutEdge>();
+  const layoutEdgeByIndex = new Map<number, LayoutEdge>();
   for (const le of layout.edges) {
-    // key format: "<from>|<to>|<index>" stored by layout as `le.index`
-    layoutEdgeByIndex.set(`${le.from}|${le.to}|${le.index}`, le);
+    layoutEdgeByIndex.set(le.index, le);
   }
 
   // Edges
   const edgesSvg = edges
     .map((edge, i) => {
-      const layoutEdge = layoutEdgeByIndex.get(`${edge.from}|${edge.to}|${i}`);
+      const layoutEdge = layoutEdgeByIndex.get(i);
       if (!layoutEdge) return '';
       return renderEdge(edge, layoutEdge, theme);
     })
