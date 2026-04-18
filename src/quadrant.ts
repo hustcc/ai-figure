@@ -86,7 +86,7 @@ export function createQuadrantChart(options: QuadrantChartOptions): string {
   parts.push(
     `<defs>` +
       `<filter id="${uid}-shadow" x="-40%" y="-40%" width="180%" height="180%">` +
-      `<feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="rgba(0,0,0,0.22)"/>` +
+      `<feDropShadow dx="0" dy="0.8" stdDeviation="1" flood-color="rgba(0,0,0,0.18)"/>` +
       `</filter>` +
       `<marker id="${uid}-arrow" markerWidth="${MARKER_SIZE}" markerHeight="${MARKER_SIZE}" ` +
       `refX="${MARKER_SIZE - 1}" refY="${MARKER_SIZE / 2}" orient="auto" markerUnits="strokeWidth">` +
