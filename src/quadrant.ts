@@ -15,6 +15,10 @@ const PLOT_X = PAD_LEFT;
 const PLOT_Y = PAD_TOP;
 const POINT_R = 5;
 const MARKER_SIZE = 7;
+/** x-coordinate threshold above which the label is placed to the left of the point. */
+const LABEL_FLIP_THRESHOLD = 0.82;
+/** Fractional offset applied to font-size to vertically centre the label next to a point. */
+const LABEL_Y_OFFSET_RATIO = 0.38;
 
 /** Node types assigned to quadrants: TL / TR / BL / BR. */
 const QUAD_NODE_TYPES: NodeType[] = ['terminal', 'process', 'io', 'decision'];
@@ -174,11 +178,11 @@ export function createQuadrantChart(options: QuadrantChartOptions): string {
     );
 
     // Label placed to the right; near right edge → place to the left
-    const nearRight = pt.x > 0.82;
+    const nearRight = pt.x > LABEL_FLIP_THRESHOLD;
     const labelX = nearRight ? cx - POINT_R - 5 : cx + POINT_R + 6;
     const anchor = nearRight ? 'end' : 'start';
     parts.push(
-      `<text x="${labelX}" y="${cy + labelFs * 0.38}" text-anchor="${anchor}" ` +
+      `<text x="${labelX}" y="${cy + labelFs * LABEL_Y_OFFSET_RATIO}" text-anchor="${anchor}" ` +
         `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
         `fill="${escapeXml(ptTextColor)}">${escapeXml(pt.label)}</text>`,
     );
