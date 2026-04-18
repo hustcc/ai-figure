@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1696" height="366" viewBox="-28 -28 1696 366">
+<defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<g class="flowchart">
+<g class="group" data-id="phase1">
+<rect x="236" y="14" width="688" height="300" rx="8" fill="rgba(134,142,150,0.06)" stroke="#868e96" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="246" y="32" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#868e96" font-weight="500">Phase 1 — Prepare</text>
+</g>
+<g class="group" data-id="phase2">
+<rect x="956" y="-26" width="448" height="290" rx="8" fill="rgba(134,142,150,0.06)" stroke="#868e96" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="966" y="-8" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#868e96" font-weight="500">Phase 2 — Commit</text>
+</g>
+<g class="edge" data-from="coord" data-to="prepare">
+<path d="M180,170 L210,170 Q220,170 230,170 L260,170" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="prepare" data-to="p1">
+<path d="M391.42857142857144,140 L451.3622109910157,105.03871025524086 Q460,100 470,100 L500,100" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="prepare" data-to="p2">
+<path d="M385,200 L451.6794970566216,244.4529980377477 Q460,250 470,250 L500,250" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="p1" data-to="vote1">
+<path d="M660,100 L690,100 Q700,100 710,100 L740,100" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="p2" data-to="vote2">
+<path d="M660,250 L690,250 Q700,250 710,250 L740,250" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="vote1" data-to="all_ok">
+<path d="M900,73.33333333333333 L930.5131670194949,63.16227766016838 Q940,60 950,60 L980,60" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="923.5" y="50" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="940" y="60" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
+</g>
+<g class="edge" data-from="vote2" data-to="all_ok">
+<path d="M888.5714285714286,210 L931.3622109910157,185.03871025524086 Q940,180 947.0710678118654,172.92893218813452 L1020,100" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="923.5" y="170" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="940" y="180" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
+</g>
+<g class="edge" data-from="vote1" data-to="rollback">
+<path d="M900,140 L931.0557280900008,155.52786404500043 Q940,160 950,160 L1050,160 Q1060,160 1070,160 L1170,160 Q1180,160 1189.2307692307693,163.84615384615384 L1228,180" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="1047" y="150" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="1060" y="160" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
+</g>
+<g class="edge" data-from="vote2" data-to="rollback">
+<path d="M900,250 L930,250 Q940,250 950,250 L1050,250 Q1060,250 1070,250 L1170,250 Q1180,250 1189.4868329805051,246.83772233983163 L1220,236.66666666666666" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="1047" y="240" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="1060" y="250" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
+</g>
+<g class="edge" data-from="all_ok" data-to="commit">
+<path d="M1140,53.333333333333336 L1170.0345424175512,50.8304547985374 Q1180,50 1190,50 L1220,50" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="1163.5" y="40" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="1180" y="50" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
+</g>
+<g class="edge" data-from="all_ok" data-to="rollback">
+<path d="M1140,93.33333333333334 L1170.7692307692307,106.15384615384616 Q1180,110 1187.6822127959738,116.4018439966448 L1264,180" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="1167" y="100" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="1180" y="110" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
+</g>
+<g class="edge" data-from="commit" data-to="done">
+<path d="M1380,50 L1410,50 Q1420,50 1429.2307692307693,53.84615384615385 L1472.8,72" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="rollback" data-to="done">
+<path d="M1380,210 L1410,210 Q1420,210 1427.3715414020073,203.24275371482653 L1509.4545454545455,128" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="node node-terminal" data-id="coord">
+<rect x="20" y="142" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="100" y="170" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Coordinator</text>
+</g>
+<g class="node node-process" data-id="prepare">
+<rect x="260" y="140" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="340" y="170" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Send Prepare</text>
+</g>
+<g class="node node-process" data-id="p1">
+<rect x="500" y="70" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="580" y="100" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Participant 1</text>
+</g>
+<g class="node node-process" data-id="p2">
+<rect x="500" y="220" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="580" y="250" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Participant 2</text>
+</g>
+<g class="node node-decision" data-id="vote1">
+<polygon points="820,60 900,100 820,140 740,100" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="820" y="100" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Vote 1?</text>
+</g>
+<g class="node node-decision" data-id="vote2">
+<polygon points="820,210 900,250 820,290 740,250" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="820" y="250" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Vote 2?</text>
+</g>
+<g class="node node-decision" data-id="all_ok">
+<polygon points="1060,20 1140,60 1060,100 980,60" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="1060" y="60" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">All Voted Yes?</text>
+</g>
+<g class="node node-process" data-id="commit">
+<rect x="1220" y="20" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="1300" y="50" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Send Commit</text>
+</g>
+<g class="node node-process" data-id="rollback">
+<rect x="1220" y="180" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="1300" y="210" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Send Rollback</text>
+</g>
+<g class="node node-terminal" data-id="done">
+<rect x="1460" y="72" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="1540" y="100" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Transaction Done</text>
+</g>
+</g>
+</svg>

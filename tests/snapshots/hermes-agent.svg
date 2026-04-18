@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2176" height="396" viewBox="-28 -28 2176 396">
+<defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<g class="flowchart">
+<g class="group" data-id="g_input">
+<rect x="-4" y="-1" width="448" height="130" rx="8" fill="rgba(134,142,150,0.06)" stroke="#868e96" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="6" y="17" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#868e96" font-weight="500">Input</text>
+</g>
+<g class="group" data-id="g_core">
+<rect x="476" y="-11" width="688" height="150" rx="8" fill="rgba(134,142,150,0.06)" stroke="#868e96" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="486" y="7" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#868e96" font-weight="500">Hermes Core</text>
+</g>
+<g class="group" data-id="g_tools">
+<rect x="1196" y="-26" width="448" height="370" rx="8" fill="rgba(134,142,150,0.06)" stroke="#868e96" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="1206" y="-8" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#868e96" font-weight="500">Tool Execution</text>
+</g>
+<g class="group" data-id="g_output">
+<rect x="1676" y="34" width="448" height="130" rx="8" fill="rgba(134,142,150,0.06)" stroke="#868e96" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="1686" y="52" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#868e96" font-weight="500">Output</text>
+</g>
+<g class="edge" data-from="user_req" data-to="ctx_load">
+<path d="M180,75 L210,75 Q220,75 230,75 L260,75" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="ctx_load" data-to="orchestrator">
+<path d="M420,75 L450,75 Q460,75 470,75 L500,75" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="orchestrator" data-to="planner">
+<path d="M660,75 L690,75 Q700,75 710,75 L740,75" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="planner" data-to="dispatch">
+<path d="M900,75 L930,75 Q940,75 950,75 L980,75" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="dispatch" data-to="tool_select">
+<path d="M1110.5263157894738,115 L1172.1595417553824,163.7929705563444 Q1180,170 1190,170 L1220,170" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="1156.5" y="160" width="47" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="1180" y="170" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">tools</text>
+</g>
+<g class="edge" data-from="dispatch" data-to="synthesize">
+<path d="M1110.5263157894738,35 L1172.1595417553824,-13.792970556344386 Q1180,-20 1190,-20 L1290,-20 Q1300,-20 1310,-20 L1410,-20 Q1420,-20 1430,-20 L1530,-20 Q1540,-20 1550,-20 L1650,-20 Q1660,-20 1666.7828010273306,-12.651965553725123 L1752.3076923076924,80" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="1393" y="-30" width="54" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="1420" y="-20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">direct</text>
+</g>
+<g class="edge" data-from="tool_select" data-to="web_search">
+<path d="M1330,140 L1412.9289321881345,57.071067811865476 Q1420,50 1430,50 L1460,50" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="tool_select" data-to="code_exec">
+<path d="M1380,170 L1410,170 Q1420,170 1430,170 L1460,170" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="tool_select" data-to="memory_store">
+<path d="M1330,200 L1412.9289321881345,282.9289321881345 Q1420,290 1430,290 L1460,290" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="web_search" data-to="synthesize">
+<path d="M1620,50 L1650,50 Q1660,50 1668.944271909999,54.47213595499958 L1720,80" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="code_exec" data-to="synthesize">
+<path d="M1620,170 L1650,170 Q1660,170 1668.944271909999,165.52786404500043 L1720,140" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="memory_store" data-to="synthesize">
+<path d="M1620,290 L1650,290 Q1660,290 1665.5470019622524,281.6794970566216 L1760,140" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="synthesize" data-to="final_out">
+<path d="M1860,110 L1890,110 Q1900,110 1910,110 L1940,110" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="node node-terminal" data-id="user_req">
+<rect x="20" y="47" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="100" y="75" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">User Request</text>
+</g>
+<g class="node node-process" data-id="ctx_load">
+<rect x="260" y="45" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="340" y="75" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Load Context</text>
+</g>
+<g class="node node-process" data-id="orchestrator">
+<rect x="500" y="45" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="580" y="75" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Orchestrator</text>
+</g>
+<g class="node node-process" data-id="planner">
+<rect x="740" y="45" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="820" y="75" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Task Planner</text>
+</g>
+<g class="node node-decision" data-id="dispatch">
+<polygon points="1060,35 1140,75 1060,115 980,75" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="1060" y="75" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Route Task?</text>
+</g>
+<g class="node node-process" data-id="tool_select">
+<rect x="1220" y="140" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="1300" y="170" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Select Tool</text>
+</g>
+<g class="node node-io" data-id="web_search">
+<polygon points="1474,20 1620,20 1606,80 1460,80" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
+<text x="1540" y="50" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">Web Search</text>
+</g>
+<g class="node node-io" data-id="code_exec">
+<polygon points="1474,140 1620,140 1606,200 1460,200" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
+<text x="1540" y="170" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">Code Exec</text>
+</g>
+<g class="node node-io" data-id="memory_store">
+<polygon points="1474,260 1620,260 1606,320 1460,320" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
+<text x="1540" y="290" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">Memory</text>
+</g>
+<g class="node node-process" data-id="synthesize">
+<rect x="1700" y="80" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="1780" y="110" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Synthesize</text>
+</g>
+<g class="node node-terminal" data-id="final_out">
+<rect x="1940" y="82" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="2020" y="110" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Response</text>
+</g>
+</g>
+</svg>

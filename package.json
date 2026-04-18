@@ -1,0 +1,45 @@
+{
+  "name": "ai-flowchart",
+  "version": "0.1.0",
+  "description": "Flowchart renderer — define nodes & edges, get beautiful SVG. Works in browser and Node.js.",
+  "keywords": [
+    "flowchart",
+    "svg",
+    "diagram",
+    "dagre",
+    "excalidraw"
+  ],
+  "author": "hustcc",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "dagre": "^0.8.5"
+  },
+  "devDependencies": {
+    "@types/dagre": "^0.7.52",
+    "@types/node": "^22.0.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0",
+    "vitest": "^3.2.4"
+  }
+}

@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1936" height="392" viewBox="-28 -28 1936 392">
+<defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<g class="flowchart">
+<g class="group" data-id="auto">
+<rect x="236" y="80" width="928" height="260" rx="8" fill="rgba(134,142,150,0.06)" stroke="#868e96" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="246" y="98" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#868e96" font-weight="500">Automated Checks</text>
+</g>
+<g class="group" data-id="manual">
+<rect x="1196" y="188" width="448" height="150" rx="8" fill="rgba(134,142,150,0.06)" stroke="#868e96" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="1206" y="206" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#868e96" font-weight="500">Manual Review</text>
+</g>
+<g class="edge" data-from="post" data-to="hash_check">
+<path d="M180,166 L210,166 Q220,166 230,166 L260,166" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="hash_check" data-to="hash_hit">
+<path d="M420,166 L450,166 Q460,166 470,166 L500,166" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="hash_hit" data-to="auto_remove">
+<path d="M620.6779661016949,126 L692.8697632018942,55.0113995181374 Q700,48 710,48 L740,48" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="683.5" y="38" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="700" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Yes</text>
+</g>
+<g class="edge" data-from="hash_hit" data-to="text_scan">
+<path d="M660,166 L690,166 Q700,166 710,166 L740,166" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="687" y="156" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="700" y="166" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
+</g>
+<g class="edge" data-from="hash_hit" data-to="image_scan">
+<path d="M620,206 L692.9289321881346,278.9289321881345 Q700,286 710,286 L740,286" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="687" y="276" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="700" y="286" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">No</text>
+</g>
+<g class="edge" data-from="text_scan" data-to="risk">
+<path d="M900,166 L930,166 Q940,166 948.9442719099992,170.47213595499957 L980,186" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="image_scan" data-to="risk">
+<path d="M900,286 L930,286 Q940,286 948.9442719099992,281.5278640450004 L980,266" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="risk" data-to="human">
+<path d="M1140,258 L1170.7152330911474,270.28609323645895 Q1180,274 1190,274 L1220,274" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="1160" y="264" width="40" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="1180" y="274" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">High</text>
+</g>
+<g class="edge" data-from="risk" data-to="approve">
+<path d="M1130.5882352941176,186 L1171.2997781415138,162.93012571980879 Q1180,158 1190,158 L1290,158 Q1300,158 1310,158 L1410,158 Q1420,158 1430,158 L1530,158 Q1540,158 1550,158 L1650,158 Q1660,158 1669.9654575824488,158.8304547985374 L1700,161.33333333333334" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="1403.5" y="148" width="33" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="1420" y="158" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Low</text>
+</g>
+<g class="edge" data-from="human" data-to="reviewer">
+<path d="M1380,274 L1410,274 Q1420,274 1430,274 L1460,274" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="reviewer" data-to="approve">
+<path d="M1620,235.33333333333334 L1650.9965104715807,220.35168660540273 Q1660,216 1669.2847669088526,212.28609323645895 L1710,196" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="1647" y="206" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="1660" y="216" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">OK</text>
+</g>
+<g class="edge" data-from="reviewer" data-to="remove">
+<path d="M1620,280.6666666666667 L1650.0345424175512,283.1695452014626 Q1660,284 1670,284 L1700,284" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<rect x="1626" y="274" width="68" height="20" fill="white" rx="3" opacity="0.9"/>
+<text x="1660" y="284" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Violates</text>
+</g>
+<g class="node node-io" data-id="post">
+<polygon points="34,136 180,136 166,196 20,196" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
+<text x="100" y="166" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">User Post</text>
+</g>
+<g class="node node-process" data-id="hash_check">
+<rect x="260" y="136" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="340" y="166" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Hash Blocklist</text>
+</g>
+<g class="node node-decision" data-id="hash_hit">
+<polygon points="580,126 660,166 580,206 500,166" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="580" y="166" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Blocked Hash?</text>
+</g>
+<g class="node node-terminal" data-id="auto_remove">
+<rect x="740" y="20" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="820" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Auto Remove</text>
+</g>
+<g class="node node-process" data-id="text_scan">
+<rect x="740" y="136" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="820" y="166" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Text Classifier</text>
+</g>
+<g class="node node-process" data-id="image_scan">
+<rect x="740" y="256" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="820" y="286" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Image Classifier</text>
+</g>
+<g class="node node-decision" data-id="risk">
+<polygon points="1060,186 1140,226 1060,266 980,226" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="1060" y="226" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Risk Score &gt; 0.8?</text>
+</g>
+<g class="node node-process" data-id="human">
+<rect x="1220" y="244" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="1300" y="264.2" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Human Review</text>
+<text x="1300" y="283.8" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Queue</text>
+</g>
+<g class="node node-decision" data-id="reviewer">
+<polygon points="1540,234 1620,274 1540,314 1460,274" fill="#e7f5ff" stroke="#339af0" stroke-width="2" stroke-linejoin="round"/>
+<text x="1540" y="274" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Reviewer Decision</text>
+</g>
+<g class="node node-terminal" data-id="approve">
+<rect x="1700" y="140" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="1780" y="168" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Approve &amp; Publish</text>
+</g>
+<g class="node node-terminal" data-id="remove">
+<rect x="1700" y="256" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="1780" y="284" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Remove &amp; Notify</text>
+</g>
+</g>
+</svg>
