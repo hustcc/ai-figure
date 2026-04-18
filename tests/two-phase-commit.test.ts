@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { createFlowChart } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('two-phase commit (2PC) protocol — excalidraw theme, LR direction, 2 groups', () => {
+it('two-phase commit (2PC) protocol — excalidraw theme, TB direction, 2 groups', () => {
   const svg = createFlowChart({
     nodes: [
       { id: 'coord', label: 'Coordinator', type: 'terminal' },
@@ -36,7 +36,7 @@ it('two-phase commit (2PC) protocol — excalidraw theme, LR direction, 2 groups
       { id: 'phase2', label: 'Phase 2 — Commit', nodes: ['all_ok', 'commit', 'rollback'] },
     ],
     theme: 'excalidraw',
-    direction: 'LR',
+    direction: 'TB',
   });
   matchSvgSnapshot('two-phase-commit', svg);
 });

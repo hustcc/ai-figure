@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { createFlowChart } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('CI/CD pipeline — clean theme, LR direction, 3 groups', () => {
+it('CI/CD pipeline — clean theme, TB direction, 3 groups', () => {
   const svg = createFlowChart({
     nodes: [
       { id: 'commit', label: 'Git Commit', type: 'terminal' },
@@ -38,7 +38,7 @@ it('CI/CD pipeline — clean theme, LR direction, 3 groups', () => {
       { id: 'production', label: 'Production', nodes: ['prod', 'done'] },
     ],
     theme: 'clean',
-    direction: 'LR',
+    direction: 'TB',
   });
   matchSvgSnapshot('ci-pipeline', svg);
 });

@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { createFlowChart } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('microservices request flow — excalidraw theme, LR direction, 2 groups', () => {
+it('microservices request flow — excalidraw theme, TB direction, 2 groups', () => {
   const svg = createFlowChart({
     nodes: [
       { id: 'client', label: 'Client', type: 'terminal' },
@@ -32,7 +32,7 @@ it('microservices request flow — excalidraw theme, LR direction, 2 groups', ()
       { id: 'business', label: 'Business Services', nodes: ['user_svc', 'order_svc', 'inventory_svc', 'notify_svc'] },
     ],
     theme: 'excalidraw',
-    direction: 'LR',
+    direction: 'TB',
   });
   matchSvgSnapshot('microservices-flow', svg);
 });

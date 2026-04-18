@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { createFlowChart } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('hermes agent architecture — excalidraw theme, LR direction, 4 groups', () => {
+it('hermes agent architecture — excalidraw theme, TB direction, 4 groups', () => {
   const svg = createFlowChart({
     nodes: [
       { id: 'user_req', label: 'User Request', type: 'terminal' },
@@ -39,7 +39,7 @@ it('hermes agent architecture — excalidraw theme, LR direction, 4 groups', () 
       { id: 'g_output', label: 'Output', nodes: ['synthesize', 'final_out'] },
     ],
     theme: 'excalidraw',
-    direction: 'LR',
+    direction: 'TB',
   });
   matchSvgSnapshot('hermes-agent', svg);
 });

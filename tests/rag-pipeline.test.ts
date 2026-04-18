@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { createFlowChart } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('RAG (retrieval-augmented generation) pipeline — clean theme, LR direction, 3 groups', () => {
+it('RAG (retrieval-augmented generation) pipeline — clean theme, TB direction, 3 groups', () => {
   const svg = createFlowChart({
     nodes: [
       { id: 'query', label: 'User Query', type: 'io' },
@@ -30,7 +30,7 @@ it('RAG (retrieval-augmented generation) pipeline — clean theme, LR direction,
       { id: 'generation', label: 'Generation', nodes: ['context', 'prompt', 'llm'] },
     ],
     theme: 'clean',
-    direction: 'LR',
+    direction: 'TB',
   });
   matchSvgSnapshot('rag-pipeline', svg);
 });

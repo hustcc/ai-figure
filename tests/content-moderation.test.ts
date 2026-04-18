@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { createFlowChart } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('content moderation pipeline — excalidraw theme, LR direction, 3 groups', () => {
+it('content moderation pipeline — excalidraw theme, TB direction, 3 groups', () => {
   const svg = createFlowChart({
     nodes: [
       { id: 'post', label: 'User Post', type: 'io' },
@@ -36,7 +36,7 @@ it('content moderation pipeline — excalidraw theme, LR direction, 3 groups', (
       { id: 'manual', label: 'Manual Review', nodes: ['human', 'reviewer'] },
     ],
     theme: 'excalidraw',
-    direction: 'LR',
+    direction: 'TB',
   });
   matchSvgSnapshot('content-moderation', svg);
 });
