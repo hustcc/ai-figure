@@ -1,5 +1,27 @@
 'use strict';
 
+var d3chromatic = require('d3-scale-chromatic');
+
+function _interopNamespace(e) {
+  if (e && e.__esModule) return e;
+  var n = Object.create(null);
+  if (e) {
+    Object.keys(e).forEach(function (k) {
+      if (k !== 'default') {
+        var d = Object.getOwnPropertyDescriptor(e, k);
+        Object.defineProperty(n, k, d.get ? d : {
+          enumerable: true,
+          get: function () { return e[k]; }
+        });
+      }
+    });
+  }
+  n.default = e;
+  return Object.freeze(n);
+}
+
+var d3chromatic__namespace = /*#__PURE__*/_interopNamespace(d3chromatic);
+
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -7772,74 +7794,116 @@ function computeLayout(nodes, edges, direction) {
     height: maxY - minY + PAD_Y * 2
   };
 }
-
-// src/theme.ts
-var themes = {
-  /**
-   * Colorful theme — vibrant pastel fills with matched border/text colors.
-   * Inspired by Excalidraw's color palette, rendered as crisp clean SVG.
-   */
-  excalidraw: {
+var NODE_TYPES = ["process", "decision", "terminal", "io"];
+var defaultPalette = {
+  light: {
     fontFamily: "Inter, system-ui, -apple-system, sans-serif",
     fontSize: 14,
     strokeWidth: 2,
     cornerRadius: 6,
     nodeFills: {
-      process: "#fff7e6",
-      decision: "#e7f5ff",
+      process: "#e7f5ff",
+      decision: "#fff7e6",
       terminal: "#ebfbee",
       io: "#fdf4ff"
     },
     nodeStrokes: {
-      process: "#f59f00",
-      decision: "#339af0",
+      process: "#339af0",
+      decision: "#f59f00",
       terminal: "#51cf66",
       io: "#cc5de8"
     },
     textColors: {
-      process: "#e67700",
-      decision: "#1971c2",
+      process: "#1971c2",
+      decision: "#e67700",
       terminal: "#2f9e44",
       io: "#862e9c"
     },
     edgeColor: "#495057",
     edgeWidth: 1.5,
     groupColor: "#868e96",
-    groupFill: "rgba(134,142,150,0.06)"
+    groupFill: "rgba(134,142,150,0.06)",
+    background: ""
   },
-  /**
-   * Minimal theme — excalidraw-inspired clean shapes.
-   * Neutral fills, typed border/text colors, Inter font.
-   */
-  clean: {
+  dark: {
     fontFamily: "Inter, system-ui, -apple-system, sans-serif",
     fontSize: 14,
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     cornerRadius: 6,
     nodeFills: {
-      process: "#e8f4fd",
-      decision: "#fef9e7",
-      terminal: "#eafaf1",
-      io: "#fdf2f8"
+      process: "#1c2e44",
+      decision: "#3d2800",
+      terminal: "#1a3820",
+      io: "#2d1a38"
     },
     nodeStrokes: {
-      process: "#2196f3",
-      decision: "#f39c12",
-      terminal: "#27ae60",
-      io: "#8e44ad"
+      process: "#339af0",
+      decision: "#f59f00",
+      terminal: "#51cf66",
+      io: "#cc5de8"
     },
     textColors: {
-      process: "#1565c0",
-      decision: "#e65100",
-      terminal: "#1b5e20",
-      io: "#6a1b9a"
+      process: "#74c0fc",
+      decision: "#ffd43b",
+      terminal: "#8ce99a",
+      io: "#e599f7"
     },
-    edgeColor: "#555555",
+    edgeColor: "#adb5bd",
     edgeWidth: 1.5,
-    groupColor: "#555555",
-    groupFill: "rgba(85,85,85,0.06)"
+    groupColor: "#5c6370",
+    groupFill: "rgba(92,99,112,0.15)",
+    background: "#1a1b1e"
   }
 };
+function resolveD3Scheme(schemeName) {
+  const entry = d3chromatic__namespace[schemeName];
+  if (!entry || !Array.isArray(entry)) return null;
+  const arr = entry;
+  if (typeof arr[0] === "string") {
+    return arr;
+  }
+  if (Array.isArray(arr[3])) {
+    const nested = entry;
+    const colors = nested[9] ?? nested[nested.length - 1];
+    if (!colors || colors.length < 4) return null;
+    if (colors.length >= 8) {
+      return [colors[1], colors[3], colors[5], colors[7]];
+    }
+    return [...colors];
+  }
+  return null;
+}
+function deriveThemeFromColors(colors, mode) {
+  const base = defaultPalette[mode];
+  const fills = {};
+  const strokes = {};
+  const texts = {};
+  NODE_TYPES.forEach((type, i) => {
+    const color = colors[i % colors.length];
+    strokes[type] = color;
+    const is6DigitHex = /^#[0-9a-fA-F]{6}$/.test(color);
+    fills[type] = is6DigitHex ? color + (mode === "dark" ? "30" : "1a") : color;
+    texts[type] = color;
+  });
+  return { ...base, nodeFills: fills, nodeStrokes: strokes, textColors: texts };
+}
+function resolveTheme(palette, mode) {
+  const m = mode === "dark" ? "dark" : "light";
+  if (Array.isArray(palette)) {
+    return deriveThemeFromColors(palette, m);
+  }
+  if (typeof palette === "string") {
+    if (palette === "default") {
+      return defaultPalette[m];
+    }
+    const d3key = "scheme" + palette.charAt(0).toUpperCase() + palette.slice(1);
+    const d3colors = resolveD3Scheme(d3key);
+    if (d3colors) {
+      return deriveThemeFromColors(d3colors, m);
+    }
+  }
+  return defaultPalette[m];
+}
 
 // src/utils.ts
 function escapeXml(str) {
@@ -7985,13 +8049,14 @@ function renderFlowChart(options) {
     nodes,
     edges,
     groups = [],
-    theme: themeName = "excalidraw",
+    theme: mode = "light",
+    palette,
     direction = "TB"
   } = options;
   if (nodes.length === 0) {
     return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
   }
-  const theme = Object.prototype.hasOwnProperty.call(themes, themeName) ? themes[themeName] : themes["excalidraw"];
+  const theme = resolveTheme(palette, mode);
   const layout2 = computeLayout(nodes, edges, direction);
   const uid = `fc-${++_flowChartCount}`;
   const arrowMarkerId = `${uid}-arrow`;
@@ -8044,9 +8109,11 @@ function renderFlowChart(options) {
     width = maxX - minX;
     height = maxY - minY;
   }
+  const bgParts = theme.background ? [`<rect x="${vb.x}" y="${vb.y}" width="${vb.width}" height="${vb.height}" fill="${theme.background}"/>`] : [];
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="${vb.x} ${vb.y} ${vb.width} ${vb.height}">`,
     defs,
+    ...bgParts,
     `<g class="flowchart">`,
     groupsSvg,
     edgesSvg,
@@ -8059,7 +8126,7 @@ function renderFlowChart(options) {
 // src/tree.ts
 var DEPTH_NODE_TYPES = ["terminal", "process", "decision", "io"];
 function createTreeDiagram(options) {
-  const { nodes, theme, direction = "TB" } = options;
+  const { nodes, theme, palette, direction = "TB" } = options;
   const parentMap = /* @__PURE__ */ new Map();
   nodes.forEach((n) => {
     if (n.parent !== void 0) parentMap.set(n.id, n.parent);
@@ -8083,7 +8150,7 @@ function createTreeDiagram(options) {
     type: DEPTH_NODE_TYPES[getDepth(n.id) % DEPTH_NODE_TYPES.length]
   }));
   const edges = nodes.filter((n) => n.parent !== void 0).map((n) => ({ from: n.parent, to: n.id }));
-  return renderFlowChart({ nodes: flowNodes, edges, theme, direction });
+  return renderFlowChart({ nodes: flowNodes, edges, theme, palette, direction });
 }
 
 // src/arch.ts
@@ -8098,14 +8165,15 @@ var LAYER_NODE_TYPES = ["process", "decision", "terminal", "io"];
 function createArchDiagram(options) {
   const {
     layers,
-    theme: themeName = "excalidraw",
+    theme: mode = "light",
+    palette,
     direction = "TB",
     width: totalWidth = 800
   } = options;
   if (layers.length === 0) {
     return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
   }
-  const theme = Object.prototype.hasOwnProperty.call(themes, themeName) ? themes[themeName] : themes["excalidraw"];
+  const theme = resolveTheme(palette, mode);
   const sw = theme.strokeWidth;
   if (direction === "LR") {
     const maxRows = Math.max(...layers.map((l) => l.nodes.length));
@@ -8153,8 +8221,10 @@ function createArchDiagram(options) {
         }
       }
     }
+    const bgParts2 = theme.background ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`] : [];
     return [
       `<svg xmlns="http://www.w3.org/2000/svg" width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${svgWidth} ${svgHeight}">`,
+      ...bgParts2,
       `<g class="arch-diagram">`,
       ...parts2,
       `</g>`,
@@ -8205,8 +8275,10 @@ function createArchDiagram(options) {
       }
     }
   }
+  const bgParts = theme.background ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`] : [];
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${totalWidth}" height="${totalHeight}" viewBox="0 0 ${totalWidth} ${totalHeight}">`,
+    ...bgParts,
     `<g class="arch-diagram">`,
     ...parts,
     `</g>`,
@@ -8227,7 +8299,7 @@ var SELF_LOOP_H = 28;
 var ACTOR_NODE_TYPES = ["terminal", "process", "decision", "io"];
 var _seqDiagramCount = 0;
 function createSequenceDiagram(options) {
-  const { actors, messages, theme: themeName = "excalidraw" } = options;
+  const { actors, messages, theme: mode = "light", palette } = options;
   if (actors.length === 0) {
     return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
   }
@@ -8238,7 +8310,7 @@ function createSequenceDiagram(options) {
     }
     seenActors.add(actor);
   }
-  const theme = Object.prototype.hasOwnProperty.call(themes, themeName) ? themes[themeName] : themes["excalidraw"];
+  const theme = resolveTheme(palette, mode);
   const sw = theme.strokeWidth;
   const actorType = (i) => ACTOR_NODE_TYPES[i % ACTOR_NODE_TYPES.length];
   const sideMargin = ACTOR_W / 2 + 20;
@@ -8357,9 +8429,11 @@ function createSequenceDiagram(options) {
       }
     }
   }
+  const bgParts = theme.background ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`] : [];
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${svgWidth} ${svgHeight}">`,
     defs,
+    ...bgParts,
     `<g class="sequence-diagram">`,
     ...parts,
     `</g>`,
@@ -8394,9 +8468,10 @@ function createQuadrantChart(options) {
     yAxis,
     quadrants,
     points,
-    theme: themeName = "excalidraw"
+    theme: mode = "light",
+    palette
   } = options;
-  const theme = Object.prototype.hasOwnProperty.call(themes, themeName) ? themes[themeName] : themes["excalidraw"];
+  const theme = resolveTheme(palette, mode);
   const SIZE = Math.min(MAX_SIZE, Math.max(BASE_SIZE, BASE_SIZE + (points.length - 4) * 24));
   const WIDTH = SIZE;
   const HEIGHT = SIZE;
@@ -8497,8 +8572,10 @@ function createQuadrantChart(options) {
       `<text x="${labelX}" y="${cy + labelFs * LABEL_Y_OFFSET_RATIO}" text-anchor="${anchor}" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" fill="${escapeXml(textColor)}">${escapeXml(pt.label)}</text>`
     );
   }
+  const bgParts = theme.background ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`] : [];
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}">`,
+    ...bgParts,
     `<g class="quadrant-chart">`,
     ...parts,
     `</g>`,

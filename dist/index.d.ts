@@ -8,8 +8,19 @@
 type NodeType = 'process' | 'decision' | 'terminal' | 'io';
 /** Layout direction of the graph. */
 type Direction = 'TB' | 'LR';
-/** Visual theme. */
-type ThemeType = 'excalidraw' | 'clean';
+/** Light or dark rendering mode. */
+type ThemeType = 'light' | 'dark';
+/**
+ * Color palette — one of:
+ * - `'default'` — the built-in multi-hue palette (default when omitted)
+ * - Any `d3-scale-chromatic` scheme name **without** the `scheme` prefix, e.g.:
+ *   - Categorical: `'category10'`, `'set1'`, `'set2'`, `'set3'`,
+ *     `'accent'`, `'dark2'`, `'paired'`, `'pastel1'`, `'pastel2'`, `'tableau10'`
+ *   - Sequential: `'blues'`, `'greens'`, `'oranges'`, `'reds'`, etc.
+ *   - Diverging: `'brBG'`, `'piYG'`, `'rdBu'`, etc.
+ * - Custom 4-element hex array `[process, decision, terminal, io]`
+ */
+type PaletteType = string | string[];
 /** A single node in the flowchart. */
 interface FlowNode {
     /** Unique identifier. */
@@ -45,8 +56,14 @@ interface FlowChartOptions {
     edges: FlowEdge[];
     /** Optional logical groups. */
     groups?: FlowGroup[];
-    /** Visual theme (default: 'excalidraw'). */
+    /** Light or dark rendering mode (default: 'light'). */
     theme?: ThemeType;
+    /**
+     * Color palette — `'default'` (built-in), any d3-scale-chromatic scheme name
+     * (categorical, sequential, or diverging), or a custom
+     * 4-element hex array `[process, decision, terminal, io]` (default: 'default').
+     */
+    palette?: PaletteType;
     /** Graph layout direction (default: 'TB' — top to bottom). */
     direction?: Direction;
 }
@@ -63,8 +80,10 @@ interface TreeNode {
 interface TreeDiagramOptions {
     /** Flat list of nodes with optional parent references. */
     nodes: TreeNode[];
-    /** Visual theme (default: 'excalidraw'). */
+    /** Light or dark rendering mode (default: 'light'). */
     theme?: ThemeType;
+    /** Color palette — `'default'` (built-in), d3-scale-chromatic short name (e.g. `'blues'`), or custom hex array (default: `'default'`). */
+    palette?: PaletteType;
     /** Layout direction (default: 'TB'). */
     direction?: Direction;
 }
@@ -88,8 +107,10 @@ interface ArchLayer {
 interface ArchDiagramOptions {
     /** List of layers from top to bottom (TB) or left to right (LR). */
     layers: ArchLayer[];
-    /** Visual theme (default: 'excalidraw'). */
+    /** Light or dark rendering mode (default: 'light'). */
     theme?: ThemeType;
+    /** Color palette — `'default'` (built-in), d3-scale-chromatic short name (e.g. `'blues'`), or custom hex array (default: `'default'`). */
+    palette?: PaletteType;
     /** Direction: TB = layers top-to-bottom, LR = layers left-to-right (default: 'TB'). */
     direction?: Direction;
     /** Total diagram width in pixels (default: 800). */
@@ -112,8 +133,10 @@ interface SequenceDiagramOptions {
     actors: string[];
     /** Ordered list of messages between actors. */
     messages: SeqMessage[];
-    /** Visual theme (default: 'excalidraw'). */
+    /** Light or dark rendering mode (default: 'light'). */
     theme?: ThemeType;
+    /** Color palette — `'default'` (built-in), d3-scale-chromatic short name (e.g. `'blues'`), or custom hex array (default: `'default'`). */
+    palette?: PaletteType;
 }
 /** A single data point in a quadrant chart. */
 interface QuadrantPoint {
@@ -144,8 +167,10 @@ interface QuadrantChartOptions {
     quadrants: [string, string, string, string];
     /** Data points to plot. */
     points: QuadrantPoint[];
-    /** Visual theme (default: 'excalidraw'). */
+    /** Light or dark rendering mode (default: 'light'). */
     theme?: ThemeType;
+    /** Color palette — `'default'` (built-in), d3-scale-chromatic short name (e.g. `'blues'`), or custom hex array (default: `'default'`). */
+    palette?: PaletteType;
 }
 /** Options for the unified {@link fig} function — select the diagram type with `figure`. */
 type FigOptions = ({
