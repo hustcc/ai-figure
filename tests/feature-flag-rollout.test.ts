@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { createFlowChart } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('feature flag rollout — clean theme, LR direction', () => {
+it('feature flag rollout — clean theme, TB direction', () => {
   const svg = createFlowChart({
     nodes: [
       { id: 'request', label: 'Incoming Request', type: 'terminal' },
@@ -27,7 +27,7 @@ it('feature flag rollout — clean theme, LR direction', () => {
       { from: 'log_metrics', to: 'respond' },
     ],
     theme: 'clean',
-    direction: 'LR',
+    direction: 'TB',
   });
   matchSvgSnapshot('feature-flag-rollout', svg);
 });

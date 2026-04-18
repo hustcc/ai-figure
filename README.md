@@ -1,8 +1,9 @@
-# ai-flowchart
+# ai-figure
 
 > Clean SVG flowchart renderer — define nodes & edges, get beautiful diagrams. Works in browser **and** Node.js.
 
-[![npm version](https://img.shields.io/npm/v/ai-flowchart.svg)](https://www.npmjs.com/package/ai-flowchart)
+[![npm version](https://img.shields.io/npm/v/ai-figure.svg)](https://www.npmjs.com/package/ai-figure)
+[![Build](https://github.com/hustcc/ai-flowchart/actions/workflows/build.yml/badge.svg)](https://github.com/hustcc/ai-flowchart/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -23,13 +24,13 @@
 ### Install
 
 ```bash
-npm install ai-flowchart
+npm install ai-figure
 ```
 
 ### Usage
 
 ```typescript
-import { createFlowChart } from 'ai-flowchart';
+import { createFlowChart } from 'ai-figure';
 
 const svg = createFlowChart({
   nodes: [
@@ -204,7 +205,7 @@ This API is designed to be easy for AI agents to call. Just describe the flow in
 
 **AI-generated code:**
 ```typescript
-import { createFlowChart } from 'ai-flowchart';
+import { createFlowChart } from 'ai-figure';
 
 const svg = createFlowChart({
   nodes: [

@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { createFlowChart } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('data ETL pipeline — clean theme, LR direction, 3 groups', () => {
+it('data ETL pipeline — clean theme, TB direction, 3 groups', () => {
   const svg = createFlowChart({
     nodes: [
       { id: 'source_db', label: 'Source DB', type: 'io' },
@@ -35,7 +35,7 @@ it('data ETL pipeline — clean theme, LR direction, 3 groups', () => {
       { id: 'load_grp', label: 'Load', nodes: ['load', 'dw'] },
     ],
     theme: 'clean',
-    direction: 'LR',
+    direction: 'TB',
   });
   matchSvgSnapshot('etl-pipeline', svg);
 });

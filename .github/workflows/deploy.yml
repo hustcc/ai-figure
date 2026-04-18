@@ -38,8 +38,11 @@ jobs:
           mkdir -p _site
           cp index.html _site/index.html
           cp -r dist _site/dist
+          echo "ai-figure.hust.cc" > _site/CNAME
 
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
