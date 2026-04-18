@@ -3,6 +3,7 @@
 > Clean SVG flowchart renderer — define nodes & edges, get beautiful diagrams. Works in browser **and** Node.js.
 
 [![npm version](https://img.shields.io/npm/v/ai-figure.svg)](https://www.npmjs.com/package/ai-figure)
+[![Build](https://github.com/hustcc/ai-flowchart/actions/workflows/build.yml/badge.svg)](https://github.com/hustcc/ai-flowchart/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
