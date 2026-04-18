@@ -9,6 +9,8 @@ const MSG_SPACING = 56;    // vertical gap between messages
 const TOP_PAD = 24;
 const BOTTOM_PAD = 32;
 const LIFELINE_DASH = '4 4';
+const SELF_LOOP_W = 44;    // how far right a self-message loop extends
+const SELF_LOOP_H = 28;    // height of the self-message loop
 
 /** Node types cycled by actor index so each participant has a distinct color. */
 const ACTOR_NODE_TYPES: NodeType[] = ['terminal', 'process', 'decision', 'io'];
@@ -129,27 +131,57 @@ export function createSequenceDiagram(options: SequenceDiagramOptions): string {
       .filter(Boolean)
       .join(' ');
 
-    parts.push(`<line x1="${fromX}" y1="${msgY}" x2="${toX}" y2="${msgY}" ${pathAttrs}/>`);
+    // Arrow line — self-messages rendered as a small right-down-left loop
+    if (fromX === toX) {
+      const loopX = fromX + SELF_LOOP_W;
+      const loopBottomY = msgY + SELF_LOOP_H;
+      // The last segment goes right→left so marker-end naturally points left
+      const pathD = `M ${fromX},${msgY} H ${loopX} V ${loopBottomY} H ${fromX}`;
+      parts.push(`<path d="${pathD}" ${pathAttrs}/>`);
 
-    // Label (above midpoint)
-    if (msg.label) {
-      const midX = (fromX + toX) / 2;
-      const labelFontSize = theme.fontSize - 2;
-      const padX = 5;
-      const padY = 3;
-      const labelW = msg.label.length * (labelFontSize * 0.58) + padX * 2;
-      const labelH = labelFontSize + padY * 2;
-      const labelY = msgY - 6;
-      parts.push(
-        `<rect x="${midX - labelW / 2}" y="${labelY - labelH}" ` +
-          `width="${labelW}" height="${labelH}" fill="white" rx="3" opacity="0.9"/>`,
-      );
-      parts.push(
-        `<text x="${midX}" y="${labelY - labelH / 2}" ` +
-          `text-anchor="middle" dominant-baseline="middle" ` +
-          `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFontSize}" ` +
-          `fill="${escapeXml(arrowColor)}">${escapeXml(msg.label)}</text>`,
-      );
+      // Label: to the right of the loop, vertically centered on it
+      if (msg.label) {
+        const labelX = loopX + 6;
+        const labelFontSize = theme.fontSize - 2;
+        const padX = 5;
+        const padY = 3;
+        const labelW = msg.label.length * (labelFontSize * 0.58) + padX * 2;
+        const labelH = labelFontSize + padY * 2;
+        const labelMidY = msgY + SELF_LOOP_H / 2;
+        parts.push(
+          `<rect x="${labelX}" y="${labelMidY - labelH / 2}" ` +
+            `width="${labelW}" height="${labelH}" fill="white" rx="3" opacity="0.9"/>`,
+        );
+        parts.push(
+          `<text x="${labelX + labelW / 2}" y="${labelMidY}" ` +
+            `text-anchor="middle" dominant-baseline="middle" ` +
+            `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFontSize}" ` +
+            `fill="${escapeXml(arrowColor)}">${escapeXml(msg.label)}</text>`,
+        );
+      }
+    } else {
+      parts.push(`<line x1="${fromX}" y1="${msgY}" x2="${toX}" y2="${msgY}" ${pathAttrs}/>`);
+
+      // Label (above midpoint)
+      if (msg.label) {
+        const midX = (fromX + toX) / 2;
+        const labelFontSize = theme.fontSize - 2;
+        const padX = 5;
+        const padY = 3;
+        const labelW = msg.label.length * (labelFontSize * 0.58) + padX * 2;
+        const labelH = labelFontSize + padY * 2;
+        const labelY = msgY - 6;
+        parts.push(
+          `<rect x="${midX - labelW / 2}" y="${labelY - labelH}" ` +
+            `width="${labelW}" height="${labelH}" fill="white" rx="3" opacity="0.9"/>`,
+        );
+        parts.push(
+          `<text x="${midX}" y="${labelY - labelH / 2}" ` +
+            `text-anchor="middle" dominant-baseline="middle" ` +
+            `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFontSize}" ` +
+            `fill="${escapeXml(arrowColor)}">${escapeXml(msg.label)}</text>`,
+        );
+      }
     }
   }
 
