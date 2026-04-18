@@ -142,6 +142,36 @@ export interface SequenceDiagramOptions {
 }
 
 // ---------------------------------------------------------------------------
+// QuadrantChart types
+// ---------------------------------------------------------------------------
+
+/** A single data point in a quadrant chart. */
+export interface QuadrantPoint {
+  /** Unique identifier. */
+  id: string;
+  /** Text label displayed next to the point. */
+  label: string;
+  /** Horizontal position, 0 = left edge, 1 = right edge. */
+  x: number;
+  /** Vertical position, 0 = bottom, 1 = top (internally flipped for SVG). */
+  y: number;
+}
+
+/** Options passed to {@link createQuadrantChart}. */
+export interface QuadrantChartOptions {
+  /** X-axis configuration. */
+  xAxis: { label: string; min: string; max: string };
+  /** Y-axis configuration. */
+  yAxis: { label: string; min: string; max: string };
+  /** Labels for the four quadrants: [top-left, top-right, bottom-left, bottom-right]. */
+  quadrants: [string, string, string, string];
+  /** Data points to plot. */
+  points: QuadrantPoint[];
+  /** Visual theme (default: 'excalidraw'). */
+  theme?: ThemeType;
+}
+
+// ---------------------------------------------------------------------------
 // Unified fig() API
 // ---------------------------------------------------------------------------
 
@@ -150,4 +180,5 @@ export type FigOptions =
   | ({ figure: 'flow' } & FlowChartOptions)
   | ({ figure: 'tree' } & TreeDiagramOptions)
   | ({ figure: 'arch' } & ArchDiagramOptions)
-  | ({ figure: 'sequence' } & SequenceDiagramOptions);
+  | ({ figure: 'sequence' } & SequenceDiagramOptions)
+  | ({ figure: 'quadrant' } & QuadrantChartOptions);

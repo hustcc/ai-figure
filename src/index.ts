@@ -2,6 +2,7 @@ import { renderFlowChart } from './render';
 import { createTreeDiagram } from './tree';
 import { createArchDiagram } from './arch';
 import { createSequenceDiagram } from './sequence';
+import { createQuadrantChart } from './quadrant';
 import type { FigOptions } from './types';
 
 /**
@@ -10,6 +11,7 @@ import type { FigOptions } from './types';
  * - `'tree'`     — tree / hierarchy (flat node list with parent refs)
  * - `'arch'`     — architecture diagram (layered grid, no edges)
  * - `'sequence'` — sequence diagram (actors + message arrows)
+ * - `'quadrant'` — quadrant chart (2×2 matrix with data points)
  *
  * Returns a fully self-contained SVG string; no coordinates needed.
  */
@@ -23,6 +25,8 @@ export function fig(options: FigOptions): string {
       return createArchDiagram(options);
     case 'sequence':
       return createSequenceDiagram(options);
+    case 'quadrant':
+      return createQuadrantChart(options);
     default: {
       const _exhaustive: never = options;
       throw new Error(`Unknown figure type: ${(_exhaustive as FigOptions).figure}`);
@@ -46,4 +50,6 @@ export type {
   ArchDiagramOptions,
   SeqMessage,
   SequenceDiagramOptions,
+  QuadrantPoint,
+  QuadrantChartOptions,
 } from './types';

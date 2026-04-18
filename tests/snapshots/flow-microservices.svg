@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="476" height="1288" viewBox="-28 -28 476 1288">
 <defs>
-    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+    <marker id="fc-1-arrow" markerWidth="8" markerHeight="6"
       refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
       <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
     </marker>
@@ -19,41 +19,41 @@
 <text x="6" y="568" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#868e96" font-weight="500">Business Services</text>
 </g>
 <g class="edge" data-from="client" data-to="gateway">
-<path d="M210,76 L210,106 Q210,116 210,126 L210,156" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<path d="M210,76 L210,106 Q210,116 210,126 L210,156" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
 
 </g>
 <g class="edge" data-from="gateway" data-to="auth_svc">
-<path d="M210,216 L210,246 Q210,256 210,266 L210,296" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<path d="M210,216 L210,246 Q210,256 210,266 L210,296" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
 
 </g>
 <g class="edge" data-from="auth_svc" data-to="rate_limit">
-<path d="M210,356 L210,386 Q210,396 210,406 L210,436" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<path d="M210,356 L210,386 Q210,396 210,406 L210,436" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
 
 </g>
 <g class="edge" data-from="rate_limit" data-to="user_svc">
-<path d="M155,516 L108.08736084303189,550.1182830232495 Q100,556 100,566 L100,596" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
-<rect x="87" y="546" width="26" height="20" fill="white" rx="3" opacity="0.9"/>
+<path d="M155,516 L108.08736084303189,550.1182830232495 Q100,556 100,566 L100,596" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+<rect x="88.04" y="547" width="23.919999999999998" height="18" fill="white" rx="3" opacity="0.9"/>
 <text x="100" y="556" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">OK</text>
 </g>
 <g class="edge" data-from="rate_limit" data-to="throttle">
-<path d="M265,516 L311.9126391569681,550.1182830232495 Q320,556 320,566 L320,598" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
-<rect x="286" y="546" width="68" height="20" fill="white" rx="3" opacity="0.9"/>
+<path d="M265,516 L311.9126391569681,550.1182830232495 Q320,556 320,566 L320,598" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+<rect x="287.16" y="547" width="65.67999999999999" height="18" fill="white" rx="3" opacity="0.9"/>
 <text x="320" y="556" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">Exceeded</text>
 </g>
 <g class="edge" data-from="user_svc" data-to="order_svc">
-<path d="M100,656 L100,686 Q100,696 100,706 L100,736" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<path d="M100,656 L100,686 Q100,696 100,706 L100,736" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
 
 </g>
 <g class="edge" data-from="order_svc" data-to="inventory_svc">
-<path d="M100,796 L100,826 Q100,836 100,846 L100,876" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<path d="M100,796 L100,826 Q100,836 100,846 L100,876" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
 
 </g>
 <g class="edge" data-from="inventory_svc" data-to="notify_svc">
-<path d="M100,936 L100,966 Q100,976 100,986 L100,1016" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<path d="M100,936 L100,966 Q100,976 100,986 L100,1016" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
 
 </g>
 <g class="edge" data-from="notify_svc" data-to="response">
-<path d="M100,1076 L100,1106 Q100,1116 100,1126 L100,1156" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+<path d="M100,1076 L100,1106 Q100,1116 100,1126 L100,1156" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
 
 </g>
 <g class="node node-terminal" data-id="client">

@@ -49,8 +49,11 @@ function pointsToSmoothPath(points: { x: number; y: number }[]): string {
   return d;
 }
 
-/** Pixels-per-character estimate used for edge label background width. */
-const EDGE_LABEL_CHAR_WIDTH = 7;
+/** Incrementing counter for unique per-diagram SVG IDs. */
+let _flowChartCount = 0;
+
+/** Approximate character-width-to-height ratio for Inter at typical sizes (used for label width estimation). */
+const LABEL_CHAR_WIDTH_RATIO = 0.58;
 
 // ---------------------------------------------------------------------------
 // Node rendering
@@ -126,6 +129,7 @@ function renderEdge(
   edge: FlowEdge,
   layoutEdge: LayoutEdge,
   theme: ThemeConfig,
+  arrowMarkerId: string,
 ): string {
   const { points } = layoutEdge;
   if (points.length < 2) return '';
@@ -135,16 +139,16 @@ function renderEdge(
     `<path d="${d}" fill="none" stroke="${theme.edgeColor}" ` +
     `stroke-width="${theme.edgeWidth}" stroke-linecap="round" ` +
     `stroke-linejoin="round" stroke-dasharray="8 5" ` +
-    `class="ai-fc-edge" marker-end="url(#arrowhead)"/>`;
+    `class="ai-fc-edge" marker-end="url(#${arrowMarkerId})"/>`;
 
   // Edge label at the midpoint
   let labelSvg = '';
   if (edge.label) {
     const mid = points[Math.floor(points.length / 2)];
     const labelFontSize = theme.fontSize - 2;
-    const padX = 6;
-    const padY = 4;
-    const labelW = edge.label.length * EDGE_LABEL_CHAR_WIDTH + padX * 2;
+    const padX = 5;
+    const padY = 3;
+    const labelW = edge.label.length * (labelFontSize * LABEL_CHAR_WIDTH_RATIO) + padX * 2;
     const labelH = labelFontSize + padY * 2;
     const bg =
       `<rect x="${mid.x - labelW / 2}" y="${mid.y - labelH / 2}" ` +
@@ -218,10 +222,14 @@ export function renderFlowChart(options: FlowChartOptions): string {
     : themes['excalidraw'];
   const layout = computeLayout(nodes, edges, direction);
 
+  // Unique ID scoped to this diagram instance to avoid marker conflicts on the same HTML page.
+  const uid = `fc-${++_flowChartCount}`;
+  const arrowMarkerId = `${uid}-arrow`;
+
   // SVG <defs> — arrowhead marker + edge animation
   const defs =
     `<defs>\n` +
-    `    <marker id="arrowhead" markerWidth="8" markerHeight="6"\n` +
+    `    <marker id="${arrowMarkerId}" markerWidth="8" markerHeight="6"\n` +
     `      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">\n` +
     `      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="${theme.edgeColor}"/>\n` +
     `    </marker>\n` +
@@ -248,7 +256,7 @@ export function renderFlowChart(options: FlowChartOptions): string {
     .map((edge, i) => {
       const layoutEdge = layoutEdgeByIndex.get(i);
       if (!layoutEdge) return '';
-      return renderEdge(edge, layoutEdge, theme);
+      return renderEdge(edge, layoutEdge, theme, arrowMarkerId);
     })
     .join('\n');
 
