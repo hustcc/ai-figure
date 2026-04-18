@@ -1,40 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="560" viewBox="0 0 560 560">
 <g class="quadrant-chart">
-<defs>
-  <marker id="arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L0,8 L8,4 Z" fill="#495057" opacity="0.7"/></marker>
-  <marker id="arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto"><path d="M8,0 L8,8 L0,4 Z" fill="#495057" opacity="0.7"/></marker>
-</defs>
-<rect x="60" y="60" width="240" height="240" fill="#fff7e6" fill-opacity="0.04" stroke="none"/>
-<rect x="300" y="60" width="240" height="240" fill="#fff7e6" fill-opacity="0.04" stroke="none"/>
-<rect x="60" y="300" width="240" height="240" fill="#fff7e6" fill-opacity="0.04" stroke="none"/>
-<rect x="300" y="300" width="240" height="240" fill="#fff7e6" fill-opacity="0.04" stroke="none"/>
-<line x1="60" y1="300" x2="540" y2="300" stroke="#495057" stroke-width="2" opacity="0.6" marker-start="url(#arrow-start)" marker-end="url(#arrow-end)"/>
-<line x1="300" y1="540" x2="300" y2="60" stroke="#495057" stroke-width="2" opacity="0.6" marker-start="url(#arrow-start)" marker-end="url(#arrow-end)"/>
-<text x="64" y="316" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#e67700" opacity="0.7">低</text>
-<text x="536" y="316" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#e67700" opacity="0.7">高</text>
-<text x="300" y="590" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#e67700" opacity="0.8">实现难度</text>
-<text x="292" y="536" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#e67700" opacity="0.7">低</text>
-<text x="292" y="74" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#e67700" opacity="0.7">高</text>
-<text x="10" y="300" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#e67700" opacity="0.8" transform="rotate(-90, 10, 300)">业务价值</text>
-<text x="70" y="78" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#f59f00" opacity="0.45" font-style="italic">立即做</text>
-<text x="530" y="78" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#f59f00" opacity="0.45" font-style="italic">计划做</text>
-<text x="70" y="530" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#f59f00" opacity="0.45" font-style="italic">搁置</text>
-<text x="530" y="530" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#f59f00" opacity="0.45" font-style="italic">外包</text>
-<circle cx="132" cy="107.99999999999999" r="6" fill="#f59f00" fill-opacity="0.85" stroke="none"/>
-<text x="143" y="112.89999999999999" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">登录优化</text>
-<circle cx="434.40000000000003" cy="146.40000000000003" r="6" fill="#f59f00" fill-opacity="0.85" stroke="none"/>
-<text x="445.40000000000003" y="151.30000000000004" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">推荐系统</text>
-<circle cx="204" cy="444" r="6" fill="#f59f00" fill-opacity="0.85" stroke="none"/>
-<text x="215" y="448.9" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">暗黑模式</text>
-<circle cx="372" cy="276" r="6" fill="#f59f00" fill-opacity="0.85" stroke="none"/>
-<text x="383" y="280.9" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">A/B 测试</text>
-<circle cx="300" cy="180" r="6" fill="#f59f00" fill-opacity="0.85" stroke="none"/>
-<text x="311" y="184.9" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">性能优化</text>
-<circle cx="396" cy="372" r="6" fill="#f59f00" fill-opacity="0.85" stroke="none"/>
-<text x="407" y="376.9" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">多语言支持</text>
-<circle cx="252" cy="252" r="6" fill="#f59f00" fill-opacity="0.85" stroke="none"/>
-<text x="263" y="256.9" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">埋点系统</text>
-<circle cx="468" cy="453.6" r="6" fill="#f59f00" fill-opacity="0.85" stroke="none"/>
-<text x="479" y="458.5" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">离线模式</text>
+<defs><marker id="qd-1-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 7 3.5, 0 7, 1.5 3.5" fill="#495057" opacity="0.6"/></marker></defs>
+<rect x="52" y="28" width="240" height="240" fill="#ebfbee" fill-opacity="0.08" stroke="none"/>
+<rect x="292" y="28" width="240" height="240" fill="#fff7e6" fill-opacity="0.08" stroke="none"/>
+<rect x="52" y="268" width="240" height="240" fill="#fdf4ff" fill-opacity="0.08" stroke="none"/>
+<rect x="292" y="268" width="240" height="240" fill="#e7f5ff" fill-opacity="0.08" stroke="none"/>
+<rect x="52" y="28" width="480" height="480" fill="none" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+<line x1="52" y1="268" x2="532" y2="268" stroke="#495057" stroke-width="2" opacity="0.45" marker-end="url(#qd-1-arrow)"/>
+<line x1="292" y1="508" x2="292" y2="28" stroke="#495057" stroke-width="2" opacity="0.45" marker-end="url(#qd-1-arrow)"/>
+<text x="56" y="284" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" opacity="0.55">低</text>
+<text x="528" y="284" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" opacity="0.55">高</text>
+<text x="292" y="548" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#495057" opacity="0.7">实现难度</text>
+<text x="284" y="504" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" opacity="0.55">低</text>
+<text x="284" y="42" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" opacity="0.55">高</text>
+<text x="26" y="268" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#495057" opacity="0.7" transform="rotate(-90, 26, 268)">业务价值</text>
+<text x="172" y="148" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#51cf66" opacity="0.3">立即做</text>
+<text x="412" y="148" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#f59f00" opacity="0.3">计划做</text>
+<text x="172" y="388" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#cc5de8" opacity="0.3">搁置</text>
+<text x="412" y="388" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#339af0" opacity="0.3">外包</text>
+<circle cx="124" cy="75.99999999999999" r="5" fill="white" stroke="#f59f00" stroke-width="2"/>
+<text x="135" y="80.93999999999998" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">登录优化</text>
+<circle cx="426.40000000000003" cy="114.40000000000002" r="5" fill="white" stroke="#f59f00" stroke-width="2"/>
+<text x="437.40000000000003" y="119.34000000000002" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">推荐系统</text>
+<circle cx="196" cy="412" r="5" fill="white" stroke="#f59f00" stroke-width="2"/>
+<text x="207" y="416.94" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">暗黑模式</text>
+<circle cx="364" cy="243.99999999999997" r="5" fill="white" stroke="#f59f00" stroke-width="2"/>
+<text x="375" y="248.93999999999997" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">A/B 测试</text>
+<circle cx="292" cy="148" r="5" fill="white" stroke="#f59f00" stroke-width="2"/>
+<text x="303" y="152.94" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">性能优化</text>
+<circle cx="388" cy="340" r="5" fill="white" stroke="#f59f00" stroke-width="2"/>
+<text x="399" y="344.94" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">多语言支持</text>
+<circle cx="244" cy="220" r="5" fill="white" stroke="#f59f00" stroke-width="2"/>
+<text x="255" y="224.94" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">埋点系统</text>
+<circle cx="460" cy="421.6" r="5" fill="white" stroke="#f59f00" stroke-width="2"/>
+<text x="450" y="426.54" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">离线模式</text>
 </g>
 </svg>

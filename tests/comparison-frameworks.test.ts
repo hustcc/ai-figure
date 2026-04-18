@@ -14,7 +14,6 @@ it('comparison table — frontend frameworks, clean theme', () => {
       { feature: 'SSR 支持',   values: ['✓',       '✓',      '✓'    ] },
     ],
     theme: 'clean',
-    width: 720,
   });
   matchSvgSnapshot('comparison-frameworks', svg);
 });

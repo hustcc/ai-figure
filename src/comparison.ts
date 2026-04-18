@@ -6,7 +6,8 @@ const ROW_H = 44;        // data row height
 const HEADER_H = 48;     // header row height
 const CELL_PAD_X = 12;   // horizontal cell padding
 const OUTER_RX = 8;      // outer border radius
-const FEATURE_COL_RATIO = 0.28; // first column = 28 % of total width
+const FEATURE_COL_W = 200;  // first (feature) column width — fixed
+const DATA_COL_W = 140;     // each subsequent column width — fixed
 
 // Special-value colours (not from theme — semantically fixed)
 const COLOR_CHECK = '#22c55e';   // ✓
@@ -15,6 +16,7 @@ const COLOR_CROSS = '#ef4444';   // ✗
 /**
  * Generate an SVG comparison table.
  *
+ * Width is auto-calculated from the number of columns; no need to specify it.
  * The first column shows feature names; subsequent columns are the items being
  * compared.  Special values (✓ ✗ ★) receive distinct colours.
  */
@@ -23,7 +25,6 @@ export function createComparisonTable(options: ComparisonTableOptions): string {
     columns,
     rows,
     theme: themeName = 'excalidraw',
-    width = 720,
   } = options;
 
   const theme = Object.prototype.hasOwnProperty.call(themes, themeName)
@@ -36,11 +37,11 @@ export function createComparisonTable(options: ComparisonTableOptions): string {
   const starColor = theme.nodeStrokes['terminal'];
   const textMain = theme.edgeColor;
 
-  // Column widths
-  const featureColW = Math.round(width * FEATURE_COL_RATIO);
-  const remaining = width - featureColW;
+  // Auto-calculated dimensions
   const dataColCount = Math.max(columns.length - 1, 1);
-  const dataColW = Math.round(remaining / dataColCount);
+  const width = FEATURE_COL_W + dataColCount * DATA_COL_W;
+  const featureColW = FEATURE_COL_W;
+  const dataColW = DATA_COL_W;
 
   // Actual SVG height = header + all rows
   const totalHeight = HEADER_H + rows.length * ROW_H;

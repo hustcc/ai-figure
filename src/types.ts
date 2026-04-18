@@ -169,10 +169,6 @@ export interface QuadrantChartOptions {
   points: QuadrantPoint[];
   /** Visual theme (default: 'excalidraw'). */
   theme?: ThemeType;
-  /** Total diagram width in pixels (default: 600). */
-  width?: number;
-  /** Total diagram height in pixels (default: 600). */
-  height?: number;
 }
 
 // ---------------------------------------------------------------------------
@@ -195,8 +191,6 @@ export interface ComparisonTableOptions {
   rows: ComparisonRow[];
   /** Visual theme (default: 'excalidraw'). */
   theme?: ThemeType;
-  /** Total diagram width in pixels (default: 720). */
-  width?: number;
 }
 
 // ---------------------------------------------------------------------------

@@ -19,8 +19,6 @@ it('quadrant chart — product feature priority, excalidraw theme', () => {
       { id: 'h', label: '离线模式',   x: 0.85, y: 0.18 },
     ],
     theme: 'excalidraw',
-    width: 600,
-    height: 600,
   });
   matchSvgSnapshot('quadrant-priority', svg);
 });
