@@ -284,7 +284,7 @@ All five diagram types accept two independent styling parameters:
 | Value | Description |
 |-------|-------------|
 | `'default'` | Built-in multi-hue palette — `process`=blue, `decision`=amber, `terminal`=green, `io`=purple |
-| Any [`d3-scale-chromatic`](https://github.com/d3/d3-scale-chromatic) name | Categorical (e.g. `'schemeCategory10'`, `'schemeTableau10'`, `'schemeSet1'`), sequential (e.g. `'schemeBlues'`, `'schemeGreens'`), or diverging (e.g. `'schemeBrBG'`, `'schemeRdBu'`) — passed directly to the package |
+| Any [`d3-scale-chromatic`](https://github.com/d3/d3-scale-chromatic) name (without `scheme` prefix) | Categorical (e.g. `'category10'`, `'tableau10'`, `'set1'`), sequential (e.g. `'blues'`, `'greens'`), or diverging (e.g. `'brBG'`, `'rdBu'`) — the `scheme` prefix is added automatically |
 | `string[]` | 4-element hex array mapped to `[process, decision, terminal, io]` |
 
 ```typescript
@@ -292,13 +292,13 @@ All five diagram types accept two independent styling parameters:
 fig({ figure: 'flow', nodes, edges, theme: 'dark', palette: 'default' });
 
 // D3 categorical scheme
-fig({ figure: 'flow', nodes, edges, palette: 'schemeTableau10' });
+fig({ figure: 'flow', nodes, edges, palette: 'tableau10' });
 
 // D3 sequential scheme (9-color variant, sampled at [1,3,5,7])
-fig({ figure: 'flow', nodes, edges, palette: 'schemeBlues' });
+fig({ figure: 'flow', nodes, edges, palette: 'blues' });
 
 // D3 diverging scheme with dark background
-fig({ figure: 'flow', nodes, edges, theme: 'dark', palette: 'schemeBrBG' });
+fig({ figure: 'flow', nodes, edges, theme: 'dark', palette: 'brBG' });
 
 // Custom hex palette
 fig({ figure: 'flow', nodes, edges, palette: ['#e64980', '#ae3ec9', '#7048e8', '#1098ad'] });

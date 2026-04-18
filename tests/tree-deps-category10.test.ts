@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('tree diagram — package dependency tree, schemeCategory10 palette, LR direction', () => {
+it('tree diagram — package dependency tree, category10 palette, LR direction', () => {
   const svg = fig({
     figure: 'tree',
     nodes: [
@@ -15,8 +15,8 @@ it('tree diagram — package dependency tree, schemeCategory10 palette, LR direc
       { id: 'history',   label: 'history',          parent: 'router' },
       { id: 'axios',     label: 'axios',            parent: 'query' },
     ],
-    palette: 'schemeCategory10',
+    palette: 'category10',
     direction: 'LR',
   });
-  matchSvgSnapshot('tree-deps-schemeCategory10', svg);
+  matchSvgSnapshot('tree-deps-category10', svg);
 });

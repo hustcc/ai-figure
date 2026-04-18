@@ -110,7 +110,7 @@ fs.writeFileSync('chart.svg', svg);
 | `palette`   | string\|array  | `"default"`   | See palette values below              |
 | `direction` | string         | `"TB"`        | `"TB"` or `"LR"`                      |
 
-**Palette values:** `"default"` (built-in), any [`d3-scale-chromatic`](https://github.com/d3/d3-scale-chromatic) scheme name (e.g. `"schemeCategory10"`, `"schemeBlues"`, `"schemeBrBG"`), or a 4-element hex array `["#aaa", "#bbb", "#ccc", "#ddd"]`.
+**Palette values:** `"default"` (built-in), any [`d3-scale-chromatic`](https://github.com/d3/d3-scale-chromatic) scheme name **without** the `scheme` prefix (e.g. `"category10"`, `"blues"`, `"brBG"`), or a 4-element hex array `["#aaa", "#bbb", "#ccc", "#ddd"]`.
 
 ### Rules for generating good flowchart configs
 

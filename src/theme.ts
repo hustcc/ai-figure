@@ -98,6 +98,7 @@ const defaultPalette: Record<Mode, ThemeConfig> = {
 
 /**
  * Resolve an array of 4+ accent colors from a d3-scale-chromatic scheme name.
+ * Expects the **full** key including the `scheme` prefix (e.g. `'schemeBlues'`).
  *
  * - **Categorical** schemes (e.g. `schemeCategory10`, `schemeSet1`) export a flat
  *   `string[]` — returned as-is.
@@ -170,9 +171,10 @@ function deriveThemeFromColors(colors: string[], mode: Mode): ThemeConfig {
  *
  * @param palette - One of:
  *   - `'default'` — the built-in multi-hue palette (default when omitted)
- *   - Any `d3-scale-chromatic` scheme name, e.g. `'schemeCategory10'`,
- *     `'schemeSet1'`, `'schemeBlues'`, `'schemeBrBG'` — both categorical and
- *     sequential/diverging schemes are supported
+ *   - Any `d3-scale-chromatic` scheme name **without** the `scheme` prefix,
+ *     e.g. `'category10'`, `'set1'`, `'blues'`, `'brBG'` — both categorical
+ *     and sequential/diverging schemes are supported. The `scheme` prefix is
+ *     prepended internally before the d3-scale-chromatic lookup.
  *   - Custom hex array `[process, decision, terminal, io]`
  * @param mode - `'light'` or `'dark'`. Defaults to `'light'`.
  */
@@ -192,8 +194,10 @@ export function resolveTheme(
     if (palette === 'default') {
       return defaultPalette[m];
     }
-    // d3-scale-chromatic scheme name.
-    const d3colors = resolveD3Scheme(palette);
+    // d3-scale-chromatic scheme name — accept short form (e.g. 'blues') by
+    // prepending 'scheme' + capitalising the first letter ('schemeBlues').
+    const d3key = 'scheme' + palette.charAt(0).toUpperCase() + palette.slice(1);
+    const d3colors = resolveD3Scheme(d3key);
     if (d3colors) {
       return deriveThemeFromColors(d3colors, m);
     }

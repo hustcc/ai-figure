@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('arch diagram — cloud architecture, schemeTableau10 palette, LR direction', () => {
+it('arch diagram — cloud architecture, tableau10 palette, LR direction', () => {
   const svg = fig({
     figure: 'arch',
     layers: [
@@ -38,9 +38,9 @@ it('arch diagram — cloud architecture, schemeTableau10 palette, LR direction',
         ],
       },
     ],
-    palette: 'schemeTableau10',
+    palette: 'tableau10',
     direction: 'LR',
     width: 600,
   });
-  matchSvgSnapshot('arch-cloud-schemeTableau10', svg);
+  matchSvgSnapshot('arch-cloud-tableau10', svg);
 });

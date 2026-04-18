@@ -227,19 +227,19 @@ describe('fig', () => {
     expect(svg).toContain('#1a1b1e');
   });
 
-  it("palette='schemeCategory10' (D3) uses first color for process nodes", () => {
+  it("palette='category10' (D3) uses first color for process nodes", () => {
     const svg = fig({
       figure: 'flow',
       nodes: [{ id: 'a', label: 'A', type: 'process' }],
       edges: [],
-      palette: 'schemeCategory10',
+      palette: 'category10',
     });
 
     expect(svg).toContain('<svg');
     expect(svg).toContain('#1f77b4'); // schemeCategory10[0]
   });
 
-  it("palette='schemeSet1' (D3) light mode renders correctly", () => {
+  it("palette='set1' (D3) light mode renders correctly", () => {
     const svg = fig({
       figure: 'flow',
       nodes: [
@@ -249,7 +249,7 @@ describe('fig', () => {
         { id: 'd', label: 'D', type: 'io' },
       ],
       edges: [{ from: 'a', to: 'b' }, { from: 'b', to: 'c' }, { from: 'c', to: 'd' }],
-      palette: 'schemeSet1',
+      palette: 'set1',
     });
 
     expect(svg).toContain('<svg');
@@ -257,20 +257,20 @@ describe('fig', () => {
     expect(svg).toContain('#377eb8'); // schemeSet1[1] — decision
   });
 
-  it("palette='schemeTableau10' + theme='dark' uses dark background", () => {
+  it("palette='tableau10' + theme='dark' uses dark background", () => {
     const svg = fig({
       figure: 'flow',
       nodes: [{ id: 'a', label: 'A', type: 'process' }],
       edges: [],
       theme: 'dark',
-      palette: 'schemeTableau10',
+      palette: 'tableau10',
     });
 
     expect(svg).toContain('#1a1b1e');
     expect(svg).toContain('#4e79a7'); // schemeTableau10[0]
   });
 
-  it("palette='schemeBlues' (D3 sequential) picks 4 spread colors", () => {
+  it("palette='blues' (D3 sequential) picks 4 spread colors", () => {
     const svg = fig({
       figure: 'flow',
       nodes: [
@@ -278,7 +278,7 @@ describe('fig', () => {
         { id: 'b', label: 'B', type: 'decision' },
       ],
       edges: [{ from: 'a', to: 'b' }],
-      palette: 'schemeBlues',
+      palette: 'blues',
     });
 
     expect(svg).toContain('<svg');
@@ -286,26 +286,26 @@ describe('fig', () => {
     expect(svg).toContain('#9ecae1'); // schemeBlues[9][3] — decision stroke
   });
 
-  it("palette='schemeBrBG' (D3 diverging) renders flow diagram", () => {
+  it("palette='brBG' (D3 diverging) renders flow diagram", () => {
     const svg = fig({
       figure: 'flow',
       nodes: [{ id: 'a', label: 'A', type: 'process' }],
       edges: [],
-      palette: 'schemeBrBG',
+      palette: 'brBG',
     });
 
     expect(svg).toContain('<svg');
     expect(svg).toContain('#bf812d'); // schemeBrBG[9][1] — process stroke
   });
 
-  it("palette='schemeAccent' (D3) renders arch diagram", () => {
+  it("palette='accent' (D3) renders arch diagram", () => {
     const svg = fig({
       figure: 'arch',
       layers: [
         { id: 'l1', label: 'Frontend', nodes: [{ id: 'n1', label: 'React' }, { id: 'n2', label: 'Vue' }] },
         { id: 'l2', label: 'Backend', nodes: [{ id: 'n3', label: 'Node.js' }] },
       ],
-      palette: 'schemeAccent',
+      palette: 'accent',
     });
 
     expect(svg).toContain('<svg');
@@ -313,12 +313,12 @@ describe('fig', () => {
     expect(svg).toContain('#7fc97f'); // schemeAccent[0]
   });
 
-  it("palette='schemePastel1' (D3) renders sequence diagram", () => {
+  it("palette='pastel1' (D3) renders sequence diagram", () => {
     const svg = fig({
       figure: 'sequence',
       actors: ['Client', 'Server'],
       messages: [{ from: 'Client', to: 'Server', label: 'request' }],
-      palette: 'schemePastel1',
+      palette: 'pastel1',
     });
 
     expect(svg).toContain('<svg');

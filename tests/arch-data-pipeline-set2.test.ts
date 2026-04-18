@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('arch diagram — data engineering pipeline, schemeSet2 palette, LR direction', () => {
+it('arch diagram — data engineering pipeline, set2 palette, LR direction', () => {
   const svg = fig({
     figure: 'arch',
     layers: [
@@ -37,9 +37,9 @@ it('arch diagram — data engineering pipeline, schemeSet2 palette, LR direction
         ],
       },
     ],
-    palette: 'schemeSet2',
+    palette: 'set2',
     direction: 'LR',
     width: 700,
   });
-  matchSvgSnapshot('arch-data-pipeline-schemeSet2', svg);
+  matchSvgSnapshot('arch-data-pipeline-set2', svg);
 });

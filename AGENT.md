@@ -61,7 +61,8 @@ Every renderer accepts two independent parameters:
 
 **Palette resolution order:**
 1. `'default'` → built-in multi-hue palette
-2. Any [`d3-scale-chromatic`](https://github.com/d3/d3-scale-chromatic) scheme name — passed to `resolveD3Scheme()`:
+2. Any [`d3-scale-chromatic`](https://github.com/d3/d3-scale-chromatic) scheme name **without** the `scheme` prefix — passed to `resolveD3Scheme()` after prepending `scheme` + capitalising first letter:
+   - e.g. `'category10'` → looks up `schemeCategory10`, `'blues'` → `schemeBlues`, `'brBG'` → `schemeBrBG`
    - Categorical (flat `string[]`): used directly, first 4 colors = `[process, decision, terminal, io]`
    - Sequential / Diverging (nested `string[][]`): 9-color variant sampled at indices `[1, 3, 5, 7]`
 3. `string[]` array: 4 hex values mapped to `[process, decision, terminal, io]`

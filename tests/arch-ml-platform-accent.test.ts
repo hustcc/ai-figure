@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('arch diagram — ML platform, schemeAccent palette, TB direction', () => {
+it('arch diagram — ML platform, accent palette, TB direction', () => {
   const svg = fig({
     figure: 'arch',
     layers: [
@@ -37,9 +37,9 @@ it('arch diagram — ML platform, schemeAccent palette, TB direction', () => {
         ],
       },
     ],
-    palette: 'schemeAccent',
+    palette: 'accent',
     direction: 'TB',
     width: 800,
   });
-  matchSvgSnapshot('arch-ml-platform-schemeAccent', svg);
+  matchSvgSnapshot('arch-ml-platform-accent', svg);
 });
