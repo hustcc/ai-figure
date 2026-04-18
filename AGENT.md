@@ -87,8 +87,8 @@ Every renderer accepts two independent parameters:
 | `cornerRadius` | `6` px |
 | `edgeColor` | `#495057` (light) / `#adb5bd` (dark) |
 | `edgeWidth` | `1.5` |
-| `groupColor` | `#868e96` (light) / `#495057` (dark) |
-| `groupFill` | `rgba(134,142,150,0.06)` |
+| `groupColor` | `#868e96` (light) / `#5c6370` (dark) |
+| `groupFill` | `rgba(134,142,150,0.06)` (light) / `rgba(92,99,112,0.15)` (dark) |
 
 ### Color assignment patterns
 

@@ -154,8 +154,10 @@ function deriveThemeFromColors(colors: string[], mode: Mode): ThemeConfig {
   NODE_TYPES.forEach((type, i) => {
     const color = colors[i % colors.length];
     strokes[type] = color;
-    // Fill: color + low-opacity hex suffix (works for 6-digit hex colors).
-    fills[type] = color + (mode === 'dark' ? '30' : '1a');
+    // Fill: append low-opacity hex suffix only for 6-digit hex colors (#RRGGBB).
+    // For other formats (rgb(), named colors, shorthand #RGB) use the color directly.
+    const is6DigitHex = /^#[0-9a-fA-F]{6}$/.test(color);
+    fills[type] = is6DigitHex ? color + (mode === 'dark' ? '30' : '1a') : color;
     texts[type] = color;
   });
 

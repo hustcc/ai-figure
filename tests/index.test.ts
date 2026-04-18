@@ -60,7 +60,7 @@ describe('fig', () => {
     expect(svg).toContain('class="group"');
   });
 
-  it('supports the default palette (unknown name falls back to default)', () => {
+  it('supports the default palette', () => {
     const svg = fig({
       figure: 'flow',
       nodes: [{ id: 'x', label: 'Node X', type: 'process' }],

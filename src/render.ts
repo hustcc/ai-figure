@@ -299,7 +299,7 @@ export function renderFlowChart(options: FlowChartOptions): string {
   }
 
   const bgParts: string[] = theme.background
-    ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`]
+    ? [`<rect x="${vb.x}" y="${vb.y}" width="${vb.width}" height="${vb.height}" fill="${theme.background}"/>`]
     : [];
 
   return [
