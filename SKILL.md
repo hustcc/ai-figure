@@ -1,15 +1,15 @@
 ---
-name: ai-flowchart
+name: ai-figure
 version: "0.1.0"
 description: Generate clean SVG flowcharts from a JSON config. Excalidraw-inspired style, auto-layout via dagre, zero coordinates needed. Works in browser and Node.js.
 author: hustcc
 license: MIT
-package: ai-flowchart
+package: ai-figure
 api: createFlowChart(options) → string (SVG)
 tags: [flowchart, svg, diagram, layout, visualization]
 ---
 
-# ai-flowchart Skill
+# ai-figure Skill
 
 ## What this skill does
 
@@ -27,7 +27,7 @@ The config has three parts:
 **Step 2 — Call the API**
 
 ```typescript
-import { createFlowChart } from 'ai-flowchart';
+import { createFlowChart } from 'ai-figure';
 
 const svg = createFlowChart(config);
 // Inject into DOM:

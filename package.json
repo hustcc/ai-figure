@@ -1,5 +1,5 @@
 {
-  "name": "ai-flowchart",
+  "name": "ai-figure",
   "version": "0.1.0",
   "description": "Flowchart renderer — define nodes & edges, get beautiful SVG. Works in browser and Node.js.",
   "keywords": [
