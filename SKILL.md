@@ -106,6 +106,8 @@ fs.writeFileSync('chart.svg', svg);
 
 | Field       | Type           | Default       | Description                           |
 |-------------|----------------|---------------|---------------------------------------|
+| `title`     | string         | `undefined`   | Optional centered title above the diagram |
+| `subtitle`  | string         | `undefined`   | Optional centered subtitle below the title |
 | `theme`     | string         | `"light"`     | `"light"` or `"dark"` rendering mode  |
 | `palette`   | string\|array  | `"default"`   | See palette values below              |
 | `direction` | string         | `"TB"`        | `"TB"` or `"LR"`                      |
@@ -129,6 +131,8 @@ interface FlowChartOptions {
   nodes:      FlowNode[];
   edges:      FlowEdge[];
   groups?:    FlowGroup[];
+  title?:     string;
+  subtitle?:  string;
   theme?:     'light' | 'dark';
   palette?:   string | string[];
   direction?: 'TB' | 'LR';
@@ -162,7 +166,7 @@ Renders a hierarchy from a flat node list with `parent` references. Nodes are co
 ### TypeScript types
 
 ```typescript
-interface TreeDiagramOptions { nodes: TreeNode[]; theme?: 'light'|'dark'; palette?: string|string[]; direction?: Direction }
+interface TreeDiagramOptions { nodes: TreeNode[]; title?: string; subtitle?: string; theme?: 'light'|'dark'; palette?: string|string[]; direction?: Direction }
 interface TreeNode { id: string; label: string; parent?: string }
 ```
 
@@ -189,7 +193,7 @@ Renders a tech-stack / architecture landscape grid: color-coded layer cards, no 
 ### TypeScript types
 
 ```typescript
-interface ArchDiagramOptions { layers: ArchLayer[]; theme?: 'light'|'dark'; palette?: string|string[]; direction?: Direction; width?: number }
+interface ArchDiagramOptions { layers: ArchLayer[]; title?: string; subtitle?: string; theme?: 'light'|'dark'; palette?: string|string[]; direction?: Direction; width?: number }
 interface ArchLayer { id: string; label: string; nodes: ArchNode[] }
 interface ArchNode  { id: string; label: string }
 ```
@@ -220,7 +224,7 @@ Use `"style": "return"` for dashed response arrows; omit or use `"style": "solid
 ### TypeScript types
 
 ```typescript
-interface SequenceDiagramOptions { actors: string[]; messages: SeqMessage[]; theme?: 'light'|'dark'; palette?: string|string[] }
+interface SequenceDiagramOptions { actors: string[]; messages: SeqMessage[]; title?: string; subtitle?: string; theme?: 'light'|'dark'; palette?: string|string[] }
 interface SeqMessage { from: string; to: string; label?: string; style?: 'solid' | 'return' }
 ```
 
@@ -258,6 +262,8 @@ interface QuadrantChartOptions {
   yAxis:     { label: string; min: string; max: string };
   quadrants: [string, string, string, string];
   points:    QuadrantPoint[];
+  title?:    string;
+  subtitle?: string;
   theme?:    'light' | 'dark';
   palette?:  string | string[];
 }

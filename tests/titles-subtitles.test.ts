@@ -5,7 +5,6 @@
  *  1. The title/subtitle text appears in the SVG output.
  *  2. The correct font-weight and font-size attributes are applied.
  *  3. The SVG dimensions grow to accommodate the title block.
- *  4. No regression when both fields are omitted (output is unchanged).
  */
 import { describe, it, expect } from 'vitest';
 import { fig } from '../src/index';
@@ -378,5 +377,7 @@ describe('title / subtitle edge cases', () => {
     expect(svg).toContain('Night mode diagram');
     // Dark edgeColor used for title
     expect(svg).toContain('#adb5bd');
+    // Dark groupColor used for subtitle
+    expect(svg).toContain('#5c6370');
   });
 });

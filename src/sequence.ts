@@ -26,8 +26,33 @@ let _seqDiagramCount = 0;
 export function createSequenceDiagram(options: SequenceDiagramOptions): string {
   const { actors, messages, theme: mode = 'light', palette, title, subtitle } = options;
 
+  const theme = resolveTheme(palette, mode);
+
+  // ── Title / subtitle block ───────────────────────────────────────────────
+  // Compute vertical space needed for the optional title and subtitle.  The SVG
+  // height is enlarged and the diagram content is shifted down via transform.
+  const titleH = titleBlockHeight(title, subtitle, theme.fontSize);
+
   if (actors.length === 0) {
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
+    // No actors — render a minimal SVG, but still include the title block if provided.
+    if (titleH === 0) {
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
+    }
+    const svgW = 400;
+    const svgH = titleH + 20;
+    const bgRect = theme.background
+      ? `<rect width="100%" height="100%" fill="${theme.background}"/>`
+      : '';
+    const titleSvg = renderTitleBlock(
+      title, subtitle, svgW / 2, 0,
+      theme.fontFamily, theme.fontSize, theme.edgeColor, theme.groupColor,
+    );
+    return [
+      `<svg xmlns="http://www.w3.org/2000/svg" width="${svgW}" height="${svgH}" viewBox="0 0 ${svgW} ${svgH}">`,
+      ...(bgRect ? [bgRect] : []),
+      titleSvg,
+      `</svg>`,
+    ].join('\n');
   }
 
   // Validate unique actor names
@@ -38,13 +63,6 @@ export function createSequenceDiagram(options: SequenceDiagramOptions): string {
     }
     seenActors.add(actor);
   }
-
-  const theme = resolveTheme(palette, mode);
-
-  // ── Title / subtitle block ───────────────────────────────────────────────
-  // Compute vertical space needed for the optional title and subtitle.  The SVG
-  // height is enlarged and the diagram content is shifted down via transform.
-  const titleH = titleBlockHeight(title, subtitle, theme.fontSize);
 
   const sw = theme.strokeWidth;
 
