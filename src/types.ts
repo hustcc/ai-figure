@@ -133,8 +133,6 @@ export interface ArchDiagramOptions {
   palette?: PaletteType;
   /** Direction: TB = layers top-to-bottom, LR = layers left-to-right (default: 'TB'). */
   direction?: Direction;
-  /** Total diagram width in pixels (default: 800). */
-  width?: number;
 }
 
 // ---------------------------------------------------------------------------

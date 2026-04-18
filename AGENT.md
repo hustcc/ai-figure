@@ -200,12 +200,12 @@ Flow chart edges and sequence diagram elements use CSS keyframe animations decla
 
 ### Auto-sizing rules
 
-Never expose `width`/`height` to callers except where noted:
+Never expose `width`/`height` to callers:
 
 | Diagram | Size rule |
 |---------|-----------|
 | Flow / Tree | Auto-sized by Dagre layout; padded viewBox from `src/layout.ts` |
-| Arch | `width` caller-provided (default 800 px); height auto from layer count |
+| Arch | TB: `clamp(480, 48 + 28 + maxCols×140 + (maxCols−1)×10, 1600)` px wide; LR: `clamp(480, 48 + layers×168 + (layers−1)×14, 1600)` px wide; height always auto from layer/node count |
 | Sequence | Auto-sized from actor count × `ACTOR_SPACING` and message count × `MSG_SPACING` |
 | Quadrant | `clamp(640, 640 + (n−4)×24, 1024)` px square, where n = point count |
 
@@ -214,7 +214,7 @@ Never expose `width`/`height` to callers except where noted:
 These values are used consistently and should not be changed without updating all renderers:
 
 - **Flow groups**: `padding=24`, label height = `theme.fontSize + 8`.
-- **Arch outer margin**: `PAD=24`; card inner: `CARD_PAD=14`; layer gap: `LAYER_GAP=14`; cell height: `CELL_H=72`; cell gap: `CELL_GAP=10`.
+- **Arch outer margin**: `PAD=24`; card inner: `CARD_PAD=14`; layer gap: `LAYER_GAP=14`; cell height: `CELL_H=72`; cell gap: `CELL_GAP=10`; min cell width: `CELL_MIN_W=140`; width bounds: `MIN_ARCH_W=480`, `MAX_ARCH_W=1600`.
 - **Sequence**: `TOP_PAD=24`, `BOTTOM_PAD=32`, actor `W=120 H=44`, spacing `180` px center-to-center, message spacing `56` px.
 - **Quadrant**: `PAD_LEFT=56` (Y-axis label), `PAD_RIGHT=24`, `PAD_TOP=32`, `PAD_BOTTOM=52` (X-axis label).
 

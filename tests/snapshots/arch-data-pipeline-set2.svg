@@ -1,36 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="698" height="352" viewBox="0 0 698 352">
+<svg xmlns="http://www.w3.org/2000/svg" width="762" height="352" viewBox="0 0 762 352">
 <g class="arch-diagram">
-<rect x="24" y="24" width="152" height="304" rx="10" fill="#66c2a51a" fill-opacity="0.08" stroke="#66c2a5" stroke-opacity="0.4" stroke-width="2"/>
-<text x="100" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#66c2a5" font-weight="700">Ingestion</text>
-<line x1="32" y1="64" x2="168" y2="64" stroke="#66c2a5" stroke-width="1" opacity="0.4"/>
-<rect x="38" y="78" width="124" height="72" rx="6" fill="#66c2a51a" stroke="#66c2a5" stroke-opacity="0.6" stroke-width="2"/>
-<text x="100" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#66c2a5">Kafka</text>
-<rect x="38" y="160" width="124" height="72" rx="6" fill="#66c2a51a" stroke="#66c2a5" stroke-opacity="0.6" stroke-width="2"/>
-<text x="100" y="196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#66c2a5">Firehose</text>
-<rect x="190" y="24" width="152" height="304" rx="10" fill="#fc8d621a" fill-opacity="0.08" stroke="#fc8d62" stroke-opacity="0.4" stroke-width="2"/>
-<text x="266" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#fc8d62" font-weight="700">Processing</text>
-<line x1="198" y1="64" x2="334" y2="64" stroke="#fc8d62" stroke-width="1" opacity="0.4"/>
-<rect x="204" y="78" width="124" height="72" rx="6" fill="#fc8d621a" stroke="#fc8d62" stroke-opacity="0.6" stroke-width="2"/>
-<text x="266" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#fc8d62">Flink</text>
-<rect x="204" y="160" width="124" height="72" rx="6" fill="#fc8d621a" stroke="#fc8d62" stroke-opacity="0.6" stroke-width="2"/>
-<text x="266" y="196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#fc8d62">Spark</text>
-<rect x="204" y="242" width="124" height="72" rx="6" fill="#fc8d621a" stroke="#fc8d62" stroke-opacity="0.6" stroke-width="2"/>
-<text x="266" y="278" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#fc8d62">dbt</text>
-<rect x="356" y="24" width="152" height="304" rx="10" fill="#8da0cb1a" fill-opacity="0.08" stroke="#8da0cb" stroke-opacity="0.4" stroke-width="2"/>
-<text x="432" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#8da0cb" font-weight="700">Storage</text>
-<line x1="364" y1="64" x2="500" y2="64" stroke="#8da0cb" stroke-width="1" opacity="0.4"/>
-<rect x="370" y="78" width="124" height="72" rx="6" fill="#8da0cb1a" stroke="#8da0cb" stroke-opacity="0.6" stroke-width="2"/>
-<text x="432" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#8da0cb">S3 Data Lake</text>
-<rect x="370" y="160" width="124" height="72" rx="6" fill="#8da0cb1a" stroke="#8da0cb" stroke-opacity="0.6" stroke-width="2"/>
-<text x="432" y="196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#8da0cb">Redshift</text>
-<rect x="370" y="242" width="124" height="72" rx="6" fill="#8da0cb1a" stroke="#8da0cb" stroke-opacity="0.6" stroke-width="2"/>
-<text x="432" y="278" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#8da0cb">Iceberg</text>
-<rect x="522" y="24" width="152" height="304" rx="10" fill="#e78ac31a" fill-opacity="0.08" stroke="#e78ac3" stroke-opacity="0.4" stroke-width="2"/>
-<text x="598" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#e78ac3" font-weight="700">Serving</text>
-<line x1="530" y1="64" x2="666" y2="64" stroke="#e78ac3" stroke-width="1" opacity="0.4"/>
-<rect x="536" y="78" width="124" height="72" rx="6" fill="#e78ac31a" stroke="#e78ac3" stroke-opacity="0.6" stroke-width="2"/>
-<text x="598" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e78ac3">Superset</text>
-<rect x="536" y="160" width="124" height="72" rx="6" fill="#e78ac31a" stroke="#e78ac3" stroke-opacity="0.6" stroke-width="2"/>
-<text x="598" y="196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e78ac3">Grafana</text>
+<rect x="24" y="24" width="168" height="304" rx="10" fill="#66c2a51a" fill-opacity="0.08" stroke="#66c2a5" stroke-opacity="0.4" stroke-width="2"/>
+<text x="108" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#66c2a5" font-weight="700">Ingestion</text>
+<line x1="32" y1="64" x2="184" y2="64" stroke="#66c2a5" stroke-width="1" opacity="0.4"/>
+<rect x="38" y="78" width="140" height="72" rx="6" fill="#66c2a51a" stroke="#66c2a5" stroke-opacity="0.6" stroke-width="2"/>
+<text x="108" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#66c2a5">Kafka</text>
+<rect x="38" y="160" width="140" height="72" rx="6" fill="#66c2a51a" stroke="#66c2a5" stroke-opacity="0.6" stroke-width="2"/>
+<text x="108" y="196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#66c2a5">Firehose</text>
+<rect x="206" y="24" width="168" height="304" rx="10" fill="#fc8d621a" fill-opacity="0.08" stroke="#fc8d62" stroke-opacity="0.4" stroke-width="2"/>
+<text x="290" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#fc8d62" font-weight="700">Processing</text>
+<line x1="214" y1="64" x2="366" y2="64" stroke="#fc8d62" stroke-width="1" opacity="0.4"/>
+<rect x="220" y="78" width="140" height="72" rx="6" fill="#fc8d621a" stroke="#fc8d62" stroke-opacity="0.6" stroke-width="2"/>
+<text x="290" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#fc8d62">Flink</text>
+<rect x="220" y="160" width="140" height="72" rx="6" fill="#fc8d621a" stroke="#fc8d62" stroke-opacity="0.6" stroke-width="2"/>
+<text x="290" y="196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#fc8d62">Spark</text>
+<rect x="220" y="242" width="140" height="72" rx="6" fill="#fc8d621a" stroke="#fc8d62" stroke-opacity="0.6" stroke-width="2"/>
+<text x="290" y="278" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#fc8d62">dbt</text>
+<rect x="388" y="24" width="168" height="304" rx="10" fill="#8da0cb1a" fill-opacity="0.08" stroke="#8da0cb" stroke-opacity="0.4" stroke-width="2"/>
+<text x="472" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#8da0cb" font-weight="700">Storage</text>
+<line x1="396" y1="64" x2="548" y2="64" stroke="#8da0cb" stroke-width="1" opacity="0.4"/>
+<rect x="402" y="78" width="140" height="72" rx="6" fill="#8da0cb1a" stroke="#8da0cb" stroke-opacity="0.6" stroke-width="2"/>
+<text x="472" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#8da0cb">S3 Data Lake</text>
+<rect x="402" y="160" width="140" height="72" rx="6" fill="#8da0cb1a" stroke="#8da0cb" stroke-opacity="0.6" stroke-width="2"/>
+<text x="472" y="196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#8da0cb">Redshift</text>
+<rect x="402" y="242" width="140" height="72" rx="6" fill="#8da0cb1a" stroke="#8da0cb" stroke-opacity="0.6" stroke-width="2"/>
+<text x="472" y="278" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#8da0cb">Iceberg</text>
+<rect x="570" y="24" width="168" height="304" rx="10" fill="#e78ac31a" fill-opacity="0.08" stroke="#e78ac3" stroke-opacity="0.4" stroke-width="2"/>
+<text x="654" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#e78ac3" font-weight="700">Serving</text>
+<line x1="578" y1="64" x2="730" y2="64" stroke="#e78ac3" stroke-width="1" opacity="0.4"/>
+<rect x="584" y="78" width="140" height="72" rx="6" fill="#e78ac31a" stroke="#e78ac3" stroke-opacity="0.6" stroke-width="2"/>
+<text x="654" y="114" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e78ac3">Superset</text>
+<rect x="584" y="160" width="140" height="72" rx="6" fill="#e78ac31a" stroke="#e78ac3" stroke-opacity="0.6" stroke-width="2"/>
+<text x="654" y="196" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e78ac3">Grafana</text>
 </g>
 </svg>

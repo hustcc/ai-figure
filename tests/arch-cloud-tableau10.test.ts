@@ -40,7 +40,6 @@ it('arch diagram — cloud architecture, tableau10 palette, LR direction', () =>
     ],
     palette: 'tableau10',
     direction: 'LR',
-    width: 600,
   });
   matchSvgSnapshot('arch-cloud-tableau10', svg);
 });

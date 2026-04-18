@@ -39,7 +39,6 @@ it('arch diagram — ML platform, accent palette, TB direction', () => {
     ],
     palette: 'accent',
     direction: 'TB',
-    width: 800,
   });
   matchSvgSnapshot('arch-ml-platform-accent', svg);
 });

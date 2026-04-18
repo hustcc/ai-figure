@@ -399,4 +399,52 @@ describe('fig', () => {
     expect(svg).toContain('stroke-dasharray');
     expect(svg).toContain('Grp');
   });
+
+  it('arch diagram auto-sizes width (TB): single node uses minimum width', () => {
+    const svg = fig({
+      figure: 'arch',
+      layers: [{ id: 'l1', label: 'Only', nodes: [{ id: 'n1', label: 'Solo' }] }],
+    });
+    // With 1 node: autoW = 48 + 28 + 140 = 216, clamped to MIN_ARCH_W=480
+    expect(svg).toMatch(/width="480"/);
+  });
+
+  it('arch diagram auto-sizes width (TB): many nodes stay within MAX_ARCH_W=1600', () => {
+    const nodes = Array.from({ length: 20 }, (_, i) => ({ id: `n${i}`, label: `Node ${i}` }));
+    const svg = fig({
+      figure: 'arch',
+      layers: [{ id: 'l1', label: 'Many', nodes }],
+    });
+    // With 20 nodes: autoW > 1600 → clamped; extract actual width and verify ≤ MAX_ARCH_W
+    const widthMatch = svg.match(/^<svg[^>]*\swidth="(\d+)"/m);
+    const svgWidth = widthMatch ? parseInt(widthMatch[1], 10) : Infinity;
+    expect(svgWidth).toBeLessThanOrEqual(1600);
+    expect(svgWidth).toBeGreaterThan(1000); // sanity check
+  });
+
+  it('arch diagram auto-sizes width (LR): few layers uses minimum width', () => {
+    const svg = fig({
+      figure: 'arch',
+      layers: [
+        { id: 'l1', label: 'A', nodes: [{ id: 'n1', label: 'One' }] },
+      ],
+      direction: 'LR',
+    });
+    // With 1 layer: autoW = 48 + 168 = 216, clamped to MIN_ARCH_W=480
+    expect(svg).toMatch(/width="480"/);
+  });
+
+  it('arch diagram auto-sizes width (LR): many layers stay within MAX_ARCH_W=1600', () => {
+    const layers = Array.from({ length: 12 }, (_, i) => ({
+      id: `l${i}`,
+      label: `Layer ${i}`,
+      nodes: [{ id: `n${i}`, label: `Node ${i}` }],
+    }));
+    const svg = fig({ figure: 'arch', layers, direction: 'LR' });
+    // With 12 layers: autoW >> 1600 → clamped; extract actual width and verify ≤ MAX_ARCH_W
+    const widthMatch = svg.match(/^<svg[^>]*\swidth="(\d+)"/m);
+    const svgWidth = widthMatch ? parseInt(widthMatch[1], 10) : Infinity;
+    expect(svgWidth).toBeLessThanOrEqual(1600);
+    expect(svgWidth).toBeGreaterThan(800); // sanity check: many layers → wide diagram
+  });
 });

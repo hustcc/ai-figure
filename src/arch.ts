@@ -10,6 +10,12 @@ const CELL_GAP = 10;    // gap between adjacent node cells
 const LAYER_GAP = 14;   // gap between layer cards
 const CARD_RX = 10;     // card corner radius
 
+// Auto-sizing bounds: width is calculated from content, clamped to [MIN_ARCH_W, MAX_ARCH_W]
+const MIN_ARCH_W = 480;
+const MAX_ARCH_W = 1600;
+/** Minimum width of a single node cell; used to auto-calculate diagram width. */
+const CELL_MIN_W = 140;
+
 /** Node types cycled per layer index to give each layer a distinct color. */
 const LAYER_NODE_TYPES: NodeType[] = ['process', 'decision', 'terminal', 'io'];
 
@@ -26,7 +32,6 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
     theme: mode = 'light',
     palette,
     direction = 'TB',
-    width: totalWidth = 800,
   } = options;
 
   if (layers.length === 0) {
@@ -38,8 +43,12 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
   const sw = theme.strokeWidth;
 
   if (direction === 'LR') {
-    // Each layer is a column card placed left-to-right
+    // Each layer is a column card placed left-to-right.
+    // Auto-calculate width: each card needs at least CELL_MIN_W + 2×CARD_PAD.
     const maxRows = Math.max(...layers.map((l) => l.nodes.length));
+    const cardMinW = CELL_MIN_W + CARD_PAD * 2;
+    const autoW = PAD * 2 + layers.length * cardMinW + Math.max(layers.length - 1, 0) * LAYER_GAP;
+    const totalWidth = Math.min(MAX_ARCH_W, Math.max(MIN_ARCH_W, autoW));
     const totalCardArea = totalWidth - PAD * 2;
     const cardW = Math.floor(
       (totalCardArea - LAYER_GAP * (layers.length - 1)) / Math.max(layers.length, 1),
@@ -129,9 +138,12 @@ export function createArchDiagram(options: ArchDiagramOptions): string {
     ].join('\n');
   }
 
-  // TB (default): layers stacked top-to-bottom, each rendered as a card
-  const innerW = totalWidth - PAD * 2;
+  // TB (default): layers stacked top-to-bottom, each rendered as a card.
+  // Auto-calculate width from the maximum node count in any single layer.
   const maxCols = Math.max(...layers.map((l) => l.nodes.length));
+  const autoW = PAD * 2 + CARD_PAD * 2 + maxCols * CELL_MIN_W + Math.max(maxCols - 1, 0) * CELL_GAP;
+  const totalWidth = Math.min(MAX_ARCH_W, Math.max(MIN_ARCH_W, autoW));
+  const innerW = totalWidth - PAD * 2;
   const availW = innerW - CARD_PAD * 2;
   const cellW = Math.floor(
     (availW - CELL_GAP * Math.max(maxCols - 1, 0)) / Math.max(maxCols, 1),

@@ -177,7 +177,6 @@ Renders a tech-stack landscape as layered, color-coded cards — no edges needed
 | `theme`     | `ThemeType`   | `'light'`    | Light or dark rendering mode (`'light'` \| `'dark'`) |
 | `palette`   | `PaletteType` | `'default'`    | Color palette — see [Palette API](#palette-api) below |
 | `direction` | `Direction`   | `'TB'`         | `'TB'` = layers stacked, `'LR'` = layers side-by-side |
-| `width`     | `number`      | `800`          | Total diagram width in pixels            |
 
 ```typescript
 fig({
@@ -186,7 +185,6 @@ fig({
     { id: 'fe', label: 'Frontend', nodes: [{ id: 'react', label: 'React' }, { id: 'vue', label: 'Vue' }] },
     { id: 'be', label: 'Backend',  nodes: [{ id: 'node', label: 'Node.js' }] },
   ],
-  width: 800,
 });
 ```
 
