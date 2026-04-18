@@ -406,7 +406,9 @@ describe('fig', () => {
       layers: [{ id: 'l1', label: 'Only', nodes: [{ id: 'n1', label: 'Solo' }] }],
     });
     // With 1 node: autoW = 48 + 28 + 140 = 216, clamped to MIN_ARCH_W=480
-    expect(svg).toMatch(/width="480"/);
+    const widthMatch = svg.match(/^<svg[^>]*\swidth="(\d+)"/m);
+    const svgWidth = widthMatch ? parseInt(widthMatch[1], 10) : NaN;
+    expect(svgWidth).toBe(480);
   });
 
   it('arch diagram auto-sizes width (TB): many nodes stay within MAX_ARCH_W=1600', () => {
@@ -431,7 +433,9 @@ describe('fig', () => {
       direction: 'LR',
     });
     // With 1 layer: autoW = 48 + 168 = 216, clamped to MIN_ARCH_W=480
-    expect(svg).toMatch(/width="480"/);
+    const widthMatch = svg.match(/^<svg[^>]*\swidth="(\d+)"/m);
+    const svgWidth = widthMatch ? parseInt(widthMatch[1], 10) : NaN;
+    expect(svgWidth).toBe(480);
   });
 
   it('arch diagram auto-sizes width (LR): many layers stay within MAX_ARCH_W=1600', () => {
