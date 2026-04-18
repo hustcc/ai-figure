@@ -1,12 +1,12 @@
 ---
 name: ai-figure
-version: "0.1.0"
-description: Generate clean SVG flowcharts from a JSON config. Excalidraw-inspired style, auto-layout via dagre, zero coordinates needed. Works in browser and Node.js.
+version: "0.2.0"
+description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence) from a JSON config. Auto-layout, zero coordinates needed. Works in browser and Node.js.
 author: hustcc
 license: MIT
 package: ai-figure
-api: createFlowChart(options) → string (SVG)
-tags: [flowchart, svg, diagram, layout, visualization]
+api: createFlowChart | createTreeDiagram | createArchDiagram | createSequenceDiagram → string (SVG)
+tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, svg, layout, visualization]
 ---
 
 # ai-figure Skill
@@ -145,4 +145,81 @@ interface FlowChartOptions {
 interface FlowNode  { id: string; label: string; type?: 'process' | 'decision' | 'terminal' | 'io' }
 interface FlowEdge  { from: string; to: string; label?: string }
 interface FlowGroup { id: string; label: string; nodes: string[] }
+```
+
+---
+
+## TreeDiagram
+
+Renders a tree/hierarchy from a flat node list with `parent` references. Reuses Dagre layout internally.
+
+```typescript
+import { createTreeDiagram } from 'ai-figure';
+
+const svg = createTreeDiagram({
+  nodes: [
+    { id: 'ceo',  label: 'CEO' },
+    { id: 'cto',  label: 'CTO',  parent: 'ceo' },
+    { id: 'coo',  label: 'COO',  parent: 'ceo' },
+  ],
+  theme: 'clean',      // optional, default: 'excalidraw'
+  direction: 'TB',     // optional, default: 'TB'
+});
+```
+
+```typescript
+interface TreeDiagramOptions { nodes: TreeNode[]; theme?: ThemeType; direction?: Direction }
+interface TreeNode { id: string; label: string; parent?: string }
+```
+
+---
+
+## ArchDiagram
+
+Renders a tech-stack / architecture landscape grid: layers of equal-width cells, no edges.
+
+```typescript
+import { createArchDiagram } from 'ai-figure';
+
+const svg = createArchDiagram({
+  layers: [
+    { id: 'fe', label: 'Frontend', nodes: [{ id: 'react', label: 'React' }, { id: 'vue', label: 'Vue' }] },
+    { id: 'be', label: 'Backend',  nodes: [{ id: 'node',  label: 'Node.js' }] },
+  ],
+  theme: 'excalidraw',  // optional
+  direction: 'TB',      // optional — TB = layers top-to-bottom, LR = layers left-to-right
+  width: 800,           // optional, default: 800
+});
+```
+
+```typescript
+interface ArchDiagramOptions { layers: ArchLayer[]; theme?: ThemeType; direction?: Direction; width?: number }
+interface ArchLayer { id: string; label: string; nodes: ArchNode[] }
+interface ArchNode  { id: string; label: string }
+```
+
+---
+
+## SequenceDiagram
+
+Renders a sequence diagram with vertical lifelines and horizontal message arrows.
+
+```typescript
+import { createSequenceDiagram } from 'ai-figure';
+
+const svg = createSequenceDiagram({
+  actors: ['Browser', 'API', 'DB'],
+  messages: [
+    { from: 'Browser', to: 'API', label: 'POST /login' },
+    { from: 'API',     to: 'DB',  label: 'SELECT user' },
+    { from: 'DB',      to: 'API', label: 'user row',   style: 'return' },
+    { from: 'API',     to: 'Browser', label: '200 OK', style: 'return' },
+  ],
+  theme: 'excalidraw',  // optional
+});
+```
+
+```typescript
+interface SequenceDiagramOptions { actors: string[]; messages: SeqMessage[]; theme?: ThemeType }
+interface SeqMessage { from: string; to: string; label?: string; style?: 'solid' | 'return' }
 ```

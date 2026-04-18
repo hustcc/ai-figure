@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="916" height="436" viewBox="-28 -28 916 436">
+<defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#555555"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<g class="flowchart">
+
+<g class="edge" data-from="ceo" data-to="cto">
+<path d="M350,75.45454545454545 L219.52925780013263,116.96796342723053 Q210,120 210,130 L210,160" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="ceo" data-to="coo">
+<path d="M510,75.45454545454545 L640.4707421998673,116.96796342723053 Q650,120 650,130 L650,160" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="cto" data-to="fe_lead">
+<path d="M162.85714285714286,220 L108.43661487732108,254.63124507806842 Q100,260 100,270 L100,300" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="cto" data-to="be_lead">
+<path d="M257.14285714285717,220 L311.56338512267894,254.63124507806842 Q320,260 320,270 L320,300" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="coo" data-to="ops">
+<path d="M602.8571428571429,220 L548.4366148773211,254.63124507806842 Q540,260 540,270 L540,300" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="edge" data-from="coo" data-to="hr">
+<path d="M697.1428571428571,220 L751.5633851226789,254.63124507806842 Q760,260 760,270 L760,300" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#arrowhead)"/>
+
+</g>
+<g class="node node-process" data-id="ceo">
+<rect x="350" y="20" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<text x="430" y="50" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">CEO</text>
+</g>
+<g class="node node-process" data-id="cto">
+<rect x="130" y="160" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<text x="210" y="190" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">CTO</text>
+</g>
+<g class="node node-process" data-id="coo">
+<rect x="570" y="160" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<text x="650" y="190" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">COO</text>
+</g>
+<g class="node node-process" data-id="fe_lead">
+<rect x="20" y="300" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<text x="100" y="330" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">FE Lead</text>
+</g>
+<g class="node node-process" data-id="be_lead">
+<rect x="240" y="300" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<text x="320" y="330" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">BE Lead</text>
+</g>
+<g class="node node-process" data-id="ops">
+<rect x="460" y="300" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<text x="540" y="330" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">Operations</text>
+</g>
+<g class="node node-process" data-id="hr">
+<rect x="680" y="300" width="160" height="60" rx="6" ry="6" fill="#e8f4fd" stroke="#2196f3" stroke-width="1.5"/>
+<text x="760" y="330" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1565c0">HR</text>
+</g>
+</g>
+</svg>

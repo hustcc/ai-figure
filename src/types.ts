@@ -56,3 +56,87 @@ export interface FlowChartOptions {
   /** Graph layout direction (default: 'TB' — top to bottom). */
   direction?: Direction;
 }
+
+// ---------------------------------------------------------------------------
+// TreeDiagram types
+// ---------------------------------------------------------------------------
+
+/** A node in a tree diagram (flat array with parent reference). */
+export interface TreeNode {
+  /** Unique identifier. */
+  id: string;
+  /** Text displayed inside the node. */
+  label: string;
+  /** ID of the parent node. Root nodes omit this field. */
+  parent?: string;
+}
+
+/** Options passed to {@link createTreeDiagram}. */
+export interface TreeDiagramOptions {
+  /** Flat list of nodes with optional parent references. */
+  nodes: TreeNode[];
+  /** Visual theme (default: 'excalidraw'). */
+  theme?: ThemeType;
+  /** Layout direction (default: 'TB'). */
+  direction?: Direction;
+}
+
+// ---------------------------------------------------------------------------
+// ArchDiagram types
+// ---------------------------------------------------------------------------
+
+/** A single node inside an architecture layer. */
+export interface ArchNode {
+  /** Unique identifier. */
+  id: string;
+  /** Text displayed inside the node. */
+  label: string;
+}
+
+/** A horizontal layer in an architecture diagram. */
+export interface ArchLayer {
+  /** Unique identifier. */
+  id: string;
+  /** Label shown at the top of the layer row. */
+  label: string;
+  /** Nodes displayed inside this layer. */
+  nodes: ArchNode[];
+}
+
+/** Options passed to {@link createArchDiagram}. */
+export interface ArchDiagramOptions {
+  /** List of layers from top to bottom (TB) or left to right (LR). */
+  layers: ArchLayer[];
+  /** Visual theme (default: 'excalidraw'). */
+  theme?: ThemeType;
+  /** Direction: TB = layers top-to-bottom, LR = layers left-to-right (default: 'TB'). */
+  direction?: Direction;
+  /** Total diagram width in pixels (default: 800). */
+  width?: number;
+}
+
+// ---------------------------------------------------------------------------
+// SequenceDiagram types
+// ---------------------------------------------------------------------------
+
+/** A message arrow between two actors in a sequence diagram. */
+export interface SeqMessage {
+  /** Name of the sending actor. */
+  from: string;
+  /** Name of the receiving actor. */
+  to: string;
+  /** Optional label shown above the arrow. */
+  label?: string;
+  /** Arrow style: solid line (default) or dashed return line. */
+  style?: 'solid' | 'return';
+}
+
+/** Options passed to {@link createSequenceDiagram}. */
+export interface SequenceDiagramOptions {
+  /** Ordered list of participant names. */
+  actors: string[];
+  /** Ordered list of messages between actors. */
+  messages: SeqMessage[];
+  /** Visual theme (default: 'excalidraw'). */
+  theme?: ThemeType;
+}

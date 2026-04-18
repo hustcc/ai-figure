@@ -1,13 +1,16 @@
 {
   "name": "ai-figure",
   "version": "0.1.0",
-  "description": "Flowchart renderer — define nodes & edges, get beautiful SVG. Works in browser and Node.js.",
+  "description": "Generate clean SVG diagrams (flowchart, tree, architecture, sequence) from a JSON config. Auto-layout, zero coordinates, works in browser and Node.js.",
   "keywords": [
     "flowchart",
     "svg",
     "diagram",
     "dagre",
-    "excalidraw"
+    "excalidraw",
+    "sequence-diagram",
+    "architecture-diagram",
+    "tree-diagram"
   ],
   "author": "hustcc",
   "license": "MIT",

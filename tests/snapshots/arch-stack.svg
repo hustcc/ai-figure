@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="382" viewBox="0 0 800 382">
+<g class="arch-diagram">
+<rect x="20" y="20" width="760" height="342" rx="8" fill="none" stroke="#868e96" stroke-width="1.5"/>
+<text x="32" y="38" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#868e96" font-weight="600">Frontend</text>
+<rect x="28" y="56" width="237" height="70" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="146.5" y="91" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">React</text>
+<rect x="281" y="56" width="237" height="70" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="399.5" y="91" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Vue</text>
+<rect x="534" y="56" width="237" height="70" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="652.5" y="91" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Angular</text>
+<line x1="20" y1="134" x2="780" y2="134" stroke="#868e96" stroke-width="1"/>
+<text x="32" y="152" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#868e96" font-weight="600">Backend</text>
+<rect x="28" y="170" width="237" height="70" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="146.5" y="205" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Node.js</text>
+<rect x="281" y="170" width="237" height="70" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="399.5" y="205" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Go</text>
+<rect x="534" y="170" width="237" height="70" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="652.5" y="205" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Python</text>
+<line x1="20" y1="248" x2="780" y2="248" stroke="#868e96" stroke-width="1"/>
+<text x="32" y="266" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#868e96" font-weight="600">Data</text>
+<rect x="28" y="284" width="237" height="70" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="146.5" y="319" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">MySQL</text>
+<rect x="281" y="284" width="237" height="70" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="399.5" y="319" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Redis</text>
+<rect x="534" y="284" width="237" height="70" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="652.5" y="319" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">S3</text>
+</g>
+</svg>
