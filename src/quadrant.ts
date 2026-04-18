@@ -102,15 +102,33 @@ export function createQuadrantChart(options: QuadrantChartOptions): string {
   for (const q of quadRegions) {
     parts.push(
       `<rect x="${q.x}" y="${q.y}" width="${halfW}" height="${halfH}" ` +
-        `fill="${escapeXml(theme.nodeFills[q.nt])}" fill-opacity="0.10" stroke="none"/>`,
+        `fill="${escapeXml(theme.nodeFills[q.nt])}" fill-opacity="0.13" stroke="none"/>`,
     );
   }
 
   // ── Outer plot border ─────────────────────────────────────────────────
   parts.push(
     `<rect x="${plotX}" y="${plotY}" width="${PLOT_W}" height="${PLOT_H}" ` +
-      `fill="none" stroke="${escapeXml(groupColor)}" stroke-width="1" opacity="0.5"/>`,
+      `fill="none" stroke="${escapeXml(groupColor)}" stroke-width="1"/>`,
   );
+
+  // ── Subtle dashed grid lines at 25 % and 75 % intervals ──────────────
+  // Vertical lines
+  for (const frac of [0.25, 0.75]) {
+    const gx = Math.round(plotX + PLOT_W * frac);
+    parts.push(
+      `<line x1="${gx}" y1="${plotY}" x2="${gx}" y2="${plotY + PLOT_H}" ` +
+        `stroke="${escapeXml(axisColor)}" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>`,
+    );
+  }
+  // Horizontal lines
+  for (const frac of [0.25, 0.75]) {
+    const gy = Math.round(plotY + PLOT_H * frac);
+    parts.push(
+      `<line x1="${plotX}" y1="${gy}" x2="${plotX + PLOT_W}" y2="${gy}" ` +
+        `stroke="${escapeXml(axisColor)}" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>`,
+    );
+  }
 
   // ── Center divider lines (no transparency) ────────────────────────────
   // Horizontal X-axis divider (left → right, arrow at right end)
