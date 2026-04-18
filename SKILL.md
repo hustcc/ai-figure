@@ -126,7 +126,7 @@ Add a `"label"` to any edge to annotate the arrow:
 3. **Node `id` values must be unique** — use short slugs (`"auth"`, `"parse"`, `"retry"`).
 4. **Edges are directed** — `from` → `to` follows the logical flow direction.
 5. **Groups are cosmetic only** — they draw a dashed border but do not affect layout.
-6. **Choose `direction` based on chart shape** — use `"LR"` for pipelines (3+ sequential steps), `"TB"` for trees and decision branches.
+6. **Choose `direction` based on chart shape** — use `"LR"` for pipelines (3+ sequential steps), `"TB"` for trees and decision branches. When the chart has more than 4 levels of depth, prefer `"TB"` — tall charts look better top-to-bottom than wide.
 7. **Keep labels short** — node labels ≤ 20 characters fit without wrapping.
 
 ---
