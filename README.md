@@ -10,7 +10,7 @@
 
 ## Features ✨
 
-- 🎨 **Excalidraw-inspired style** — clean crisp shapes, Inter font, modern color palette
+- 🎨 **Clean style** — clean crisp shapes, Inter font, modern color palette
 - 📐 **Auto layout** — powered by [Dagre](https://github.com/dagrejs/dagre), no manual coordinates
 - 📦 **Groups** — logical node groups rendered with dashed borders and labels
 - 🌐 **Browser + Node.js** — pure SVG output, zero DOM dependency
