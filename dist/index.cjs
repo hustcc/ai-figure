@@ -1,27 +1,5 @@
 'use strict';
 
-var d3chromatic = require('d3-scale-chromatic');
-
-function _interopNamespace(e) {
-  if (e && e.__esModule) return e;
-  var n = Object.create(null);
-  if (e) {
-    Object.keys(e).forEach(function (k) {
-      if (k !== 'default') {
-        var d = Object.getOwnPropertyDescriptor(e, k);
-        Object.defineProperty(n, k, d.get ? d : {
-          enumerable: true,
-          get: function () { return e[k]; }
-        });
-      }
-    });
-  }
-  n.default = e;
-  return Object.freeze(n);
-}
-
-var d3chromatic__namespace = /*#__PURE__*/_interopNamespace(d3chromatic);
-
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -7794,87 +7772,170 @@ function computeLayout(nodes, edges, direction) {
     height: maxY - minY + PAD_Y * 2
   };
 }
+
+// src/theme.ts
 var NODE_TYPES = ["process", "decision", "terminal", "io"];
+var STRUCTURAL_LIGHT = {
+  fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+  fontSize: 14,
+  strokeWidth: 2,
+  cornerRadius: 6,
+  edgeColor: "#495057",
+  edgeWidth: 1.5,
+  groupColor: "#868e96",
+  groupFill: "rgba(134,142,150,0.06)",
+  background: ""
+};
+var STRUCTURAL_DARK = {
+  fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+  fontSize: 14,
+  strokeWidth: 2,
+  cornerRadius: 6,
+  edgeColor: "#adb5bd",
+  edgeWidth: 1.5,
+  groupColor: "#5c6370",
+  groupFill: "rgba(92,99,112,0.15)",
+  background: "#1a1b1e"
+};
 var defaultPalette = {
   light: {
-    fontFamily: "Inter, system-ui, -apple-system, sans-serif",
-    fontSize: 14,
-    strokeWidth: 2,
-    cornerRadius: 6,
-    nodeFills: {
-      process: "#e7f5ff",
-      decision: "#fff7e6",
-      terminal: "#ebfbee",
-      io: "#fdf4ff"
-    },
-    nodeStrokes: {
-      process: "#339af0",
-      decision: "#f59f00",
-      terminal: "#51cf66",
-      io: "#cc5de8"
-    },
-    textColors: {
-      process: "#1971c2",
-      decision: "#e67700",
-      terminal: "#2f9e44",
-      io: "#862e9c"
-    },
-    edgeColor: "#495057",
-    edgeWidth: 1.5,
-    groupColor: "#868e96",
-    groupFill: "rgba(134,142,150,0.06)",
-    background: ""
+    ...STRUCTURAL_LIGHT,
+    nodeFills: { process: "#e7f5ff", decision: "#fff7e6", terminal: "#ebfbee", io: "#fdf4ff" },
+    nodeStrokes: { process: "#339af0", decision: "#f59f00", terminal: "#51cf66", io: "#cc5de8" },
+    textColors: { process: "#1971c2", decision: "#e67700", terminal: "#2f9e44", io: "#862e9c" }
   },
   dark: {
-    fontFamily: "Inter, system-ui, -apple-system, sans-serif",
-    fontSize: 14,
-    strokeWidth: 2,
-    cornerRadius: 6,
-    nodeFills: {
-      process: "#1c2e44",
-      decision: "#3d2800",
-      terminal: "#1a3820",
-      io: "#2d1a38"
-    },
-    nodeStrokes: {
-      process: "#339af0",
-      decision: "#f59f00",
-      terminal: "#51cf66",
-      io: "#cc5de8"
-    },
-    textColors: {
-      process: "#74c0fc",
-      decision: "#ffd43b",
-      terminal: "#8ce99a",
-      io: "#e599f7"
-    },
-    edgeColor: "#adb5bd",
-    edgeWidth: 1.5,
-    groupColor: "#5c6370",
-    groupFill: "rgba(92,99,112,0.15)",
-    background: "#1a1b1e"
+    ...STRUCTURAL_DARK,
+    nodeFills: { process: "#1c2e44", decision: "#3d2800", terminal: "#1a3820", io: "#2d1a38" },
+    nodeStrokes: { process: "#339af0", decision: "#f59f00", terminal: "#51cf66", io: "#cc5de8" },
+    textColors: { process: "#74c0fc", decision: "#ffd43b", terminal: "#8ce99a", io: "#e599f7" }
   }
 };
-function resolveD3Scheme(schemeName) {
-  const entry = d3chromatic__namespace[schemeName];
-  if (!entry || !Array.isArray(entry)) return null;
-  const arr = entry;
-  if (typeof arr[0] === "string") {
-    return arr;
+var antvPalette = {
+  light: {
+    ...STRUCTURAL_LIGHT,
+    nodeFills: { process: "#eff4ff", decision: "#fff4ef", terminal: "#edfaf5", io: "#f5f0fd" },
+    nodeStrokes: { process: "#5b8ff9", decision: "#e8684a", terminal: "#5ad8a6", io: "#9270ca" },
+    textColors: { process: "#1d5bc7", decision: "#bf3c22", terminal: "#1c9c6f", io: "#5e3b9e" }
+  },
+  dark: {
+    ...STRUCTURAL_DARK,
+    nodeFills: { process: "#1a2740", decision: "#3d1a13", terminal: "#0f2b22", io: "#201436" },
+    nodeStrokes: { process: "#5b8ff9", decision: "#e8684a", terminal: "#5ad8a6", io: "#9270ca" },
+    textColors: { process: "#8caff5", decision: "#f0987d", terminal: "#8de6c4", io: "#c4a7e8" }
   }
-  if (Array.isArray(arr[3])) {
-    const nested = entry;
-    const colors = nested[9] ?? nested[nested.length - 1];
-    if (!colors || colors.length < 4) return null;
-    if (colors.length >= 8) {
-      return [colors[1], colors[3], colors[5], colors[7]];
-    }
-    return [...colors];
+};
+var drawioPalette = {
+  light: {
+    ...STRUCTURAL_LIGHT,
+    nodeFills: { process: "#dae8fc", decision: "#fff2cc", terminal: "#d5e8d4", io: "#f8cecc" },
+    nodeStrokes: { process: "#6c8ebf", decision: "#d6b656", terminal: "#82b366", io: "#b85450" },
+    textColors: { process: "#23527c", decision: "#755e00", terminal: "#3b6e37", io: "#7a2829" }
+  },
+  dark: {
+    ...STRUCTURAL_DARK,
+    nodeFills: { process: "#1a2d45", decision: "#3d3200", terminal: "#1a3024", io: "#3d1414" },
+    nodeStrokes: { process: "#6c8ebf", decision: "#d6b656", terminal: "#82b366", io: "#b85450" },
+    textColors: { process: "#9ec5f0", decision: "#edd78f", terminal: "#a8d4a5", io: "#d99b99" }
   }
-  return null;
-}
+};
+var monoBluePalette = {
+  light: {
+    ...STRUCTURAL_LIGHT,
+    nodeFills: { process: "#dbeafe", decision: "#eff6ff", terminal: "#bfdbfe", io: "#93c5fd" },
+    nodeStrokes: { process: "#2563eb", decision: "#93c5fd", terminal: "#1d4ed8", io: "#1e3a8a" },
+    textColors: { process: "#1e3a8a", decision: "#1d4ed8", terminal: "#1e40af", io: "#172554" }
+  },
+  dark: {
+    ...STRUCTURAL_DARK,
+    nodeFills: { process: "#0c1938", decision: "#071128", terminal: "#162040", io: "#1e2d5a" },
+    nodeStrokes: { process: "#60a5fa", decision: "#93c5fd", terminal: "#3b82f6", io: "#bfdbfe" },
+    textColors: { process: "#93c5fd", decision: "#bfdbfe", terminal: "#bfdbfe", io: "#dbeafe" }
+  }
+};
+var monoGreenPalette = {
+  light: {
+    ...STRUCTURAL_LIGHT,
+    nodeFills: { process: "#dcfce7", decision: "#f0fdf4", terminal: "#bbf7d0", io: "#86efac" },
+    nodeStrokes: { process: "#16a34a", decision: "#4ade80", terminal: "#15803d", io: "#166534" },
+    textColors: { process: "#14532d", decision: "#15803d", terminal: "#166534", io: "#052e16" }
+  },
+  dark: {
+    ...STRUCTURAL_DARK,
+    nodeFills: { process: "#052e16", decision: "#021a0e", terminal: "#083820", io: "#0f4d2d" },
+    nodeStrokes: { process: "#4ade80", decision: "#86efac", terminal: "#22c55e", io: "#bbf7d0" },
+    textColors: { process: "#86efac", decision: "#bbf7d0", terminal: "#bbf7d0", io: "#dcfce7" }
+  }
+};
+var monoPurplePalette = {
+  light: {
+    ...STRUCTURAL_LIGHT,
+    nodeFills: { process: "#f3e8ff", decision: "#faf5ff", terminal: "#e9d5ff", io: "#d8b4fe" },
+    nodeStrokes: { process: "#9333ea", decision: "#c084fc", terminal: "#7e22ce", io: "#6b21a8" },
+    textColors: { process: "#581c87", decision: "#7e22ce", terminal: "#6b21a8", io: "#4a044e" }
+  },
+  dark: {
+    ...STRUCTURAL_DARK,
+    nodeFills: { process: "#2e1065", decision: "#1a0843", terminal: "#3b0764", io: "#4a044e" },
+    nodeStrokes: { process: "#c084fc", decision: "#d8b4fe", terminal: "#a855f7", io: "#e9d5ff" },
+    textColors: { process: "#d8b4fe", decision: "#e9d5ff", terminal: "#e9d5ff", io: "#f3e8ff" }
+  }
+};
+var monoOrangePalette = {
+  light: {
+    ...STRUCTURAL_LIGHT,
+    nodeFills: { process: "#ffedd5", decision: "#fff7ed", terminal: "#fed7aa", io: "#fdba74" },
+    nodeStrokes: { process: "#ea580c", decision: "#fb923c", terminal: "#c2410c", io: "#9a3412" },
+    textColors: { process: "#7c2d12", decision: "#c2410c", terminal: "#9a3412", io: "#431407" }
+  },
+  dark: {
+    ...STRUCTURAL_DARK,
+    nodeFills: { process: "#3d1700", decision: "#220e00", terminal: "#4d1f00", io: "#652700" },
+    nodeStrokes: { process: "#fb923c", decision: "#fdba74", terminal: "#f97316", io: "#fed7aa" },
+    textColors: { process: "#fdba74", decision: "#fed7aa", terminal: "#fed7aa", io: "#ffedd5" }
+  }
+};
+var figmaPalette = {
+  light: {
+    ...STRUCTURAL_LIGHT,
+    nodeFills: { process: "#eef2ff", decision: "#ecfeff", terminal: "#ecfdf5", io: "#fdf2f8" },
+    nodeStrokes: { process: "#6366f1", decision: "#06b6d4", terminal: "#10b981", io: "#ec4899" },
+    textColors: { process: "#4338ca", decision: "#0891b2", terminal: "#047857", io: "#be185d" }
+  },
+  dark: {
+    ...STRUCTURAL_DARK,
+    nodeFills: { process: "#1e1b4b", decision: "#012030", terminal: "#022c22", io: "#4a044e" },
+    nodeStrokes: { process: "#818cf8", decision: "#22d3ee", terminal: "#34d399", io: "#f472b6" },
+    textColors: { process: "#a5b4fc", decision: "#67e8f9", terminal: "#6ee7b7", io: "#f9a8d4" }
+  }
+};
+var vegaPalette = {
+  light: {
+    ...STRUCTURAL_LIGHT,
+    nodeFills: { process: "#e8eff7", decision: "#fff0e0", terminal: "#e4f3f3", io: "#fce8e8" },
+    nodeStrokes: { process: "#4c78a8", decision: "#f58518", terminal: "#72b7b2", io: "#e45756" },
+    textColors: { process: "#2b4d6e", decision: "#9b5100", terminal: "#2e6e6a", io: "#9b1c1c" }
+  },
+  dark: {
+    ...STRUCTURAL_DARK,
+    nodeFills: { process: "#162536", decision: "#3a2000", terminal: "#0e2928", io: "#3a0e0e" },
+    nodeStrokes: { process: "#7aadce", decision: "#f5a54e", terminal: "#90ccc9", io: "#eb8080" },
+    textColors: { process: "#a8cce4", decision: "#f7c78a", terminal: "#b0dbd8", io: "#f0aaaa" }
+  }
+};
+var NAMED_PALETTES = {
+  default: defaultPalette,
+  antv: antvPalette,
+  drawio: drawioPalette,
+  figma: figmaPalette,
+  vega: vegaPalette,
+  "mono-blue": monoBluePalette,
+  "mono-green": monoGreenPalette,
+  "mono-purple": monoPurplePalette,
+  "mono-orange": monoOrangePalette
+};
 function deriveThemeFromColors(colors, mode) {
-  const base = defaultPalette[mode];
+  const base = mode === "dark" ? STRUCTURAL_DARK : STRUCTURAL_LIGHT;
   const fills = {};
   const strokes = {};
   const texts = {};
@@ -7893,14 +7954,8 @@ function resolveTheme(palette, mode) {
     return deriveThemeFromColors(palette, m);
   }
   if (typeof palette === "string") {
-    if (palette === "default") {
-      return defaultPalette[m];
-    }
-    const d3key = "scheme" + palette.charAt(0).toUpperCase() + palette.slice(1);
-    const d3colors = resolveD3Scheme(d3key);
-    if (d3colors) {
-      return deriveThemeFromColors(d3colors, m);
-    }
+    const named = NAMED_PALETTES[palette];
+    if (named) return named[m];
   }
   return defaultPalette[m];
 }
