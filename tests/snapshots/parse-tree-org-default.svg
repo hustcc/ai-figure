@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="476" height="500" viewBox="-28 -76 476 500">
+<defs>
+    <marker id="fc-2-arrow" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<text x="210" y="-42" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Org Chart</text>
+<g class="flowchart">
+
+<g class="edge" data-from="ceo" data-to="cto">
+<path d="M164.70588235294116,76 L108.50594569546038,110.74177902462449 Q100,116 100,126 L100,156" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-2-arrow)"/>
+
+</g>
+<g class="edge" data-from="ceo" data-to="coo">
+<path d="M255.29411764705884,76 L311.49405430453965,110.74177902462449 Q320,116 320,126 L320,156" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-2-arrow)"/>
+
+</g>
+<g class="edge" data-from="cto" data-to="dev">
+<path d="M100,216 L100,246 Q100,256 100,266 L100,296" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-2-arrow)"/>
+
+</g>
+<g class="edge" data-from="coo" data-to="ops">
+<path d="M320,216 L320,246 Q320,256 320,266 L320,296" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-2-arrow)"/>
+
+</g>
+<g class="node node-terminal" data-id="ceo">
+<rect x="130" y="20" width="160" height="56" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="210" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">CEO</text>
+</g>
+<g class="node node-process" data-id="cto">
+<rect x="20" y="156" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="100" y="186" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">CTO</text>
+</g>
+<g class="node node-process" data-id="coo">
+<rect x="240" y="156" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="320" y="186" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">COO</text>
+</g>
+<g class="node node-decision" data-id="dev">
+<polygon points="100,296 180,336 100,376 20,336" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="100" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Developer</text>
+</g>
+<g class="node node-decision" data-id="ops">
+<polygon points="320,296 400,336 320,376 240,336" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="320" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Operations</text>
+</g>
+</g>
+</svg>

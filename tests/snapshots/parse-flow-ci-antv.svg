@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="976" height="339" viewBox="-28 -95 976 339">
+<defs>
+    <marker id="fc-1-arrow" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<text x="460" y="-61" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">CI Pipeline</text>
+<text x="460" y="-42" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">Automated build and deploy</text>
+<g class="flowchart">
+<g class="group" data-id="grp-0">
+<rect x="-4" y="-26" width="688" height="189" rx="8" fill="rgba(134,142,150,0.06)" stroke="#868e96" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text x="6" y="-8" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#868e96" font-weight="500">Pipeline</text>
+</g>
+<g class="edge" data-from="code" data-to="test">
+<path d="M173.46938775510205,79 L210.74207453167048,63.78031956623455 Q220,60 230,60 L260,60" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="test" data-to="build">
+<path d="M420,53.333333333333336 L450.0345424175512,50.8304547985374 Q460,50 470,50 L500,50" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+<rect x="444.56" y="41" width="30.879999999999995" height="18" fill="white" rx="3" opacity="0.9"/>
+<text x="460" y="50" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">yes</text>
+</g>
+<g class="edge" data-from="test" data-to="fix">
+<path d="M420,99.33333333333334 L451.02601489292664,114.58779065568893 Q460,119 469.2579254683295,122.78031956623455 L511.42857142857144,140" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+<rect x="448.04" y="110" width="23.919999999999998" height="18" fill="white" rx="3" opacity="0.9"/>
+<text x="460" y="119" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">no</text>
+</g>
+<g class="edge" data-from="fix" data-to="code">
+<path d="M500,174.66666666666666 L469.9654575824488,177.1695452014626 Q460,178 450,178 L350,178 Q340,178 330,178 L230,178 Q220,178 211.33093696942464,173.01528875741917 L152.17391304347825,139" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="build" data-to="deploy">
+<path d="M660,50 L690,50 Q700,50 710,50 L740,50" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="node node-process" data-id="code">
+<rect x="20" y="79" width="160" height="60" rx="6" ry="6" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="100" y="109" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1d5bc7">Write Code</text>
+</g>
+<g class="node node-decision" data-id="test">
+<polygon points="340,20 420,60 340,100 260,60" fill="#fff4ef" stroke="#e8684a" stroke-width="2" stroke-linejoin="round"/>
+<text x="340" y="60" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">Tests Pass?</text>
+</g>
+<g class="node node-process" data-id="build">
+<rect x="500" y="20" width="160" height="60" rx="6" ry="6" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="580" y="50" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1d5bc7">Build Image</text>
+</g>
+<g class="node node-terminal" data-id="fix">
+<rect x="500" y="140" width="160" height="56" rx="28" ry="28" fill="#edfaf5" stroke="#5ad8a6" stroke-width="2"/>
+<text x="580" y="168" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1c9c6f">Fix Issues</text>
+</g>
+<g class="node node-io" data-id="deploy">
+<polygon points="754,20 900,20 886,80 740,80" fill="#f5f0fd" stroke="#9270ca" stroke-width="2" stroke-linejoin="round"/>
+<text x="820" y="50" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#5e3b9e">Deploy</text>
+</g>
+</g>
+</svg>

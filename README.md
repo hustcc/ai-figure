@@ -18,10 +18,8 @@
 
 - 🎨 **Rich visual styles** — light/dark mode, nine built-in palettes (`default`, `antv`, `drawio`, `figma`, `vega`, `mono-blue`, `mono-green`, `mono-purple`, `mono-orange`) plus custom hex arrays; every diagram supports optional title & subtitle, node groups, and color-coded layers
 - 📐 **Auto layout** — just describe the graph; x/y coordinates are computed automatically, and diagram dimensions scale to fit the content
-- 🤖 **AI-friendly** — single `fig()` entry point, unified semantic JSON config, TypeScript-first; ships a [`SKILL.md`](./SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
+- 🤖 **AI-friendly** — single `fig()` entry point accepts a markdown string **or** a JSON config; streaming-safe (partial input never throws); ships a [`SKILL.md`](./SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
 - 📊 **6 diagram types** — flowchart, tree, architecture, sequence, quadrant, and Gantt chart; pure SVG output with zero DOM dependency, works in browser and Node.js
-
----
 
 ## Quick Start
 
@@ -36,8 +34,19 @@ npm install ai-figure
 ```typescript
 import { fig } from 'ai-figure';
 
-// Flowchart
-const svg = fig({
+// ── Markdown string (compact, AI-friendly) ──────────────────────────────────
+const svg = fig(`
+  flow LR default
+  title: Auth Flow
+  start((Start)) --> login[Enter Credentials]
+  login --> validate{Valid?}
+  validate -->|yes| dashboard((Dashboard))
+  validate -->|no| error[Show Error]
+  error --> login
+`);
+
+// ── JSON config object (typed, programmatic) ────────────────────────────────
+const svg2 = fig({
   figure: 'flow',
   nodes: [
     { id: 'start',    label: 'Start',        type: 'terminal' },
@@ -52,12 +61,9 @@ const svg = fig({
     { from: 'decision', to: 'end_yes', label: 'Yes' },
     { from: 'decision', to: 'end_no',  label: 'No'  },
   ],
-  groups: [
-    { id: 'g1', label: 'Validation', nodes: ['process1', 'decision'] },
-  ],
-  theme: 'light',         // 'light' | 'dark'
-  palette: 'default',     // 'default' | 'antv' | 'drawio' | 'figma' | 'vega' | 'mono-blue' | 'mono-green' | 'mono-purple' | 'mono-orange' | string[]
-  direction: 'TB',        // 'TB' (top→bottom) | 'LR' (left→right)
+  theme: 'light',
+  palette: 'default',
+  direction: 'TB',
 });
 
 // Browser: inject into the DOM
@@ -68,17 +74,24 @@ import { writeFileSync } from 'fs';
 writeFileSync('diagram.svg', svg);
 ```
 
----
-
 ## API Reference
 
-### `fig(options): string`
+### `fig(input): string`
 
-The single entry point. Returns a fully self-contained SVG string. Select the diagram type with the required `figure` field.
+The single entry point. Returns a fully self-contained SVG string.
+
+**`input`** is either:
+
+- A **markdown string** — Mermaid-like syntax, streaming-safe (never throws; partial input returns a valid empty SVG)
+- A **JSON config object** — typed `FigOptions` with the required `figure` field
 
 ```typescript
 import { fig } from 'ai-figure';
 
+// markdown string
+fig(`flow LR\na[A] --> b[B]`);
+
+// JSON config
 fig({ figure: 'flow',     ...flowOptions     }); // flowchart
 fig({ figure: 'tree',     ...treeOptions     }); // tree / hierarchy
 fig({ figure: 'arch',     ...archOptions     }); // architecture diagram
@@ -87,7 +100,114 @@ fig({ figure: 'quadrant', ...quadrantOptions }); // quadrant chart
 fig({ figure: 'gantt',    ...ganttOptions    }); // Gantt chart
 ```
 
----
+### `figmd(markdown): string` — Markdown Syntax (alias)
+
+Equivalent to `fig(markdown)`. Provided as a named alias for discoverability.
+
+#### Syntax Overview
+
+The **first non-empty line** is the header: `<type> [direction] [theme] [palette]`
+
+| Token | Values | Default |
+|-------|--------|---------|
+| `type` | `flow` \| `tree` \| `arch` \| `sequence` \| `quadrant` \| `gantt` | **required** |
+| `direction` | `TB` \| `LR` | `TB` |
+| `theme` | `light` \| `dark` | `light` |
+| `palette` | any named palette (see [Palette API](#palette-api)) | `default` |
+
+Lines starting with `%%` are comments. `title:` and `subtitle:` are supported in all diagram types.
+
+#### Node notation (flow / tree / arch)
+
+| Notation | Shape |
+|----------|-------|
+| `id[label]` | process (rectangle) |
+| `id{label}` | decision (diamond) |
+| `id((label))` | terminal (pill) |
+| `id[/label/]` | io (parallelogram) |
+| `id` | process (bare id used as label) |
+
+#### Per-diagram syntax
+
+<details>
+<summary><strong>flow</strong></summary>
+
+```
+flow [LR|TB] [light|dark] [palette]
+title: Optional Title
+subtitle: Optional Subtitle
+id[Label]                          %% standalone node definition
+A[Source] --> B[Target]            %% edge
+A -->|label| B                     %% labeled edge
+group GroupName: id1, id2, id3     %% logical group
+```
+</details>
+
+<details>
+<summary><strong>tree</strong></summary>
+
+```
+tree [LR|TB] [light|dark] [palette]
+title: Optional Title
+root[Root]                   %% root node (no parent)
+root --> child[Child]        %% parent → child relationship
+```
+</details>
+
+<details>
+<summary><strong>arch</strong></summary>
+
+```
+arch [LR|TB] [light|dark] [palette]
+title: Optional Title
+layer layerId[Layer Label]   %% layer declaration
+  nodeId[Node Label]         %% node in current layer (indentation optional)
+```
+</details>
+
+<details>
+<summary><strong>sequence</strong></summary>
+
+```
+sequence [light|dark] [palette]
+title: Optional Title
+actors: Actor1, Actor2, Actor3     %% optional; inferred from messages if omitted
+Actor1 -> Actor2: message          %% solid arrow
+Actor2 --> Actor1: response        %% dashed return arrow
+Actor1 -> Actor2                   %% arrow without label
+```
+</details>
+
+<details>
+<summary><strong>quadrant</strong></summary>
+
+```
+quadrant [light|dark] [palette]
+title: Optional Title
+x-axis: min .. max                 %% axis range (label defaults to "")
+x-axis Label: min .. max           %% axis range with explicit axis label
+y-axis: min .. max
+quadrant-1: Top-Left Name          %% 1=TL, 2=TR, 3=BL, 4=BR
+quadrant-2: Top-Right Name
+quadrant-3: Bottom-Left Name
+quadrant-4: Bottom-Right Name
+Point Label: 0.3, 0.7             %% data point (x, y in [0, 1])
+```
+</details>
+
+<details>
+<summary><strong>gantt</strong></summary>
+
+```
+gantt [light|dark] [palette]
+title: Optional Title
+section Section Name               %% group header (applied to subsequent tasks)
+  Task Label: id, start, end       %% task bar (dates: yyyy-mm-dd)
+milestone: Label, date             %% milestone diamond
+```
+</details>
+
+You can also call `parseFigmd(markdown): FigOptions` to get the parsed options object without rendering.
 
 ### `figure: 'flow'` — Flowchart
 
@@ -136,8 +256,6 @@ fig({ figure: 'gantt',    ...ganttOptions    }); // Gantt chart
 | `label` | `string`   | **required** | Label shown above the group border |
 | `nodes` | `string[]` | **required** | IDs of nodes inside this group     |
 
----
-
 ### `figure: 'tree'` — Tree Diagram
 
 Renders a hierarchy from a flat node list with `parent` references. Uses Dagre for layout.
@@ -165,8 +283,6 @@ fig({
 });
 ```
 
----
-
 ### `figure: 'arch'` — Architecture Diagram
 
 Renders a tech-stack landscape as layered, color-coded cards — no edges needed.
@@ -190,8 +306,6 @@ fig({
   ],
 });
 ```
-
----
 
 ### `figure: 'sequence'` — Sequence Diagram
 
@@ -219,8 +333,6 @@ fig({
   ],
 });
 ```
-
----
 
 ### `figure: 'quadrant'` — Quadrant Chart
 
@@ -272,8 +384,6 @@ fig({
   palette: 'default',
 });
 ```
-
----
 
 ### `figure: 'gantt'` — Gantt Chart
 
@@ -327,8 +437,6 @@ fig({
 });
 ```
 
----
-
 ### Palette API
 
 All six diagram types accept two independent styling parameters:
@@ -370,48 +478,37 @@ fig({ figure: 'flow', nodes, edges, palette: 'mono-blue' });
 fig({ figure: 'flow', nodes, edges, palette: ['#e64980', '#ae3ec9', '#7048e8', '#1098ad'] });
 ```
 
----
-
 ## Using with AI
 
-This library ships a **[`SKILL.md`](./SKILL.md)** — a machine-readable skill file that AI agents (Copilot, Cursor, Claude, etc.) can load as context. It contains YAML frontmatter metadata, complete guides on how to generate configs for every diagram type, and full TypeScript type references.
+This library ships a **[`SKILL.md`](./SKILL.md)** — a machine-readable skill file that AI agents (Copilot, Cursor, Claude, etc.) can load as context.
 
 ```
 # Load the skill into your AI context:
 @SKILL.md
 ```
 
+`fig()` accepts a plain markdown string, which makes it ideal for AI generation:
+- **Streaming-safe** — partial output never throws; the diagram fills in progressively as more tokens arrive
+- **Compact** — the markdown syntax is ~5× shorter than an equivalent JSON config
+
 **Prompt example:**
-> "Draw a flowchart showing the user login process: start → enter credentials → validate → if valid go to dashboard, if invalid show error → end."
+> "Draw a flowchart showing the user login process."
 
 **AI-generated code:**
 ```typescript
 import { fig } from 'ai-figure';
 
-const svg = fig({
-  figure: 'flow',
-  nodes: [
-    { id: 'start',       label: 'Start',             type: 'terminal' },
-    { id: 'credentials', label: 'Enter Credentials', type: 'io'       },
-    { id: 'validate',    label: 'Validate',          type: 'process'  },
-    { id: 'check',       label: 'Valid?',            type: 'decision' },
-    { id: 'dashboard',   label: 'Go to Dashboard',  type: 'terminal' },
-    { id: 'error',       label: 'Show Error',        type: 'terminal' },
-  ],
-  edges: [
-    { from: 'start',       to: 'credentials'                  },
-    { from: 'credentials', to: 'validate'                     },
-    { from: 'validate',    to: 'check'                        },
-    { from: 'check',       to: 'dashboard', label: 'Valid'    },
-    { from: 'check',       to: 'error',     label: 'Invalid'  },
-  ],
-  theme: 'light',
-  palette: 'default',
-  direction: 'TB',
-});
+const svg = fig(`
+  flow TB default
+  title: User Login
+  start((Start)) --> creds[Enter Credentials]
+  creds --> validate{Valid?}
+  validate -->|yes| dashboard((Dashboard))
+  validate -->|no| error[Show Error]
+  error --> creds
+  dashboard --> done((End))
+`);
 ```
-
----
 
 ## Development
 
@@ -432,8 +529,6 @@ npm run typecheck
 npx serve .
 # Then open: http://localhost:3000/index.html
 ```
-
----
 
 ## License
 
