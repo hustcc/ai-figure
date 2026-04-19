@@ -82,16 +82,6 @@ const svg = fig(config);
 - Use `"LR"` direction for pipelines, `"TB"` for trees/branches.
 - Node labels ≤ 20 chars fit without wrapping.
 
-```typescript
-interface FlowChartOptions {
-  nodes: FlowNode[]; edges: FlowEdge[]; groups?: FlowGroup[];
-  title?: string; subtitle?: string; theme?: 'light'|'dark'; palette?: string|string[]; direction?: 'TB'|'LR';
-}
-interface FlowNode  { id: string; label: string; type?: 'process'|'decision'|'terminal'|'io' }
-interface FlowEdge  { from: string; to: string; label?: string }
-interface FlowGroup { id: string; label: string; nodes: string[] }
-```
-
 ---
 
 ## figure: 'tree' — Tree Diagram
@@ -109,14 +99,6 @@ Renders a hierarchy from a flat node list with `parent` references. Nodes are co
   ],
   "direction": "TB"
 }
-```
-
-```typescript
-interface TreeDiagramOptions {
-  nodes: TreeNode[]; title?: string; subtitle?: string;
-  theme?: 'light'|'dark'; palette?: string|string[]; direction?: 'TB'|'LR';
-}
-interface TreeNode { id: string; label: string; parent?: string }
 ```
 
 ---
@@ -137,15 +119,6 @@ Renders a tech-stack landscape as layered, color-coded cards — no edges needed
 ```
 
 `direction: "TB"` stacks layers top-to-bottom; `"LR"` places them side-by-side.
-
-```typescript
-interface ArchDiagramOptions {
-  layers: ArchLayer[]; title?: string; subtitle?: string;
-  theme?: 'light'|'dark'; palette?: string|string[]; direction?: 'TB'|'LR';
-}
-interface ArchLayer { id: string; label: string; nodes: ArchNode[] }
-interface ArchNode  { id: string; label: string }
-```
 
 ---
 
@@ -168,14 +141,6 @@ Renders a sequence diagram with vertical lifelines and horizontal message arrows
 
 Use `"style": "return"` for dashed response arrows; omit for solid request arrows.
 
-```typescript
-interface SequenceDiagramOptions {
-  actors: string[]; messages: SeqMessage[];
-  title?: string; subtitle?: string; theme?: 'light'|'dark'; palette?: string|string[];
-}
-interface SeqMessage { from: string; to: string; label?: string; style?: 'solid'|'return' }
-```
-
 ---
 
 ## figure: 'quadrant' — Quadrant Chart
@@ -197,17 +162,6 @@ interface SeqMessage { from: string; to: string; label?: string; style?: 'solid'
 ```
 
 `quadrants` order: **[top-left, top-right, bottom-left, bottom-right]**. `x=0` left, `x=1` right; `y=0` bottom, `y=1` top.
-
-```typescript
-interface QuadrantChartOptions {
-  xAxis: { label: string; min: string; max: string };
-  yAxis: { label: string; min: string; max: string };
-  quadrants: [string, string, string, string];
-  points: QuadrantPoint[];
-  title?: string; subtitle?: string; theme?: 'light'|'dark'; palette?: string|string[];
-}
-interface QuadrantPoint { id: string; label: string; x: number; y: number }
-```
 
 ---
 
@@ -241,14 +195,3 @@ Project timeline with task bars, optional group headers, and milestone markers. 
 - Label column is 160 px — keep labels ≤ 18 chars to avoid clipping.
 - `color` accepts 6-digit hex only (e.g. `"#e64980"`).
 
-```typescript
-interface GanttChartOptions {
-  tasks: GanttTask[]; milestones?: GanttMilestone[];
-  title?: string; subtitle?: string; theme?: 'light'|'dark'; palette?: string|string[];
-}
-interface GanttTask {
-  id: string; label: string; start: string; end: string; // yyyy-mm-dd
-  groupId?: string; color?: string; // 6-digit hex
-}
-interface GanttMilestone { date: string; label: string } // yyyy-mm-dd
-```
