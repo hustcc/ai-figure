@@ -34,10 +34,27 @@ let _ganttCount = 0;
 
 // ── Date utilities ──────────────────────────────────────────────────────────
 
-/** Parse a `"yyyy-mm-dd"` string into a local-timezone Date. */
+/** Parse a strict `"yyyy-mm-dd"` string into a local-timezone Date.
+ *  Throws a descriptive error on malformed strings or invalid calendar dates.
+ */
 function parseDate(s: string): Date {
-  const [y, m, d] = s.split('-').map(Number);
-  return new Date(y, m - 1, d);
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
+  if (!match) {
+    throw new Error(`Invalid date "${s}": expected yyyy-mm-dd format`);
+  }
+  const y = Number(match[1]);
+  const m = Number(match[2]);
+  const d = Number(match[3]);
+  const date = new Date(y, m - 1, d);
+  if (
+    Number.isNaN(date.getTime()) ||
+    date.getFullYear() !== y ||
+    date.getMonth() !== m - 1 ||
+    date.getDate() !== d
+  ) {
+    throw new Error(`Invalid date "${s}": not a real calendar date`);
+  }
+  return date;
 }
 
 /** Map a Date to an SVG x-coordinate inside the plot area. */
@@ -115,7 +132,8 @@ type Row = GroupRow | TaskRow;
  * Canvas width is fixed at 804 px (160 px label column + 620 px chart area +
  * 24 px right margin). Height auto-adapts to the number of task/group rows.
  * A time axis is drawn across the top; task bars are colored by cycling through
- * the theme palette; milestones appear as amber diamonds with dashed vertical lines.
+ * the theme palette; milestones appear as diamonds (colored by the theme palette's
+ * 'decision' node stroke) with dashed vertical lines.
  */
 export function createGanttChart(options: GanttChartOptions): string {
   const {
@@ -167,7 +185,6 @@ export function createGanttChart(options: GanttChartOptions): string {
 
   // ── Build row list ────────────────────────────────────────────────────
   const rows: Row[] = [];
-  const seenGroups = new Set<string>();
   let colorIdx = 0;
 
   // Ungrouped tasks first
@@ -175,14 +192,24 @@ export function createGanttChart(options: GanttChartOptions): string {
     rows.push({ type: 'task', task, indent: false, colorIdx: colorIdx++ });
   }
 
-  // Grouped tasks: emit group-header row on first encounter, then the task
+  // Grouped tasks: collect all tasks per group (preserving first-seen group order),
+  // then emit group header followed immediately by all tasks in that group.
+  // This ensures non-contiguous input tasks are still rendered under their correct header.
+  const groupOrder: string[] = [];
+  const groupTaskMap = new Map<string, typeof tasks>();
   for (const task of tasks.filter(t => !!t.groupId)) {
     const gid = task.groupId!;
-    if (!seenGroups.has(gid)) {
-      seenGroups.add(gid);
-      rows.push({ type: 'group', id: gid });
+    if (!groupTaskMap.has(gid)) {
+      groupOrder.push(gid);
+      groupTaskMap.set(gid, []);
     }
-    rows.push({ type: 'task', task, indent: true, colorIdx: colorIdx++ });
+    groupTaskMap.get(gid)!.push(task);
+  }
+  for (const gid of groupOrder) {
+    rows.push({ type: 'group', id: gid });
+    for (const task of groupTaskMap.get(gid)!) {
+      rows.push({ type: 'task', task, indent: true, colorIdx: colorIdx++ });
+    }
   }
 
   // ── Dimensions ───────────────────────────────────────────────────────
@@ -295,14 +322,18 @@ export function createGanttChart(options: GanttChartOptions): string {
       const { task, indent, colorIdx: ci } = row;
       const nt = BAR_NODE_TYPES[ci % BAR_NODE_TYPES.length];
 
-      // Determine bar colors: user-supplied hex overrides the theme cycle
+      // Determine bar colors: user-supplied 6-digit hex overrides the theme cycle
       let barFill:   string;
       let barStroke: string;
       let textFill:  string;
 
       if (task.color) {
-        const is6Hex = /^#[0-9a-fA-F]{6}$/.test(task.color);
-        barFill   = is6Hex ? task.color + (mode === 'dark' ? '30' : '28') : task.color;
+        if (!/^#[0-9a-fA-F]{6}$/.test(task.color)) {
+          throw new Error(
+            `Invalid task.color "${task.color}" for task "${task.label}": expected a 6-digit hex color (#RRGGBB)`,
+          );
+        }
+        barFill   = task.color + (mode === 'dark' ? '30' : '1a');
         barStroke = task.color;
         textFill  = task.color;
       } else {
@@ -322,8 +353,15 @@ export function createGanttChart(options: GanttChartOptions): string {
       );
 
       // Task bar
-      const startX = dateToX(parseDate(task.start), minTime, totalMs);
-      const endX   = dateToX(parseDate(task.end),   minTime, totalMs);
+      const startDate = parseDate(task.start);
+      const endDate   = parseDate(task.end);
+      if (endDate.getTime() < startDate.getTime()) {
+        throw new Error(
+          `Invalid date range for task "${task.label}": end "${task.end}" is before start "${task.start}"`,
+        );
+      }
+      const startX = dateToX(startDate, minTime, totalMs);
+      const endX   = dateToX(endDate,   minTime, totalMs);
       const barW   = Math.max(4, endX - startX);
       const barY   = rowY + BAR_OFFSET;
 
@@ -346,8 +384,8 @@ export function createGanttChart(options: GanttChartOptions): string {
   }
 
   // ── Milestones ────────────────────────────────────────────────────────
-  // Render as a dashed vertical line + amber diamond in the header area + label
-  const msColor = theme.nodeStrokes['decision']; // amber from default palette
+  // Render as a dashed vertical line + theme-palette diamond in the header area + label
+  const msColor = theme.nodeStrokes['decision']; // milestone color derived from the current theme palette
   for (const ms of milestones) {
     const mx = dateToX(parseDate(ms.date), minTime, totalMs);
     if (mx <= LABEL_W || mx >= LABEL_W + PLOT_W) continue;

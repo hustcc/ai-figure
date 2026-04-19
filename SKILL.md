@@ -333,7 +333,7 @@ Tasks with the same `groupId` are clustered under a bold group-header row. Miles
 3. **Use `groupId` to cluster related tasks** — the first task in a group emits a bold header row; `groupId` doubles as the header label.
 4. **Ungrouped tasks are rendered first**, then grouped tasks (each group together).
 5. **Keep labels short** — the label column is 160 px; labels longer than ~18 characters will be clipped.
-6. **Milestones outside the task date range are silently clipped** — ensure milestone dates fall within the overall task span.
+6. **Milestone dates are included in the visible date range** — the chart extends its time axis to include all milestone dates, so milestones are always rendered. Only milestones that map outside the plot area (e.g. due to floating-point edge cases) are skipped.
 7. **`color` accepts 6-digit hex only** — e.g. `"#e64980"` (the alpha suffix is added automatically for the fill).
 
 ### TypeScript types
