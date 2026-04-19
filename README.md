@@ -16,7 +16,7 @@
 
 ## Features ✨
 
-- 🎨 **Rich visual styles** — light/dark mode, six built-in product-inspired palettes (`default`, `antv`, `drawio`, `notion`, `figma`, `github`) plus custom hex arrays; every diagram supports optional title & subtitle, node groups, and color-coded layers
+- 🎨 **Rich visual styles** — light/dark mode, six built-in product-inspired palettes (`default`, `antv`, `drawio`, `notion`, `figma`, `vega`) plus custom hex arrays; every diagram supports optional title & subtitle, node groups, and color-coded layers
 - 📐 **Auto layout** — just describe the graph; x/y coordinates are computed automatically, and diagram dimensions scale to fit the content
 - 🤖 **AI-friendly** — single `fig()` entry point, unified semantic JSON config, TypeScript-first; ships a [`SKILL.md`](./SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
 - 📊 **6 diagram types** — flowchart, tree, architecture, sequence, quadrant, and Gantt chart; pure SVG output with zero DOM dependency, works in browser and Node.js
@@ -56,7 +56,7 @@ const svg = fig({
     { id: 'g1', label: 'Validation', nodes: ['process1', 'decision'] },
   ],
   theme: 'light',         // 'light' | 'dark'
-  palette: 'default',     // 'default' | 'antv' | 'drawio' | 'notion' | 'figma' | 'github' | string[]
+  palette: 'default',     // 'default' | 'antv' | 'drawio' | 'notion' | 'figma' | 'vega' | string[]
   direction: 'TB',        // 'TB' (top→bottom) | 'LR' (left→right)
 });
 
@@ -347,7 +347,7 @@ All six diagram types accept two independent styling parameters:
 | `'drawio'` | draw.io / diagrams.net shape palette — sky-blue, amber, sage, red |
 | `'notion'` | Notion editorial palette — orange, teal-blue, sage, purple |
 | `'figma'` | Figma / design-tool palette — indigo, cyan, emerald, rose-pink |
-| `'github'` | GitHub Primer palette — green, blue, purple, red |
+| `'vega'` | Vega / Vega-Lite categorical palette — steel-blue, orange, teal, crimson |
 | `string[]` | 4-element hex array mapped to `[process, decision, terminal, io]` |
 
 ```typescript

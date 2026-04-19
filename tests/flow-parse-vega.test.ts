@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('read-parse-ok pipeline — github palette, LR direction', () => {
+it('read-parse-ok pipeline — vega palette, LR direction', () => {
   const svg = fig({
     figure: 'flow',
     nodes: [
@@ -18,8 +18,8 @@ it('read-parse-ok pipeline — github palette, LR direction', () => {
       { from: 'ok', to: 'save', label: 'Yes' },
       { from: 'ok', to: 'retry', label: 'No' },
     ],
-    palette: 'github',
+    palette: 'vega',
     direction: 'LR',
   });
-  matchSvgSnapshot('flow-parse-github', svg);
+  matchSvgSnapshot('flow-parse-vega', svg);
 });

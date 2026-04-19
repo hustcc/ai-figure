@@ -20,7 +20,7 @@ export type ThemeType = 'light' | 'dark';
  * - `'drawio'` — draw.io / diagrams.net shape palette (sky-blue, amber, sage, red)
  * - `'notion'` — Notion editorial palette (orange process, teal-blue decision, sage terminal, purple io)
  * - `'figma'` — Figma / design-tool palette (indigo process, cyan decision, emerald terminal, rose io)
- * - `'github'` — GitHub Primer palette (green process, blue decision, purple terminal, red io)
+ * - `'vega'` — Vega / Vega-Lite categorical palette (steel-blue process, orange decision, teal terminal, crimson io)
  * - Custom 4-element hex array `[process, decision, terminal, io]`
  */
 export type PaletteType = string | string[];

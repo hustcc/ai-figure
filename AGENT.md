@@ -56,7 +56,7 @@ Every renderer accepts two independent parameters:
 | `'drawio'` | draw.io shape colors | sky-blue `#6c8ebf` | amber `#d6b656` | sage `#82b366` | red `#b85450` |
 | `'notion'` | Notion editorial | orange `#d9730d` | teal-blue `#337ea9` | sage `#448361` | purple `#9065b0` |
 | `'figma'` | Figma / design tool | indigo `#6366f1` | cyan `#06b6d4` | emerald `#10b981` | rose `#ec4899` |
-| `'github'` | GitHub Primer | green `#1a7f37` | blue `#0969da` | purple `#8250df` | red `#d1242f` |
+| `'vega'` | Vega / Vega-Lite | steel-blue `#4c78a8` | orange `#f58518` | teal `#72b7b2` | crimson `#e45756` |
 
 **Palette resolution order:**
 1. Named string (e.g. `'default'`, `'antv'`, `'notion'`) → looked up in `NAMED_PALETTES` dict in `src/theme.ts`

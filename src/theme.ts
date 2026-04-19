@@ -151,22 +151,23 @@ const figmaPalette: Record<Mode, ThemeConfig> = {
 };
 
 /**
- * `'github'` — GitHub Primer design system palette.
- * process=green (GitHub success), decision=blue, terminal=purple, io=red (danger).
- * Green-forward identity — immediately distinct from 'default' (blue-forward).
+ * `'vega'` — Vega / Vega-Lite default categorical palette.
+ * Uses the first four colors of Vega's well-known categorical scheme:
+ * process=steel-blue, decision=orange, terminal=teal, io=crimson-red.
+ * Muted, data-visualization-friendly hues — distinct from all other palettes.
  */
-const githubPalette: Record<Mode, ThemeConfig> = {
+const vegaPalette: Record<Mode, ThemeConfig> = {
   light: {
     ...STRUCTURAL_LIGHT,
-    nodeFills:   { process: '#dafbe1', decision: '#ddf4ff', terminal: '#fbefff', io: '#ffebe9' },
-    nodeStrokes: { process: '#1a7f37', decision: '#0969da', terminal: '#8250df', io: '#d1242f' },
-    textColors:  { process: '#116329', decision: '#0550ae', terminal: '#5a32a3', io: '#a30015' },
+    nodeFills:   { process: '#e8eff7', decision: '#fff0e0', terminal: '#e4f3f3', io: '#fce8e8' },
+    nodeStrokes: { process: '#4c78a8', decision: '#f58518', terminal: '#72b7b2', io: '#e45756' },
+    textColors:  { process: '#2b4d6e', decision: '#9b5100', terminal: '#2e6e6a', io: '#9b1c1c' },
   },
   dark: {
     ...STRUCTURAL_DARK,
-    nodeFills:   { process: '#0a2a14', decision: '#0d2d6f', terminal: '#1b0d36', io: '#3a0a0a' },
-    nodeStrokes: { process: '#3fb950', decision: '#4493f8', terminal: '#b187f9', io: '#fa7970' },
-    textColors:  { process: '#56d364', decision: '#79c0ff', terminal: '#d2a8ff', io: '#ffa198' },
+    nodeFills:   { process: '#162536', decision: '#3a2000', terminal: '#0e2928', io: '#3a0e0e' },
+    nodeStrokes: { process: '#7aadce', decision: '#f5a54e', terminal: '#90ccc9', io: '#eb8080' },
+    textColors:  { process: '#a8cce4', decision: '#f7c78a', terminal: '#b0dbd8', io: '#f0aaaa' },
   },
 };
 
@@ -177,7 +178,7 @@ const NAMED_PALETTES: Record<string, Record<Mode, ThemeConfig>> = {
   drawio:  drawioPalette,
   notion:  notionPalette,
   figma:   figmaPalette,
-  github:  githubPalette,
+  vega:    vegaPalette,
 };
 
 // ---------------------------------------------------------------------------
@@ -221,7 +222,7 @@ function deriveThemeFromColors(colors: string[], mode: Mode): ThemeConfig {
  *   - `'drawio'` — draw.io / diagrams.net shape palette
  *   - `'notion'` — Notion block color palette
  *   - `'figma'` — Figma / Tailwind modern UI palette
- *   - `'github'` — GitHub Primer palette
+ *   - `'vega'` — Vega / Vega-Lite default categorical palette
  *   - Custom hex array `[process, decision, terminal, io]`
  * @param mode - `'light'` or `'dark'`. Defaults to `'light'`.
  */

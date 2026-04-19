@@ -302,31 +302,31 @@ describe('fig', () => {
     expect(svg).toContain('#06b6d4'); // figma decision stroke (cyan)
   });
 
-  it("palette='github' renders arch diagram with github colors", () => {
+  it("palette='vega' renders arch diagram with vega colors", () => {
     const svg = fig({
       figure: 'arch',
       layers: [
         { id: 'l1', label: 'Frontend', nodes: [{ id: 'n1', label: 'React' }, { id: 'n2', label: 'Vue' }] },
         { id: 'l2', label: 'Backend', nodes: [{ id: 'n3', label: 'Node.js' }] },
       ],
-      palette: 'github',
+      palette: 'vega',
     });
 
     expect(svg).toContain('<svg');
     expect(svg).toContain('Frontend');
-    expect(svg).toContain('#1a7f37'); // github process stroke (green — GitHub success)
+    expect(svg).toContain('#4c78a8'); // vega process stroke (steel-blue)
   });
 
-  it("palette='github' renders sequence diagram with github colors", () => {
+  it("palette='vega' renders sequence diagram with vega colors", () => {
     const svg = fig({
       figure: 'sequence',
       actors: ['Client', 'Server'],
       messages: [{ from: 'Client', to: 'Server', label: 'request' }],
-      palette: 'github',
+      palette: 'vega',
     });
 
     expect(svg).toContain('<svg');
-    expect(svg).toContain('#8250df'); // github terminal stroke (actor[0] → terminal type → purple)
+    expect(svg).toContain('#72b7b2'); // vega terminal stroke (actor[0] → terminal type → teal)
   });
 
   it('throws for an edge referencing a missing node', () => {

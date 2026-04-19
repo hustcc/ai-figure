@@ -43,7 +43,7 @@ const svg = fig(config);
 | `title`    | string        | `undefined`  | Centered title above the diagram                      |
 | `subtitle` | string        | `undefined`  | Centered subtitle below the title                     |
 | `theme`    | string        | `"light"`    | `"light"` or `"dark"` rendering mode                 |
-| `palette`  | string\|array | `"default"`  | `"default"`, `"antv"`, `"drawio"`, `"notion"`, `"figma"`, `"github"`, or 4-element hex array |
+| `palette`  | string\|array | `"default"`  | `"default"`, `"antv"`, `"drawio"`, `"notion"`, `"figma"`, `"vega"`, or 4-element hex array |
 
 ---
 
