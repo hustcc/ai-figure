@@ -21,8 +21,6 @@
 - 🤖 **AI-friendly** — single `fig()` entry point accepts a markdown string **or** a JSON config; streaming-safe (partial input never throws); ships a [`SKILL.md`](./SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
 - 📊 **6 diagram types** — flowchart, tree, architecture, sequence, quadrant, and Gantt chart; pure SVG output with zero DOM dependency, works in browser and Node.js
 
----
-
 ## Quick Start
 
 ### Install
@@ -76,8 +74,6 @@ import { writeFileSync } from 'fs';
 writeFileSync('diagram.svg', svg);
 ```
 
----
-
 ## API Reference
 
 ### `fig(input): string`
@@ -103,8 +99,6 @@ fig({ figure: 'sequence', ...sequenceOptions }); // sequence diagram
 fig({ figure: 'quadrant', ...quadrantOptions }); // quadrant chart
 fig({ figure: 'gantt',    ...ganttOptions    }); // Gantt chart
 ```
-
----
 
 ### `figmd(markdown): string` — Markdown Syntax (alias)
 
@@ -215,8 +209,6 @@ milestone: Label, date             %% milestone diamond
 
 You can also call `parseFigmd(markdown): FigOptions` to get the parsed options object without rendering.
 
----
-
 ### `figure: 'flow'` — Flowchart
 
 | Field       | Type            | Default        | Description                              |
@@ -264,8 +256,6 @@ You can also call `parseFigmd(markdown): FigOptions` to get the parsed options o
 | `label` | `string`   | **required** | Label shown above the group border |
 | `nodes` | `string[]` | **required** | IDs of nodes inside this group     |
 
----
-
 ### `figure: 'tree'` — Tree Diagram
 
 Renders a hierarchy from a flat node list with `parent` references. Uses Dagre for layout.
@@ -293,8 +283,6 @@ fig({
 });
 ```
 
----
-
 ### `figure: 'arch'` — Architecture Diagram
 
 Renders a tech-stack landscape as layered, color-coded cards — no edges needed.
@@ -318,8 +306,6 @@ fig({
   ],
 });
 ```
-
----
 
 ### `figure: 'sequence'` — Sequence Diagram
 
@@ -347,8 +333,6 @@ fig({
   ],
 });
 ```
-
----
 
 ### `figure: 'quadrant'` — Quadrant Chart
 
@@ -400,8 +384,6 @@ fig({
   palette: 'default',
 });
 ```
-
----
 
 ### `figure: 'gantt'` — Gantt Chart
 
@@ -455,8 +437,6 @@ fig({
 });
 ```
 
----
-
 ### Palette API
 
 All six diagram types accept two independent styling parameters:
@@ -498,8 +478,6 @@ fig({ figure: 'flow', nodes, edges, palette: 'mono-blue' });
 fig({ figure: 'flow', nodes, edges, palette: ['#e64980', '#ae3ec9', '#7048e8', '#1098ad'] });
 ```
 
----
-
 ## Using with AI
 
 This library ships a **[`SKILL.md`](./SKILL.md)** — a machine-readable skill file that AI agents (Copilot, Cursor, Claude, etc.) can load as context.
@@ -532,8 +510,6 @@ const svg = fig(`
 `);
 ```
 
----
-
 ## Development
 
 ```bash
@@ -553,8 +529,6 @@ npm run typecheck
 npx serve .
 # Then open: http://localhost:3000/index.html
 ```
-
----
 
 ## License
 

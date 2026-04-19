@@ -37,8 +37,6 @@ const svg2 = fig({ figure: 'flow', nodes: [...], edges: [...] });
 
 `fig()` accepts either a **markdown string** or a **JSON config**. When given a string it never throws — partial or empty input (e.g. during AI streaming) returns a valid empty SVG that fills in progressively.
 
----
-
 ## Markdown syntax
 
 **First non-empty line is the header:**
@@ -66,8 +64,6 @@ Lines starting with `%%` are comments. `title:` and `subtitle:` work in all type
 | `id[/label/]` | io (parallelogram) |
 | `id` | process, id used as label |
 
----
-
 ### flow
 
 ```
@@ -77,9 +73,6 @@ A[Source] --> B[Target]          %% simple edge
 A -->|label| B                   %% labeled edge
 group Name: id1, id2, id3        %% logical group (dashed border)
 ```
-
-- Node types: `process` (default) · `decision` · `terminal` · `io`
-- Use `type: terminal` for start/end; label `decision` edges (Yes/No)
 
 ### tree
 
@@ -105,10 +98,6 @@ layer backend[Backend]
 layer data[Data]
   db[PostgreSQL]
 ```
-
-- Each `layer` line starts a new group; following node lines (with or without indent) belong to it
-- `TB` stacks layers top→bottom; `LR` places them side-by-side
-- Width auto-sizes from content
 
 ### sequence
 
@@ -149,8 +138,6 @@ milestone: Launch, 2025-03-01
 
 - Task format: `<label>: <id>, <yyyy-mm-dd>, <yyyy-mm-dd>` — **id is required**, even if you don't reference it
 - `end` ≥ `start`; `section` groups tasks under a bold header; `milestone: <label>, <date>` marks a point in time
-
----
 
 ## JSON config (fig(options))
 
