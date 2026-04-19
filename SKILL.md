@@ -195,4 +195,3 @@ interface GanttChartOptions {
 ```
 
 **quadrants order:** `[top-left, top-right, bottom-left, bottom-right]` · `x=0` left, `x=1` right; `y=0` bottom, `y=1` top.
-
