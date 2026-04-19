@@ -3,6 +3,7 @@ import { createTreeDiagram } from './tree';
 import { createArchDiagram } from './arch';
 import { createSequenceDiagram } from './sequence';
 import { createQuadrantChart } from './quadrant';
+import { createGanttChart } from './gantt';
 import type { FigOptions } from './types';
 
 /**
@@ -12,6 +13,7 @@ import type { FigOptions } from './types';
  * - `'arch'`     — architecture diagram (layered grid, no edges)
  * - `'sequence'` — sequence diagram (actors + message arrows)
  * - `'quadrant'` — quadrant chart (2×2 matrix with data points)
+ * - `'gantt'`    — Gantt chart (task bars, optional milestones, optional groups)
  *
  * Returns a fully self-contained SVG string; no coordinates needed.
  */
@@ -27,6 +29,8 @@ export function fig(options: FigOptions): string {
       return createSequenceDiagram(options);
     case 'quadrant':
       return createQuadrantChart(options);
+    case 'gantt':
+      return createGanttChart(options);
     default: {
       const _exhaustive: never = options;
       throw new Error(`Unknown figure type: ${(_exhaustive as FigOptions).figure}`);
@@ -52,4 +56,7 @@ export type {
   SequenceDiagramOptions,
   QuadrantPoint,
   QuadrantChartOptions,
+  GanttTask,
+  GanttMilestone,
+  GanttChartOptions,
 } from './types';

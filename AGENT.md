@@ -25,6 +25,7 @@ UPDATE_SNAPSHOTS=1 npm test   # regenerate all SVG snapshot files
 | `'arch'`     | `src/arch.ts`        | Architecture grid — layered cards, no edges  |
 | `'sequence'` | `src/sequence.ts`    | Sequence diagram — actors + message arrows   |
 | `'quadrant'` | `src/quadrant.ts`    | Quadrant chart — 2×2 scatter with axis labels |
+| `'gantt'`    | `src/gantt.ts`       | Gantt chart — task bars, milestones, groups  |
 
 ---
 

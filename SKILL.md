@@ -1,12 +1,12 @@
 ---
 name: ai-figure
 version: "0.1.0"
-description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence, quadrant) from a JSON config via a single fig() API. Auto-layout, zero coordinates needed. Works in browser and Node.js.
+description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence, quadrant, gantt) from a JSON config via a single fig() API. Auto-layout, zero coordinates needed. Works in browser and Node.js.
 author: hustcc
 license: MIT
 package: ai-figure
 api: fig(options) → string (SVG)
-tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, svg, layout, visualization]
+tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, svg, layout, visualization]
 ---
 
 # ai-figure Skill
@@ -28,6 +28,7 @@ A single `fig()` function handles all diagram types. Select the type via the req
 | `'arch'`       | Architecture grid  | `layers`                |
 | `'sequence'`   | Sequence diagram   | `actors`, `messages`    |
 | `'quadrant'`   | Quadrant chart     | `xAxis`, `yAxis`, `quadrants`, `points` |
+| `'gantt'`      | Gantt chart        | `tasks`, `milestones?`  |
 
 **Step 2 — Call the API**
 
@@ -270,3 +271,92 @@ interface QuadrantChartOptions {
 interface QuadrantPoint { id: string; label: string; x: number; y: number }
 ```
 
+---
+
+## figure: 'gantt' — Gantt Chart
+
+Renders a project timeline with task bars, optional group headers, and milestone markers. Canvas width is fixed at 804 px; height auto-adapts to the number of rows. The time axis tick density adjusts automatically: weekly ticks for ≤63 days, monthly for ≤400 days, quarterly otherwise.
+
+Tasks with the same `groupId` are clustered under a bold group-header row. Milestones appear as amber diamonds in the time-axis header and dashed vertical lines through all rows.
+
+### Minimal example
+
+```json
+{
+  "figure": "gantt",
+  "tasks": [
+    { "id": "design", "label": "Design",   "start": "2025-01-06", "end": "2025-01-24" },
+    { "id": "dev",    "label": "Dev",      "start": "2025-01-20", "end": "2025-02-28" },
+    { "id": "qa",     "label": "QA",       "start": "2025-02-24", "end": "2025-03-14" },
+    { "id": "deploy", "label": "Deploy",   "start": "2025-03-17", "end": "2025-03-21" }
+  ]
+}
+```
+
+### Full example with groups and milestones
+
+```json
+{
+  "figure": "gantt",
+  "title": "Project Roadmap",
+  "subtitle": "Q1 2025",
+  "tasks": [
+    { "id": "design",  "label": "Design",       "start": "2025-01-06", "end": "2025-01-24" },
+    { "id": "fe",      "label": "Frontend Dev", "start": "2025-01-20", "end": "2025-02-28", "groupId": "dev" },
+    { "id": "be",      "label": "Backend Dev",  "start": "2025-01-13", "end": "2025-03-07", "groupId": "dev" },
+    { "id": "qa",      "label": "QA Testing",   "start": "2025-02-24", "end": "2025-03-14", "groupId": "qa"  },
+    { "id": "perf",    "label": "Perf Test",    "start": "2025-03-03", "end": "2025-03-14", "groupId": "qa"  },
+    { "id": "deploy",  "label": "Deploy",       "start": "2025-03-17", "end": "2025-03-21" }
+  ],
+  "milestones": [
+    { "date": "2025-01-24", "label": "Design freeze" },
+    { "date": "2025-03-21", "label": "Launch" }
+  ],
+  "theme": "light",
+  "palette": "default"
+}
+```
+
+### Options
+
+| Field        | Type           | Default      | Description                                   |
+|--------------|----------------|--------------|-----------------------------------------------|
+| `title`      | string         | `undefined`  | Optional centered title above the diagram     |
+| `subtitle`   | string         | `undefined`  | Optional centered subtitle below the title    |
+| `theme`      | string         | `"light"`    | `"light"` or `"dark"` rendering mode          |
+| `palette`    | string\|array  | `"default"`  | See palette values in other sections          |
+
+### Rules for generating good Gantt configs
+
+1. **Dates must be `yyyy-mm-dd`** — exact format required for `start`, `end`, and milestone `date`.
+2. **`end` must be ≥ `start`** — zero-length tasks render as a minimal 4 px bar, but avoid them.
+3. **Use `groupId` to cluster related tasks** — the first task in a group emits a bold header row; `groupId` doubles as the header label.
+4. **Ungrouped tasks are rendered first**, then grouped tasks (each group together).
+5. **Keep labels short** — the label column is 160 px; labels longer than ~18 characters will be clipped.
+6. **Milestones outside the task date range are silently clipped** — ensure milestone dates fall within the overall task span.
+7. **`color` accepts 6-digit hex only** — e.g. `"#e64980"` (the alpha suffix is added automatically for the fill).
+
+### TypeScript types
+
+```typescript
+interface GanttChartOptions {
+  tasks:       GanttTask[];
+  milestones?: GanttMilestone[];
+  title?:      string;
+  subtitle?:   string;
+  theme?:      'light' | 'dark';
+  palette?:    string | string[];
+}
+interface GanttTask {
+  id:       string;
+  label:    string;
+  start:    string;          // yyyy-mm-dd
+  end:      string;          // yyyy-mm-dd
+  groupId?: string;
+  color?:   string;          // 6-digit hex, e.g. '#e64980'
+}
+interface GanttMilestone {
+  date:  string;             // yyyy-mm-dd
+  label: string;
+}
+```

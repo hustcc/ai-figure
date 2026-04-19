@@ -19,7 +19,7 @@
 - 🎨 **Rich visual styles** — light/dark mode, built-in palette plus any [`d3-scale-chromatic`](https://github.com/d3/d3-scale-chromatic) scheme or custom hex array; every diagram supports optional title & subtitle, node groups, and color-coded layers
 - 📐 **Auto layout** — just describe the graph; x/y coordinates are computed automatically, and diagram dimensions scale to fit the content
 - 🤖 **AI-friendly** — single `fig()` entry point, unified semantic JSON config, TypeScript-first; ships a [`SKILL.md`](./SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
-- 📊 **5 diagram types** — flowchart, tree, architecture, sequence, and quadrant; pure SVG output with zero DOM dependency, works in browser and Node.js
+- 📊 **6 diagram types** — flowchart, tree, architecture, sequence, quadrant, and Gantt chart; pure SVG output with zero DOM dependency, works in browser and Node.js
 
 ---
 
@@ -84,6 +84,7 @@ fig({ figure: 'tree',     ...treeOptions     }); // tree / hierarchy
 fig({ figure: 'arch',     ...archOptions     }); // architecture diagram
 fig({ figure: 'sequence', ...sequenceOptions }); // sequence diagram
 fig({ figure: 'quadrant', ...quadrantOptions }); // quadrant chart
+fig({ figure: 'gantt',    ...ganttOptions    }); // Gantt chart
 ```
 
 ---
@@ -274,9 +275,63 @@ fig({
 
 ---
 
+### `figure: 'gantt'` — Gantt Chart
+
+Renders a project timeline with task bars, optional group headers, and milestone markers. Canvas width is fixed at 804 px; height auto-adapts to the number of rows. The time axis ticks adjust automatically to the date range (weekly / monthly / quarterly).
+
+| Field        | Type               | Default      | Description                                  |
+|--------------|--------------------|--------------|----------------------------------------------|
+| `figure`     | `'gantt'`          | **required** | Selects the Gantt renderer                   |
+| `tasks`      | `GanttTask[]`      | **required** | List of task bars                            |
+| `milestones` | `GanttMilestone[]` | `[]`         | Optional milestone markers                   |
+| `title`      | `string`           | `undefined`  | Optional centered title above the diagram    |
+| `subtitle`   | `string`           | `undefined`  | Optional centered subtitle below the title   |
+| `theme`      | `ThemeType`        | `'light'`    | Light or dark rendering mode                 |
+| `palette`    | `PaletteType`      | `'default'`  | Color palette — see [Palette API](#palette-api) below |
+
+#### `GanttTask`
+
+| Field     | Type     | Default      | Description                                                        |
+|-----------|----------|--------------|--------------------------------------------------------------------|
+| `id`      | `string` | **required** | Unique task identifier                                             |
+| `label`   | `string` | **required** | Task name shown in the label column and inside the bar            |
+| `start`   | `string` | **required** | Start date `yyyy-mm-dd`                                           |
+| `end`     | `string` | **required** | End date `yyyy-mm-dd`                                             |
+| `groupId` | `string` | `undefined`  | Tasks sharing the same `groupId` are clustered under a group header |
+| `color`   | `string` | `undefined`  | Optional custom bar color (6-digit hex, e.g. `'#e64980'`)         |
+
+#### `GanttMilestone`
+
+| Field   | Type     | Default      | Description                       |
+|---------|----------|--------------|-----------------------------------|
+| `date`  | `string` | **required** | Milestone date `yyyy-mm-dd`       |
+| `label` | `string` | **required** | Short label near the diamond icon |
+
+```typescript
+fig({
+  figure: 'gantt',
+  title: 'Project Roadmap',
+  tasks: [
+    { id: 'design', label: 'Design',       start: '2025-01-06', end: '2025-01-24' },
+    { id: 'fe',     label: 'Frontend Dev', start: '2025-01-20', end: '2025-02-28', groupId: 'dev' },
+    { id: 'be',     label: 'Backend Dev',  start: '2025-01-13', end: '2025-03-07', groupId: 'dev' },
+    { id: 'qa',     label: 'QA Testing',   start: '2025-02-24', end: '2025-03-14', groupId: 'qa'  },
+    { id: 'deploy', label: 'Deploy',       start: '2025-03-17', end: '2025-03-21' },
+  ],
+  milestones: [
+    { date: '2025-01-24', label: 'Design freeze' },
+    { date: '2025-03-21', label: 'Launch' },
+  ],
+  theme: 'light',
+  palette: 'default',
+});
+```
+
+---
+
 ### Palette API
 
-All five diagram types accept two independent styling parameters:
+All six diagram types accept two independent styling parameters:
 
 | Field     | Type                   | Default       | Description                          |
 |-----------|------------------------|---------------|--------------------------------------|
