@@ -10,9 +10,9 @@
 |:---:|:---:|:---:|
 | Flow | Tree | Architecture |
 
-| ![Sequence](./assets/sequence.svg) | ![Quadrant](./assets/quadrant.svg) |
-|:---:|:---:|
-| Sequence | Quadrant |
+| ![Sequence](./assets/sequence.svg) | ![Quadrant](./assets/quadrant.svg) | ![Gantt](./assets/gantt.svg) |
+|:---:|:---:|:---:|
+| Sequence | Quadrant | Gantt |
 
 ## Features ✨
 
