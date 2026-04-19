@@ -270,7 +270,7 @@ describe('fig', () => {
     expect(svg).toContain('#6c8ebf'); // drawio process stroke
   });
 
-  it("palette='notion' renders flow diagram with notion colors", () => {
+  it("palette='mono-blue' renders flow diagram with mono-blue colors", () => {
     const svg = fig({
       figure: 'flow',
       nodes: [
@@ -278,12 +278,27 @@ describe('fig', () => {
         { id: 'b', label: 'B', type: 'decision' },
       ],
       edges: [{ from: 'a', to: 'b' }],
-      palette: 'notion',
+      palette: 'mono-blue',
     });
 
     expect(svg).toContain('<svg');
-    expect(svg).toContain('#d9730d'); // notion process stroke (orange)
-    expect(svg).toContain('#337ea9'); // notion decision stroke (teal-blue)
+    expect(svg).toContain('#2563eb'); // mono-blue process stroke (blue-600)
+    expect(svg).toContain('#93c5fd'); // mono-blue decision stroke (blue-300)
+  });
+
+  it("palette='mono-green' renders flow diagram with mono-green colors", () => {
+    const svg = fig({
+      figure: 'flow',
+      nodes: [
+        { id: 'a', label: 'A', type: 'process' },
+        { id: 'b', label: 'B', type: 'decision' },
+      ],
+      edges: [{ from: 'a', to: 'b' }],
+      palette: 'mono-green',
+    });
+
+    expect(svg).toContain('<svg');
+    expect(svg).toContain('#16a34a'); // mono-green process stroke (green-600)
   });
 
   it("palette='figma' renders flow diagram with figma colors", () => {

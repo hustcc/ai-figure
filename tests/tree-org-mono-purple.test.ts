@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('tree diagram — org chart, notion palette, TB direction', () => {
+it('tree diagram — org chart, mono-purple palette, TB direction', () => {
   const svg = fig({
     figure: 'tree',
     nodes: [
@@ -14,8 +14,8 @@ it('tree diagram — org chart, notion palette, TB direction', () => {
       { id: 'ops',     label: 'Operations',  parent: 'coo' },
       { id: 'hr',      label: 'HR',          parent: 'coo' },
     ],
-    palette: 'notion',
+    palette: 'mono-purple',
     direction: 'TB',
   });
-  matchSvgSnapshot('tree-org-notion', svg);
+  matchSvgSnapshot('tree-org-mono-purple', svg);
 });

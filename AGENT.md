@@ -54,12 +54,15 @@ Every renderer accepts two independent parameters:
 | `'default'` | Classic multi-hue | blue | amber | green | purple |
 | `'antv'` | AntV G2 categorical | cornflower `#5b8ff9` | coral `#e8684a` | mint `#5ad8a6` | violet `#9270ca` |
 | `'drawio'` | draw.io shape colors | sky-blue `#6c8ebf` | amber `#d6b656` | sage `#82b366` | red `#b85450` |
-| `'notion'` | Notion editorial | orange `#d9730d` | teal-blue `#337ea9` | sage `#448361` | purple `#9065b0` |
 | `'figma'` | Figma / design tool | indigo `#6366f1` | cyan `#06b6d4` | emerald `#10b981` | rose `#ec4899` |
 | `'vega'` | Vega / Vega-Lite | steel-blue `#4c78a8` | orange `#f58518` | teal `#72b7b2` | crimson `#e45756` |
+| `'mono-blue'` | Monochrome blue | blue-600 `#2563eb` | blue-300 `#93c5fd` | blue-700 `#1d4ed8` | blue-900 `#1e3a8a` |
+| `'mono-green'` | Monochrome green | green-600 `#16a34a` | green-400 `#4ade80` | green-700 `#15803d` | green-800 `#166534` |
+| `'mono-purple'` | Monochrome purple | purple-600 `#9333ea` | purple-400 `#c084fc` | purple-700 `#7e22ce` | purple-800 `#6b21a8` |
+| `'mono-orange'` | Monochrome orange | orange-600 `#ea580c` | orange-400 `#fb923c` | orange-700 `#c2410c` | orange-800 `#9a3412` |
 
 **Palette resolution order:**
-1. Named string (e.g. `'default'`, `'antv'`, `'notion'`) → looked up in `NAMED_PALETTES` dict in `src/theme.ts`
+1. Named string (e.g. `'default'`, `'antv'`, `'mono-blue'`) → looked up in `NAMED_PALETTES` dict in `src/theme.ts`
 2. `string[]` array: 4 hex values mapped to `[process, decision, terminal, io]`; colors are auto-derived into fills/strokes/texts via `deriveThemeFromColors()`
 3. Unknown string → falls back to `'default'`
 

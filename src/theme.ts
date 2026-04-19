@@ -111,22 +111,83 @@ const drawioPalette: Record<Mode, ThemeConfig> = {
 };
 
 /**
- * `'notion'` — Notion editorial palette.
- * process=orange (Notion's signature orange), decision=teal-blue, terminal=sage, io=purple.
- * Distinctly warm-forward — orange process makes it immediately identifiable.
+ * Monochrome palettes — all four node types share the same hue family.
+ * Fills, strokes, and text use progressively deeper shades to keep types visually distinct.
  */
-const notionPalette: Record<Mode, ThemeConfig> = {
+
+/**
+ * `'mono-blue'` — four shades of blue (Tailwind blue scale).
+ * process=blue-600 stroke, decision=blue-400 stroke, terminal=blue-700 stroke, io=blue-200 fill / blue-900 stroke.
+ */
+const monoBluePalette: Record<Mode, ThemeConfig> = {
   light: {
     ...STRUCTURAL_LIGHT,
-    nodeFills:   { process: '#fff4ec', decision: '#eff8ff', terminal: '#f0fdf4', io: '#fdf4ff' },
-    nodeStrokes: { process: '#d9730d', decision: '#337ea9', terminal: '#448361', io: '#9065b0' },
-    textColors:  { process: '#a85200', decision: '#1a5f8a', terminal: '#2d6b4a', io: '#6b3f9e' },
+    nodeFills:   { process: '#dbeafe', decision: '#eff6ff', terminal: '#bfdbfe', io: '#93c5fd' },
+    nodeStrokes: { process: '#2563eb', decision: '#93c5fd', terminal: '#1d4ed8', io: '#1e3a8a' },
+    textColors:  { process: '#1e3a8a', decision: '#1d4ed8', terminal: '#1e40af', io: '#172554' },
   },
   dark: {
     ...STRUCTURAL_DARK,
-    nodeFills:   { process: '#3b1d00', decision: '#0d2540', terminal: '#0a2a18', io: '#25123a' },
-    nodeStrokes: { process: '#f09249', decision: '#5ba4d4', terminal: '#5fa882', io: '#b18bd0' },
-    textColors:  { process: '#f0b46a', decision: '#8ac9ee', terminal: '#8fcba8', io: '#cba8e8' },
+    nodeFills:   { process: '#0c1938', decision: '#071128', terminal: '#162040', io: '#1e2d5a' },
+    nodeStrokes: { process: '#60a5fa', decision: '#93c5fd', terminal: '#3b82f6', io: '#bfdbfe' },
+    textColors:  { process: '#93c5fd', decision: '#bfdbfe', terminal: '#bfdbfe', io: '#dbeafe' },
+  },
+};
+
+/**
+ * `'mono-green'` — four shades of green (Tailwind green scale).
+ * process=green-600 stroke, decision=green-400 stroke, terminal=green-700 stroke, io=green-300 fill / green-900 stroke.
+ */
+const monoGreenPalette: Record<Mode, ThemeConfig> = {
+  light: {
+    ...STRUCTURAL_LIGHT,
+    nodeFills:   { process: '#dcfce7', decision: '#f0fdf4', terminal: '#bbf7d0', io: '#86efac' },
+    nodeStrokes: { process: '#16a34a', decision: '#4ade80', terminal: '#15803d', io: '#166534' },
+    textColors:  { process: '#14532d', decision: '#15803d', terminal: '#166534', io: '#052e16' },
+  },
+  dark: {
+    ...STRUCTURAL_DARK,
+    nodeFills:   { process: '#052e16', decision: '#021a0e', terminal: '#083820', io: '#0f4d2d' },
+    nodeStrokes: { process: '#4ade80', decision: '#86efac', terminal: '#22c55e', io: '#bbf7d0' },
+    textColors:  { process: '#86efac', decision: '#bbf7d0', terminal: '#bbf7d0', io: '#dcfce7' },
+  },
+};
+
+/**
+ * `'mono-purple'` — four shades of purple (Tailwind purple scale).
+ * process=purple-600 stroke, decision=purple-400 stroke, terminal=purple-700 stroke, io=purple-300 fill / purple-900 stroke.
+ */
+const monoPurplePalette: Record<Mode, ThemeConfig> = {
+  light: {
+    ...STRUCTURAL_LIGHT,
+    nodeFills:   { process: '#f3e8ff', decision: '#faf5ff', terminal: '#e9d5ff', io: '#d8b4fe' },
+    nodeStrokes: { process: '#9333ea', decision: '#c084fc', terminal: '#7e22ce', io: '#6b21a8' },
+    textColors:  { process: '#581c87', decision: '#7e22ce', terminal: '#6b21a8', io: '#4a044e' },
+  },
+  dark: {
+    ...STRUCTURAL_DARK,
+    nodeFills:   { process: '#2e1065', decision: '#1a0843', terminal: '#3b0764', io: '#4a044e' },
+    nodeStrokes: { process: '#c084fc', decision: '#d8b4fe', terminal: '#a855f7', io: '#e9d5ff' },
+    textColors:  { process: '#d8b4fe', decision: '#e9d5ff', terminal: '#e9d5ff', io: '#f3e8ff' },
+  },
+};
+
+/**
+ * `'mono-orange'` — four shades of orange (Tailwind orange scale).
+ * process=orange-600 stroke, decision=orange-400 stroke, terminal=orange-700 stroke, io=orange-300 fill / orange-900 stroke.
+ */
+const monoOrangePalette: Record<Mode, ThemeConfig> = {
+  light: {
+    ...STRUCTURAL_LIGHT,
+    nodeFills:   { process: '#ffedd5', decision: '#fff7ed', terminal: '#fed7aa', io: '#fdba74' },
+    nodeStrokes: { process: '#ea580c', decision: '#fb923c', terminal: '#c2410c', io: '#9a3412' },
+    textColors:  { process: '#7c2d12', decision: '#c2410c', terminal: '#9a3412', io: '#431407' },
+  },
+  dark: {
+    ...STRUCTURAL_DARK,
+    nodeFills:   { process: '#3d1700', decision: '#220e00', terminal: '#4d1f00', io: '#652700' },
+    nodeStrokes: { process: '#fb923c', decision: '#fdba74', terminal: '#f97316', io: '#fed7aa' },
+    textColors:  { process: '#fdba74', decision: '#fed7aa', terminal: '#fed7aa', io: '#ffedd5' },
   },
 };
 
@@ -173,12 +234,15 @@ const vegaPalette: Record<Mode, ThemeConfig> = {
 
 /** Map of all built-in named palettes. */
 const NAMED_PALETTES: Record<string, Record<Mode, ThemeConfig>> = {
-  default: defaultPalette,
-  antv:    antvPalette,
-  drawio:  drawioPalette,
-  notion:  notionPalette,
-  figma:   figmaPalette,
-  vega:    vegaPalette,
+  default:      defaultPalette,
+  antv:         antvPalette,
+  drawio:       drawioPalette,
+  figma:        figmaPalette,
+  vega:         vegaPalette,
+  'mono-blue':  monoBluePalette,
+  'mono-green': monoGreenPalette,
+  'mono-purple':monoPurplePalette,
+  'mono-orange':monoOrangePalette,
 };
 
 // ---------------------------------------------------------------------------
@@ -220,9 +284,12 @@ function deriveThemeFromColors(colors: string[], mode: Mode): ThemeConfig {
  *   - `'default'` — built-in multi-hue palette (default when omitted)
  *   - `'antv'` — AntV G2 categorical palette
  *   - `'drawio'` — draw.io / diagrams.net shape palette
- *   - `'notion'` — Notion block color palette
  *   - `'figma'` — Figma / Tailwind modern UI palette
  *   - `'vega'` — Vega / Vega-Lite default categorical palette
+ *   - `'mono-blue'` — four shades of blue (monochrome)
+ *   - `'mono-green'` — four shades of green (monochrome)
+ *   - `'mono-purple'` — four shades of purple (monochrome)
+ *   - `'mono-orange'` — four shades of orange (monochrome)
  *   - Custom hex array `[process, decision, terminal, io]`
  * @param mode - `'light'` or `'dark'`. Defaults to `'light'`.
  */

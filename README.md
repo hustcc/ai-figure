@@ -16,7 +16,7 @@
 
 ## Features ✨
 
-- 🎨 **Rich visual styles** — light/dark mode, six built-in product-inspired palettes (`default`, `antv`, `drawio`, `notion`, `figma`, `vega`) plus custom hex arrays; every diagram supports optional title & subtitle, node groups, and color-coded layers
+- 🎨 **Rich visual styles** — light/dark mode, nine built-in palettes (`default`, `antv`, `drawio`, `figma`, `vega`, `mono-blue`, `mono-green`, `mono-purple`, `mono-orange`) plus custom hex arrays; every diagram supports optional title & subtitle, node groups, and color-coded layers
 - 📐 **Auto layout** — just describe the graph; x/y coordinates are computed automatically, and diagram dimensions scale to fit the content
 - 🤖 **AI-friendly** — single `fig()` entry point, unified semantic JSON config, TypeScript-first; ships a [`SKILL.md`](./SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
 - 📊 **6 diagram types** — flowchart, tree, architecture, sequence, quadrant, and Gantt chart; pure SVG output with zero DOM dependency, works in browser and Node.js
@@ -56,7 +56,7 @@ const svg = fig({
     { id: 'g1', label: 'Validation', nodes: ['process1', 'decision'] },
   ],
   theme: 'light',         // 'light' | 'dark'
-  palette: 'default',     // 'default' | 'antv' | 'drawio' | 'notion' | 'figma' | 'vega' | string[]
+  palette: 'default',     // 'default' | 'antv' | 'drawio' | 'figma' | 'vega' | 'mono-blue' | 'mono-green' | 'mono-purple' | 'mono-orange' | string[]
   direction: 'TB',        // 'TB' (top→bottom) | 'LR' (left→right)
 });
 
@@ -345,9 +345,12 @@ All six diagram types accept two independent styling parameters:
 | `'default'` | Built-in multi-hue palette — `process`=blue, `decision`=amber, `terminal`=green, `io`=purple |
 | `'antv'` | AntV G2 categorical palette — cornflower-blue, coral-orange, mint-teal, violet |
 | `'drawio'` | draw.io / diagrams.net shape palette — sky-blue, amber, sage, red |
-| `'notion'` | Notion editorial palette — orange, teal-blue, sage, purple |
 | `'figma'` | Figma / design-tool palette — indigo, cyan, emerald, rose-pink |
 | `'vega'` | Vega / Vega-Lite categorical palette — steel-blue, orange, teal, crimson |
+| `'mono-blue'` | Monochrome blue — all four node types use blue-family shades |
+| `'mono-green'` | Monochrome green — all four node types use green-family shades |
+| `'mono-purple'` | Monochrome purple — all four node types use purple-family shades |
+| `'mono-orange'` | Monochrome orange — all four node types use orange-family shades |
 | `string[]` | 4-element hex array mapped to `[process, decision, terminal, io]` |
 
 ```typescript
@@ -360,8 +363,8 @@ fig({ figure: 'flow', nodes, edges, palette: 'antv' });
 // draw.io palette with dark background
 fig({ figure: 'flow', nodes, edges, theme: 'dark', palette: 'drawio' });
 
-// Notion block colors
-fig({ figure: 'flow', nodes, edges, palette: 'notion' });
+// Monochrome blue
+fig({ figure: 'flow', nodes, edges, palette: 'mono-blue' });
 
 // Custom hex palette
 fig({ figure: 'flow', nodes, edges, palette: ['#e64980', '#ae3ec9', '#7048e8', '#1098ad'] });

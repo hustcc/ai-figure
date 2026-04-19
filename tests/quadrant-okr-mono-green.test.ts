@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('quadrant chart — OKR initiatives: strategic value vs effort, notion palette', () => {
+it('quadrant chart — OKR initiatives: strategic value vs effort, mono-green palette', () => {
   const svg = fig({
     figure: 'quadrant',
     xAxis: { label: '投入成本', min: '低', max: '高' },
@@ -18,7 +18,7 @@ it('quadrant chart — OKR initiatives: strategic value vs effort, notion palett
       { id: 'o7', label: '内容生产',     x: 0.18, y: 0.28 },
       { id: 'o8', label: '广告投放',     x: 0.65, y: 0.30 },
     ],
-    palette: 'notion',
+    palette: 'mono-green',
   });
-  matchSvgSnapshot('quadrant-okr-notion', svg);
+  matchSvgSnapshot('quadrant-okr-mono-green', svg);
 });

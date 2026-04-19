@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { fig } from '../src/index';
 import { matchSvgSnapshot } from './helpers';
 
-it('arch diagram — ML platform, notion palette, TB direction', () => {
+it('arch diagram — ML platform, mono-blue palette, TB direction', () => {
   const svg = fig({
     figure: 'arch',
     layers: [
@@ -37,8 +37,8 @@ it('arch diagram — ML platform, notion palette, TB direction', () => {
         ],
       },
     ],
-    palette: 'notion',
+    palette: 'mono-blue',
     direction: 'TB',
   });
-  matchSvgSnapshot('arch-ml-platform-notion', svg);
+  matchSvgSnapshot('arch-ml-platform-mono-blue', svg);
 });

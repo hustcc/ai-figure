@@ -18,9 +18,12 @@ export type ThemeType = 'light' | 'dark';
  * - `'default'` — built-in multi-hue palette: process=blue, decision=amber, terminal=green, io=purple
  * - `'antv'` — AntV G2 categorical palette (cornflower-blue, orange, teal, violet)
  * - `'drawio'` — draw.io / diagrams.net shape palette (sky-blue, amber, sage, red)
- * - `'notion'` — Notion editorial palette (orange process, teal-blue decision, sage terminal, purple io)
  * - `'figma'` — Figma / design-tool palette (indigo process, cyan decision, emerald terminal, rose io)
  * - `'vega'` — Vega / Vega-Lite categorical palette (steel-blue process, orange decision, teal terminal, crimson io)
+ * - `'mono-blue'` — four shades of blue; all node types share the blue hue family
+ * - `'mono-green'` — four shades of green; all node types share the green hue family
+ * - `'mono-purple'` — four shades of purple; all node types share the purple hue family
+ * - `'mono-orange'` — four shades of orange; all node types share the orange hue family
  * - Custom 4-element hex array `[process, decision, terminal, io]`
  */
 export type PaletteType = string | string[];
