@@ -14,10 +14,17 @@ const PAD_BOTTOM = 24;   // bottom margin
 const LABEL_PAD  = 8;    // left padding inside label column
 const INDENT     = 14;   // indent for grouped tasks inside label column
 
-const MILESTONE_HALF = 7; // half-size of the milestone diamond
+const MILESTONE_HALF     = 7;    // half-size of the milestone diamond
+const MILESTONE_Y_RATIO  = 0.68; // vertical position of milestone diamond in header (below tick labels)
 
 // Total SVG width (label column + plot + right margin)
 const SVG_W = LABEL_W + PLOT_W + PAD_RIGHT; // 804 px
+
+// Milliseconds per day — used when computing date ranges and padding
+const MS_PER_DAY = 86_400_000;
+
+// Fraction of total date range added as visual padding on each side of the chart
+const CHART_PADDING_RATIO = 0.04;
 
 // Node types cycled by task index for automatic bar color assignment
 const BAR_NODE_TYPES: NodeType[] = ['process', 'terminal', 'decision', 'io'];
@@ -43,7 +50,7 @@ function buildTicks(
   minDate: Date,
   maxDate: Date,
 ): { dates: Date[]; fmt: (d: Date) => string } {
-  const totalDays = (maxDate.getTime() - minDate.getTime()) / 86_400_000;
+  const totalDays = (maxDate.getTime() - minDate.getTime()) / MS_PER_DAY;
 
   if (totalDays <= 63) {
     // Weekly ticks — align to Monday
@@ -151,7 +158,7 @@ export function createGanttChart(options: GanttChartOptions): string {
   // never touch the plot edges.
   const rawMin   = Math.min(...allDates.map(d => d.getTime()));
   const rawMax   = Math.max(...allDates.map(d => d.getTime()));
-  const padMs    = Math.max((rawMax - rawMin) * 0.04, 86_400_000 * 2);
+  const padMs    = Math.max((rawMax - rawMin) * CHART_PADDING_RATIO, MS_PER_DAY * 2);
   const minTime  = rawMin - padMs;
   const maxTime  = rawMax + padMs;
   const totalMs  = maxTime - minTime;
@@ -340,7 +347,7 @@ export function createGanttChart(options: GanttChartOptions): string {
 
     // Diamond in the lower portion of the header (clear of tick labels)
     const half = MILESTONE_HALF;
-    const my   = Math.round(HEADER_H * 0.68); // ~68 % down — below tick label text
+    const my   = Math.round(HEADER_H * MILESTONE_Y_RATIO);
     parts.push(
       `<polygon ` +
         `points="${mx},${my - half} ${mx + half},${my} ${mx},${my + half} ${mx - half},${my}" ` +
