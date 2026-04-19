@@ -199,7 +199,10 @@ export function createSequenceDiagram(options: SequenceDiagramOptions): string {
         const labelMidY = msgY + SELF_LOOP_H / 2;
         parts.push(
           `<rect x="${labelX}" y="${labelMidY - labelH / 2}" ` +
-            `width="${labelW}" height="${labelH}" fill="${theme.background || 'white'}" rx="3" opacity="0.9"/>`, +
+            `width="${labelW}" height="${labelH}" fill="${theme.background || 'white'}" rx="3" opacity="0.9"/>`,
+        );
+        parts.push(
+          `<text x="${labelX + labelW / 2}" y="${labelMidY}" ` +
             `text-anchor="middle" dominant-baseline="middle" ` +
             `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFontSize}" ` +
             `fill="${escapeXml(arrowColor)}">${escapeXml(msg.label)}</text>`,
