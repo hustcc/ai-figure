@@ -9518,10 +9518,7 @@ function figDispatch(options) {
     }
   }
 }
-function figmd(markdown) {
-  return fig(markdown);
-}
 
-export { fig, figmd, parseFigmd };
+export { fig };
 //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

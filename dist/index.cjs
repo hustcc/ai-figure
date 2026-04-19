@@ -9520,12 +9520,7 @@ function figDispatch(options) {
     }
   }
 }
-function figmd(markdown) {
-  return fig(markdown);
-}
 
 exports.fig = fig;
-exports.figmd = figmd;
-exports.parseFigmd = parseFigmd;
 //# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map

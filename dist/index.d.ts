@@ -242,39 +242,6 @@ type FigOptions = ({
 } & GanttChartOptions);
 
 /**
- * Parse a Mermaid-like markdown diagram definition and return a {@link FigOptions} object.
- *
- * The first non-empty line is the **header**: `<type> [direction] [theme] [palette]`
- *
- * - `type`      — one of `flow`, `tree`, `arch`, `sequence`, `quadrant`, `gantt`
- * - `direction` — `TB` (top→bottom) or `LR` (left→right); applies to flow / tree / arch
- * - `theme`     — `light` (default) or `dark`
- * - `palette`   — any named palette: `default`, `antv`, `drawio`, `figma`, `vega`,
- *                 `mono-blue`, `mono-green`, `mono-purple`, `mono-orange`
- *
- * Lines starting with `%%` are treated as comments and ignored.
- * `title:` and `subtitle:` meta-lines are supported in all diagram types.
- *
- * Throws if the input is empty or the figure type is not recognised.
- * For a fault-tolerant render path that never throws (useful with streaming AI output),
- * use `fig(markdown)` instead.
- *
- * @example
- * ```
- * parseFigmd(`
- *   flow LR antv
- *   title: CI Pipeline
- *   code[Write Code] --> test{Tests Pass?}
- *   test -->|yes| build[Build Image]
- *   test -->|no| fix((Fix Issues))
- *   build --> deploy[/Deploy/]
- *   group Pipeline: code, test, build, deploy
- * `);
- * ```
- */
-declare function parseFigmd(markdown: string): FigOptions;
-
-/**
  * Generate an SVG diagram from either a Mermaid-like markdown string or a JSON config object.
  *
  * **String input** — treated as a markdown diagram definition (see below).
@@ -309,12 +276,5 @@ declare function parseFigmd(markdown: string): FigOptions;
  * ```
  */
 declare function fig(input: string | FigOptions): string;
-/**
- * Parse a Mermaid-like markdown diagram definition and render it as an SVG string.
- *
- * Equivalent to `fig(markdown)`. Provided as a named convenience export.
- * For streaming / fault-tolerant rendering prefer `fig(markdown)` directly.
- */
-declare function figmd(markdown: string): string;
 
-export { type ArchDiagramOptions, type ArchLayer, type ArchNode, type Direction, type FigOptions, type FlowChartOptions, type FlowEdge, type FlowGroup, type FlowNode, type GanttChartOptions, type GanttMilestone, type GanttTask, type NodeType, type QuadrantChartOptions, type QuadrantPoint, type SeqMessage, type SequenceDiagramOptions, type ThemeType, type TreeDiagramOptions, type TreeNode, fig, figmd, parseFigmd };
+export { type ArchDiagramOptions, type ArchLayer, type ArchNode, type Direction, type FigOptions, type FlowChartOptions, type FlowEdge, type FlowGroup, type FlowNode, type GanttChartOptions, type GanttMilestone, type GanttTask, type NodeType, type QuadrantChartOptions, type QuadrantPoint, type SeqMessage, type SequenceDiagramOptions, type ThemeType, type TreeDiagramOptions, type TreeNode, fig };
