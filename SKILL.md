@@ -53,17 +53,21 @@ const svg = fig(config);
 {
   "figure": "flow",
   "nodes": [
-    { "id": "req",    "label": "HTTP Request",   "type": "io"       },
-    { "id": "auth",   "label": "Authenticate",   "type": "process"  },
-    { "id": "check",  "label": "Authorized?",    "type": "decision" },
-    { "id": "handle", "label": "Handle Request", "type": "process"  },
-    { "id": "deny",   "label": "403 Forbidden",  "type": "terminal" }
+    { "id": "start",  "label": "Start",           "type": "terminal" },
+    { "id": "req",    "label": "HTTP Request",     "type": "io"       },
+    { "id": "auth",   "label": "Authenticate",     "type": "process"  },
+    { "id": "check",  "label": "Authorized?",      "type": "decision" },
+    { "id": "handle", "label": "Handle Request",   "type": "process"  },
+    { "id": "ok",     "label": "200 OK",           "type": "terminal" },
+    { "id": "deny",   "label": "403 Forbidden",    "type": "terminal" }
   ],
   "edges": [
-    { "from": "req",   "to": "auth"                   },
-    { "from": "auth",  "to": "check"                  },
-    { "from": "check", "to": "handle", "label": "Yes" },
-    { "from": "check", "to": "deny",   "label": "No"  }
+    { "from": "start",  "to": "req"                    },
+    { "from": "req",    "to": "auth"                   },
+    { "from": "auth",   "to": "check"                  },
+    { "from": "check",  "to": "handle", "label": "Yes" },
+    { "from": "check",  "to": "deny",   "label": "No"  },
+    { "from": "handle", "to": "ok"                     }
   ],
   "groups": [{ "id": "g1", "label": "Auth Layer", "nodes": ["auth", "check"] }],
   "direction": "TB"
@@ -73,7 +77,7 @@ const svg = fig(config);
 **Node types** — `process` (rectangle, default), `decision` (diamond), `terminal` (pill — start/end only), `io` (parallelogram).
 
 **Key rules:**
-- Always start/end with `type: "terminal"` nodes.
+- Use `type: "terminal"` for start and end nodes; all branches must terminate at a terminal node.
 - Label `decision` outgoing edges (`"Yes"` / `"No"`).
 - Use `"LR"` direction for pipelines, `"TB"` for trees/branches.
 - Node labels ≤ 20 chars fit without wrapping.
