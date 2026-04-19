@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="344" viewBox="0 0 480 344" id="py-1">
+<text x="240" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Content Hierarchy</text>
+<g class="pyramid-diagram" transform="translate(0,48)">
+<polygon points="224,32 256,32 317.3333333333333,92 162.66666666666669,92" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
+<text x="240" y="57" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#e67700">Strategy</text>
+<text x="240" y="74" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#e67700" opacity="0.75">mission &amp; vision</text>
+<polygon points="162.66666666666669,92 317.3333333333333,92 378.66666666666663,152 101.33333333333334,152" fill="#ebfbee" stroke="#51cf66" stroke-width="1"/>
+<text x="240" y="117" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#2f9e44">Goals</text>
+<text x="240" y="134" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#2f9e44" opacity="0.75">OKRs &amp; KPIs</text>
+<polygon points="101.33333333333334,152 378.66666666666663,152 440,212 40,212" fill="#fdf4ff" stroke="#cc5de8" stroke-width="1"/>
+<text x="240" y="177" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#862e9c">Initiatives</text>
+<text x="240" y="194" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#862e9c" opacity="0.75">projects &amp; epics</text>
+<polygon points="40,212 440,212 440,272 40,272" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
+<text x="240" y="237" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#e67700">Tasks</text>
+<text x="240" y="254" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#e67700" opacity="0.75">day-to-day work</text>
+</g>
+</svg>

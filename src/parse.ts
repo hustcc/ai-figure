@@ -9,6 +9,18 @@ import type {
   QuadrantPoint,
   GanttTask,
   GanttMilestone,
+  StateNode,
+  StateTransition,
+  ErEntity,
+  ErField,
+  ErRelation,
+  TimelineEvent,
+  SwimlaneNode,
+  SwimlaneEdge,
+  NestedRing,
+  VennSet,
+  VennIntersection,
+  PyramidLayer,
   Direction,
   ThemeType,
   PaletteType,
@@ -24,7 +36,8 @@ import type {
  *
  * The first non-empty line is the **header**: `<type> [direction] [theme] [palette]`
  *
- * - `type`      — one of `flow`, `tree`, `arch`, `sequence`, `quadrant`, `gantt`
+ * - `type`      — one of `flow`, `tree`, `arch`, `sequence`, `quadrant`, `gantt`,
+ *                 `state`, `er`, `timeline`, `swimlane`, `nested`, `venn`, `pyramid`
  * - `direction` — `TB` (top→bottom) or `LR` (left→right); applies to flow / tree / arch
  * - `theme`     — `light` (default) or `dark`
  * - `palette`   — any named palette: `default`, `antv`, `drawio`, `figma`, `vega`,
@@ -65,6 +78,7 @@ export function parseFigmd(markdown: string): FigOptions {
   let direction: Direction | undefined;
   let theme: ThemeType | undefined;
   let palette: PaletteType | undefined;
+  let pyramidOrientation: 'pyramid' | 'funnel' | undefined;
 
   for (let j = 1; j < headerTokens.length; j++) {
     const t = headerTokens[j];
@@ -72,6 +86,8 @@ export function parseFigmd(markdown: string): FigOptions {
       direction = t as Direction;
     } else if (t === 'light' || t === 'dark') {
       theme = t as ThemeType;
+    } else if (t === 'funnel' && figureType === 'pyramid') {
+      pyramidOrientation = 'funnel';
     } else {
       palette = t;
     }
@@ -92,10 +108,25 @@ export function parseFigmd(markdown: string): FigOptions {
       return parseQuadrant(bodyLines, theme, palette);
     case 'gantt':
       return parseGantt(bodyLines, theme, palette);
+    case 'state':
+      return parseState(bodyLines, theme, palette);
+    case 'er':
+      return parseEr(bodyLines, theme, palette);
+    case 'timeline':
+      return parseTimeline(bodyLines, theme, palette);
+    case 'swimlane':
+      return parseSwimlane(bodyLines, theme, palette);
+    case 'nested':
+      return parseNested(bodyLines, theme, palette);
+    case 'venn':
+      return parseVenn(bodyLines, theme, palette);
+    case 'pyramid':
+      return parsePyramid(bodyLines, theme, palette, pyramidOrientation);
     default:
       throw new Error(
         `figmd: unknown figure type "${figureType}". ` +
-          `Expected one of: flow, tree, arch, sequence, quadrant, gantt`,
+          `Expected one of: flow, tree, arch, sequence, quadrant, gantt, ` +
+          `state, er, timeline, swimlane, nested, venn, pyramid`,
       );
   }
 }
@@ -773,3 +804,696 @@ function parseGantt(
   };
 }
 
+// ---------------------------------------------------------------------------
+// State parser
+// ---------------------------------------------------------------------------
+
+/**
+ * Parse state machine body lines.
+ *
+ * - `id[Label]`       — normal state (rounded rectangle)
+ * - `id((Label))`     — terminal / end state (ringed circle)
+ * - `[*]`             — start pseudo-state
+ * - `id --> id2: label` — transition with optional label
+ * - `accent: id`      — mark a state as the accent/focal state
+ *
+ * @example
+ * ```
+ * state
+ * title: Order Status
+ * idle[Idle]
+ * processing[Processing]
+ * done((Done))
+ * error[Error] accent
+ * [*] --> idle
+ * idle --> processing: order placed
+ * processing --> done: shipped
+ * processing --> error: payment failed
+ * error --> idle: retry
+ * ```
+ */
+function parseState(
+  lines: string[],
+  theme?: ThemeType,
+  palette?: PaletteType,
+): FigOptions {
+  const { title, subtitle, rest } = extractMeta(lines);
+  const nodeMap = new Map<string, StateNode>();
+  const transitions: StateTransition[] = [];
+  let startCounter = 0;
+  let endCounter   = 0;
+
+  const ensureState = (expr: string): string => {
+    const e = expr.trim();
+
+    // [*] — UML pseudo-state (start or end determined by usage, default start)
+    if (e === '[*]') {
+      const pid = `__start_${startCounter++}`;
+      if (!nodeMap.has(pid)) {
+        nodeMap.set(pid, { id: pid, label: '', type: 'start' });
+      }
+      return pid;
+    }
+
+    // terminal: id((label))
+    const termMatch = e.match(/^([\w-]+)\(\((.+)\)\)$/s);
+    if (termMatch) {
+      const id = termMatch[1];
+      if (!nodeMap.has(id)) {
+        nodeMap.set(id, { id, label: termMatch[2], type: 'end' });
+      }
+      return id;
+    }
+
+    // process: id[label] or bare id
+    const { id, label } = parseNodeExpr(e);
+    if (!nodeMap.has(id)) {
+      nodeMap.set(id, { id, label, type: 'state' });
+    } else if (isExplicitNodeExpr(e, id)) {
+      const existing = nodeMap.get(id)!;
+      if (existing.label === id) existing.label = label;
+    }
+    return id;
+  };
+
+  for (const line of rest) {
+    // accent: id  — mark node as accent
+    if (line.startsWith('accent:')) {
+      const id = line.slice('accent:'.length).trim();
+      const node = nodeMap.get(id);
+      if (node) node.accent = true;
+      continue;
+    }
+
+    // Transition with or without label: A --> B[:label] or A --> B: label
+    if (line.includes('-->')) {
+      const parts = splitOnArrow(line, '-->');
+      if (parts) {
+        const [left, rightRaw] = parts;
+        const colonIdx = rightRaw.indexOf(':');
+        let to = rightRaw;
+        let label: string | undefined;
+        if (colonIdx !== -1) {
+          to    = rightRaw.slice(0, colonIdx).trim();
+          label = rightRaw.slice(colonIdx + 1).trim();
+        }
+        const fromId = ensureState(left);
+        const toId   = ensureState(to);
+        transitions.push(label !== undefined ? { from: fromId, to: toId, label } : { from: fromId, to: toId });
+        continue;
+      }
+    }
+
+    // Inline accent flag: id[Label] accent
+    if (line.endsWith(' accent')) {
+      const expr = line.slice(0, -' accent'.length).trim();
+      const id   = ensureState(expr);
+      const node = nodeMap.get(id);
+      if (node) node.accent = true;
+      continue;
+    }
+
+    // Standalone node definition
+    ensureState(line);
+  }
+
+  return {
+    figure: 'state',
+    nodes: [...nodeMap.values()],
+    transitions,
+    ...(theme !== undefined ? { theme } : {}),
+    ...(palette !== undefined ? { palette } : {}),
+    ...(title !== undefined ? { title } : {}),
+    ...(subtitle !== undefined ? { subtitle } : {}),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// ER parser
+// ---------------------------------------------------------------------------
+
+/**
+ * Parse ER diagram body lines.
+ *
+ * - `entity id[Label]`     — declare an entity
+ * - `  name pk: type`      — field inside an entity, PK flag
+ * - `  name fk: type`      — field, FK flag
+ * - `  name: type`         — plain field with type
+ * - `  name`               — field without type
+ * - `A --> B: label`       — relationship (with optional label and cardinality)
+ * - `A ||--o{ B: label`    — crow's foot notation for cardinality
+ * - `accent: id`           — mark entity as accent
+ *
+ * @example
+ * ```
+ * er
+ * title: Blog Schema
+ * entity User[User]
+ *   id pk: uuid
+ *   email: text
+ *   name: text
+ * entity Post[Post]
+ *   id pk: uuid
+ *   author_id fk: uuid
+ *   title: text
+ * User --> Post: writes
+ * ```
+ */
+function parseEr(
+  lines: string[],
+  theme?: ThemeType,
+  palette?: PaletteType,
+): FigOptions {
+  const { title, subtitle, rest } = extractMeta(lines);
+  const entities: ErEntity[] = [];
+  const relations: ErRelation[] = [];
+  let currentEntity: ErEntity | null = null;
+
+  // Parse cardinality from crow's foot shorthand like "||--o{" or "1..N"
+  function parseCard(s: string): string {
+    const trim = s.trim();
+    if (trim === '||' || trim === '1') return '1';
+    if (trim === 'o{' || trim === 'N' || trim === 'n') return 'N';
+    if (trim === 'o|' || trim === '0..1') return '0..1';
+    if (trim === '}|' || trim === '}o' || trim === '1..*') return '1..*';
+    return trim;
+  }
+
+  for (const line of rest) {
+    // accent: id — use startsWith + slice to avoid backtracking
+    if (line.startsWith('accent:')) {
+      const id = line.slice('accent:'.length).trim();
+      const entity = entities.find((e) => e.id === id);
+      if (entity) entity.accent = true;
+      continue;
+    }
+
+    // entity declaration: entity id[Label]  or  entity id
+    if (line.startsWith('entity ')) {
+      const expr = line.slice('entity '.length).trim();
+      const { id, label } = parseNodeExpr(expr);
+      currentEntity = { id, label, fields: [] };
+      entities.push(currentEntity);
+      continue;
+    }
+
+    // Relationship line using crow's foot: A ||--o{ B: label
+    // Detect by looking for -- between two non-space sequences
+    const cfIdx = line.indexOf('--');
+    if (cfIdx !== -1) {
+      const beforeDash = line.slice(0, cfIdx).trim();
+      const afterDash  = line.slice(cfIdx + 2).trim();
+      // afterDash should start with cardinality then entity id
+      // Split on first whitespace to get cardinality token
+      const spIdx = afterDash.indexOf(' ');
+      if (spIdx !== -1 && beforeDash) {
+        const fromParts = beforeDash.split(/\s+/);
+        const fromId = fromParts[0];
+        const fromCard = fromParts.length > 1 ? parseCard(fromParts[fromParts.length - 1]) : undefined;
+        const toToken = afterDash.slice(0, spIdx);
+        const toCard = parseCard(toToken);
+        const rest2  = afterDash.slice(spIdx).trim();
+        const colonIdx2 = rest2.indexOf(':');
+        let toId: string;
+        let label: string | undefined;
+        if (colonIdx2 !== -1) {
+          toId  = rest2.slice(0, colonIdx2).trim();
+          label = rest2.slice(colonIdx2 + 1).trim();
+        } else {
+          toId = rest2;
+        }
+        if (fromId && toId) {
+          relations.push({
+            from: fromId,
+            to: toId,
+            ...(label ? { label } : {}),
+            ...(fromCard ? { fromCard } : {}),
+            ...(toCard  ? { toCard  } : {}),
+          });
+          currentEntity = null;
+          continue;
+        }
+      }
+    }
+
+    // Simple relationship: A --> B: label or A --> B
+    if (line.includes('-->')) {
+      const parts = splitOnArrow(line, '-->');
+      if (parts) {
+        const [from, rightRaw] = parts;
+        const colonIdx = rightRaw.indexOf(':');
+        if (colonIdx !== -1) {
+          relations.push({
+            from,
+            to: rightRaw.slice(0, colonIdx).trim(),
+            label: rightRaw.slice(colonIdx + 1).trim(),
+          });
+        } else {
+          relations.push({ from, to: rightRaw });
+        }
+        currentEntity = null;
+        continue;
+      }
+    }
+
+    // Field inside the current entity
+    if (currentEntity) {
+      // name [pk|fk] [: type]
+      // Use startsWith-based parsing
+      let rest3 = line;
+      let key: ErField['key'];
+      let type: string | undefined;
+
+      // Extract type after ':'
+      const colonIdx = rest3.indexOf(':');
+      if (colonIdx !== -1) {
+        type  = rest3.slice(colonIdx + 1).trim();
+        rest3 = rest3.slice(0, colonIdx).trim();
+      }
+
+      // Check for key markers
+      const tokens = rest3.split(/\s+/);
+      const name   = tokens[0];
+      for (let ti = 1; ti < tokens.length; ti++) {
+        const tok = tokens[ti].toLowerCase();
+        if (tok === 'pk') { key = 'pk'; break; }
+        if (tok === 'fk') { key = 'fk'; break; }
+      }
+
+      if (name) {
+        currentEntity.fields.push({
+          name,
+          ...(type ? { type } : {}),
+          ...(key  ? { key  } : {}),
+        });
+      }
+    }
+  }
+
+  return {
+    figure: 'er',
+    entities,
+    relations,
+    ...(theme !== undefined ? { theme } : {}),
+    ...(palette !== undefined ? { palette } : {}),
+    ...(title !== undefined ? { title } : {}),
+    ...(subtitle !== undefined ? { subtitle } : {}),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Timeline parser
+// ---------------------------------------------------------------------------
+
+/**
+ * Parse timeline body lines.
+ *
+ * Each line is either:
+ * - `yyyy-mm-dd: label`              — regular event
+ * - `yyyy-mm-dd: label milestone`    — major milestone (larger accent dot)
+ *
+ * @example
+ * ```
+ * timeline
+ * title: Product History
+ * 2020-01-01: v1.0 Launch milestone
+ * 2021-06-15: v2.0 Redesign
+ * 2022-11-01: v3.0 Mobile milestone
+ * 2023-09-20: v4.0 AI Features
+ * ```
+ */
+function parseTimeline(
+  lines: string[],
+  theme?: ThemeType,
+  palette?: PaletteType,
+): FigOptions {
+  const { title, subtitle, rest } = extractMeta(lines);
+  const events: TimelineEvent[] = [];
+  const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+  for (const line of rest) {
+    // date: label [milestone]
+    const colonIdx = line.indexOf(':');
+    if (colonIdx === -1) continue;
+    const date = line.slice(0, colonIdx).trim();
+    if (!DATE_RE.test(date)) continue;
+    let label = line.slice(colonIdx + 1).trim();
+
+    let milestone = false;
+    if (label.endsWith(' milestone')) {
+      milestone = true;
+      label = label.slice(0, -' milestone'.length).trim();
+    }
+
+    events.push({
+      id: `ev${events.length}`,
+      label,
+      date,
+      ...(milestone ? { milestone: true } : {}),
+    });
+  }
+
+  return {
+    figure: 'timeline',
+    events,
+    ...(theme !== undefined ? { theme } : {}),
+    ...(palette !== undefined ? { palette } : {}),
+    ...(title !== undefined ? { title } : {}),
+    ...(subtitle !== undefined ? { subtitle } : {}),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Swimlane parser
+// ---------------------------------------------------------------------------
+
+/**
+ * Parse swimlane body lines.
+ *
+ * - `lanes: Lane A, Lane B, Lane C`        — declare lane labels (required)
+ * - `LaneLabel: id[Node Label]`             — declare a node inside a lane
+ * - `A --> B: label`                        — edge between nodes
+ *
+ * @example
+ * ```
+ * swimlane
+ * title: Order Flow
+ * lanes: Customer, Warehouse, Shipping
+ * Customer: order[Place Order]
+ * Customer: pay[Confirm Payment]
+ * Warehouse: receive[Receive Order]
+ * Warehouse: pack[Pack Items]
+ * Shipping: ship[Ship Package]
+ * order --> pay
+ * pay --> receive
+ * receive --> pack
+ * pack --> ship
+ * ```
+ */
+function parseSwimlane(
+  lines: string[],
+  theme?: ThemeType,
+  palette?: PaletteType,
+): FigOptions {
+  const { title, subtitle, rest } = extractMeta(lines);
+  const lanesList: string[] = [];
+  const nodes: SwimlaneNode[] = [];
+  const edges: SwimlaneEdge[] = [];
+  const nodeMap = new Map<string, SwimlaneNode>();
+
+  for (const line of rest) {
+    // lanes: Lane A, Lane B — use startsWith + slice
+    if (line.startsWith('lanes:')) {
+      const raw = line.slice('lanes:'.length).split(',').map((l) => l.trim()).filter(Boolean);
+      lanesList.push(...raw);
+      continue;
+    }
+
+    // Edge: A --> B[:label]
+    if (line.includes('-->')) {
+      const parts = splitOnArrow(line, '-->');
+      if (parts) {
+        const [from, rightRaw] = parts;
+        const colonIdx = rightRaw.indexOf(':');
+        let to = rightRaw;
+        let label: string | undefined;
+        if (colonIdx !== -1) {
+          to    = rightRaw.slice(0, colonIdx).trim();
+          label = rightRaw.slice(colonIdx + 1).trim();
+        }
+        edges.push(label !== undefined ? { from, to, label } : { from, to });
+        continue;
+      }
+    }
+
+    // Node: LaneLabel: id[Node Label]
+    // Find the FIRST colon to split lane from node expression
+    const colonIdx = line.indexOf(':');
+    if (colonIdx !== -1) {
+      const laneLabel = line.slice(0, colonIdx).trim();
+      const nodeExpr  = line.slice(colonIdx + 1).trim();
+      if (nodeExpr) {
+        const { id, label, type } = parseNodeExpr(nodeExpr);
+        const snode: SwimlaneNode = { id, label, lane: laneLabel, type };
+        if (!nodeMap.has(id)) {
+          nodeMap.set(id, snode);
+          nodes.push(snode);
+        }
+      }
+    }
+  }
+
+  return {
+    figure: 'swimlane',
+    lanes: lanesList,
+    nodes,
+    edges,
+    ...(theme !== undefined ? { theme } : {}),
+    ...(palette !== undefined ? { palette } : {}),
+    ...(title !== undefined ? { title } : {}),
+    ...(subtitle !== undefined ? { subtitle } : {}),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Nested parser
+// ---------------------------------------------------------------------------
+
+/**
+ * Parse nested containment body lines.
+ *
+ * Each non-blank line defines one ring from outermost (first) to innermost (last).
+ * Format: `Label` or `Label: sublabel` or `Label accent`.
+ *
+ * @example
+ * ```
+ * nested
+ * title: Trust Zones
+ * Internet
+ * VPC: your cloud network
+ * Subnet
+ * Service: critical path accent
+ * ```
+ */
+function parseNested(
+  lines: string[],
+  theme?: ThemeType,
+  palette?: PaletteType,
+): FigOptions {
+  const { title, subtitle, rest } = extractMeta(lines);
+  const rings: NestedRing[] = [];
+
+  for (const line of rest) {
+    let raw = line;
+    let accent = false;
+
+    if (raw.endsWith(' accent')) {
+      accent = true;
+      raw = raw.slice(0, -' accent'.length).trim();
+    }
+
+    const colonIdx = raw.indexOf(':');
+    let label: string;
+    let sublabel: string | undefined;
+    if (colonIdx !== -1) {
+      label    = raw.slice(0, colonIdx).trim();
+      sublabel = raw.slice(colonIdx + 1).trim();
+    } else {
+      label = raw.trim();
+    }
+
+    if (label) {
+      rings.push({
+        label,
+        ...(sublabel ? { sublabel } : {}),
+        ...(accent ? { accent: true } : {}),
+      });
+    }
+  }
+
+  return {
+    figure: 'nested',
+    rings,
+    ...(theme !== undefined ? { theme } : {}),
+    ...(palette !== undefined ? { palette } : {}),
+    ...(title !== undefined ? { title } : {}),
+    ...(subtitle !== undefined ? { subtitle } : {}),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Venn parser
+// ---------------------------------------------------------------------------
+
+/**
+ * Parse Venn diagram body lines.
+ *
+ * - `sets: A, B, C`                      — declare sets (2 or 3)
+ * - `A & B: Overlap Label`               — intersection label
+ * - `A & B: Overlap Label accent`        — accent (focal) intersection
+ *
+ * @example
+ * ```
+ * venn
+ * title: Product Thinking
+ * sets: Desirable, Feasible, Viable
+ * Desirable & Feasible: Useful
+ * Feasible & Viable: Possible
+ * Desirable & Viable: Lovable
+ * Desirable & Feasible & Viable: Sweet Spot accent
+ * ```
+ */
+function parseVenn(
+  lines: string[],
+  theme?: ThemeType,
+  palette?: PaletteType,
+): FigOptions {
+  const { title, subtitle, rest } = extractMeta(lines);
+  const sets: VennSet[] = [];
+  const intersections: VennIntersection[] = [];
+
+  for (const line of rest) {
+    // sets: A, B, C — use startsWith + slice
+    if (line.startsWith('sets:')) {
+      const raw = line.slice('sets:'.length).split(',').map((s) => s.trim()).filter(Boolean);
+      for (const name of raw) {
+        const id = name.toLowerCase().replace(/\s+/g, '-');
+        sets.push({ id, label: name });
+      }
+      continue;
+    }
+
+    // Intersection: "A & B: label [accent]"
+    // Check for '&' before ':'
+    const ampIdx = line.indexOf('&');
+    const colIdx = line.indexOf(':');
+    if (ampIdx !== -1 && colIdx !== -1 && ampIdx < colIdx) {
+      const setsPart  = line.slice(0, colIdx).trim();
+      let labelPart   = line.slice(colIdx + 1).trim();
+      let accent = false;
+
+      if (labelPart.endsWith(' accent')) {
+        accent = true;
+        labelPart = labelPart.slice(0, -' accent'.length).trim();
+      }
+
+      const setNames = setsPart.split('&').map((s) => s.trim()).filter(Boolean);
+      const setIds   = setNames.map((name) => {
+        // Try to match against declared sets by label
+        const found = sets.find((s) => s.label.toLowerCase() === name.toLowerCase());
+        return found ? found.id : name.toLowerCase().replace(/\s+/g, '-');
+      });
+
+      if (setIds.length >= 2 && labelPart) {
+        intersections.push({
+          sets: setIds,
+          label: labelPart,
+          ...(accent ? { accent: true } : {}),
+        });
+      }
+      continue;
+    }
+  }
+
+  return {
+    figure: 'venn',
+    sets,
+    ...(intersections.length > 0 ? { intersections } : {}),
+    ...(theme !== undefined ? { theme } : {}),
+    ...(palette !== undefined ? { palette } : {}),
+    ...(title !== undefined ? { title } : {}),
+    ...(subtitle !== undefined ? { subtitle } : {}),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Pyramid parser
+// ---------------------------------------------------------------------------
+
+/**
+ * Parse pyramid / funnel body lines.
+ *
+ * Each line defines one layer from top to bottom. Format:
+ * `Label` or `Label: sublabel` or `Label: sublabel (value%)` or `Label accent`.
+ *
+ * The header token may include `funnel` to set orientation.
+ * (The caller strips header tokens before passing lines here; orientation
+ *  is determined by whether the header contained `funnel` — see parseFigmd.)
+ *
+ * @example
+ * ```
+ * pyramid
+ * title: Content Hierarchy
+ * Leadership
+ * Management: directors & VPs
+ * Individual Contributors: ICs
+ * Contractors accent
+ * ```
+ *
+ * ```
+ * pyramid funnel
+ * title: Conversion
+ * Visitors: 100%
+ * Signups: 42%
+ * Active: 18%
+ * Paying accent
+ * ```
+ */
+function parsePyramid(
+  lines: string[],
+  theme?: ThemeType,
+  palette?: PaletteType,
+  orientation?: 'pyramid' | 'funnel',
+): FigOptions {
+  const { title, subtitle, rest } = extractMeta(lines);
+  const layers: PyramidLayer[] = [];
+
+  for (const line of rest) {
+    let raw = line;
+    let accent = false;
+
+    if (raw.endsWith(' accent')) {
+      accent = true;
+      raw = raw.slice(0, -' accent'.length).trim();
+    }
+
+    let label: string;
+    let sublabel: string | undefined;
+    let value: number | undefined;
+
+    const colonIdx = raw.indexOf(':');
+    if (colonIdx !== -1) {
+      label = raw.slice(0, colonIdx).trim();
+      let sub = raw.slice(colonIdx + 1).trim();
+
+      // Try to extract a trailing percentage like "42%" or "(42%)"
+      const pctMatch = sub.match(/\(?(\d+(?:\.\d+)?)%?\)?$/);
+      if (pctMatch) {
+        value = parseFloat(pctMatch[1]);
+        sub   = sub.slice(0, sub.length - pctMatch[0].length).trim();
+      }
+      if (sub) sublabel = sub;
+    } else {
+      label = raw.trim();
+    }
+
+    if (label) {
+      layers.push({
+        label,
+        ...(sublabel ? { sublabel } : {}),
+        ...(value !== undefined ? { value } : {}),
+        ...(accent ? { accent: true } : {}),
+      });
+    }
+  }
+
+  return {
+    figure: 'pyramid',
+    layers,
+    ...(orientation ? { orientation } : {}),
+    ...(theme !== undefined ? { theme } : {}),
+    ...(palette !== undefined ? { palette } : {}),
+    ...(title !== undefined ? { title } : {}),
+    ...(subtitle !== undefined ? { subtitle } : {}),
+  };
+}

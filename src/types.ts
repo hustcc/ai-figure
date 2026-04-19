@@ -259,6 +259,312 @@ export interface GanttChartOptions {
 }
 
 // ---------------------------------------------------------------------------
+// StateDiagram types
+// ---------------------------------------------------------------------------
+
+/**
+ * Node type in a state machine diagram.
+ * - `'state'`  — a normal state (rounded rectangle)
+ * - `'start'`  — the initial state (filled circle)
+ * - `'end'`    — the terminal / accepting state (ringed circle)
+ */
+export type StateNodeType = 'state' | 'start' | 'end';
+
+/** A single state in a state machine diagram. */
+export interface StateNode {
+  /** Unique identifier. */
+  id: string;
+  /** Text label displayed inside the state box. */
+  label: string;
+  /** Visual shape (default: 'state'). */
+  type?: StateNodeType;
+  /** Highlight this state with the accent color (use for error / happy-path focus; max 1–2). */
+  accent?: boolean;
+}
+
+/** A transition (arrow) between two states. */
+export interface StateTransition {
+  /** ID of the source state. */
+  from: string;
+  /** ID of the target state. */
+  to: string;
+  /** Optional label shown on the arrow — typically `event [guard] / action`. */
+  label?: string;
+}
+
+/** Options passed to {@link createStateDiagram}. */
+export interface StateDiagramOptions {
+  /** States in the machine. */
+  nodes: StateNode[];
+  /** Directed transitions between states. */
+  transitions: StateTransition[];
+  /** Light or dark rendering mode (default: 'light'). */
+  theme?: ThemeType;
+  /** Color palette (default: `'default'`). */
+  palette?: PaletteType;
+  /** Optional chart title. */
+  title?: string;
+  /** Optional subtitle. */
+  subtitle?: string;
+}
+
+// ---------------------------------------------------------------------------
+// ErDiagram types
+// ---------------------------------------------------------------------------
+
+/**
+ * Field key designation in an ER entity.
+ * - `'pk'` — primary key (prefixed with `#`)
+ * - `'fk'` — foreign key (prefixed with `→`)
+ */
+export type ErFieldKey = 'pk' | 'fk';
+
+/** A single field (column) inside an ER entity. */
+export interface ErField {
+  /** Field name. */
+  name: string;
+  /** Optional data type string (e.g. `'uuid'`, `'text'`, `'int'`). */
+  type?: string;
+  /** Optional key designation: `'pk'` or `'fk'`. */
+  key?: ErFieldKey;
+}
+
+/** An entity (table) in an ER diagram. */
+export interface ErEntity {
+  /** Unique identifier. */
+  id: string;
+  /** Entity display name. */
+  label: string;
+  /** Ordered list of fields. */
+  fields: ErField[];
+  /** Highlight this entity with the accent color (use for the aggregate root; max 1). */
+  accent?: boolean;
+}
+
+/** A relationship line between two entities. */
+export interface ErRelation {
+  /** ID of the source entity. */
+  from: string;
+  /** ID of the target entity. */
+  to: string;
+  /** Optional label shown centered on the line (e.g. `'has'`, `'belongs to'`). */
+  label?: string;
+  /** Cardinality annotation at the `from` end (e.g. `'1'`, `'N'`, `'0..1'`, `'1..*'`). */
+  fromCard?: string;
+  /** Cardinality annotation at the `to` end. */
+  toCard?: string;
+}
+
+/** Options passed to {@link createErDiagram}. */
+export interface ErDiagramOptions {
+  /** Entities (tables) in the model. */
+  entities: ErEntity[];
+  /** Relationships between entities. */
+  relations: ErRelation[];
+  /** Light or dark rendering mode (default: 'light'). */
+  theme?: ThemeType;
+  /** Color palette (default: `'default'`). */
+  palette?: PaletteType;
+  /** Optional chart title. */
+  title?: string;
+  /** Optional subtitle. */
+  subtitle?: string;
+}
+
+// ---------------------------------------------------------------------------
+// TimelineDiagram types
+// ---------------------------------------------------------------------------
+
+/** A single event on the timeline. */
+export interface TimelineEvent {
+  /** Unique identifier. */
+  id: string;
+  /** Short label displayed near the event dot. */
+  label: string;
+  /** Event date in `yyyy-mm-dd` format (or any parseable date string). */
+  date: string;
+  /** When true, render as a major milestone (larger, accent-colored dot). */
+  milestone?: boolean;
+}
+
+/** Options passed to {@link createTimelineDiagram}. */
+export interface TimelineDiagramOptions {
+  /** Ordered or unordered list of events (auto-sorted by date). */
+  events: TimelineEvent[];
+  /** Light or dark rendering mode (default: 'light'). */
+  theme?: ThemeType;
+  /** Color palette (default: `'default'`). */
+  palette?: PaletteType;
+  /** Optional chart title. */
+  title?: string;
+  /** Optional subtitle. */
+  subtitle?: string;
+}
+
+// ---------------------------------------------------------------------------
+// SwimlaneDiagram types
+// ---------------------------------------------------------------------------
+
+/** A single node inside a swimlane. */
+export interface SwimlaneNode {
+  /** Unique identifier. */
+  id: string;
+  /** Text label. */
+  label: string;
+  /** ID of the lane this node belongs to. */
+  lane: string;
+  /** Visual shape (default: 'process'). */
+  type?: NodeType;
+}
+
+/** A directed edge between swimlane nodes. */
+export interface SwimlaneEdge {
+  /** ID of the source node. */
+  from: string;
+  /** ID of the target node. */
+  to: string;
+  /** Optional label shown on the edge. */
+  label?: string;
+}
+
+/** Options passed to {@link createSwimlaneDiagram}. */
+export interface SwimlaneDiagramOptions {
+  /**
+   * Lane identifiers in display order. Each string is used as both the lane ID
+   * and its visible label. Alternatively provide `{ id, label }` objects.
+   */
+  lanes: string[];
+  /** Nodes placed inside their respective lanes. */
+  nodes: SwimlaneNode[];
+  /** Directed edges between nodes (may cross lane boundaries). */
+  edges: SwimlaneEdge[];
+  /** Light or dark rendering mode (default: 'light'). */
+  theme?: ThemeType;
+  /** Color palette (default: `'default'`). */
+  palette?: PaletteType;
+  /** Optional chart title. */
+  title?: string;
+  /** Optional subtitle. */
+  subtitle?: string;
+}
+
+// ---------------------------------------------------------------------------
+// NestedDiagram types
+// ---------------------------------------------------------------------------
+
+/** One containment ring in a nested diagram (outermost first). */
+export interface NestedRing {
+  /** Text label shown at the top-left corner of the ring. */
+  label: string;
+  /** Optional sublabel shown below the label (e.g. a short description). */
+  sublabel?: string;
+  /** Highlight this ring with the accent color (innermost focal; max 1). */
+  accent?: boolean;
+}
+
+/** Options passed to {@link createNestedDiagram}. */
+export interface NestedDiagramOptions {
+  /**
+   * Rings from outermost (index 0) to innermost (last index).
+   * Aim for 3–5 rings; more than 6 is illegible.
+   */
+  rings: NestedRing[];
+  /** Light or dark rendering mode (default: 'light'). */
+  theme?: ThemeType;
+  /** Color palette (default: `'default'`). */
+  palette?: PaletteType;
+  /** Optional chart title. */
+  title?: string;
+  /** Optional subtitle. */
+  subtitle?: string;
+}
+
+// ---------------------------------------------------------------------------
+// VennDiagram types
+// ---------------------------------------------------------------------------
+
+/** A single set (circle) in a Venn diagram. */
+export interface VennSet {
+  /** Unique identifier. */
+  id: string;
+  /** Set name displayed outside the circle. */
+  label: string;
+  /** Optional sublabel displayed under the set name. */
+  sublabel?: string;
+}
+
+/** An intersection region between two or more sets. */
+export interface VennIntersection {
+  /** IDs of the sets that form this intersection. */
+  sets: string[];
+  /** Label shown inside the overlap region. */
+  label: string;
+  /** Highlight this intersection with the accent color (the "sweet spot"; max 1). */
+  accent?: boolean;
+}
+
+/** Options passed to {@link createVennDiagram}. */
+export interface VennDiagramOptions {
+  /**
+   * Sets to render as circles. Supports 2 or 3 sets.
+   * Four or more sets are not recommended (use a matrix instead).
+   */
+  sets: VennSet[];
+  /** Intersection labels for overlap regions. */
+  intersections?: VennIntersection[];
+  /** Light or dark rendering mode (default: 'light'). */
+  theme?: ThemeType;
+  /** Color palette (default: `'default'`). */
+  palette?: PaletteType;
+  /** Optional chart title. */
+  title?: string;
+  /** Optional subtitle. */
+  subtitle?: string;
+}
+
+// ---------------------------------------------------------------------------
+// PyramidDiagram types
+// ---------------------------------------------------------------------------
+
+/** A single layer (tier) in a pyramid or funnel diagram. */
+export interface PyramidLayer {
+  /** Text label centered inside the trapezoid. */
+  label: string;
+  /** Optional sublabel shown in smaller type below the label. */
+  sublabel?: string;
+  /**
+   * Optional numeric value — when provided across all layers, widths are
+   * scaled proportionally (honest sizing for funnel conversion data).
+   */
+  value?: number;
+  /** Highlight this layer with the accent color (max 1). */
+  accent?: boolean;
+}
+
+/** Options passed to {@link createPyramidDiagram}. */
+export interface PyramidDiagramOptions {
+  /**
+   * Layers from top (apex) to bottom (base) for `'pyramid'` orientation,
+   * or from top (widest audience) to bottom (narrowest conversion) for `'funnel'`.
+   * Aim for 4–6 layers.
+   */
+  layers: PyramidLayer[];
+  /**
+   * - `'pyramid'` (default) — narrow apex = most important / rarest.
+   * - `'funnel'` — wide top = full audience, narrow bottom = conversions.
+   */
+  orientation?: 'pyramid' | 'funnel';
+  /** Light or dark rendering mode (default: 'light'). */
+  theme?: ThemeType;
+  /** Color palette (default: `'default'`). */
+  palette?: PaletteType;
+  /** Optional chart title. */
+  title?: string;
+  /** Optional subtitle. */
+  subtitle?: string;
+}
+
+// ---------------------------------------------------------------------------
 // Unified fig() API
 // ---------------------------------------------------------------------------
 
@@ -269,4 +575,11 @@ export type FigOptions =
   | ({ figure: 'arch' } & ArchDiagramOptions)
   | ({ figure: 'sequence' } & SequenceDiagramOptions)
   | ({ figure: 'quadrant' } & QuadrantChartOptions)
-  | ({ figure: 'gantt' } & GanttChartOptions);
+  | ({ figure: 'gantt' } & GanttChartOptions)
+  | ({ figure: 'state' } & StateDiagramOptions)
+  | ({ figure: 'er' } & ErDiagramOptions)
+  | ({ figure: 'timeline' } & TimelineDiagramOptions)
+  | ({ figure: 'swimlane' } & SwimlaneDiagramOptions)
+  | ({ figure: 'nested' } & NestedDiagramOptions)
+  | ({ figure: 'venn' } & VennDiagramOptions)
+  | ({ figure: 'pyramid' } & PyramidDiagramOptions);

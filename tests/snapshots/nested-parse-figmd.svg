@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="304" height="366" viewBox="0 0 304 366" id="nd-1">
+<text x="152" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Zones</text>
+<g class="nested-diagram" transform="translate(0,48)">
+<rect x="24" y="24" width="256" height="270" rx="8" ry="8" fill="rgba(0,0,0,0.02)" stroke="#868e96" stroke-width="1.5" stroke-opacity="0.3"/>
+<rect x="28" y="32" width="67.2" height="15" rx="3" fill="white"/>
+<text x="32" y="45" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" letter-spacing="0.1em" fill="#495057" opacity="0.75">INTERNET</text>
+<rect x="48" y="71.5" width="208" height="175" rx="8" ry="8" fill="rgba(0,0,0,0.05)" stroke="#868e96" stroke-width="1.5" stroke-opacity="0.575"/>
+<rect x="52" y="79.5" width="31.450000000000003" height="15" rx="3" fill="white"/>
+<text x="56" y="92.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" letter-spacing="0.1em" fill="#495057" opacity="0.75">VPC</text>
+<text x="56" y="105.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">cloud network</text>
+<rect x="72" y="119" width="160" height="80" rx="8" ry="8" fill="#fff7e6" stroke="#f59f00" stroke-width="1.5" stroke-opacity="1"/>
+<rect x="76" y="127" width="60.050000000000004" height="15" rx="3" fill="white"/>
+<text x="80" y="140" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" letter-spacing="0.1em" fill="#e67700">SERVICE</text>
+</g>
+</svg>

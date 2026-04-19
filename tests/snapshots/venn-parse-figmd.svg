@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="528" viewBox="0 0 560 528" id="vn-1">
+<text x="280" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Overlap</text>
+<g class="venn-diagram" transform="translate(0,48)">
+<defs>
+<clipPath id="vn-1-clip0"><circle cx="280" cy="150" r="128"/></clipPath>
+<clipPath id="vn-1-clip1"><circle cx="199" cy="285" r="128"/></clipPath>
+<clipPath id="vn-1-clip2"><circle cx="361" cy="285" r="128"/></clipPath>
+</defs>
+<circle cx="280" cy="150" r="128" fill="#339af0" fill-opacity="0.07" stroke="#339af0" stroke-width="1.5"/>
+<circle cx="199" cy="285" r="128" fill="#51cf66" fill-opacity="0.07" stroke="#51cf66" stroke-width="1.5"/>
+<circle cx="361" cy="285" r="128" fill="#cc5de8" fill-opacity="0.07" stroke="#cc5de8" stroke-width="1.5"/>
+<circle cx="280" cy="240" r="44.8" fill="#fff7e6" fill-opacity="0.35" stroke="none" clip-path="url(#vn-1-clip0)"/>
+<text x="239.5" y="217.5" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#495057" opacity="0.85">Common AB</text>
+<text x="280" y="240" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#e67700">All Three</text>
+<text x="280" y="4" text-anchor="middle" dominant-baseline="auto" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#339af0">A</text>
+<text x="71.3730376862555" y="355.9038679520803" text-anchor="end" dominant-baseline="hanging" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#51cf66">B</text>
+<text x="488.6269623137445" y="355.9038679520803" text-anchor="start" dominant-baseline="hanging" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#cc5de8">C</text>
+</g>
+</svg>

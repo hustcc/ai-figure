@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="344" viewBox="0 0 480 344" id="py-2">
+<rect width="100%" height="100%" fill="#1a1b1e"/>
+<text x="240" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#adb5bd">Conversion Funnel</text>
+<g class="pyramid-diagram" transform="translate(0,48)">
+<polygon points="75.31313131313132,32 404.6868686868687,32 318.44848484848484,92 161.55151515151516,92" fill="#1a2740" stroke="#5b8ff9" stroke-width="1"/>
+<text x="240" y="57" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#8caff5">Visitors</text>
+<text x="240" y="74" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#8caff5" opacity="0.75">100%</text>
+<polygon points="161.55151515151516,92 318.44848484848484,92 282.76363636363635,152 197.23636363636365,152" fill="#0f2b22" stroke="#5ad8a6" stroke-width="1"/>
+<text x="240" y="117" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#8de6c4">Signups</text>
+<text x="240" y="134" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#8de6c4" opacity="0.75">42%</text>
+<polygon points="197.23636363636365,152 282.76363636363635,152 263.4343434343434,212 216.56565656565658,212" fill="#201436" stroke="#9270ca" stroke-width="1"/>
+<text x="240" y="177" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#c4a7e8">Active Users</text>
+<text x="240" y="194" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#c4a7e8" opacity="0.75">18%</text>
+<polygon points="216.56565656565658,212 263.4343434343434,212 263.4343434343434,272 216.56565656565658,272" fill="#3d1a13" stroke="#e8684a" stroke-width="1"/>
+<text x="240" y="237" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#f0987d">Paying Customers</text>
+<text x="240" y="254" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#f0987d" opacity="0.75">5%</text>
+</g>
+</svg>

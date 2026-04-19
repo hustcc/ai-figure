@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="246" viewBox="0 0 800 246">
+<text x="400" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Releases</text>
+<g class="timeline-diagram" transform="translate(0,48)">
+<defs/>
+<line x1="40" y1="120" x2="760" y2="120" stroke="#868e96" stroke-width="1"/>
+<line x1="44.39140811455847" y1="114" x2="44.39140811455847" y2="126" stroke="#868e96" stroke-width="1"/>
+<text x="44.39140811455847" y="140" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2022</text>
+<line x1="187.58949880668257" y1="114" x2="187.58949880668257" y2="126" stroke="#868e96" stroke-width="1"/>
+<text x="187.58949880668257" y="140" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Apr 2022</text>
+<line x1="332.3786793953858" y1="114" x2="332.3786793953858" y2="126" stroke="#868e96" stroke-width="1"/>
+<text x="332.3786793953858" y="140" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jul 2022</text>
+<line x1="478.75894988066824" y1="114" x2="478.75894988066824" y2="126" stroke="#868e96" stroke-width="1"/>
+<text x="478.75894988066824" y="140" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Oct 2022</text>
+<line x1="625.1392203659507" y1="114" x2="625.1392203659507" y2="126" stroke="#868e96" stroke-width="1"/>
+<text x="625.1392203659507" y="140" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2023</text>
+<line x1="66.66666666666666" y1="112" x2="66.66666666666666" y2="95" stroke="#868e96" stroke-width="1"/>
+<circle cx="66.66666666666666" cy="120" r="7" fill="#fff7e6" stroke="#f59f00" stroke-width="1.5"/>
+<text x="66.66666666666666" y="91" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#f59f00">v1.0</text>
+<line x1="431.0262529832936" y1="125" x2="431.0262529832936" y2="142" stroke="#868e96" stroke-width="1"/>
+<circle cx="431.0262529832936" cy="120" r="4" fill="#339af0" stroke="none" stroke-width="1.5"/>
+<text x="431.0262529832936" y="154" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="400" fill="#495057">v1.2</text>
+<line x1="733.3333333333333" y1="112" x2="733.3333333333333" y2="95" stroke="#868e96" stroke-width="1"/>
+<circle cx="733.3333333333333" cy="120" r="7" fill="#fff7e6" stroke="#f59f00" stroke-width="1.5"/>
+<text x="733.3333333333333" y="91" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#f59f00">v2.0</text>
+</g>
+</svg>

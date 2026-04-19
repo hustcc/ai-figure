@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="300" viewBox="0 0 500 300">
+<text x="250" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Order Processing</text>
+<g class="swimlane-diagram" transform="translate(0,48)">
+<defs><marker id="sw-1-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/></marker></defs>
+<rect x="0" y="0" width="500" height="84" fill="none" stroke="none"/>
+<line x1="0" y1="0" x2="500" y2="0" stroke="#868e96" stroke-width="1"/>
+<rect x="0" y="0" width="110" height="84" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="110" y1="0" x2="110" y2="84" stroke="#868e96" stroke-width="1"/>
+<text x="55" y="42" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#495057">Customer</text>
+<rect x="0" y="84" width="500" height="84" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="84" x2="500" y2="84" stroke="#868e96" stroke-width="1"/>
+<rect x="0" y="84" width="110" height="84" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="110" y1="84" x2="110" y2="168" stroke="#868e96" stroke-width="1"/>
+<text x="55" y="126" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#495057">Warehouse</text>
+<rect x="0" y="168" width="500" height="84" fill="none" stroke="none"/>
+<line x1="0" y1="168" x2="500" y2="168" stroke="#868e96" stroke-width="1"/>
+<rect x="0" y="168" width="110" height="84" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="110" y1="168" x2="110" y2="252" stroke="#868e96" stroke-width="1"/>
+<text x="55" y="210" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#495057">Shipping</text>
+<line x1="0" y1="252" x2="500" y2="252" stroke="#868e96" stroke-width="1"/>
+<line x1="274" y1="42" x2="294" y2="42" stroke="#495057" stroke-width="1.5" marker-end="url(#sw-1-arrow)"/>
+<line x1="438" y1="42" x2="130" y2="126" stroke="#495057" stroke-width="1.5" marker-end="url(#sw-1-arrow)"/>
+<line x1="274" y1="126" x2="294" y2="126" stroke="#495057" stroke-width="1.5" marker-end="url(#sw-1-arrow)"/>
+<line x1="438" y1="126" x2="130" y2="210" stroke="#495057" stroke-width="1.5" marker-end="url(#sw-1-arrow)"/>
+<line x1="274" y1="210" x2="294" y2="210" stroke="#495057" stroke-width="1.5" marker-end="url(#sw-1-arrow)"/>
+<rect x="130" y="20" width="144" height="44" rx="6" ry="6" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="202" y="42" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#1d5bc7">Place Order</text>
+<rect x="294" y="20" width="144" height="44" rx="6" ry="6" fill="#edfaf5" stroke="#5ad8a6" stroke-width="2"/>
+<text x="366" y="42" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#1c9c6f">Confirm Payment</text>
+<rect x="130" y="104" width="144" height="44" rx="6" ry="6" fill="#f5f0fd" stroke="#9270ca" stroke-width="2"/>
+<text x="202" y="126" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#5e3b9e">Receive Order</text>
+<rect x="294" y="104" width="144" height="44" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="366" y="126" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#bf3c22">Pack Items</text>
+<rect x="130" y="188" width="144" height="44" rx="6" ry="6" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="202" y="210" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#1d5bc7">Ship Package</text>
+<rect x="294" y="188" width="144" height="44" rx="6" ry="6" fill="#edfaf5" stroke="#5ad8a6" stroke-width="2"/>
+<text x="366" y="210" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#1c9c6f">Deliver</text>
+</g>
+</svg>
