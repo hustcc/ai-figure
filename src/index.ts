@@ -76,18 +76,6 @@ function figDispatch(options: FigOptions): string {
   }
 }
 
-/**
- * Parse a Mermaid-like markdown diagram definition and render it as an SVG string.
- *
- * Equivalent to `fig(markdown)`. Provided as a named convenience export.
- * For streaming / fault-tolerant rendering prefer `fig(markdown)` directly.
- */
-export function figmd(markdown: string): string {
-  return fig(markdown);
-}
-
-export { parseFigmd } from './parse';
-
 export type {
   FigOptions,
   FlowNode,
