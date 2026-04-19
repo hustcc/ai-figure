@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="804" height="509" viewBox="0 0 804 509">
+<text x="402" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Infrastructure Upgrade</text>
+<text x="402" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">Cloud Migration H2 2025</text>
+<g class="gantt-chart" transform="translate(0,67)">
+<defs><clipPath id="gantt-1-lclip"><rect x="0" y="0" width="156" height="442"/></clipPath></defs>
+<rect x="0" y="0" width="804" height="44" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="44" x2="804" y2="44" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+<line x1="160" y1="0" x2="160" y2="442" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+<line x1="183" y1="44" x2="183" y2="418" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
+<line x1="183" y1="38" x2="183" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<text x="183" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Jul 2025</text>
+<line x1="302" y1="44" x2="302" y2="418" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
+<line x1="302" y1="38" x2="302" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<text x="302" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Aug 2025</text>
+<line x1="420" y1="44" x2="420" y2="418" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
+<line x1="420" y1="38" x2="420" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<text x="420" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Sep 2025</text>
+<line x1="535" y1="44" x2="535" y2="418" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
+<line x1="535" y1="38" x2="535" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<text x="535" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Oct 2025</text>
+<line x1="654" y1="44" x2="654" y2="418" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
+<line x1="654" y1="38" x2="654" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<text x="654" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Nov 2025</text>
+<line x1="769" y1="44" x2="769" y2="418" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
+<line x1="769" y1="38" x2="769" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<text x="769" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Dec 2025</text>
+<rect x="0" y="44" width="804" height="34" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="78" x2="804" y2="78" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="8" y="61" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">Traffic Cutover</text>
+<rect x="661" y="51" width="16" height="20" fill="#e41a1c1a" stroke="#e41a1c" stroke-width="1.5" rx="6"/>
+<line x1="0" y1="112" x2="804" y2="112" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="8" y="95" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">Legacy Cleanup</text>
+<rect x="688" y="85" width="69" height="20" fill="#4daf4a1a" stroke="#4daf4a" stroke-width="1.5" rx="6"/>
+<text x="722.5" y="95" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#4daf4a">Legacy Cleanup</text>
+<rect x="0" y="112" width="804" height="34" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="146" x2="804" y2="146" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="8" y="129" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057" clip-path="url(#gantt-1-lclip)">phase1</text>
+<line x1="0" y1="180" x2="804" y2="180" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="22" y="163" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">Assessment</text>
+<rect x="183" y="153" width="92" height="20" fill="#377eb81a" stroke="#377eb8" stroke-width="1.5" rx="6"/>
+<text x="229" y="163" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#377eb8">Assessment</text>
+<rect x="0" y="180" width="804" height="34" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="214" x2="804" y2="214" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="22" y="197" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">PoC Setup</text>
+<rect x="233" y="187" width="95" height="20" fill="#984ea31a" stroke="#984ea3" stroke-width="1.5" rx="6"/>
+<text x="280.5" y="197" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#984ea3">PoC Setup</text>
+<line x1="0" y1="248" x2="804" y2="248" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="8" y="231" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057" clip-path="url(#gantt-1-lclip)">phase2</text>
+<rect x="0" y="248" width="804" height="34" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="282" x2="804" y2="282" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="22" y="265" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">Network Config</text>
+<rect x="313" y="255" width="96" height="20" fill="#e41a1c1a" stroke="#e41a1c" stroke-width="1.5" rx="6"/>
+<text x="361" y="265" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#e41a1c">Network Config</text>
+<line x1="0" y1="316" x2="804" y2="316" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="22" y="299" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">K8s Cluster</text>
+<rect x="340" y="289" width="149" height="20" fill="#4daf4a1a" stroke="#4daf4a" stroke-width="1.5" rx="6"/>
+<text x="414.5" y="299" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#4daf4a">K8s Cluster</text>
+<rect x="0" y="316" width="804" height="34" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="350" x2="804" y2="350" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="8" y="333" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057" clip-path="url(#gantt-1-lclip)">phase3</text>
+<line x1="0" y1="384" x2="804" y2="384" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="22" y="367" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">Workload Migrate</text>
+<rect x="474" y="357" width="149" height="20" fill="#377eb81a" stroke="#377eb8" stroke-width="1.5" rx="6"/>
+<text x="548.5" y="367" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#377eb8">Workload Migrate</text>
+<rect x="0" y="384" width="804" height="34" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="418" x2="804" y2="418" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="22" y="401" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">Observability</text>
+<rect x="527" y="391" width="123" height="20" fill="#984ea31a" stroke="#984ea3" stroke-width="1.5" rx="6"/>
+<text x="588.5" y="401" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#984ea3">Observability</text>
+<line x1="328" y1="44" x2="328" y2="418" stroke="#377eb8" stroke-width="1.5" stroke-dasharray="4 3"/>
+<polygon points="328,23 335,30 328,37 321,30" fill="#377eb8" stroke="none"/>
+<text x="328" y="422" text-anchor="middle" dominant-baseline="hanging" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#377eb8">PoC sign-off</text>
+<line x1="677" y1="44" x2="677" y2="418" stroke="#377eb8" stroke-width="1.5" stroke-dasharray="4 3"/>
+<polygon points="677,23 684,30 677,37 670,30" fill="#377eb8" stroke="none"/>
+<text x="677" y="422" text-anchor="middle" dominant-baseline="hanging" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#377eb8">Migration complete</text>
+<rect x="0" y="0" width="804" height="442" fill="none" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+</g>
+</svg>
