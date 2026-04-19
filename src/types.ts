@@ -15,12 +15,12 @@ export type ThemeType = 'light' | 'dark';
 
 /**
  * Color palette — one of:
- * - `'default'` — the built-in multi-hue palette (default when omitted)
- * - Any `d3-scale-chromatic` scheme name **without** the `scheme` prefix, e.g.:
- *   - Categorical: `'category10'`, `'set1'`, `'set2'`, `'set3'`,
- *     `'accent'`, `'dark2'`, `'paired'`, `'pastel1'`, `'pastel2'`, `'tableau10'`
- *   - Sequential: `'blues'`, `'greens'`, `'oranges'`, `'reds'`, etc.
- *   - Diverging: `'brBG'`, `'piYG'`, `'rdBu'`, etc.
+ * - `'default'` — built-in multi-hue palette: process=blue, decision=amber, terminal=green, io=purple
+ * - `'antv'` — AntV G2 categorical palette (cornflower-blue, orange, teal, violet)
+ * - `'drawio'` — draw.io / diagrams.net shape palette (sky-blue, amber, sage, red)
+ * - `'notion'` — Notion block color palette (blue, yellow, green, purple)
+ * - `'figma'` — Figma / Tailwind modern UI palette (indigo, amber, emerald, pink)
+ * - `'github'` — GitHub Primer palette (blue, amber, green, purple)
  * - Custom 4-element hex array `[process, decision, terminal, io]`
  */
 export type PaletteType = string | string[];
@@ -65,11 +65,7 @@ export interface FlowChartOptions {
   groups?: FlowGroup[];
   /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
-  /**
-   * Color palette — `'default'` (built-in), any d3-scale-chromatic scheme name
-   * (categorical, sequential, or diverging), or a custom
-   * 4-element hex array `[process, decision, terminal, io]` (default: 'default').
-   */
+  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'notion'`, `'figma'`, `'github'`, or custom hex array (default: `'default'`). */
   palette?: PaletteType;
   /** Graph layout direction (default: 'TB' — top to bottom). */
   direction?: Direction;
@@ -99,7 +95,7 @@ export interface TreeDiagramOptions {
   nodes: TreeNode[];
   /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
-  /** Color palette — `'default'` (built-in), d3-scale-chromatic short name (e.g. `'blues'`), or custom hex array (default: `'default'`). */
+  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'notion'`, `'figma'`, `'github'`, or custom hex array (default: `'default'`). */
   palette?: PaletteType;
   /** Layout direction (default: 'TB'). */
   direction?: Direction;
@@ -137,7 +133,7 @@ export interface ArchDiagramOptions {
   layers: ArchLayer[];
   /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
-  /** Color palette — `'default'` (built-in), d3-scale-chromatic short name (e.g. `'blues'`), or custom hex array (default: `'default'`). */
+  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'notion'`, `'figma'`, `'github'`, or custom hex array (default: `'default'`). */
   palette?: PaletteType;
   /** Direction: TB = layers top-to-bottom, LR = layers left-to-right (default: 'TB'). */
   direction?: Direction;
@@ -171,7 +167,7 @@ export interface SequenceDiagramOptions {
   messages: SeqMessage[];
   /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
-  /** Color palette — `'default'` (built-in), d3-scale-chromatic short name (e.g. `'blues'`), or custom hex array (default: `'default'`). */
+  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'notion'`, `'figma'`, `'github'`, or custom hex array (default: `'default'`). */
   palette?: PaletteType;
   /** Optional chart title displayed above the diagram. */
   title?: string;
@@ -207,7 +203,7 @@ export interface QuadrantChartOptions {
   points: QuadrantPoint[];
   /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
-  /** Color palette — `'default'` (built-in), d3-scale-chromatic short name (e.g. `'blues'`), or custom hex array (default: `'default'`). */
+  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'notion'`, `'figma'`, `'github'`, or custom hex array (default: `'default'`). */
   palette?: PaletteType;
   /** Optional chart title displayed above the diagram. */
   title?: string;
@@ -251,7 +247,7 @@ export interface GanttChartOptions {
   milestones?: GanttMilestone[];
   /** Light or dark rendering mode (default: `'light'`). */
   theme?: ThemeType;
-  /** Color palette — `'default'` (built-in), d3-scale-chromatic short name (e.g. `'set2'`), or custom hex array (default: `'default'`). */
+  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'notion'`, `'figma'`, `'github'`, or custom hex array (default: `'default'`). */
   palette?: PaletteType;
   /** Optional chart title displayed above the diagram. */
   title?: string;

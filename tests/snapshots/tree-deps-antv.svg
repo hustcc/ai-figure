@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="736" height="596" viewBox="-28 -28 736 596">
+<defs>
+    <marker id="fc-1-arrow" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<g class="flowchart">
+
+<g class="edge" data-from="app" data-to="react">
+<path d="M116,312 L215.03861061643167,138.6824314212446 Q220,130 230,130 L260,130" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="app" data-to="router">
+<path d="M180,340 L210,340 Q220,340 230,340 L260,340" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="app" data-to="query">
+<path d="M124,368 L213.49208626544032,472.407433976347 Q220,480 230,480 L260,480" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="react" data-to="scheduler">
+<path d="M391.42857142857144,100 L451.3622109910157,65.03871025524086 Q460,60 470,60 L500,60" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="react" data-to="jsxrt">
+<path d="M391.42857142857144,160 L451.3622109910157,194.96128974475914 Q460,200 470,200 L500,200" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="router" data-to="history">
+<path d="M420,340 L450,340 Q460,340 470,340 L500,340" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="query" data-to="axios">
+<path d="M420,480 L450,480 Q460,480 470,480 L500,480" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="node node-terminal" data-id="app">
+<rect x="20" y="312" width="160" height="56" rx="28" ry="28" fill="#edfaf5" stroke="#5ad8a6" stroke-width="2"/>
+<text x="100" y="340" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1c9c6f">my-app</text>
+</g>
+<g class="node node-process" data-id="react">
+<rect x="260" y="100" width="160" height="60" rx="6" ry="6" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="340" y="130" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1d5bc7">react</text>
+</g>
+<g class="node node-process" data-id="router">
+<rect x="260" y="310" width="160" height="60" rx="6" ry="6" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="340" y="340" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1d5bc7">react-router</text>
+</g>
+<g class="node node-process" data-id="query">
+<rect x="260" y="450" width="160" height="60" rx="6" ry="6" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="340" y="480" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1d5bc7">react-query</text>
+</g>
+<g class="node node-decision" data-id="scheduler">
+<polygon points="580,20 660,60 580,100 500,60" fill="#fff4ef" stroke="#e8684a" stroke-width="2" stroke-linejoin="round"/>
+<text x="580" y="60" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">scheduler</text>
+</g>
+<g class="node node-decision" data-id="jsxrt">
+<polygon points="580,160 660,200 580,240 500,200" fill="#fff4ef" stroke="#e8684a" stroke-width="2" stroke-linejoin="round"/>
+<text x="580" y="200" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">react-jsx-runtime</text>
+</g>
+<g class="node node-decision" data-id="history">
+<polygon points="580,300 660,340 580,380 500,340" fill="#fff4ef" stroke="#e8684a" stroke-width="2" stroke-linejoin="round"/>
+<text x="580" y="340" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">history</text>
+</g>
+<g class="node node-decision" data-id="axios">
+<polygon points="580,440 660,480 580,520 500,480" fill="#fff4ef" stroke="#e8684a" stroke-width="2" stroke-linejoin="round"/>
+<text x="580" y="480" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">axios</text>
+</g>
+</g>
+</svg>
