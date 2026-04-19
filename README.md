@@ -26,19 +26,8 @@ npm install ai-figure
 ```typescript
 import { fig } from 'ai-figure';
 
-// ── Markdown string (compact, AI-friendly) ──────────────────────────────────
-const svg = fig(`
-  flow LR default
-  title: Auth Flow
-  start((Start)) --> login[Enter Credentials]
-  login --> validate{Valid?}
-  validate -->|yes| dashboard((Dashboard))
-  validate -->|no| error[Show Error]
-  error --> login
-`);
-
 // ── JSON config object (typed, programmatic) ────────────────────────────────
-const svg2 = fig({
+const svg = fig({
   figure: 'flow',
   nodes: [
     { id: 'start',    label: 'Start',        type: 'terminal' },
@@ -58,6 +47,17 @@ const svg2 = fig({
   direction: 'TB',
 });
 
+// ── Markdown string (compact, AI-friendly) ──────────────────────────────────
+const svg2 = fig(`
+  flow LR default
+  title: Auth Flow
+  start((Start)) --> login[Enter Credentials]
+  login --> validate{Valid?}
+  validate -->|yes| dashboard((Dashboard))
+  validate -->|no| error[Show Error]
+  error --> login
+`);
+
 // Browser: inject into the DOM
 document.body.innerHTML = svg;
 
@@ -74,14 +74,11 @@ The single entry point. Returns a fully self-contained SVG string.
 
 **`input`** is either:
 
-- A **markdown string** — Mermaid-like syntax, streaming-safe (never throws; partial input returns a valid empty SVG)
 - A **JSON config object** — typed `FigOptions` with the required `figure` field
+- A **markdown string** — Mermaid-like syntax, streaming-safe (never throws; partial input returns a valid empty SVG)
 
 ```typescript
 import { fig } from 'ai-figure';
-
-// markdown string
-fig(`flow LR\na[A] --> b[B]`);
 
 // JSON config
 fig({ figure: 'flow',     ...flowOptions     }); // flowchart
@@ -90,6 +87,9 @@ fig({ figure: 'arch',     ...archOptions     }); // architecture diagram
 fig({ figure: 'sequence', ...sequenceOptions }); // sequence diagram
 fig({ figure: 'quadrant', ...quadrantOptions }); // quadrant chart
 fig({ figure: 'gantt',    ...ganttOptions    }); // Gantt chart
+
+// markdown string
+fig(`flow LR\na[A] --> b[B]`);
 ```
 
 ### `figure: 'flow'` — Flowchart
@@ -372,6 +372,109 @@ fig({ figure: 'flow', nodes, edges, palette: 'mono-blue' });
 // Custom hex palette
 fig({ figure: 'flow', nodes, edges, palette: ['#e64980', '#ae3ec9', '#7048e8', '#1098ad'] });
 ```
+
+### Markdown syntax
+
+`fig()` also accepts a plain **markdown string** as input. The first non-empty line is the header: `<type> [direction] [theme] [palette]`
+
+| Token | Values | Default |
+|-------|--------|---------|
+| `type` | `flow` \| `tree` \| `arch` \| `sequence` \| `quadrant` \| `gantt` | **required** |
+| `direction` | `TB` \| `LR` | `TB` |
+| `theme` | `light` \| `dark` | `light` |
+| `palette` | any named palette (see [Palette API](#palette-api)) | `default` |
+
+Lines starting with `%%` are comments. `title:` and `subtitle:` are supported in all diagram types.
+
+#### Node notation (flow / tree / arch)
+
+| Notation | Shape |
+|----------|-------|
+| `id[label]` | process (rectangle) |
+| `id{label}` | decision (diamond) |
+| `id((label))` | terminal (pill) |
+| `id[/label/]` | io (parallelogram) |
+| `id` | process (bare id used as label) |
+
+#### Per-diagram syntax
+
+<details>
+<summary><strong>flow</strong></summary>
+
+```
+flow [LR|TB] [light|dark] [palette]
+title: Optional Title
+subtitle: Optional Subtitle
+id[Label]                          %% standalone node definition
+A[Source] --> B[Target]            %% edge
+A -->|label| B                     %% labeled edge
+group GroupName: id1, id2, id3     %% logical group
+```
+</details>
+
+<details>
+<summary><strong>tree</strong></summary>
+
+```
+tree [LR|TB] [light|dark] [palette]
+title: Optional Title
+root[Root]                   %% root node (no parent)
+root --> child[Child]        %% parent → child relationship
+```
+</details>
+
+<details>
+<summary><strong>arch</strong></summary>
+
+```
+arch [LR|TB] [light|dark] [palette]
+title: Optional Title
+layer layerId[Layer Label]   %% layer declaration
+  nodeId[Node Label]         %% node in current layer (indentation optional)
+```
+</details>
+
+<details>
+<summary><strong>sequence</strong></summary>
+
+```
+sequence [light|dark] [palette]
+title: Optional Title
+actors: Actor1, Actor2, Actor3     %% optional; inferred from messages if omitted
+Actor1 -> Actor2: message          %% solid arrow
+Actor2 --> Actor1: response        %% dashed return arrow
+Actor1 -> Actor2                   %% arrow without label
+```
+</details>
+
+<details>
+<summary><strong>quadrant</strong></summary>
+
+```
+quadrant [light|dark] [palette]
+title: Optional Title
+x-axis: min .. max                 %% axis range (label defaults to "")
+x-axis Label: min .. max           %% axis range with explicit axis label
+y-axis: min .. max
+quadrant-1: Top-Left Name          %% 1=TL, 2=TR, 3=BL, 4=BR
+quadrant-2: Top-Right Name
+quadrant-3: Bottom-Left Name
+quadrant-4: Bottom-Right Name
+Point Label: 0.3, 0.7             %% data point (x, y in [0, 1])
+```
+</details>
+
+<details>
+<summary><strong>gantt</strong></summary>
+
+```
+gantt [light|dark] [palette]
+title: Optional Title
+section Section Name               %% group header (applied to subsequent tasks)
+  Task Label: id, start, end       %% task bar (dates: yyyy-mm-dd)
+milestone: Label, date             %% milestone diamond
+```
+</details>
 
 ## Using with AI
 
