@@ -242,7 +242,48 @@ type FigOptions = ({
 } & GanttChartOptions);
 
 /**
- * Generate an SVG diagram. The `figure` field selects the diagram type:
+ * Parse a Mermaid-like markdown diagram definition and return a {@link FigOptions} object.
+ *
+ * The first non-empty line is the **header**: `<type> [direction] [theme] [palette]`
+ *
+ * - `type`      — one of `flow`, `tree`, `arch`, `sequence`, `quadrant`, `gantt`
+ * - `direction` — `TB` (top→bottom) or `LR` (left→right); applies to flow / tree / arch
+ * - `theme`     — `light` (default) or `dark`
+ * - `palette`   — any named palette: `default`, `antv`, `drawio`, `figma`, `vega`,
+ *                 `mono-blue`, `mono-green`, `mono-purple`, `mono-orange`
+ *
+ * Lines starting with `%%` are treated as comments and ignored.
+ * `title:` and `subtitle:` meta-lines are supported in all diagram types.
+ *
+ * Throws if the input is empty or the figure type is not recognised.
+ * For a fault-tolerant render path that never throws (useful with streaming AI output),
+ * use `fig(markdown)` instead.
+ *
+ * @example
+ * ```
+ * parseFigmd(`
+ *   flow LR antv
+ *   title: CI Pipeline
+ *   code[Write Code] --> test{Tests Pass?}
+ *   test -->|yes| build[Build Image]
+ *   test -->|no| fix((Fix Issues))
+ *   build --> deploy[/Deploy/]
+ *   group Pipeline: code, test, build, deploy
+ * `);
+ * ```
+ */
+declare function parseFigmd(markdown: string): FigOptions;
+
+/**
+ * Generate an SVG diagram from either a Mermaid-like markdown string or a JSON config object.
+ *
+ * **String input** — treated as a markdown diagram definition (see below).
+ * Fault-tolerant: never throws. If the input is empty, partial, or unparseable
+ * (e.g. while an AI is still streaming output) a 1×1 empty SVG is returned.
+ * As more content is appended the diagram renders progressively.
+ *
+ * **Object input** — a typed {@link FigOptions} config. The `figure` field selects
+ * the diagram type:
  * - `'flow'`     — flowchart (nodes + edges + optional groups)
  * - `'tree'`     — tree / hierarchy (flat node list with parent refs)
  * - `'arch'`     — architecture diagram (layered grid, no edges)
@@ -251,7 +292,29 @@ type FigOptions = ({
  * - `'gantt'`    — Gantt chart (task bars, optional milestones, optional groups)
  *
  * Returns a fully self-contained SVG string; no coordinates needed.
+ *
+ * @example
+ * ```ts
+ * // Markdown string (AI-friendly, streaming-safe)
+ * fig(`
+ *   flow LR antv
+ *   title: CI Pipeline
+ *   code[Write Code] --> test{Tests Pass?}
+ *   test -->|yes| build[Build Image]
+ *   test -->|no| fix((Fix Issues))
+ * `);
+ *
+ * // JSON config object (typed, programmatic)
+ * fig({ figure: 'flow', nodes: [...], edges: [...] });
+ * ```
  */
-declare function fig(options: FigOptions): string;
+declare function fig(input: string | FigOptions): string;
+/**
+ * Parse a Mermaid-like markdown diagram definition and render it as an SVG string.
+ *
+ * Equivalent to `fig(markdown)`. Provided as a named convenience export.
+ * For streaming / fault-tolerant rendering prefer `fig(markdown)` directly.
+ */
+declare function figmd(markdown: string): string;
 
-export { type ArchDiagramOptions, type ArchLayer, type ArchNode, type Direction, type FigOptions, type FlowChartOptions, type FlowEdge, type FlowGroup, type FlowNode, type GanttChartOptions, type GanttMilestone, type GanttTask, type NodeType, type QuadrantChartOptions, type QuadrantPoint, type SeqMessage, type SequenceDiagramOptions, type ThemeType, type TreeDiagramOptions, type TreeNode, fig };
+export { type ArchDiagramOptions, type ArchLayer, type ArchNode, type Direction, type FigOptions, type FlowChartOptions, type FlowEdge, type FlowGroup, type FlowNode, type GanttChartOptions, type GanttMilestone, type GanttTask, type NodeType, type QuadrantChartOptions, type QuadrantPoint, type SeqMessage, type SequenceDiagramOptions, type ThemeType, type TreeDiagramOptions, type TreeNode, fig, figmd, parseFigmd };

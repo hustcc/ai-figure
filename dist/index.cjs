@@ -9067,8 +9067,440 @@ function createGanttChart(options) {
   ].join("\n");
 }
 
+// src/parse.ts
+function parseFigmd(markdown) {
+  const lines = markdown.split("\n");
+  let headerIdx = 0;
+  while (headerIdx < lines.length && lines[headerIdx].trim() === "") headerIdx++;
+  if (headerIdx >= lines.length) throw new Error("figmd: empty diagram definition");
+  const headerTokens = lines[headerIdx].trim().split(/\s+/);
+  const figureType = headerTokens[0].toLowerCase();
+  let direction;
+  let theme;
+  let palette;
+  for (let j = 1; j < headerTokens.length; j++) {
+    const t = headerTokens[j];
+    if (t === "TB" || t === "LR") {
+      direction = t;
+    } else if (t === "light" || t === "dark") {
+      theme = t;
+    } else {
+      palette = t;
+    }
+  }
+  const bodyLines = lines.slice(headerIdx + 1);
+  switch (figureType) {
+    case "flow":
+      return parseFlow(bodyLines, direction, theme, palette);
+    case "tree":
+      return parseTree(bodyLines, direction, theme, palette);
+    case "arch":
+      return parseArch(bodyLines, direction, theme, palette);
+    case "sequence":
+      return parseSequence(bodyLines, theme, palette);
+    case "quadrant":
+      return parseQuadrant(bodyLines, theme, palette);
+    case "gantt":
+      return parseGantt(bodyLines, theme, palette);
+    default:
+      throw new Error(
+        `figmd: unknown figure type "${figureType}". Expected one of: flow, tree, arch, sequence, quadrant, gantt`
+      );
+  }
+}
+function extractMeta(lines) {
+  let title;
+  let subtitle;
+  const rest = [];
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (!line || line.startsWith("%%")) continue;
+    if (line.startsWith("title:")) {
+      title = line.slice("title:".length).trim();
+      continue;
+    }
+    if (line.startsWith("subtitle:")) {
+      subtitle = line.slice("subtitle:".length).trim();
+      continue;
+    }
+    rest.push(line);
+  }
+  return { title, subtitle, rest };
+}
+function splitOnArrow(line, arrow) {
+  const idx = line.indexOf(arrow);
+  if (idx === -1) return null;
+  const left = line.slice(0, idx).trim();
+  const right = line.slice(idx + arrow.length).trim();
+  if (!left || !right) return null;
+  return [left, right];
+}
+function parseNodeExpr(expr) {
+  expr = expr.trim();
+  const terminalMatch = expr.match(/^([\w-]+)\(\((.+)\)\)$/s);
+  if (terminalMatch) return { id: terminalMatch[1], label: terminalMatch[2], type: "terminal" };
+  const ioMatch = expr.match(/^([\w-]+)\[\/(.+)\/\]$/s);
+  if (ioMatch) return { id: ioMatch[1], label: ioMatch[2], type: "io" };
+  const processMatch = expr.match(/^([\w-]+)\[(.+)\]$/s);
+  if (processMatch) return { id: processMatch[1], label: processMatch[2], type: "process" };
+  const decisionMatch = expr.match(/^([\w-]+)\{(.+)\}$/s);
+  if (decisionMatch) return { id: decisionMatch[1], label: decisionMatch[2], type: "decision" };
+  return { id: expr, label: expr, type: "process" };
+}
+function isExplicitNodeExpr(expr, id) {
+  return expr.trim() !== id;
+}
+function parseFlow(lines, direction, theme, palette) {
+  const { title, subtitle, rest } = extractMeta(lines);
+  const nodeMap = /* @__PURE__ */ new Map();
+  const edges = [];
+  const groups = [];
+  const ensureNode = (expr) => {
+    const { id, label, type } = parseNodeExpr(expr);
+    const existing = nodeMap.get(id);
+    if (!existing) {
+      nodeMap.set(id, { id, label, type });
+    } else if (isExplicitNodeExpr(expr, id)) {
+      nodeMap.set(id, { id, label, type });
+    }
+    return id;
+  };
+  for (const line of rest) {
+    if (line.startsWith("group ")) {
+      const body = line.slice("group ".length);
+      const colonIdx = body.indexOf(":");
+      if (colonIdx !== -1) {
+        const label = body.slice(0, colonIdx).trim();
+        const nodeList = body.slice(colonIdx + 1).trim();
+        const nodes = nodeList.split(",").map((n) => n.trim()).filter((n) => n.length > 0);
+        if (nodes.length === 0) continue;
+        groups.push({
+          id: `grp-${groups.length}`,
+          label,
+          nodes
+        });
+      }
+      continue;
+    }
+    if (line.includes("-->")) {
+      const parts = splitOnArrow(line, "-->");
+      if (parts) {
+        const [left, rightRaw] = parts;
+        let right = rightRaw;
+        let label;
+        if (right.startsWith("|")) {
+          const closePipe = right.indexOf("|", 1);
+          if (closePipe !== -1) {
+            label = right.slice(1, closePipe).trim();
+            right = right.slice(closePipe + 1).trim();
+          }
+        }
+        if (!right) continue;
+        const fromId = ensureNode(left);
+        const toId = ensureNode(right);
+        edges.push(label !== void 0 ? { from: fromId, to: toId, label } : { from: fromId, to: toId });
+        continue;
+      }
+    }
+    ensureNode(line);
+  }
+  return {
+    figure: "flow",
+    nodes: [...nodeMap.values()],
+    edges,
+    ...groups.length > 0 ? { groups } : {},
+    ...direction !== void 0 ? { direction } : {},
+    ...theme !== void 0 ? { theme } : {},
+    ...palette !== void 0 ? { palette } : {},
+    ...title !== void 0 ? { title } : {},
+    ...subtitle !== void 0 ? { subtitle } : {}
+  };
+}
+function parseTree(lines, direction, theme, palette) {
+  const { title, subtitle, rest } = extractMeta(lines);
+  const nodeMap = /* @__PURE__ */ new Map();
+  const ensureNode = (expr, parent) => {
+    const { id, label } = parseNodeExpr(expr);
+    const existing = nodeMap.get(id);
+    if (!existing) {
+      nodeMap.set(id, { id, label, ...parent !== void 0 ? { parent } : {} });
+      return id;
+    }
+    if (isExplicitNodeExpr(expr, id) && existing.label === id) {
+      existing.label = label;
+    }
+    if (parent !== void 0) {
+      if (existing.parent === void 0) {
+        existing.parent = parent;
+      }
+    }
+    return id;
+  };
+  for (const line of rest) {
+    if (line.includes("-->")) {
+      const parts = splitOnArrow(line, "-->");
+      if (parts) {
+        const [left, right] = parts;
+        const parentId = ensureNode(left);
+        ensureNode(right, parentId);
+        continue;
+      }
+    }
+    ensureNode(line);
+  }
+  return {
+    figure: "tree",
+    nodes: [...nodeMap.values()],
+    ...direction !== void 0 ? { direction } : {},
+    ...theme !== void 0 ? { theme } : {},
+    ...palette !== void 0 ? { palette } : {},
+    ...title !== void 0 ? { title } : {},
+    ...subtitle !== void 0 ? { subtitle } : {}
+  };
+}
+function parseArch(lines, direction, theme, palette) {
+  const { title, subtitle, rest } = extractMeta(lines);
+  const layers = [];
+  let currentLayer = null;
+  for (const line of rest) {
+    if (line.startsWith("layer ")) {
+      const layerExpr = line.slice("layer ".length).trim();
+      const { id, label } = parseNodeExpr(layerExpr);
+      currentLayer = { id, label, nodes: [] };
+      layers.push(currentLayer);
+      continue;
+    }
+    if (currentLayer) {
+      const { id, label } = parseNodeExpr(line);
+      currentLayer.nodes.push({ id, label });
+    }
+  }
+  return {
+    figure: "arch",
+    layers,
+    ...direction !== void 0 ? { direction } : {},
+    ...theme !== void 0 ? { theme } : {},
+    ...palette !== void 0 ? { palette } : {},
+    ...title !== void 0 ? { title } : {},
+    ...subtitle !== void 0 ? { subtitle } : {}
+  };
+}
+function parseSequence(lines, theme, palette) {
+  const { title, subtitle, rest } = extractMeta(lines);
+  let actors = [];
+  const messages = [];
+  for (const line of rest) {
+    if (line.startsWith("actors:")) {
+      actors = line.slice("actors:".length).split(",").map((a) => a.trim()).filter(Boolean);
+      continue;
+    }
+    if (line.includes("-->")) {
+      const parts = splitOnArrow(line, "-->");
+      if (parts) {
+        const [from, rightRaw] = parts;
+        const colonIdx = rightRaw.indexOf(":");
+        if (colonIdx !== -1) {
+          messages.push({
+            from,
+            to: rightRaw.slice(0, colonIdx).trim(),
+            label: rightRaw.slice(colonIdx + 1).trim(),
+            style: "return"
+          });
+        } else {
+          messages.push({ from, to: rightRaw, style: "return" });
+        }
+        continue;
+      }
+    }
+    if (line.includes("->")) {
+      const parts = splitOnArrow(line, "->");
+      if (parts) {
+        const [from, rightRaw] = parts;
+        const colonIdx = rightRaw.indexOf(":");
+        if (colonIdx !== -1) {
+          messages.push({
+            from,
+            to: rightRaw.slice(0, colonIdx).trim(),
+            label: rightRaw.slice(colonIdx + 1).trim()
+          });
+        } else {
+          messages.push({ from, to: rightRaw });
+        }
+        continue;
+      }
+    }
+  }
+  if (actors.length === 0) {
+    const seen = /* @__PURE__ */ new Set();
+    for (const msg of messages) {
+      if (!seen.has(msg.from)) {
+        seen.add(msg.from);
+        actors.push(msg.from);
+      }
+      if (!seen.has(msg.to)) {
+        seen.add(msg.to);
+        actors.push(msg.to);
+      }
+    }
+  }
+  return {
+    figure: "sequence",
+    actors,
+    messages,
+    ...theme !== void 0 ? { theme } : {},
+    ...palette !== void 0 ? { palette } : {},
+    ...title !== void 0 ? { title } : {},
+    ...subtitle !== void 0 ? { subtitle } : {}
+  };
+}
+function parseAxisLine(line, prefix) {
+  if (!line.startsWith(prefix)) return null;
+  const content = line.slice(prefix.length);
+  const dotdotIdx = content.indexOf("..");
+  if (dotdotIdx === -1) return null;
+  const leftPart = content.slice(0, dotdotIdx).trim();
+  const max = content.slice(dotdotIdx + 2).trim();
+  const colonIdx = leftPart.indexOf(":");
+  if (colonIdx !== -1) {
+    return {
+      label: leftPart.slice(0, colonIdx).trim(),
+      min: leftPart.slice(colonIdx + 1).trim(),
+      max
+    };
+  }
+  return { label: "", min: leftPart, max };
+}
+function parseQuadrant(lines, theme, palette) {
+  const { title, subtitle, rest } = extractMeta(lines);
+  let xAxis = { label: "", min: "", max: "" };
+  let yAxis = { label: "", min: "", max: "" };
+  const quadrantLabels = ["", "", "", ""];
+  const points = [];
+  for (const line of rest) {
+    const xResult = parseAxisLine(line, "x-axis");
+    if (xResult) {
+      xAxis = xResult;
+      continue;
+    }
+    const yResult = parseAxisLine(line, "y-axis");
+    if (yResult) {
+      yAxis = yResult;
+      continue;
+    }
+    if (line.startsWith("quadrant-")) {
+      const body = line.slice("quadrant-".length);
+      const n = body.charCodeAt(0) - 48;
+      if (n >= 1 && n <= 4 && body.charAt(1) === ":") {
+        quadrantLabels[n - 1] = body.slice(2).trim();
+        continue;
+      }
+    }
+    const lastComma = line.lastIndexOf(",");
+    if (lastComma !== -1) {
+      const yStr = line.slice(lastComma + 1).trim();
+      const y = Number(yStr);
+      if (Number.isFinite(y) && y >= 0 && y <= 1) {
+        const beforeComma = line.slice(0, lastComma);
+        const colonIdx = beforeComma.indexOf(":");
+        if (colonIdx !== -1) {
+          const label = beforeComma.slice(0, colonIdx).trim();
+          const xStr = beforeComma.slice(colonIdx + 1).trim();
+          const x = Number(xStr);
+          if (label && Number.isFinite(x) && x >= 0 && x <= 1) {
+            points.push({
+              id: `p${points.length}`,
+              label,
+              x,
+              y
+            });
+            continue;
+          }
+        }
+      }
+    }
+  }
+  return {
+    figure: "quadrant",
+    xAxis,
+    yAxis,
+    quadrants: quadrantLabels,
+    points,
+    ...theme !== void 0 ? { theme } : {},
+    ...palette !== void 0 ? { palette } : {},
+    ...title !== void 0 ? { title } : {},
+    ...subtitle !== void 0 ? { subtitle } : {}
+  };
+}
+function parseGantt(lines, theme, palette) {
+  const { title, subtitle, rest } = extractMeta(lines);
+  const tasks = [];
+  const milestones = [];
+  let currentSection;
+  const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+  for (const line of rest) {
+    if (line.startsWith("section ")) {
+      currentSection = line.slice("section ".length).trim();
+      continue;
+    }
+    if (line.startsWith("milestone:")) {
+      const body = line.slice("milestone:".length).trim();
+      const lastComma2 = body.lastIndexOf(",");
+      if (lastComma2 !== -1) {
+        const date = body.slice(lastComma2 + 1).trim();
+        if (DATE_RE.test(date)) {
+          milestones.push({ label: body.slice(0, lastComma2).trim(), date });
+          continue;
+        }
+      }
+      continue;
+    }
+    const lastComma = line.lastIndexOf(",");
+    if (lastComma === -1) continue;
+    const end = line.slice(lastComma + 1).trim();
+    if (!DATE_RE.test(end)) continue;
+    const beforeEnd = line.slice(0, lastComma);
+    const prevComma = beforeEnd.lastIndexOf(",");
+    if (prevComma === -1) continue;
+    const start = beforeEnd.slice(prevComma + 1).trim();
+    if (!DATE_RE.test(start)) continue;
+    const labelAndId = beforeEnd.slice(0, prevComma);
+    const colonIdx = labelAndId.indexOf(":");
+    if (colonIdx === -1) continue;
+    const taskLabel = labelAndId.slice(0, colonIdx).trim();
+    const taskId = labelAndId.slice(colonIdx + 1).trim();
+    if (!taskLabel || !taskId) continue;
+    tasks.push({
+      id: taskId,
+      label: taskLabel,
+      start,
+      end,
+      ...currentSection !== void 0 ? { groupId: currentSection } : {}
+    });
+  }
+  return {
+    figure: "gantt",
+    tasks,
+    ...milestones.length > 0 ? { milestones } : {},
+    ...theme !== void 0 ? { theme } : {},
+    ...palette !== void 0 ? { palette } : {},
+    ...title !== void 0 ? { title } : {},
+    ...subtitle !== void 0 ? { subtitle } : {}
+  };
+}
+
 // src/index.ts
-function fig(options) {
+var EMPTY_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"></svg>';
+function fig(input) {
+  if (typeof input === "string") {
+    try {
+      return figDispatch(parseFigmd(input));
+    } catch {
+      return EMPTY_SVG;
+    }
+  }
+  return figDispatch(input);
+}
+function figDispatch(options) {
   switch (options.figure) {
     case "flow":
       return renderFlowChart(options);
@@ -9088,7 +9520,12 @@ function fig(options) {
     }
   }
 }
+function figmd(markdown) {
+  return fig(markdown);
+}
 
 exports.fig = fig;
+exports.figmd = figmd;
+exports.parseFigmd = parseFigmd;
 //# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map
