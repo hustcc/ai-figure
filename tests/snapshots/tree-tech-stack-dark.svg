@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="736" height="1344" viewBox="-28 -76 736 1344">
+<defs>
+    <marker id="fc-1-arrow" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#adb5bd"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<rect x="-28" y="-76" width="736" height="1344" fill="#1a1b1e"/>
+<text x="340" y="-42" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#adb5bd">Frontend Tech Stack</text>
+<g class="flowchart">
+
+<g class="edge" data-from="root" data-to="lang">
+<path d="M108,592 L217.2527887210262,209.61523947640822 Q220,200 230,200 L260,200" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="lang" data-to="ts">
+<path d="M365.7142857142857,170 L453.4920862654403,67.59256602365296 Q460,60 470,60 L500,60" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="lang" data-to="js">
+<path d="M420,200 L450,200 Q460,200 470,200 L500,200" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="lang" data-to="css">
+<path d="M365.7142857142857,230 L453.4920862654403,332.407433976347 Q460,340 470,340 L500,340" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="root" data-to="fw">
+<path d="M180,620 L210,620 Q220,620 230,620 L260,620" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="fw" data-to="react">
+<path d="M365.7142857142857,590 L453.4920862654403,487.592566023653 Q460,480 470,480 L500,480" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="fw" data-to="vue">
+<path d="M420,620 L450,620 Q460,620 470,620 L500,620" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="fw" data-to="svelte">
+<path d="M365.7142857142857,650 L453.4920862654403,752.4074339763471 Q460,760 470,760 L500,760" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="root" data-to="tools">
+<path d="M108,648 L217.2527887210262,1030.3847605235917 Q220,1040 230,1040 L260,1040" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="tools" data-to="vite">
+<path d="M365.7142857142857,1010 L453.4920862654403,907.5925660236529 Q460,900 470,900 L500,900" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="tools" data-to="vitest">
+<path d="M420,1040 L450,1040 Q460,1040 470,1040 L500,1040" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="tools" data-to="eslint">
+<path d="M365.7142857142857,1070 L453.4920862654403,1172.407433976347 Q460,1180 470,1180 L500,1180" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="node node-terminal" data-id="root">
+<rect x="20" y="592" width="160" height="56" rx="28" ry="28" fill="#1a3820" stroke="#51cf66" stroke-width="2"/>
+<text x="100" y="620" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#8ce99a">Frontend</text>
+</g>
+<g class="node node-process" data-id="lang">
+<rect x="260" y="170" width="160" height="60" rx="6" ry="6" fill="#1c2e44" stroke="#339af0" stroke-width="2"/>
+<text x="340" y="200" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#74c0fc">Languages</text>
+</g>
+<g class="node node-decision" data-id="ts">
+<polygon points="580,20 660,60 580,100 500,60" fill="#3d2800" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="580" y="60" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#ffd43b">TypeScript</text>
+</g>
+<g class="node node-decision" data-id="js">
+<polygon points="580,160 660,200 580,240 500,200" fill="#3d2800" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="580" y="200" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#ffd43b">JavaScript</text>
+</g>
+<g class="node node-decision" data-id="css">
+<polygon points="580,300 660,340 580,380 500,340" fill="#3d2800" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="580" y="340" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#ffd43b">CSS / SCSS</text>
+</g>
+<g class="node node-process" data-id="fw">
+<rect x="260" y="590" width="160" height="60" rx="6" ry="6" fill="#1c2e44" stroke="#339af0" stroke-width="2"/>
+<text x="340" y="620" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#74c0fc">Frameworks</text>
+</g>
+<g class="node node-decision" data-id="react">
+<polygon points="580,440 660,480 580,520 500,480" fill="#3d2800" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="580" y="480" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#ffd43b">React</text>
+</g>
+<g class="node node-decision" data-id="vue">
+<polygon points="580,580 660,620 580,660 500,620" fill="#3d2800" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="580" y="620" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#ffd43b">Vue</text>
+</g>
+<g class="node node-decision" data-id="svelte">
+<polygon points="580,720 660,760 580,800 500,760" fill="#3d2800" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="580" y="760" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#ffd43b">Svelte</text>
+</g>
+<g class="node node-process" data-id="tools">
+<rect x="260" y="1010" width="160" height="60" rx="6" ry="6" fill="#1c2e44" stroke="#339af0" stroke-width="2"/>
+<text x="340" y="1040" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#74c0fc">Tooling</text>
+</g>
+<g class="node node-decision" data-id="vite">
+<polygon points="580,860 660,900 580,940 500,900" fill="#3d2800" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="580" y="900" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#ffd43b">Vite</text>
+</g>
+<g class="node node-decision" data-id="vitest">
+<polygon points="580,1000 660,1040 580,1080 500,1040" fill="#3d2800" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="580" y="1040" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#ffd43b">Vitest</text>
+</g>
+<g class="node node-decision" data-id="eslint">
+<polygon points="580,1140 660,1180 580,1220 500,1180" fill="#3d2800" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="580" y="1180" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#ffd43b">ESLint</text>
+</g>
+</g>
+</svg>

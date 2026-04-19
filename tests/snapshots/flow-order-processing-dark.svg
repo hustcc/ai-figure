@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="586" height="1375" viewBox="-28 -95 586 1375">
+<defs>
+    <marker id="fc-1-arrow" markerWidth="8" markerHeight="6"
+      refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#adb5bd"/>
+    </marker>
+    <style>
+      @keyframes ai-fc-flow { to { stroke-dashoffset: -26; } }
+      .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
+    </style>
+  </defs>
+<rect x="-28" y="-95" width="586" height="1375" fill="#1a1b1e"/>
+<text x="265" y="-61" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#adb5bd">Order Processing</text>
+<text x="265" y="-42" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#5c6370">E-commerce fulfillment flow</text>
+<g class="flowchart">
+
+<g class="edge" data-from="order" data-to="payment">
+<path d="M320,76 L320,106 Q320,116 320,126 L320,156" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="payment" data-to="paid">
+<path d="M320,216 L320,246 Q320,256 320,266 L320,296" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="paid" data-to="reserve">
+<path d="M265,376 L218.0873608430319,410.11828302324955 Q210,416 210,426 L210,456" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+<rect x="194.56" y="407" width="30.879999999999995" height="18" fill="white" rx="3" opacity="0.9"/>
+<text x="210" y="416" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#adb5bd">Yes</text>
+</g>
+<g class="edge" data-from="paid" data-to="refund">
+<path d="M375,376 L421.9126391569681,410.11828302324955 Q430,416 430,426 L430,458" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+<rect x="418.04" y="407" width="23.919999999999998" height="18" fill="white" rx="3" opacity="0.9"/>
+<text x="430" y="416" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#adb5bd">No</text>
+</g>
+<g class="edge" data-from="reserve" data-to="instock">
+<path d="M210,516 L210,546 Q210,556 210,566 L210,596" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="instock" data-to="pick">
+<path d="M155,676 L108.08736084303189,710.1182830232495 Q100,716 100,726 L100,756" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+<rect x="84.56" y="707" width="30.879999999999995" height="18" fill="white" rx="3" opacity="0.9"/>
+<text x="100" y="716" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#adb5bd">Yes</text>
+</g>
+<g class="edge" data-from="instock" data-to="backorder">
+<path d="M265,676 L311.9126391569681,710.1182830232495 Q320,716 320,726 L320,758" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+<rect x="308.04" y="707" width="23.919999999999998" height="18" fill="white" rx="3" opacity="0.9"/>
+<text x="320" y="716" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#adb5bd">No</text>
+</g>
+<g class="edge" data-from="pick" data-to="ship">
+<path d="M100,816 L100,846 Q100,856 100,866 L100,896" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="ship" data-to="notify">
+<path d="M100,956 L100,986 Q100,996 100,1006 L100,1036" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="edge" data-from="notify" data-to="done">
+<path d="M100,1096 L100,1126 Q100,1136 100,1146 L100,1176" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5" class="ai-fc-edge" marker-end="url(#fc-1-arrow)"/>
+
+</g>
+<g class="node node-terminal" data-id="order">
+<rect x="240" y="20" width="160" height="56" rx="28" ry="28" fill="#1a3820" stroke="#51cf66" stroke-width="2"/>
+<text x="320" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#8ce99a">Place Order</text>
+</g>
+<g class="node node-process" data-id="payment">
+<rect x="240" y="156" width="160" height="60" rx="6" ry="6" fill="#1c2e44" stroke="#339af0" stroke-width="2"/>
+<text x="320" y="186" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#74c0fc">Process Payment</text>
+</g>
+<g class="node node-decision" data-id="paid">
+<polygon points="320,296 400,336 320,376 240,336" fill="#3d2800" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="320" y="336" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#ffd43b">Payment OK?</text>
+</g>
+<g class="node node-process" data-id="reserve">
+<rect x="130" y="456" width="160" height="60" rx="6" ry="6" fill="#1c2e44" stroke="#339af0" stroke-width="2"/>
+<text x="210" y="486" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#74c0fc">Reserve Inventory</text>
+</g>
+<g class="node node-decision" data-id="instock">
+<polygon points="210,596 290,636 210,676 130,636" fill="#3d2800" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="210" y="636" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#ffd43b">In Stock?</text>
+</g>
+<g class="node node-process" data-id="pick">
+<rect x="20" y="756" width="160" height="60" rx="6" ry="6" fill="#1c2e44" stroke="#339af0" stroke-width="2"/>
+<text x="100" y="786" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#74c0fc">Pick &amp; Pack</text>
+</g>
+<g class="node node-io" data-id="ship">
+<polygon points="34,896 180,896 166,956 20,956" fill="#2d1a38" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
+<text x="100" y="926" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e599f7">Ship Order</text>
+</g>
+<g class="node node-io" data-id="notify">
+<polygon points="34,1036 180,1036 166,1096 20,1096" fill="#2d1a38" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
+<text x="100" y="1066" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e599f7">Notify Customer</text>
+</g>
+<g class="node node-terminal" data-id="refund">
+<rect x="350" y="458" width="160" height="56" rx="28" ry="28" fill="#1a3820" stroke="#51cf66" stroke-width="2"/>
+<text x="430" y="486" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#8ce99a">Refund &amp; Cancel</text>
+</g>
+<g class="node node-terminal" data-id="backorder">
+<rect x="240" y="758" width="160" height="56" rx="28" ry="28" fill="#1a3820" stroke="#51cf66" stroke-width="2"/>
+<text x="320" y="786" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#8ce99a">Backorder</text>
+</g>
+<g class="node node-terminal" data-id="done">
+<rect x="20" y="1176" width="160" height="56" rx="28" ry="28" fill="#1a3820" stroke="#51cf66" stroke-width="2"/>
+<text x="100" y="1204" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#8ce99a">Order Complete</text>
+</g>
+</g>
+</svg>

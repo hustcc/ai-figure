@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="736" height="784" viewBox="0 0 736 784">
+<rect width="100%" height="100%" fill="#1a1b1e"/>
+<text x="368" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#adb5bd">Tech Debt Evaluation</text>
+<g class="quadrant-chart" transform="translate(0,48)">
+<defs><filter id="qd-1-shadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0.8" stdDeviation="1" flood-color="rgba(0,0,0,0.18)"/></filter><marker id="qd-1-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#5c6370"/></marker></defs>
+<rect x="56" y="32" width="328" height="326" fill="#1a3820" fill-opacity="0.13" stroke="none"/>
+<rect x="384" y="32" width="328" height="326" fill="#1c2e44" fill-opacity="0.13" stroke="none"/>
+<rect x="56" y="358" width="328" height="326" fill="#2d1a38" fill-opacity="0.13" stroke="none"/>
+<rect x="384" y="358" width="328" height="326" fill="#3d2800" fill-opacity="0.13" stroke="none"/>
+<rect x="56" y="32" width="656" height="652" fill="none" stroke="#5c6370" stroke-width="1"/>
+<line x1="220" y1="32" x2="220" y2="684" stroke="#5c6370" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
+<line x1="548" y1="32" x2="548" y2="684" stroke="#5c6370" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
+<line x1="56" y1="195" x2="712" y2="195" stroke="#5c6370" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
+<line x1="56" y1="521" x2="712" y2="521" stroke="#5c6370" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
+<line x1="56" y1="358" x2="712" y2="358" stroke="#5c6370" stroke-width="2" marker-end="url(#qd-1-arrow)"/>
+<line x1="384" y1="684" x2="384" y2="32" stroke="#5c6370" stroke-width="2" marker-end="url(#qd-1-arrow)"/>
+<text x="60" y="374" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" opacity="0.6">Low</text>
+<text x="682" y="374" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" opacity="0.6">High</text>
+<text x="384" y="724" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#adb5bd">Fix Cost</text>
+<text x="376" y="680" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" opacity="0.6">Low</text>
+<text x="376" y="46" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" opacity="0.6">High</text>
+<text x="28" y="358" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#adb5bd" transform="rotate(-90, 28, 358)">Business Risk</text>
+<text x="66" y="54" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#5c6370">Tackle Now</text>
+<text x="702" y="54" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#5c6370">Schedule</text>
+<text x="66" y="674" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#5c6370">Accept</text>
+<text x="702" y="674" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#5c6370">Defer</text>
+<circle cx="187.20000000000002" cy="110.24" r="4" fill="#51cf66" stroke="none" filter="url(#qd-1-shadow)"/>
+<text x="197.20000000000002" y="115.17999999999999" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd">Outdated auth lib</text>
+<circle cx="593.92" cy="175.43999999999997" r="4" fill="#339af0" stroke="none" filter="url(#qd-1-shadow)"/>
+<text x="603.92" y="180.37999999999997" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd">Monolith split</text>
+<circle cx="174.07999999999998" cy="540.56" r="4" fill="#cc5de8" stroke="none" filter="url(#qd-1-shadow)"/>
+<text x="184.07999999999998" y="545.5" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd">CSS cleanup</text>
+<circle cx="285.6" cy="227.60000000000002" r="4" fill="#51cf66" stroke="none" filter="url(#qd-1-shadow)"/>
+<text x="295.6" y="232.54000000000002" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd">DB index gaps</text>
+<circle cx="351.2" cy="292.8" r="4" fill="#51cf66" stroke="none" filter="url(#qd-1-shadow)"/>
+<text x="361.2" y="297.74" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd">Test coverage</text>
+<circle cx="416.8" cy="162.39999999999998" r="4" fill="#339af0" stroke="none" filter="url(#qd-1-shadow)"/>
+<text x="426.8" y="167.33999999999997" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd">Legacy Node version</text>
+<circle cx="449.59999999999997" cy="488.4" r="4" fill="#f59f00" stroke="none" filter="url(#qd-1-shadow)"/>
+<text x="459.59999999999997" y="493.34" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd">Build tool upgrade</text>
+<circle cx="252.79999999999998" cy="358" r="4" fill="#51cf66" stroke="none" filter="url(#qd-1-shadow)"/>
+<text x="262.79999999999995" y="362.94" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd">Deprecated API calls</text>
+</g>
+</svg>
