@@ -128,15 +128,14 @@ function extractMeta(lines: string[]): Meta {
     const line = rawLine.trim();
     if (!line || line.startsWith('%%')) continue;
 
-    const titleMatch = line.match(/^title:\s*(.+)$/);
-    if (titleMatch) {
-      title = titleMatch[1].trim();
+    // Use startsWith + slice to avoid regex backtracking on meta-lines
+    if (line.startsWith('title:')) {
+      title = line.slice('title:'.length).trim();
       continue;
     }
 
-    const subtitleMatch = line.match(/^subtitle:\s*(.+)$/);
-    if (subtitleMatch) {
-      subtitle = subtitleMatch[1].trim();
+    if (line.startsWith('subtitle:')) {
+      subtitle = line.slice('subtitle:'.length).trim();
       continue;
     }
 
@@ -144,6 +143,21 @@ function extractMeta(lines: string[]): Meta {
   }
 
   return { title, subtitle, rest };
+}
+
+/**
+ * Split a line on the first occurrence of `arrow` and return `[left, right]` after
+ * trimming, or `null` if the arrow is absent or either side is empty.
+ *
+ * Using indexOf instead of a regex avoids polynomial backtracking on long lines.
+ */
+function splitOnArrow(line: string, arrow: string): [string, string] | null {
+  const idx = line.indexOf(arrow);
+  if (idx === -1) return null;
+  const left = line.slice(0, idx).trim();
+  const right = line.slice(idx + arrow.length).trim();
+  if (!left || !right) return null;
+  return [left, right];
 }
 
 /**
@@ -209,8 +223,9 @@ function parseNodeExpr(expr: string): { id: string; label: string; type: NodeTyp
  * code[Write Code] --> test{Tests Pass?}
  * test -->|yes| build[Build Image]
  * test -->|no| fix((Fix Issues))
+ * fix --> code
  * build --> deploy[/Deploy/]
- * group Pipeline: code, test, build, deploy
+ * group Pipeline: code, test, build
  * ```
  */
 function parseFlow(
@@ -232,33 +247,44 @@ function parseFlow(
 
   for (const line of rest) {
     // group GroupLabel: id1, id2, ...
-    const groupMatch = line.match(/^group\s+(.+?):\s*(.+)$/);
-    if (groupMatch) {
-      const label = groupMatch[1].trim();
-      groups.push({
-        id: `grp-${groups.length}`,
-        label,
-        nodes: groupMatch[2].split(',').map((n) => n.trim()),
-      });
+    // Use startsWith + indexOf(':') to avoid backtracking
+    if (line.startsWith('group ')) {
+      const body = line.slice('group '.length);
+      const colonIdx = body.indexOf(':');
+      if (colonIdx !== -1) {
+        const label = body.slice(0, colonIdx).trim();
+        const nodeList = body.slice(colonIdx + 1).trim();
+        groups.push({
+          id: `grp-${groups.length}`,
+          label,
+          nodes: nodeList.split(',').map((n) => n.trim()),
+        });
+      }
       continue;
     }
 
-    // labeled edge: A -->|label| B  (check before simple edge)
-    const labeledEdge = line.match(/^(.+?)\s*-->\s*\|([^|]+)\|\s*(.+)$/);
-    if (labeledEdge) {
-      const fromId = ensureNode(labeledEdge[1].trim());
-      const toId = ensureNode(labeledEdge[3].trim());
-      edges.push({ from: fromId, to: toId, label: labeledEdge[2] });
-      continue;
-    }
+    // Edges: use splitOnArrow to avoid backtracking regex
+    if (line.includes('-->')) {
+      const parts = splitOnArrow(line, '-->');
+      if (parts) {
+        const [left, rightRaw] = parts;
+        let right = rightRaw;
+        let label: string | undefined;
 
-    // simple edge: A --> B
-    const simpleEdge = line.match(/^(.+?)\s*-->\s*(.+)$/);
-    if (simpleEdge) {
-      const fromId = ensureNode(simpleEdge[1].trim());
-      const toId = ensureNode(simpleEdge[2].trim());
-      edges.push({ from: fromId, to: toId });
-      continue;
+        // labeled edge: right starts with |label|
+        if (right.startsWith('|')) {
+          const closePipe = right.indexOf('|', 1);
+          if (closePipe !== -1) {
+            label = right.slice(1, closePipe);
+            right = right.slice(closePipe + 1).trim();
+          }
+        }
+
+        const fromId = ensureNode(left);
+        const toId = ensureNode(right);
+        edges.push(label !== undefined ? { from: fromId, to: toId, label } : { from: fromId, to: toId });
+        continue;
+      }
     }
 
     // standalone node definition
@@ -316,12 +342,15 @@ function parseTree(
   };
 
   for (const line of rest) {
-    // parent --> child
-    const edgeMatch = line.match(/^(.+?)\s*-->\s*(.+)$/);
-    if (edgeMatch) {
-      const parentId = ensureNode(edgeMatch[1].trim());
-      ensureNode(edgeMatch[2].trim(), parentId);
-      continue;
+    // parent --> child: use splitOnArrow to avoid backtracking regex
+    if (line.includes('-->')) {
+      const parts = splitOnArrow(line, '-->');
+      if (parts) {
+        const [left, right] = parts;
+        const parentId = ensureNode(left);
+        ensureNode(right, parentId);
+        continue;
+      }
     }
 
     // standalone root node
@@ -374,10 +403,10 @@ function parseArch(
   let currentLayer: ArchLayer | null = null;
 
   for (const line of rest) {
-    // layer id[Label]  or  layer id (bare id becomes both id and label)
-    const layerMatch = line.match(/^layer\s+(.+)$/);
-    if (layerMatch) {
-      const { id, label } = parseNodeExpr(layerMatch[1].trim());
+    // layer id[Label] — use startsWith + slice to avoid backtracking
+    if (line.startsWith('layer ')) {
+      const layerExpr = line.slice('layer '.length).trim();
+      const { id, label } = parseNodeExpr(layerExpr);
       currentLayer = { id, label, nodes: [] };
       layers.push(currentLayer);
       continue;
@@ -434,52 +463,49 @@ function parseSequence(
   const messages: SeqMessage[] = [];
 
   for (const line of rest) {
-    // actors: A, B, C
-    const actorsMatch = line.match(/^actors:\s*(.+)$/);
-    if (actorsMatch) {
-      actors = actorsMatch[1].split(',').map((a) => a.trim());
+    // actors: A, B, C — use startsWith + slice to avoid backtracking
+    if (line.startsWith('actors:')) {
+      actors = line.slice('actors:'.length).split(',').map((a) => a.trim()).filter(Boolean);
       continue;
     }
 
-    // return/dashed: A --> B: label  (must be checked BEFORE solid -> pattern)
-    const returnWithLabel = line.match(/^(.+?)\s*-->\s*(.+?):\s*(.+)$/);
-    if (returnWithLabel) {
-      messages.push({
-        from: returnWithLabel[1].trim(),
-        to: returnWithLabel[2].trim(),
-        label: returnWithLabel[3].trim(),
-        style: 'return',
-      });
-      continue;
+    // Return/dashed: check for '-->' BEFORE '->' (since '-->' contains '->')
+    if (line.includes('-->')) {
+      const parts = splitOnArrow(line, '-->');
+      if (parts) {
+        const [from, rightRaw] = parts;
+        const colonIdx = rightRaw.indexOf(':');
+        if (colonIdx !== -1) {
+          messages.push({
+            from,
+            to: rightRaw.slice(0, colonIdx).trim(),
+            label: rightRaw.slice(colonIdx + 1).trim(),
+            style: 'return',
+          });
+        } else {
+          messages.push({ from, to: rightRaw, style: 'return' });
+        }
+        continue;
+      }
     }
 
-    // return/dashed without label: A --> B
-    const returnNoLabel = line.match(/^(.+?)\s*-->\s*(.+)$/);
-    if (returnNoLabel) {
-      messages.push({
-        from: returnNoLabel[1].trim(),
-        to: returnNoLabel[2].trim(),
-        style: 'return',
-      });
-      continue;
-    }
-
-    // solid with label: A -> B: label
-    const solidWithLabel = line.match(/^(.+?)\s*->\s*(.+?):\s*(.+)$/);
-    if (solidWithLabel) {
-      messages.push({
-        from: solidWithLabel[1].trim(),
-        to: solidWithLabel[2].trim(),
-        label: solidWithLabel[3].trim(),
-      });
-      continue;
-    }
-
-    // solid without label: A -> B
-    const solidNoLabel = line.match(/^(.+?)\s*->\s*(.+)$/);
-    if (solidNoLabel) {
-      messages.push({ from: solidNoLabel[1].trim(), to: solidNoLabel[2].trim() });
-      continue;
+    // Solid: '->'
+    if (line.includes('->')) {
+      const parts = splitOnArrow(line, '->');
+      if (parts) {
+        const [from, rightRaw] = parts;
+        const colonIdx = rightRaw.indexOf(':');
+        if (colonIdx !== -1) {
+          messages.push({
+            from,
+            to: rightRaw.slice(0, colonIdx).trim(),
+            label: rightRaw.slice(colonIdx + 1).trim(),
+          });
+        } else {
+          messages.push({ from, to: rightRaw });
+        }
+        continue;
+      }
     }
   }
 
@@ -506,6 +532,28 @@ function parseSequence(
 // ---------------------------------------------------------------------------
 // Quadrant parser
 // ---------------------------------------------------------------------------
+
+/**
+ * Parse axis configuration from a line like `x-axis: min .. max` or
+ * `x-axis Label: min .. max`. Uses indexOf to avoid regex backtracking.
+ */
+function parseAxisLine(line: string, prefix: string): { label: string; min: string; max: string } | null {
+  if (!line.startsWith(prefix)) return null;
+  const content = line.slice(prefix.length); // e.g. ": Low .. High" or " Label: Low .. High"
+  const dotdotIdx = content.indexOf('..');
+  if (dotdotIdx === -1) return null;
+  const leftPart = content.slice(0, dotdotIdx).trim(); // e.g. ": Low" or "Label: Low"
+  const max = content.slice(dotdotIdx + 2).trim();
+  const colonIdx = leftPart.indexOf(':');
+  if (colonIdx !== -1) {
+    return {
+      label: leftPart.slice(0, colonIdx).trim(),
+      min: leftPart.slice(colonIdx + 1).trim(),
+      max,
+    };
+  }
+  return { label: '', min: leftPart, max };
+}
 
 /**
  * Parse quadrant chart body lines.
@@ -547,46 +595,45 @@ function parseQuadrant(
   const points: QuadrantPoint[] = [];
 
   for (const line of rest) {
-    // x-axis [Label:] min .. max
-    // Supports "x-axis: min .. max" and "x-axis Label: min .. max"
-    const xRangeMatch = line.match(/^x-axis(?:\s+([^:]+))?:\s*(.+?)\s*\.\.\s*(.+)$/);
-    if (xRangeMatch) {
-      xAxis = {
-        label: xRangeMatch[1] ? xRangeMatch[1].trim() : '',
-        min: xRangeMatch[2].trim(),
-        max: xRangeMatch[3].trim(),
-      };
-      continue;
+    // x-axis [Label:] min .. max — use parseAxisLine to avoid backtracking
+    const xResult = parseAxisLine(line, 'x-axis');
+    if (xResult) { xAxis = xResult; continue; }
+
+    const yResult = parseAxisLine(line, 'y-axis');
+    if (yResult) { yAxis = yResult; continue; }
+
+    // quadrant-N: label (N ∈ {1,2,3,4}) — use startsWith + slice
+    if (line.startsWith('quadrant-')) {
+      const body = line.slice('quadrant-'.length);
+      const n = body.charCodeAt(0) - 48; // '1'=49 → 1, etc.
+      if (n >= 1 && n <= 4 && body.charAt(1) === ':') {
+        quadrantLabels[n - 1] = body.slice(2).trim();
+        continue;
+      }
     }
 
-    // y-axis [Label:] min .. max
-    const yRangeMatch = line.match(/^y-axis(?:\s+([^:]+))?:\s*(.+?)\s*\.\.\s*(.+)$/);
-    if (yRangeMatch) {
-      yAxis = {
-        label: yRangeMatch[1] ? yRangeMatch[1].trim() : '',
-        min: yRangeMatch[2].trim(),
-        max: yRangeMatch[3].trim(),
-      };
-      continue;
-    }
-
-    // quadrant-N: label  (1=TL, 2=TR, 3=BL, 4=BR)
-    const quadMatch = line.match(/^quadrant-([1-4]):\s*(.+)$/);
-    if (quadMatch) {
-      quadrantLabels[parseInt(quadMatch[1], 10) - 1] = quadMatch[2].trim();
-      continue;
-    }
-
-    // data point: Label: x, y
-    const pointMatch = line.match(/^(.+?):\s*([\d.]+)\s*,\s*([\d.]+)$/);
-    if (pointMatch) {
-      points.push({
-        id: `p${points.length}`,
-        label: pointMatch[1].trim(),
-        x: parseFloat(pointMatch[2]),
-        y: parseFloat(pointMatch[3]),
-      });
-      continue;
+    // data point: "Label: x, y"  — one colon separates label from x, one comma separates x from y
+    // Find the single comma (between x and y), then split label from x via the first colon
+    const lastComma = line.lastIndexOf(',');
+    if (lastComma !== -1) {
+      const yStr = line.slice(lastComma + 1).trim();
+      if (/^[\d.]+$/.test(yStr)) {
+        const beforeComma = line.slice(0, lastComma);
+        const colonIdx = beforeComma.indexOf(':');
+        if (colonIdx !== -1) {
+          const label = beforeComma.slice(0, colonIdx).trim();
+          const xStr = beforeComma.slice(colonIdx + 1).trim();
+          if (label && /^[\d.]+$/.test(xStr)) {
+            points.push({
+              id: `p${points.length}`,
+              label,
+              x: parseFloat(xStr),
+              y: parseFloat(yStr),
+            });
+            continue;
+          }
+        }
+      }
     }
   }
 
@@ -636,33 +683,57 @@ function parseGantt(
   const milestones: GanttMilestone[] = [];
   let currentSection: string | undefined;
 
+  // Matches a date value: yyyy-mm-dd
+  const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
   for (const line of rest) {
-    // section SectionName
-    const sectionMatch = line.match(/^section\s+(.+)$/);
-    if (sectionMatch) {
-      currentSection = sectionMatch[1].trim();
+    // section SectionName — use startsWith + slice to avoid backtracking
+    if (line.startsWith('section ')) {
+      currentSection = line.slice('section '.length).trim();
       continue;
     }
 
-    // milestone: Label, date
-    const milestoneMatch = line.match(/^milestone:\s*(.+?),\s*([\d-]+)$/);
-    if (milestoneMatch) {
-      milestones.push({ label: milestoneMatch[1].trim(), date: milestoneMatch[2].trim() });
+    // milestone: Label, date — use startsWith + lastIndexOf
+    if (line.startsWith('milestone:')) {
+      const body = line.slice('milestone:'.length).trim();
+      const lastComma = body.lastIndexOf(',');
+      if (lastComma !== -1) {
+        const date = body.slice(lastComma + 1).trim();
+        if (DATE_RE.test(date)) {
+          milestones.push({ label: body.slice(0, lastComma).trim(), date });
+          continue;
+        }
+      }
       continue;
     }
 
     // Task Label: id, start, end
-    const taskMatch = line.match(/^(.+?):\s*([\w-]+)\s*,\s*([\d-]+)\s*,\s*([\d-]+)$/);
-    if (taskMatch) {
-      tasks.push({
-        id: taskMatch[2].trim(),
-        label: taskMatch[1].trim(),
-        start: taskMatch[3].trim(),
-        end: taskMatch[4].trim(),
-        ...(currentSection !== undefined ? { groupId: currentSection } : {}),
-      });
-      continue;
-    }
+    // Parse from the right: locate the two date fields anchored at the end
+    const lastComma = line.lastIndexOf(',');
+    if (lastComma === -1) continue;
+    const end = line.slice(lastComma + 1).trim();
+    if (!DATE_RE.test(end)) continue;
+
+    const beforeEnd = line.slice(0, lastComma);
+    const prevComma = beforeEnd.lastIndexOf(',');
+    if (prevComma === -1) continue;
+    const start = beforeEnd.slice(prevComma + 1).trim();
+    if (!DATE_RE.test(start)) continue;
+
+    const labelAndId = beforeEnd.slice(0, prevComma);
+    const colonIdx = labelAndId.indexOf(':');
+    if (colonIdx === -1) continue;
+    const taskLabel = labelAndId.slice(0, colonIdx).trim();
+    const taskId = labelAndId.slice(colonIdx + 1).trim();
+    if (!taskLabel || !taskId) continue;
+
+    tasks.push({
+      id: taskId,
+      label: taskLabel,
+      start,
+      end,
+      ...(currentSection !== undefined ? { groupId: currentSection } : {}),
+    });
   }
 
   return {
@@ -675,3 +746,4 @@ function parseGantt(
     ...(subtitle !== undefined ? { subtitle } : {}),
   };
 }
+
