@@ -68,7 +68,7 @@ export interface FlowChartOptions {
   groups?: FlowGroup[];
   /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
-  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'notion'`, `'figma'`, `'github'`, or custom hex array (default: `'default'`). */
+  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'figma'`, `'vega'`, `'mono-blue'`, `'mono-green'`, `'mono-purple'`, `'mono-orange'`, or custom hex array (default: `'default'`). */
   palette?: PaletteType;
   /** Graph layout direction (default: 'TB' — top to bottom). */
   direction?: Direction;
@@ -98,7 +98,7 @@ export interface TreeDiagramOptions {
   nodes: TreeNode[];
   /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
-  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'notion'`, `'figma'`, `'github'`, or custom hex array (default: `'default'`). */
+  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'figma'`, `'vega'`, `'mono-blue'`, `'mono-green'`, `'mono-purple'`, `'mono-orange'`, or custom hex array (default: `'default'`). */
   palette?: PaletteType;
   /** Layout direction (default: 'TB'). */
   direction?: Direction;
@@ -136,7 +136,7 @@ export interface ArchDiagramOptions {
   layers: ArchLayer[];
   /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
-  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'notion'`, `'figma'`, `'github'`, or custom hex array (default: `'default'`). */
+  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'figma'`, `'vega'`, `'mono-blue'`, `'mono-green'`, `'mono-purple'`, `'mono-orange'`, or custom hex array (default: `'default'`). */
   palette?: PaletteType;
   /** Direction: TB = layers top-to-bottom, LR = layers left-to-right (default: 'TB'). */
   direction?: Direction;
@@ -170,7 +170,7 @@ export interface SequenceDiagramOptions {
   messages: SeqMessage[];
   /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
-  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'notion'`, `'figma'`, `'github'`, or custom hex array (default: `'default'`). */
+  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'figma'`, `'vega'`, `'mono-blue'`, `'mono-green'`, `'mono-purple'`, `'mono-orange'`, or custom hex array (default: `'default'`). */
   palette?: PaletteType;
   /** Optional chart title displayed above the diagram. */
   title?: string;
@@ -206,7 +206,7 @@ export interface QuadrantChartOptions {
   points: QuadrantPoint[];
   /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
-  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'notion'`, `'figma'`, `'github'`, or custom hex array (default: `'default'`). */
+  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'figma'`, `'vega'`, `'mono-blue'`, `'mono-green'`, `'mono-purple'`, `'mono-orange'`, or custom hex array (default: `'default'`). */
   palette?: PaletteType;
   /** Optional chart title displayed above the diagram. */
   title?: string;
@@ -250,7 +250,7 @@ export interface GanttChartOptions {
   milestones?: GanttMilestone[];
   /** Light or dark rendering mode (default: `'light'`). */
   theme?: ThemeType;
-  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'notion'`, `'figma'`, `'github'`, or custom hex array (default: `'default'`). */
+  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'figma'`, `'vega'`, `'mono-blue'`, `'mono-green'`, `'mono-purple'`, `'mono-orange'`, or custom hex array (default: `'default'`). */
   palette?: PaletteType;
   /** Optional chart title displayed above the diagram. */
   title?: string;

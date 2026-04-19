@@ -117,7 +117,7 @@ const drawioPalette: Record<Mode, ThemeConfig> = {
 
 /**
  * `'mono-blue'` — four shades of blue (Tailwind blue scale).
- * process=blue-600 stroke, decision=blue-400 stroke, terminal=blue-700 stroke, io=blue-200 fill / blue-900 stroke.
+ * process=blue-600 stroke, decision=blue-300 stroke, terminal=blue-700 stroke, io=blue-300 fill / blue-900 stroke.
  */
 const monoBluePalette: Record<Mode, ThemeConfig> = {
   light: {
@@ -136,7 +136,7 @@ const monoBluePalette: Record<Mode, ThemeConfig> = {
 
 /**
  * `'mono-green'` — four shades of green (Tailwind green scale).
- * process=green-600 stroke, decision=green-400 stroke, terminal=green-700 stroke, io=green-300 fill / green-900 stroke.
+ * process=green-600 stroke, decision=green-400 stroke, terminal=green-700 stroke, io=green-300 fill / green-800 stroke.
  */
 const monoGreenPalette: Record<Mode, ThemeConfig> = {
   light: {
@@ -155,7 +155,7 @@ const monoGreenPalette: Record<Mode, ThemeConfig> = {
 
 /**
  * `'mono-purple'` — four shades of purple (Tailwind purple scale).
- * process=purple-600 stroke, decision=purple-400 stroke, terminal=purple-700 stroke, io=purple-300 fill / purple-900 stroke.
+ * process=purple-600 stroke, decision=purple-400 stroke, terminal=purple-700 stroke, io=purple-300 fill / purple-800 stroke.
  */
 const monoPurplePalette: Record<Mode, ThemeConfig> = {
   light: {
@@ -174,7 +174,7 @@ const monoPurplePalette: Record<Mode, ThemeConfig> = {
 
 /**
  * `'mono-orange'` — four shades of orange (Tailwind orange scale).
- * process=orange-600 stroke, decision=orange-400 stroke, terminal=orange-700 stroke, io=orange-300 fill / orange-900 stroke.
+ * process=orange-600 stroke, decision=orange-400 stroke, terminal=orange-700 stroke, io=orange-300 fill / orange-800 stroke.
  */
 const monoOrangePalette: Record<Mode, ThemeConfig> = {
   light: {
