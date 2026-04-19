@@ -471,3 +471,73 @@ describe('fig', () => {
     expect(svgWidth).toBeGreaterThan(800); // sanity check: many layers → wide diagram
   });
 });
+
+// ---------------------------------------------------------------------------
+// fig(string) — unified markdown API + fault tolerance (streaming)
+// ---------------------------------------------------------------------------
+
+describe('fig(string) — markdown input', () => {
+  it('renders a flow diagram from a markdown string', () => {
+    const svg = fig(`
+      flow LR antv
+      title: Pipeline
+      a[Start] --> b[End]
+    `);
+    expect(svg).toContain('<svg');
+    expect(svg).toContain('Pipeline');
+    expect(svg).toContain('Start');
+  });
+
+  it('renders all six diagram types from string input', () => {
+    const types = [
+      `flow\na[A] --> b[B]`,
+      `tree\nr[Root] --> c[Child]`,
+      `arch\nlayer l[Layer]\nn[Node]`,
+      `sequence\nA -> B: hello`,
+      `quadrant\nx-axis: Low .. High\ny-axis: Low .. High\nquadrant-1: Q1\nquadrant-2: Q2\nquadrant-3: Q3\nquadrant-4: Q4`,
+      `gantt\nTask: t1, 2025-01-01, 2025-01-15`,
+    ];
+    for (const md of types) {
+      const svg = fig(md);
+      expect(svg).toContain('<svg');
+    }
+  });
+
+  // Fault-tolerance / streaming safety
+  it('returns empty SVG for an empty string (never throws)', () => {
+    const svg = fig('');
+    expect(svg).toContain('<svg');
+    expect(() => fig('')).not.toThrow();
+  });
+
+  it('returns empty SVG for a blank-only string (never throws)', () => {
+    const svg = fig('   \n  \n');
+    expect(svg).toContain('<svg');
+  });
+
+  it('returns empty SVG for an unknown figure type (never throws)', () => {
+    const svg = fig('unknown LR\na --> b');
+    expect(svg).toContain('<svg');
+  });
+
+  it('handles partial/streaming input — header only', () => {
+    const svg = fig('flow LR antv');
+    expect(svg).toContain('<svg');
+  });
+
+  it('handles partial/streaming input — header + partial edge line', () => {
+    // Incomplete line "a[Write Code] -->" should be ignored, not crash
+    const svg = fig('flow\na[Write Code] -->');
+    expect(svg).toContain('<svg');
+  });
+
+  it('renders progressively — more content = richer diagram', () => {
+    const partial = fig('flow LR\na[A] --> b[B]');
+    const full = fig('flow LR\na[A] --> b[B]\nb --> c[C]');
+    // Both must be valid SVG
+    expect(partial).toContain('<svg');
+    expect(full).toContain('<svg');
+    // Full diagram should contain the extra node label
+    expect(full).toContain('C');
+  });
+});

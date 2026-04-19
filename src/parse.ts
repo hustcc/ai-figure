@@ -1,4 +1,3 @@
-import { fig } from './index';
 import type {
   FigOptions,
   FlowNode,
@@ -21,7 +20,7 @@ import type {
 // ---------------------------------------------------------------------------
 
 /**
- * Parse a Mermaid-like markdown diagram definition and render it as an SVG string.
+ * Parse a Mermaid-like markdown diagram definition and return a {@link FigOptions} object.
  *
  * The first non-empty line is the **header**: `<type> [direction] [theme] [palette]`
  *
@@ -34,9 +33,13 @@ import type {
  * Lines starting with `%%` are treated as comments and ignored.
  * `title:` and `subtitle:` meta-lines are supported in all diagram types.
  *
+ * Throws if the input is empty or the figure type is not recognised.
+ * For a fault-tolerant render path that never throws (useful with streaming AI output),
+ * use `fig(markdown)` instead.
+ *
  * @example
  * ```
- * figmd(`
+ * parseFigmd(`
  *   flow LR antv
  *   title: CI Pipeline
  *   code[Write Code] --> test{Tests Pass?}
@@ -46,16 +49,6 @@ import type {
  *   group Pipeline: code, test, build, deploy
  * `);
  * ```
- */
-export function figmd(markdown: string): string {
-  return fig(parseFigmd(markdown));
-}
-
-/**
- * Parse a Mermaid-like markdown diagram definition and return a {@link FigOptions} object.
- *
- * Useful when you want to inspect or modify the parsed options before rendering.
- * See {@link figmd} for the full syntax reference.
  */
 export function parseFigmd(markdown: string): FigOptions {
   const lines = markdown.split('\n');
