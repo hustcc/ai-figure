@@ -10,7 +10,7 @@
 
 - 🎨 **Rich visual styles** — light/dark mode, nine built-in palettes (`default`, `antv`, `drawio`, `figma`, `vega`, `mono-blue`, `mono-green`, `mono-purple`, `mono-orange`) plus custom hex arrays; every diagram supports optional title & subtitle, node groups, and color-coded layers
 - 📐 **Auto layout** — just describe the graph; x/y coordinates are computed automatically, and diagram dimensions scale to fit the content
-- 🤖 **AI-friendly** — single `fig()` entry point accepts a markdown string **or** a JSON config; streaming-safe (partial input never throws); ships a [`SKILL.md`](./SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
+- 🤖 **AI-friendly** — single `fig()` entry point accepts a markdown string **or** a JSON config; streaming-safe (partial input never throws); ships a [`SKILL.md`](https://github.com/hustcc/ai-figure/blob/main/SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
 - 📊 **6 diagram types** — flowchart, tree, architecture, sequence, quadrant, and Gantt chart; pure SVG output with zero DOM dependency, works in browser and Node.js
 
 ## Quick Start
@@ -94,7 +94,7 @@ fig(`flow LR\na[A] --> b[B]`);
 
 ### `figure: 'flow'` — Flowchart
 
-![Flow](./assets/flow.svg)
+![Flow](https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/flow.svg)
 
 | Field       | Type            | Default        | Description                              |
 |-------------|-----------------|----------------|------------------------------------------|
@@ -145,7 +145,7 @@ fig(`flow LR\na[A] --> b[B]`);
 
 Renders a hierarchy from a flat node list with `parent` references. Uses Dagre for layout.
 
-![Tree](./assets/tree.svg)
+![Tree](https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/tree.svg)
 
 | Field       | Type          | Default        | Description                        |
 |-------------|---------------|----------------|------------------------------------|
@@ -174,7 +174,7 @@ fig({
 
 Renders a tech-stack landscape as layered, color-coded cards — no edges needed.
 
-![Architecture](./assets/arch.svg)
+![Architecture](https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/arch.svg)
 
 | Field       | Type          | Default        | Description                              |
 |-------------|---------------|----------------|------------------------------------------|
@@ -200,7 +200,7 @@ fig({
 
 Renders a sequence diagram with vertical lifelines and horizontal message arrows.
 
-![Sequence](./assets/sequence.svg)
+![Sequence](https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/sequence.svg)
 
 | Field      | Type           | Default        | Description                           |
 |------------|----------------|----------------|---------------------------------------|
@@ -229,7 +229,7 @@ fig({
 
 Renders a 2D quadrant scatter plot. Points are placed by normalized `x`/`y` values (0–1) and auto-colored by which quadrant they fall in.
 
-![Quadrant](./assets/quadrant.svg)
+![Quadrant](https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/quadrant.svg)
 
 | Field       | Type               | Default        | Description                                         |
 |-------------|--------------------|----------------|-----------------------------------------------------|
@@ -282,7 +282,7 @@ fig({
 
 Renders a project timeline with task bars, optional group headers, and milestone markers. Canvas width is fixed at 804 px; height auto-adapts to the number of rows. The time axis ticks adjust automatically to the date range (weekly / monthly / quarterly).
 
-![Gantt](./assets/gantt.svg)
+![Gantt](https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/gantt.svg)
 
 | Field        | Type               | Default      | Description                                  |
 |--------------|--------------------|--------------|----------------------------------------------|
@@ -478,7 +478,7 @@ milestone: Label, date             %% milestone diamond
 
 ## Using with AI
 
-This library ships a **[`SKILL.md`](./SKILL.md)** — a machine-readable skill file that AI agents (Copilot, Cursor, Claude, etc.) can load as context.
+This library ships a **[`SKILL.md`](https://github.com/hustcc/ai-figure/blob/main/SKILL.md)** — a machine-readable skill file that AI agents (Copilot, Cursor, Claude, etc.) can load as context.
 
 ```
 # Load the skill into your AI context:
