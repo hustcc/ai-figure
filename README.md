@@ -74,7 +74,7 @@ writeFileSync('diagram.svg', svg);
 
 ### `fig(options): string`
 
-The single entry point. Returns a fully self-contained SVG string. Select the diagram type with the required `figure` field.
+The primary entry point. Returns a fully self-contained SVG string. Select the diagram type with the required `figure` field.
 
 ```typescript
 import { fig } from 'ai-figure';
@@ -86,6 +86,132 @@ fig({ figure: 'sequence', ...sequenceOptions }); // sequence diagram
 fig({ figure: 'quadrant', ...quadrantOptions }); // quadrant chart
 fig({ figure: 'gantt',    ...ganttOptions    }); // Gantt chart
 ```
+
+---
+
+### `figmd(markdown): string` — Markdown Syntax
+
+A Mermaid-like text syntax for every diagram type. Pass a multi-line string instead of a JSON config object.
+
+```typescript
+import { figmd } from 'ai-figure';
+
+const svg = figmd(`
+  flow LR antv
+  title: CI Pipeline
+  code[Write Code] --> test{Tests Pass?}
+  test -->|yes| build[Build Image]
+  test -->|no| fix((Fix Issues))
+  fix --> code
+  build --> deploy[/Deploy/]
+  group Pipeline: code, test, build
+`);
+```
+
+#### Syntax Overview
+
+The **first non-empty line** is the header: `<type> [direction] [theme] [palette]`
+
+| Token | Values | Default |
+|-------|--------|---------|
+| `type` | `flow` \| `tree` \| `arch` \| `sequence` \| `quadrant` \| `gantt` | **required** |
+| `direction` | `TB` \| `LR` | `TB` |
+| `theme` | `light` \| `dark` | `light` |
+| `palette` | any named palette (see [Palette API](#palette-api)) | `default` |
+
+Lines starting with `%%` are comments. `title:` and `subtitle:` are supported in all diagram types.
+
+#### Node notation (flow / tree / arch)
+
+| Notation | Shape |
+|----------|-------|
+| `id[label]` | process (rectangle) |
+| `id{label}` | decision (diamond) |
+| `id((label))` | terminal (pill) |
+| `id[/label/]` | io (parallelogram) |
+| `id` | process (bare id used as label) |
+
+#### Per-diagram syntax
+
+<details>
+<summary><strong>flow</strong></summary>
+
+```
+flow [LR|TB] [light|dark] [palette]
+title: Optional Title
+subtitle: Optional Subtitle
+id[Label]                          %% standalone node definition
+A[Source] --> B[Target]            %% edge
+A -->|label| B                     %% labeled edge
+group GroupName: id1, id2, id3     %% logical group
+```
+</details>
+
+<details>
+<summary><strong>tree</strong></summary>
+
+```
+tree [LR|TB] [light|dark] [palette]
+title: Optional Title
+root[Root]                   %% root node (no parent)
+root --> child[Child]        %% parent → child relationship
+```
+</details>
+
+<details>
+<summary><strong>arch</strong></summary>
+
+```
+arch [LR|TB] [light|dark] [palette]
+title: Optional Title
+layer layerId[Layer Label]   %% layer declaration
+  nodeId[Node Label]         %% node in current layer (indentation optional)
+```
+</details>
+
+<details>
+<summary><strong>sequence</strong></summary>
+
+```
+sequence [light|dark] [palette]
+title: Optional Title
+actors: Actor1, Actor2, Actor3     %% optional; inferred from messages if omitted
+Actor1 -> Actor2: message          %% solid arrow
+Actor2 --> Actor1: response        %% dashed return arrow
+Actor1 -> Actor2                   %% arrow without label
+```
+</details>
+
+<details>
+<summary><strong>quadrant</strong></summary>
+
+```
+quadrant [light|dark] [palette]
+title: Optional Title
+x-axis: min .. max                 %% axis range (label defaults to "")
+x-axis Label: min .. max           %% axis range with explicit axis label
+y-axis: min .. max
+quadrant-1: Top-Left Name          %% 1=TL, 2=TR, 3=BL, 4=BR
+quadrant-2: Top-Right Name
+quadrant-3: Bottom-Left Name
+quadrant-4: Bottom-Right Name
+Point Label: 0.3, 0.7             %% data point (x, y in [0, 1])
+```
+</details>
+
+<details>
+<summary><strong>gantt</strong></summary>
+
+```
+gantt [light|dark] [palette]
+title: Optional Title
+section Section Name               %% group header (applied to subsequent tasks)
+  Task Label: id, start, end       %% task bar (dates: yyyy-mm-dd)
+milestone: Label, date             %% milestone diamond
+```
+</details>
+
+You can also call `parseFigmd(markdown): FigOptions` to get the parsed options object without rendering.
 
 ---
 

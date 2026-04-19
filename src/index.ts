@@ -38,6 +38,8 @@ export function fig(options: FigOptions): string {
   }
 }
 
+export { figmd, parseFigmd } from './parse';
+
 export type {
   FigOptions,
   FlowNode,

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="664" height="712" viewBox="0 0 664 712">
+<rect width="100%" height="100%" fill="#1a1b1e"/>
+<text x="332" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#adb5bd">Feature Priority</text>
+<g class="quadrant-chart" transform="translate(0,48)">
+<defs><filter id="qd-1-shadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0.8" stdDeviation="1" flood-color="rgba(0,0,0,0.18)"/></filter><marker id="qd-1-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#5c6370"/></marker></defs>
+<rect x="56" y="32" width="292" height="290" fill="#022c22" fill-opacity="0.13" stroke="none"/>
+<rect x="348" y="32" width="292" height="290" fill="#1e1b4b" fill-opacity="0.13" stroke="none"/>
+<rect x="56" y="322" width="292" height="290" fill="#4a044e" fill-opacity="0.13" stroke="none"/>
+<rect x="348" y="322" width="292" height="290" fill="#012030" fill-opacity="0.13" stroke="none"/>
+<rect x="56" y="32" width="584" height="580" fill="none" stroke="#5c6370" stroke-width="1"/>
+<line x1="202" y1="32" x2="202" y2="612" stroke="#5c6370" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
+<line x1="494" y1="32" x2="494" y2="612" stroke="#5c6370" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
+<line x1="56" y1="177" x2="640" y2="177" stroke="#5c6370" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
+<line x1="56" y1="467" x2="640" y2="467" stroke="#5c6370" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
+<line x1="56" y1="322" x2="640" y2="322" stroke="#5c6370" stroke-width="2" marker-end="url(#qd-1-arrow)"/>
+<line x1="348" y1="612" x2="348" y2="32" stroke="#5c6370" stroke-width="2" marker-end="url(#qd-1-arrow)"/>
+<text x="60" y="338" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" opacity="0.6">Low</text>
+<text x="610" y="338" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" opacity="0.6">High</text>
+<text x="348" y="652" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#adb5bd">Effort</text>
+<text x="340" y="608" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" opacity="0.6">Low</text>
+<text x="340" y="46" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" opacity="0.6">High</text>
+<text x="28" y="322" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#adb5bd" transform="rotate(-90, 28, 322)">Value</text>
+<text x="66" y="54" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#5c6370">Strategic</text>
+<text x="630" y="54" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#5c6370">Quick Wins</text>
+<text x="66" y="602" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#5c6370">Long Shots</text>
+<text x="630" y="602" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#5c6370">Low Priority</text>
+<circle cx="202" cy="119.00000000000001" r="4" fill="#34d399" stroke="none" filter="url(#qd-1-shadow)"/>
+<text x="212" y="123.94000000000001" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd">Auth Revamp</text>
+<circle cx="143.6" cy="409" r="4" fill="#f472b6" stroke="none" filter="url(#qd-1-shadow)"/>
+<text x="153.6" y="413.94" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd">Dark Mode</text>
+<circle cx="464.79999999999995" cy="147.99999999999997" r="4" fill="#818cf8" stroke="none" filter="url(#qd-1-shadow)"/>
+<text x="474.79999999999995" y="152.93999999999997" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd">Recommendations</text>
+<circle cx="523.2" cy="496" r="4" fill="#22d3ee" stroke="none" filter="url(#qd-1-shadow)"/>
+<text x="533.2" y="500.94" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd">Offline Mode</text>
+<circle cx="348" cy="264" r="4" fill="#818cf8" stroke="none" filter="url(#qd-1-shadow)"/>
+<text x="358" y="268.94" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd">Analytics</text>
+</g>
+</svg>

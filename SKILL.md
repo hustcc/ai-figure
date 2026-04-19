@@ -1,12 +1,12 @@
 ---
 name: ai-figure
 version: "0.1.0"
-description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence, quadrant, gantt) from a JSON config via a single fig() API. Auto-layout, zero coordinates needed. Works in browser and Node.js.
+description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence, quadrant, gantt) from a JSON config via fig() or from a Mermaid-like markdown string via figmd(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
 author: hustcc
 license: MIT
 package: ai-figure
-api: fig(options) → string (SVG)
-tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, svg, layout, visualization]
+api: fig(options) → string (SVG); figmd(markdown) → string (SVG)
+tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, svg, layout, visualization, markdown]
 ---
 
 # ai-figure Skill
@@ -15,14 +15,26 @@ tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant
 
 Converts a declarative JSON config into a fully-rendered SVG diagram string. You never specify coordinates — the layout is computed automatically.
 
-A single `fig()` function handles all diagram types. Select the type via the required `figure` field.
+Two entry points:
+- `fig(options)` — JSON/TypeScript config object (full type-safe API)
+- `figmd(markdown)` — Mermaid-like text syntax (great for quick authoring)
 
 ## How to use
 
 ```typescript
-import { fig } from 'ai-figure';
+import { fig, figmd } from 'ai-figure';
 
-const svg = fig(config);
+// JSON API
+const svg1 = fig(config);
+
+// Markdown API
+const svg2 = figmd(`
+  flow LR antv
+  title: My Pipeline
+  start((Start)) --> process[Process]
+  process --> done((Done))
+`);
+
 // DOM: document.getElementById('chart').innerHTML = svg;
 // Node.js: fs.writeFileSync('chart.svg', svg);
 ```
@@ -44,6 +56,112 @@ const svg = fig(config);
 | `subtitle` | string        | `undefined`  | Centered subtitle below the title                     |
 | `theme`    | string        | `"light"`    | `"light"` or `"dark"` rendering mode                 |
 | `palette`  | string\|array | `"default"`  | `"default"`, `"antv"`, `"drawio"`, `"figma"`, `"vega"`, `"mono-blue"`, `"mono-green"`, `"mono-purple"`, `"mono-orange"`, or 4-element hex array |
+
+---
+
+## figmd() — Markdown Syntax
+
+`figmd(markdown)` parses a Mermaid-like text string and renders it as SVG.
+`parseFigmd(markdown)` parses the same string and returns a `FigOptions` object without rendering.
+
+### Header line
+
+```
+<type> [direction] [theme] [palette]
+```
+
+- **type**: `flow`, `tree`, `arch`, `sequence`, `quadrant`, `gantt`
+- **direction**: `TB` (default) or `LR` — applies to flow, tree, arch
+- **theme**: `light` (default) or `dark`
+- **palette**: any named palette (default: `"default"`)
+
+Lines starting with `%%` are comments and are ignored.
+
+### Node notation (flow / tree / arch)
+
+| Notation | Shape |
+|----------|-------|
+| `id[label]` | process (rectangle) |
+| `id{label}` | decision (diamond) |
+| `id((label))` | terminal (pill) |
+| `id[/label/]` | io (parallelogram) |
+| `id` | process (bare id as label) |
+
+### Markdown examples
+
+**flow:**
+```
+flow LR dark antv
+title: CI Pipeline
+code[Write Code] --> test{Tests Pass?}
+test -->|yes| build[Build Image]
+test -->|no| fix((Fix Issues))
+fix --> code
+build --> deploy[/Deploy/]
+group Pipeline: code, test, build
+```
+
+**tree:**
+```
+tree TB
+title: Org Chart
+ceo[CEO]
+ceo --> cto[CTO]
+ceo --> coo[COO]
+cto --> dev[Developer]
+```
+
+**arch:**
+```
+arch TB antv
+title: Cloud Architecture
+layer frontend[Frontend]
+web[Web App]
+mobile[Mobile App]
+layer backend[Backend]
+api[API Server]
+auth[Auth Service]
+```
+
+**sequence:**
+```
+sequence dark
+title: Login Flow
+actors: Browser, API, Auth, DB
+Browser -> API: POST /login
+API -> Auth: validateCredentials
+Auth -> DB: SELECT user
+DB --> Auth: user row
+Auth --> API: JWT token
+API --> Browser: 200 OK
+```
+
+**quadrant:**
+```
+quadrant dark figma
+title: Feature Priority
+x-axis Effort: Low .. High
+y-axis Value: Low .. High
+quadrant-1: Strategic
+quadrant-2: Quick Wins
+quadrant-3: Long Shots
+quadrant-4: Low Priority
+Auth Revamp: 0.25, 0.85
+Dark Mode: 0.15, 0.35
+Recommendations: 0.70, 0.80
+```
+
+**gantt:**
+```
+gantt light antv
+title: Q1 Roadmap
+section Design
+Wireframes: t1, 2025-01-06, 2025-01-24
+Mockups: t2, 2025-01-25, 2025-02-07
+section Dev
+Frontend: t3, 2025-02-03, 2025-02-28
+milestone: Launch, 2025-03-01
+```
 
 ---
 
