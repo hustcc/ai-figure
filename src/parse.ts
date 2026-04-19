@@ -189,6 +189,11 @@ function parseNodeExpr(expr: string): { id: string; label: string; type: NodeTyp
   return { id: expr, label: expr, type: 'process' };
 }
 
+/** Returns true when the expression carries explicit label/shape notation (e.g. `id[label]`). */
+function isExplicitNodeExpr(expr: string, id: string): boolean {
+  return expr.trim() !== id;
+}
+
 // ---------------------------------------------------------------------------
 // Flow parser
 // ---------------------------------------------------------------------------
@@ -234,7 +239,13 @@ function parseFlow(
 
   const ensureNode = (expr: string): string => {
     const { id, label, type } = parseNodeExpr(expr);
-    if (!nodeMap.has(id)) nodeMap.set(id, { id, label, type });
+    const existing = nodeMap.get(id);
+    if (!existing) {
+      nodeMap.set(id, { id, label, type });
+    } else if (isExplicitNodeExpr(expr, id)) {
+      // Later explicit definitions (e.g. `b[Build]`) refine earlier bare-id references.
+      nodeMap.set(id, { id, label, type });
+    }
     return id;
   };
 
@@ -247,10 +258,15 @@ function parseFlow(
       if (colonIdx !== -1) {
         const label = body.slice(0, colonIdx).trim();
         const nodeList = body.slice(colonIdx + 1).trim();
+        const nodes = nodeList
+          .split(',')
+          .map((n) => n.trim())
+          .filter((n) => n.length > 0);
+        if (nodes.length === 0) continue;
         groups.push({
           id: `grp-${groups.length}`,
           label,
-          nodes: nodeList.split(',').map((n) => n.trim()),
+          nodes,
         });
       }
       continue;
@@ -268,10 +284,12 @@ function parseFlow(
         if (right.startsWith('|')) {
           const closePipe = right.indexOf('|', 1);
           if (closePipe !== -1) {
-            label = right.slice(1, closePipe);
+            label = right.slice(1, closePipe).trim();
             right = right.slice(closePipe + 1).trim();
           }
         }
+
+        if (!right) continue;
 
         const fromId = ensureNode(left);
         const toId = ensureNode(right);
@@ -328,8 +346,21 @@ function parseTree(
 
   const ensureNode = (expr: string, parent?: string): string => {
     const { id, label } = parseNodeExpr(expr);
-    if (!nodeMap.has(id)) {
+    const existing = nodeMap.get(id);
+    if (!existing) {
       nodeMap.set(id, { id, label, ...(parent !== undefined ? { parent } : {}) });
+      return id;
+    }
+    // Later explicit labels refine earlier bare-id references.
+    if (isExplicitNodeExpr(expr, id) && existing.label === id) {
+      existing.label = label;
+    }
+    // Allow a later declaration to supply the parent if it was not yet known.
+    if (parent !== undefined) {
+      if (existing.parent === undefined) {
+        existing.parent = parent;
+      }
+      // Silently ignore conflicting parents (streaming fault-tolerance).
     }
     return id;
   };
@@ -610,18 +641,20 @@ function parseQuadrant(
     const lastComma = line.lastIndexOf(',');
     if (lastComma !== -1) {
       const yStr = line.slice(lastComma + 1).trim();
-      if (/^[\d.]+$/.test(yStr)) {
+      const y = Number(yStr);
+      if (Number.isFinite(y) && y >= 0 && y <= 1) {
         const beforeComma = line.slice(0, lastComma);
         const colonIdx = beforeComma.indexOf(':');
         if (colonIdx !== -1) {
           const label = beforeComma.slice(0, colonIdx).trim();
           const xStr = beforeComma.slice(colonIdx + 1).trim();
-          if (label && /^[\d.]+$/.test(xStr)) {
+          const x = Number(xStr);
+          if (label && Number.isFinite(x) && x >= 0 && x <= 1) {
             points.push({
               id: `p${points.length}`,
               label,
-              x: parseFloat(xStr),
-              y: parseFloat(yStr),
+              x,
+              y,
             });
             continue;
           }
