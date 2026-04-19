@@ -1,6 +1,6 @@
-# AGENT.md — ai-figure contributor guide for AI agents
+# AGENT.md — ai-figure design language & contributor guide
 
-This file records the conventions, sync-points, and UI design language that all agents must respect when working on this repo. Read it before writing any renderer code.
+This file documents the conventions, UI design language, and implementation rules that all agents must respect when working on this repo. Read it before writing any renderer code.
 
 ---
 
@@ -13,19 +13,6 @@ npm run typecheck   # tsc --noEmit (type-check only, no output)
 
 UPDATE_SNAPSHOTS=1 npm test   # regenerate all SVG snapshot files
 ```
-
----
-
-## Supported diagram types
-
-| `figure`     | Renderer file        | Description                                  |
-|--------------|----------------------|----------------------------------------------|
-| `'flow'`     | `src/render.ts`      | Flowchart — nodes, edges, optional groups    |
-| `'tree'`     | `src/tree.ts`        | Tree / hierarchy — flat list with parent refs |
-| `'arch'`     | `src/arch.ts`        | Architecture grid — layered cards, no edges  |
-| `'sequence'` | `src/sequence.ts`    | Sequence diagram — actors + message arrows   |
-| `'quadrant'` | `src/quadrant.ts`    | Quadrant chart — 2×2 scatter with axis labels |
-| `'gantt'`    | `src/gantt.ts`       | Gantt chart — task bars, milestones, groups  |
 
 ---
 

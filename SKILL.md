@@ -17,53 +17,37 @@ Converts a declarative JSON config into a fully-rendered SVG diagram string. You
 
 A single `fig()` function handles all diagram types. Select the type via the required `figure` field.
 
-## How to use (for AI agents)
-
-**Step 1 — Pick a diagram type and build the JSON config**
-
-| `figure` value | Diagram type       | Key fields              |
-|----------------|--------------------|-------------------------|
-| `'flow'`       | Flowchart          | `nodes`, `edges`, `groups?` |
-| `'tree'`       | Tree / hierarchy   | `nodes` (with `parent` refs) |
-| `'arch'`       | Architecture grid  | `layers`                |
-| `'sequence'`   | Sequence diagram   | `actors`, `messages`    |
-| `'quadrant'`   | Quadrant chart     | `xAxis`, `yAxis`, `quadrants`, `points` |
-| `'gantt'`      | Gantt chart        | `tasks`, `milestones?`  |
-
-**Step 2 — Call the API**
+## How to use
 
 ```typescript
 import { fig } from 'ai-figure';
 
 const svg = fig(config);
-// Inject into DOM:
-document.getElementById('chart').innerHTML = svg;
-// Or write to file (Node.js):
-fs.writeFileSync('chart.svg', svg);
+// DOM: document.getElementById('chart').innerHTML = svg;
+// Node.js: fs.writeFileSync('chart.svg', svg);
 ```
+
+| `figure` value | Diagram type       | Key fields                                    |
+|----------------|--------------------|-----------------------------------------------|
+| `'flow'`       | Flowchart          | `nodes`, `edges`, `groups?`                   |
+| `'tree'`       | Tree / hierarchy   | `nodes` (with `parent` refs)                  |
+| `'arch'`       | Architecture grid  | `layers`                                      |
+| `'sequence'`   | Sequence diagram   | `actors`, `messages`                          |
+| `'quadrant'`   | Quadrant chart     | `xAxis`, `yAxis`, `quadrants`, `points`       |
+| `'gantt'`      | Gantt chart        | `tasks`, `milestones?`                        |
+
+### Common options (all diagram types)
+
+| Field      | Type          | Default      | Description                                           |
+|------------|---------------|--------------|-------------------------------------------------------|
+| `title`    | string        | `undefined`  | Centered title above the diagram                      |
+| `subtitle` | string        | `undefined`  | Centered subtitle below the title                     |
+| `theme`    | string        | `"light"`    | `"light"` or `"dark"` rendering mode                 |
+| `palette`  | string\|array | `"default"`  | `"default"`, any d3-scale-chromatic scheme name (without `scheme` prefix, e.g. `"tableau10"`, `"blues"`), or 4-element hex array |
 
 ---
 
 ## figure: 'flow' — Flowchart
-
-### Minimal example
-
-```json
-{
-  "figure": "flow",
-  "nodes": [
-    { "id": "start",   "label": "Start",   "type": "terminal" },
-    { "id": "process", "label": "Process", "type": "process"  },
-    { "id": "end",     "label": "End",     "type": "terminal" }
-  ],
-  "edges": [
-    { "from": "start",   "to": "process" },
-    { "from": "process", "to": "end"     }
-  ]
-}
-```
-
-### Full example with decision, IO, groups
 
 ```json
 {
@@ -73,72 +57,33 @@ fs.writeFileSync('chart.svg', svg);
     { "id": "auth",   "label": "Authenticate",   "type": "process"  },
     { "id": "check",  "label": "Authorized?",    "type": "decision" },
     { "id": "handle", "label": "Handle Request", "type": "process"  },
-    { "id": "resp",   "label": "Send Response",  "type": "io"       },
     { "id": "deny",   "label": "403 Forbidden",  "type": "terminal" }
   ],
   "edges": [
-    { "from": "req",    "to": "auth"                   },
-    { "from": "auth",   "to": "check"                  },
-    { "from": "check",  "to": "handle", "label": "Yes" },
-    { "from": "check",  "to": "deny",   "label": "No"  },
-    { "from": "handle", "to": "resp"                   }
+    { "from": "req",   "to": "auth"                   },
+    { "from": "auth",  "to": "check"                  },
+    { "from": "check", "to": "handle", "label": "Yes" },
+    { "from": "check", "to": "deny",   "label": "No"  }
   ],
-  "groups": [
-    { "id": "g1", "label": "Auth Layer", "nodes": ["auth", "check"] }
-  ],
-  "theme": "light",
-  "palette": "default",
+  "groups": [{ "id": "g1", "label": "Auth Layer", "nodes": ["auth", "check"] }],
   "direction": "TB"
 }
 ```
 
-### Node types
+**Node types** — `process` (rectangle, default), `decision` (diamond), `terminal` (pill — start/end only), `io` (parallelogram).
 
-| `type`     | Shape             | When to use                          |
-|------------|-------------------|--------------------------------------|
-| `process`  | Rectangle         | Steps, actions, computations         |
-| `decision` | Diamond           | Conditions, if/else, yes/no branches |
-| `terminal` | Rounded rectangle | Start and End nodes only             |
-| `io`       | Parallelogram     | User input, system output, data I/O  |
-
-> Default type is `process` if omitted.
-
-### Options
-
-| Field       | Type           | Default       | Description                           |
-|-------------|----------------|---------------|---------------------------------------|
-| `title`     | string         | `undefined`   | Optional centered title above the diagram |
-| `subtitle`  | string         | `undefined`   | Optional centered subtitle below the title |
-| `theme`     | string         | `"light"`     | `"light"` or `"dark"` rendering mode  |
-| `palette`   | string\|array  | `"default"`   | See palette values below              |
-| `direction` | string         | `"TB"`        | `"TB"` or `"LR"`                      |
-
-**Palette values:** `"default"` (built-in), any [`d3-scale-chromatic`](https://github.com/d3/d3-scale-chromatic) scheme name **without** the `scheme` prefix (e.g. `"category10"`, `"blues"`, `"brBG"`), or a 4-element hex array `["#aaa", "#bbb", "#ccc", "#ddd"]`.
-
-### Rules for generating good flowchart configs
-
-1. **Every flowchart must have exactly one start and one end node** — both `type: "terminal"`.
-2. **Use `decision` only when a node fans out to 2+ edges** — always label those edges (e.g. `"Yes"` / `"No"`).
-3. **Node `id` values must be unique** — use short slugs (`"auth"`, `"parse"`, `"retry"`).
-4. **Edges are directed** — `from` → `to` follows the logical flow direction.
-5. **Groups are cosmetic only** — they draw a dashed border but do not affect layout.
-6. **Choose `direction` based on chart shape** — use `"LR"` for pipelines, `"TB"` for trees and branches.
-7. **Keep labels short** — node labels ≤ 20 characters fit without wrapping.
-
-### TypeScript types
+**Key rules:**
+- Always start/end with `type: "terminal"` nodes.
+- Label `decision` outgoing edges (`"Yes"` / `"No"`).
+- Use `"LR"` direction for pipelines, `"TB"` for trees/branches.
+- Node labels ≤ 20 chars fit without wrapping.
 
 ```typescript
 interface FlowChartOptions {
-  nodes:      FlowNode[];
-  edges:      FlowEdge[];
-  groups?:    FlowGroup[];
-  title?:     string;
-  subtitle?:  string;
-  theme?:     'light' | 'dark';
-  palette?:   string | string[];
-  direction?: 'TB' | 'LR';
+  nodes: FlowNode[]; edges: FlowEdge[]; groups?: FlowGroup[];
+  title?: string; subtitle?: string; theme?: 'light'|'dark'; palette?: string|string[]; direction?: 'TB'|'LR';
 }
-interface FlowNode  { id: string; label: string; type?: 'process' | 'decision' | 'terminal' | 'io' }
+interface FlowNode  { id: string; label: string; type?: 'process'|'decision'|'terminal'|'io' }
 interface FlowEdge  { from: string; to: string; label?: string }
 interface FlowGroup { id: string; label: string; nodes: string[] }
 ```
@@ -158,16 +103,15 @@ Renders a hierarchy from a flat node list with `parent` references. Nodes are co
     { "id": "coo", "label": "COO", "parent": "ceo" },
     { "id": "fe",  "label": "FE Lead", "parent": "cto" }
   ],
-  "theme": "light",
-  "palette": "default",
   "direction": "TB"
 }
 ```
 
-### TypeScript types
-
 ```typescript
-interface TreeDiagramOptions { nodes: TreeNode[]; title?: string; subtitle?: string; theme?: 'light'|'dark'; palette?: string|string[]; direction?: Direction }
+interface TreeDiagramOptions {
+  nodes: TreeNode[]; title?: string; subtitle?: string;
+  theme?: 'light'|'dark'; palette?: string|string[]; direction?: 'TB'|'LR';
+}
 interface TreeNode { id: string; label: string; parent?: string }
 ```
 
@@ -175,7 +119,7 @@ interface TreeNode { id: string; label: string; parent?: string }
 
 ## figure: 'arch' — Architecture Diagram
 
-Renders a tech-stack / architecture landscape grid: color-coded layer cards, no edges.
+Renders a tech-stack landscape as layered, color-coded cards — no edges needed. Width auto-sizes from the layer/node count.
 
 ```json
 {
@@ -184,17 +128,17 @@ Renders a tech-stack / architecture landscape grid: color-coded layer cards, no 
     { "id": "fe", "label": "Frontend", "nodes": [{ "id": "react", "label": "React" }, { "id": "vue", "label": "Vue" }] },
     { "id": "be", "label": "Backend",  "nodes": [{ "id": "node",  "label": "Node.js" }] }
   ],
-  "theme": "light",
-  "palette": "default",
-  "direction": "TB",
-  "width": 800
+  "direction": "TB"
 }
 ```
 
-### TypeScript types
+`direction: "TB"` stacks layers top-to-bottom; `"LR"` places them side-by-side.
 
 ```typescript
-interface ArchDiagramOptions { layers: ArchLayer[]; title?: string; subtitle?: string; theme?: 'light'|'dark'; palette?: string|string[]; direction?: Direction; width?: number }
+interface ArchDiagramOptions {
+  layers: ArchLayer[]; title?: string; subtitle?: string;
+  theme?: 'light'|'dark'; palette?: string|string[]; direction?: 'TB'|'LR';
+}
 interface ArchLayer { id: string; label: string; nodes: ArchNode[] }
 interface ArchNode  { id: string; label: string }
 ```
@@ -203,7 +147,7 @@ interface ArchNode  { id: string; label: string }
 
 ## figure: 'sequence' — Sequence Diagram
 
-Renders a sequence diagram with vertical lifelines (animated) and horizontal message arrows.
+Renders a sequence diagram with vertical lifelines and horizontal message arrows.
 
 ```json
 {
@@ -214,59 +158,49 @@ Renders a sequence diagram with vertical lifelines (animated) and horizontal mes
     { "from": "API",     "to": "DB",  "label": "SELECT user" },
     { "from": "DB",      "to": "API", "label": "user row",   "style": "return" },
     { "from": "API",     "to": "Browser", "label": "200 OK", "style": "return" }
-  ],
-  "theme": "light",
-  "palette": "default"
+  ]
 }
 ```
 
-Use `"style": "return"` for dashed response arrows; omit or use `"style": "solid"` for solid request arrows.
-
-### TypeScript types
+Use `"style": "return"` for dashed response arrows; omit for solid request arrows.
 
 ```typescript
-interface SequenceDiagramOptions { actors: string[]; messages: SeqMessage[]; title?: string; subtitle?: string; theme?: 'light'|'dark'; palette?: string|string[] }
-interface SeqMessage { from: string; to: string; label?: string; style?: 'solid' | 'return' }
+interface SequenceDiagramOptions {
+  actors: string[]; messages: SeqMessage[];
+  title?: string; subtitle?: string; theme?: 'light'|'dark'; palette?: string|string[];
+}
+interface SeqMessage { from: string; to: string; label?: string; style?: 'solid'|'return' }
 ```
 
 ---
 
 ## figure: 'quadrant' — Quadrant Chart
 
-Renders a 2×2 matrix with two labelled axes and data points positioned by normalised `x`/`y` coordinates (0–1). The canvas auto-sizes based on the number of points: it starts at 640×640, grows by 24px per point beyond the first four, and is capped at 1024×1024 — no need to specify width or height. Each quadrant has a distinct background tint; data points are solid-filled and automatically colored by the quadrant they fall into.
+2×2 matrix with axes and data points by normalized `x`/`y` (0–1). Canvas auto-sizes from 640×640 up to 1024×1024.
 
 ```json
 {
   "figure": "quadrant",
-  "xAxis": { "label": "实现难度", "min": "低", "max": "高" },
-  "yAxis": { "label": "业务价值", "min": "低", "max": "高" },
-  "quadrants": ["立即做", "计划做", "搁置", "外包"],
+  "xAxis": { "label": "Effort", "min": "Low", "max": "High" },
+  "yAxis": { "label": "Value",  "min": "Low", "max": "High" },
+  "quadrants": ["Quick Wins", "Major Projects", "Fill-ins", "Thankless Tasks"],
   "points": [
-    { "id": "a", "label": "登录优化",  "x": 0.2, "y": 0.9 },
-    { "id": "b", "label": "推荐系统",  "x": 0.8, "y": 0.8 },
-    { "id": "c", "label": "暗黑模式",  "x": 0.3, "y": 0.2 }
-  ],
-  "theme": "light",
-  "palette": "default"
+    { "id": "a", "label": "Feature A", "x": 0.2, "y": 0.9 },
+    { "id": "b", "label": "Feature B", "x": 0.8, "y": 0.8 },
+    { "id": "c", "label": "Feature C", "x": 0.3, "y": 0.2 }
+  ]
 }
 ```
 
-`quadrants` order: **[top-left, top-right, bottom-left, bottom-right]**.  
-Point coordinates: `x=0` is left, `x=1` is right; `y=0` is bottom, `y=1` is top.  
-Points are auto-colored by their quadrant (top-left=green, top-right=orange, bottom-left=purple, bottom-right=blue for `default` palette).
-
-### TypeScript types
+`quadrants` order: **[top-left, top-right, bottom-left, bottom-right]**. `x=0` left, `x=1` right; `y=0` bottom, `y=1` top.
 
 ```typescript
 interface QuadrantChartOptions {
-  xAxis:     { label: string; min: string; max: string };
-  yAxis:     { label: string; min: string; max: string };
+  xAxis: { label: string; min: string; max: string };
+  yAxis: { label: string; min: string; max: string };
   quadrants: [string, string, string, string];
-  points:    QuadrantPoint[];
-  title?:    string;
-  subtitle?: string;
-  theme?:    'light' | 'dark';
-  palette?:  string | string[];
+  points: QuadrantPoint[];
+  title?: string; subtitle?: string; theme?: 'light'|'dark'; palette?: string|string[];
 }
 interface QuadrantPoint { id: string; label: string; x: number; y: number }
 ```
@@ -275,25 +209,7 @@ interface QuadrantPoint { id: string; label: string; x: number; y: number }
 
 ## figure: 'gantt' — Gantt Chart
 
-Renders a project timeline with task bars, optional group headers, and milestone markers. Canvas width is fixed at 804 px; height auto-adapts to the number of rows. The time axis tick density adjusts automatically: weekly ticks for ≤63 days, monthly for ≤400 days, quarterly otherwise.
-
-Tasks with the same `groupId` are clustered under a bold group-header row. Milestones appear as amber diamonds in the time-axis header and dashed vertical lines through all rows.
-
-### Minimal example
-
-```json
-{
-  "figure": "gantt",
-  "tasks": [
-    { "id": "design", "label": "Design",   "start": "2025-01-06", "end": "2025-01-24" },
-    { "id": "dev",    "label": "Dev",      "start": "2025-01-20", "end": "2025-02-28" },
-    { "id": "qa",     "label": "QA",       "start": "2025-02-24", "end": "2025-03-14" },
-    { "id": "deploy", "label": "Deploy",   "start": "2025-03-17", "end": "2025-03-21" }
-  ]
-}
-```
-
-### Full example with groups and milestones
+Project timeline with task bars, optional group headers, and milestone markers. Width fixed at 804 px; height auto-adapts. Time axis ticks adjust automatically: weekly (≤63 days), monthly (≤400 days), quarterly otherwise.
 
 ```json
 {
@@ -301,62 +217,34 @@ Tasks with the same `groupId` are clustered under a bold group-header row. Miles
   "title": "Project Roadmap",
   "subtitle": "Q1 2025",
   "tasks": [
-    { "id": "design",  "label": "Design",       "start": "2025-01-06", "end": "2025-01-24" },
-    { "id": "fe",      "label": "Frontend Dev", "start": "2025-01-20", "end": "2025-02-28", "groupId": "dev" },
-    { "id": "be",      "label": "Backend Dev",  "start": "2025-01-13", "end": "2025-03-07", "groupId": "dev" },
-    { "id": "qa",      "label": "QA Testing",   "start": "2025-02-24", "end": "2025-03-14", "groupId": "qa"  },
-    { "id": "perf",    "label": "Perf Test",    "start": "2025-03-03", "end": "2025-03-14", "groupId": "qa"  },
-    { "id": "deploy",  "label": "Deploy",       "start": "2025-03-17", "end": "2025-03-21" }
+    { "id": "design", "label": "Design",       "start": "2025-01-06", "end": "2025-01-24" },
+    { "id": "fe",     "label": "Frontend Dev", "start": "2025-01-20", "end": "2025-02-28", "groupId": "dev" },
+    { "id": "be",     "label": "Backend Dev",  "start": "2025-01-13", "end": "2025-03-07", "groupId": "dev" },
+    { "id": "qa",     "label": "QA Testing",   "start": "2025-02-24", "end": "2025-03-14", "groupId": "qa"  },
+    { "id": "deploy", "label": "Deploy",       "start": "2025-03-17", "end": "2025-03-21" }
   ],
   "milestones": [
     { "date": "2025-01-24", "label": "Design freeze" },
     { "date": "2025-03-21", "label": "Launch" }
-  ],
-  "theme": "light",
-  "palette": "default"
+  ]
 }
 ```
 
-### Options
-
-| Field        | Type           | Default      | Description                                   |
-|--------------|----------------|--------------|-----------------------------------------------|
-| `title`      | string         | `undefined`  | Optional centered title above the diagram     |
-| `subtitle`   | string         | `undefined`  | Optional centered subtitle below the title    |
-| `theme`      | string         | `"light"`    | `"light"` or `"dark"` rendering mode          |
-| `palette`    | string\|array  | `"default"`  | See palette values in other sections          |
-
-### Rules for generating good Gantt configs
-
-1. **Dates must be `yyyy-mm-dd`** — exact format required for `start`, `end`, and milestone `date`.
-2. **`end` must be ≥ `start`** — zero-length tasks render as a minimal 4 px bar, but avoid them.
-3. **Use `groupId` to cluster related tasks** — the first task in a group emits a bold header row; `groupId` doubles as the header label.
-4. **Ungrouped tasks are rendered first**, then grouped tasks (each group together).
-5. **Keep labels short** — the label column is 160 px; labels longer than ~18 characters will be clipped.
-6. **Milestone dates are included in the visible date range** — the chart extends its time axis to include all milestone dates, so milestones are always rendered. Only milestones that map outside the plot area (e.g. due to floating-point edge cases) are skipped.
-7. **`color` accepts 6-digit hex only** — e.g. `"#e64980"` (the alpha suffix is added automatically for the fill).
-
-### TypeScript types
+**Key rules:**
+- Dates must be `yyyy-mm-dd`. `end` must be ≥ `start`.
+- `groupId` clusters tasks under a bold header row; the `groupId` value is used as the header label.
+- Ungrouped tasks render first, then grouped tasks.
+- Label column is 160 px — keep labels ≤ 18 chars to avoid clipping.
+- `color` accepts 6-digit hex only (e.g. `"#e64980"`).
 
 ```typescript
 interface GanttChartOptions {
-  tasks:       GanttTask[];
-  milestones?: GanttMilestone[];
-  title?:      string;
-  subtitle?:   string;
-  theme?:      'light' | 'dark';
-  palette?:    string | string[];
+  tasks: GanttTask[]; milestones?: GanttMilestone[];
+  title?: string; subtitle?: string; theme?: 'light'|'dark'; palette?: string|string[];
 }
 interface GanttTask {
-  id:       string;
-  label:    string;
-  start:    string;          // yyyy-mm-dd
-  end:      string;          // yyyy-mm-dd
-  groupId?: string;
-  color?:   string;          // 6-digit hex, e.g. '#e64980'
+  id: string; label: string; start: string; end: string; // yyyy-mm-dd
+  groupId?: string; color?: string; // 6-digit hex
 }
-interface GanttMilestone {
-  date:  string;             // yyyy-mm-dd
-  label: string;
-}
+interface GanttMilestone { date: string; label: string } // yyyy-mm-dd
 ```
