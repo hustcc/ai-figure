@@ -16,7 +16,7 @@
 
 ## Features ✨
 
-- 🎨 **Rich visual styles** — light/dark mode, built-in palette plus any [`d3-scale-chromatic`](https://github.com/d3/d3-scale-chromatic) scheme or custom hex array; every diagram supports optional title & subtitle, node groups, and color-coded layers
+- 🎨 **Rich visual styles** — light/dark mode, nine built-in palettes (`default`, `antv`, `drawio`, `figma`, `vega`, `mono-blue`, `mono-green`, `mono-purple`, `mono-orange`) plus custom hex arrays; every diagram supports optional title & subtitle, node groups, and color-coded layers
 - 📐 **Auto layout** — just describe the graph; x/y coordinates are computed automatically, and diagram dimensions scale to fit the content
 - 🤖 **AI-friendly** — single `fig()` entry point, unified semantic JSON config, TypeScript-first; ships a [`SKILL.md`](./SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
 - 📊 **6 diagram types** — flowchart, tree, architecture, sequence, quadrant, and Gantt chart; pure SVG output with zero DOM dependency, works in browser and Node.js
@@ -56,7 +56,7 @@ const svg = fig({
     { id: 'g1', label: 'Validation', nodes: ['process1', 'decision'] },
   ],
   theme: 'light',         // 'light' | 'dark'
-  palette: 'default',     // 'default' | any d3-scale-chromatic name | string[]
+  palette: 'default',     // 'default' | 'antv' | 'drawio' | 'figma' | 'vega' | 'mono-blue' | 'mono-green' | 'mono-purple' | 'mono-orange' | string[]
   direction: 'TB',        // 'TB' (top→bottom) | 'LR' (left→right)
 });
 
@@ -343,21 +343,28 @@ All six diagram types accept two independent styling parameters:
 | Value | Description |
 |-------|-------------|
 | `'default'` | Built-in multi-hue palette — `process`=blue, `decision`=amber, `terminal`=green, `io`=purple |
-| Any [`d3-scale-chromatic`](https://github.com/d3/d3-scale-chromatic) name (without `scheme` prefix) | Categorical (e.g. `'category10'`, `'tableau10'`, `'set1'`), sequential (e.g. `'blues'`, `'greens'`), or diverging (e.g. `'brBG'`, `'rdBu'`) — the `scheme` prefix is added automatically |
+| `'antv'` | AntV G2 categorical palette — cornflower-blue, coral-orange, mint-teal, violet |
+| `'drawio'` | draw.io / diagrams.net shape palette — sky-blue, amber, sage, red |
+| `'figma'` | Figma / design-tool palette — indigo, cyan, emerald, rose-pink |
+| `'vega'` | Vega / Vega-Lite categorical palette — steel-blue, orange, teal, crimson |
+| `'mono-blue'` | Monochrome blue — all four node types use blue-family shades |
+| `'mono-green'` | Monochrome green — all four node types use green-family shades |
+| `'mono-purple'` | Monochrome purple — all four node types use purple-family shades |
+| `'mono-orange'` | Monochrome orange — all four node types use orange-family shades |
 | `string[]` | 4-element hex array mapped to `[process, decision, terminal, io]` |
 
 ```typescript
 // Built-in palette, dark mode
 fig({ figure: 'flow', nodes, edges, theme: 'dark', palette: 'default' });
 
-// D3 categorical scheme
-fig({ figure: 'flow', nodes, edges, palette: 'tableau10' });
+// AntV G2 palette
+fig({ figure: 'flow', nodes, edges, palette: 'antv' });
 
-// D3 sequential scheme (9-color variant, sampled at [1,3,5,7])
-fig({ figure: 'flow', nodes, edges, palette: 'blues' });
+// draw.io palette with dark background
+fig({ figure: 'flow', nodes, edges, theme: 'dark', palette: 'drawio' });
 
-// D3 diverging scheme with dark background
-fig({ figure: 'flow', nodes, edges, theme: 'dark', palette: 'brBG' });
+// Monochrome blue
+fig({ figure: 'flow', nodes, edges, palette: 'mono-blue' });
 
 // Custom hex palette
 fig({ figure: 'flow', nodes, edges, palette: ['#e64980', '#ae3ec9', '#7048e8', '#1098ad'] });

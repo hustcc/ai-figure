@@ -227,19 +227,19 @@ describe('fig', () => {
     expect(svg).toContain('#1a1b1e');
   });
 
-  it("palette='category10' (D3) uses first color for process nodes", () => {
+  it("palette='antv' uses antv process stroke color", () => {
     const svg = fig({
       figure: 'flow',
       nodes: [{ id: 'a', label: 'A', type: 'process' }],
       edges: [],
-      palette: 'category10',
+      palette: 'antv',
     });
 
     expect(svg).toContain('<svg');
-    expect(svg).toContain('#1f77b4'); // schemeCategory10[0]
+    expect(svg).toContain('#5b8ff9'); // antv process stroke
   });
 
-  it("palette='set1' (D3) light mode renders correctly", () => {
+  it("palette='antv' light mode renders all node types", () => {
     const svg = fig({
       figure: 'flow',
       nodes: [
@@ -249,28 +249,28 @@ describe('fig', () => {
         { id: 'd', label: 'D', type: 'io' },
       ],
       edges: [{ from: 'a', to: 'b' }, { from: 'b', to: 'c' }, { from: 'c', to: 'd' }],
-      palette: 'set1',
+      palette: 'antv',
     });
 
     expect(svg).toContain('<svg');
-    expect(svg).toContain('#e41a1c'); // schemeSet1[0] — process
-    expect(svg).toContain('#377eb8'); // schemeSet1[1] — decision
+    expect(svg).toContain('#5b8ff9'); // antv process stroke
+    expect(svg).toContain('#e8684a'); // antv decision stroke
   });
 
-  it("palette='tableau10' + theme='dark' uses dark background", () => {
+  it("palette='drawio' + theme='dark' uses dark background", () => {
     const svg = fig({
       figure: 'flow',
       nodes: [{ id: 'a', label: 'A', type: 'process' }],
       edges: [],
       theme: 'dark',
-      palette: 'tableau10',
+      palette: 'drawio',
     });
 
     expect(svg).toContain('#1a1b1e');
-    expect(svg).toContain('#4e79a7'); // schemeTableau10[0]
+    expect(svg).toContain('#6c8ebf'); // drawio process stroke
   });
 
-  it("palette='blues' (D3 sequential) picks 4 spread colors", () => {
+  it("palette='mono-blue' renders flow diagram with mono-blue colors", () => {
     const svg = fig({
       figure: 'flow',
       nodes: [
@@ -278,51 +278,70 @@ describe('fig', () => {
         { id: 'b', label: 'B', type: 'decision' },
       ],
       edges: [{ from: 'a', to: 'b' }],
-      palette: 'blues',
+      palette: 'mono-blue',
     });
 
     expect(svg).toContain('<svg');
-    expect(svg).toContain('#deebf7'); // schemeBlues[9][1] — process stroke
-    expect(svg).toContain('#9ecae1'); // schemeBlues[9][3] — decision stroke
+    expect(svg).toContain('#2563eb'); // mono-blue process stroke (blue-600)
+    expect(svg).toContain('#93c5fd'); // mono-blue decision stroke (blue-300)
   });
 
-  it("palette='brBG' (D3 diverging) renders flow diagram", () => {
+  it("palette='mono-green' renders flow diagram with mono-green colors", () => {
     const svg = fig({
       figure: 'flow',
-      nodes: [{ id: 'a', label: 'A', type: 'process' }],
-      edges: [],
-      palette: 'brBG',
+      nodes: [
+        { id: 'a', label: 'A', type: 'process' },
+        { id: 'b', label: 'B', type: 'decision' },
+      ],
+      edges: [{ from: 'a', to: 'b' }],
+      palette: 'mono-green',
     });
 
     expect(svg).toContain('<svg');
-    expect(svg).toContain('#bf812d'); // schemeBrBG[9][1] — process stroke
+    expect(svg).toContain('#16a34a'); // mono-green process stroke (green-600)
   });
 
-  it("palette='accent' (D3) renders arch diagram", () => {
+  it("palette='figma' renders flow diagram with figma colors", () => {
+    const svg = fig({
+      figure: 'flow',
+      nodes: [
+        { id: 'a', label: 'A', type: 'process' },
+        { id: 'b', label: 'B', type: 'decision' },
+      ],
+      edges: [{ from: 'a', to: 'b' }],
+      palette: 'figma',
+    });
+
+    expect(svg).toContain('<svg');
+    expect(svg).toContain('#6366f1'); // figma process stroke (indigo)
+    expect(svg).toContain('#06b6d4'); // figma decision stroke (cyan)
+  });
+
+  it("palette='vega' renders arch diagram with vega colors", () => {
     const svg = fig({
       figure: 'arch',
       layers: [
         { id: 'l1', label: 'Frontend', nodes: [{ id: 'n1', label: 'React' }, { id: 'n2', label: 'Vue' }] },
         { id: 'l2', label: 'Backend', nodes: [{ id: 'n3', label: 'Node.js' }] },
       ],
-      palette: 'accent',
+      palette: 'vega',
     });
 
     expect(svg).toContain('<svg');
     expect(svg).toContain('Frontend');
-    expect(svg).toContain('#7fc97f'); // schemeAccent[0]
+    expect(svg).toContain('#4c78a8'); // vega process stroke (steel-blue)
   });
 
-  it("palette='pastel1' (D3) renders sequence diagram", () => {
+  it("palette='vega' renders sequence diagram with vega colors", () => {
     const svg = fig({
       figure: 'sequence',
       actors: ['Client', 'Server'],
       messages: [{ from: 'Client', to: 'Server', label: 'request' }],
-      palette: 'pastel1',
+      palette: 'vega',
     });
 
     expect(svg).toContain('<svg');
-    expect(svg).toContain('#fbb4ae'); // schemePastel1[0]
+    expect(svg).toContain('#72b7b2'); // vega terminal stroke (actor[0] → terminal type → teal)
   });
 
   it('throws for an edge referencing a missing node', () => {

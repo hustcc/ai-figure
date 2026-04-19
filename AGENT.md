@@ -47,14 +47,24 @@ Every renderer accepts two independent parameters:
 - **`theme: 'light' | 'dark'`** — rendering mode (default: `'light'`). Dark mode injects a `#1a1b1e` background rect and uses brightened text.
 - **`palette: string | string[]`** — color palette (default: `'default'`). Resolved by `resolveTheme(palette, mode)` in `src/theme.ts`.
 
+**Built-in named palettes** (all have carefully crafted light + dark variants):
+
+| Palette | Description | process | decision | terminal | io |
+|---------|-------------|---------|----------|----------|----|
+| `'default'` | Classic multi-hue | blue | amber | green | purple |
+| `'antv'` | AntV G2 categorical | cornflower `#5b8ff9` | coral `#e8684a` | mint `#5ad8a6` | violet `#9270ca` |
+| `'drawio'` | draw.io shape colors | sky-blue `#6c8ebf` | amber `#d6b656` | sage `#82b366` | red `#b85450` |
+| `'figma'` | Figma / design tool | indigo `#6366f1` | cyan `#06b6d4` | emerald `#10b981` | rose `#ec4899` |
+| `'vega'` | Vega / Vega-Lite | steel-blue `#4c78a8` | orange `#f58518` | teal `#72b7b2` | crimson `#e45756` |
+| `'mono-blue'` | Monochrome blue | blue-600 `#2563eb` | blue-300 `#93c5fd` | blue-700 `#1d4ed8` | blue-900 `#1e3a8a` |
+| `'mono-green'` | Monochrome green | green-600 `#16a34a` | green-400 `#4ade80` | green-700 `#15803d` | green-800 `#166534` |
+| `'mono-purple'` | Monochrome purple | purple-600 `#9333ea` | purple-400 `#c084fc` | purple-700 `#7e22ce` | purple-800 `#6b21a8` |
+| `'mono-orange'` | Monochrome orange | orange-600 `#ea580c` | orange-400 `#fb923c` | orange-700 `#c2410c` | orange-800 `#9a3412` |
+
 **Palette resolution order:**
-1. `'default'` → built-in multi-hue palette
-2. Any [`d3-scale-chromatic`](https://github.com/d3/d3-scale-chromatic) scheme name **without** the `scheme` prefix — passed to `resolveD3Scheme()` after prepending `scheme` + capitalising first letter:
-   - e.g. `'category10'` → looks up `schemeCategory10`, `'blues'` → `schemeBlues`, `'brBG'` → `schemeBrBG`
-   - Categorical (flat `string[]`): used directly, first 4 colors = `[process, decision, terminal, io]`
-   - Sequential / Diverging (nested `string[][]`): 9-color variant sampled at indices `[1, 3, 5, 7]`
-3. `string[]` array: 4 hex values mapped to `[process, decision, terminal, io]`
-4. Unknown string → falls back to `'default'`
+1. Named string (e.g. `'default'`, `'antv'`, `'mono-blue'`) → looked up in `NAMED_PALETTES` dict in `src/theme.ts`
+2. `string[]` array: 4 hex values mapped to `[process, decision, terminal, io]`; colors are auto-derived into fills/strokes/texts via `deriveThemeFromColors()`
+3. Unknown string → falls back to `'default'`
 
 **Built-in `'default'` palette** (light mode) — node-type colors:
 
