@@ -94,12 +94,19 @@ child --> leaf[Leaf]
 ### arch
 
 ```
-arch [LR|TB] [theme] [palette]
-title: Stack
-layer id[Label]      %% layer header
-  nodeId[Node]       %% nodes belong to the layer above (indentation optional)
+arch TB antv
+title: Web Stack
+layer frontend[Frontend]
+  ui[React App]
+  assets[Static Assets]
+layer backend[Backend]
+  api[REST API]
+  auth[Auth Service]
+layer data[Data]
+  db[PostgreSQL]
 ```
 
+- Each `layer` line starts a new group; following node lines (with or without indent) belong to it
 - `TB` stacks layers top→bottom; `LR` places them side-by-side
 - Width auto-sizes from content
 
@@ -133,15 +140,15 @@ Feature A: 0.2, 0.9       %% label: x, y  (x/y in [0,1])
 gantt [theme] [palette]
 title: Q1 Roadmap
 section Design
-  Wireframes: t1, 2025-01-06, 2025-01-24
+  Wireframes: t1, 2025-01-06, 2025-01-24    %% label: id, start, end
   Mockups: t2, 2025-01-25, 2025-02-07
 section Dev
   Frontend: t3, 2025-02-03, 2025-02-28
 milestone: Launch, 2025-03-01
 ```
 
-- Dates: `yyyy-mm-dd`; `end` ≥ `start`
-- `section` groups tasks under a bold header
+- Task format: `<label>: <id>, <yyyy-mm-dd>, <yyyy-mm-dd>` — **id is required**, even if you don't reference it
+- `end` ≥ `start`; `section` groups tasks under a bold header; `milestone: <label>, <date>` marks a point in time
 
 ---
 
