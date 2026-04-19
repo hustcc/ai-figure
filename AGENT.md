@@ -208,9 +208,12 @@ Do **not** add drop-shadows to node boxes, cards, or text.
 
 ### Edge / label background pattern
 
-When an edge or message needs an inline label, render a white background pill first, then the text on top:
+When an edge or message needs an inline label, render a background pill first, then the text on top. The background color is **theme-aware** — use `theme.background || 'white'`, which resolves to:
+- **Light mode** (`theme.background = ''`): fallback `'white'`
+- **Dark mode** (`theme.background = '#1a1b1e'`): canvas background color — blends harmoniously
+
 ```xml
-<rect x="..." y="..." width="..." height="..." fill="white" rx="3" opacity="0.9"/>
+<rect x="..." y="..." width="..." height="..." fill="{theme.background || 'white'}" rx="3" opacity="0.9"/>
 <text ...>label</text>
 ```
 Label font size: `theme.fontSize - 2`. Padding: `padX=5, padY=3`. Estimated width: `chars × (fontSize × 0.58) + padX×2`.

@@ -34,10 +34,10 @@
 <text x="350" y="165" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">trigger workflow</text>
 <path d="M 440,236 H 484 V 264 H 440" stroke="#495057" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow-1)"/>
 <rect x="490" y="241" width="65.67999999999999" height="18" fill="white" rx="3" opacity="0.9"/>
-<text x="522.84" y="250" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">npm test</text>
+NaNfont-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">npm test</text>
 <path d="M 440,292 H 484 V 320 H 440" stroke="#495057" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow-1)"/>
 <rect x="490" y="297" width="93.51999999999998" height="18" fill="white" rx="3" opacity="0.9"/>
-<text x="536.76" y="306" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">docker build</text>
+NaNfont-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">docker build</text>
 <line x1="440" y1="348" x2="620" y2="348" stroke="#495057" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow-1)"/>
 <rect x="469.32" y="324" width="121.35999999999999" height="18" fill="white" rx="3" opacity="0.9"/>
 <text x="530" y="333" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">docker push :sha</text>
