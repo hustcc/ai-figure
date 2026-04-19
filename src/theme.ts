@@ -111,59 +111,62 @@ const drawioPalette: Record<Mode, ThemeConfig> = {
 };
 
 /**
- * `'notion'` — Notion block / highlight color palette.
- * process=blue, decision=yellow, terminal=green, io=purple.
+ * `'notion'` — Notion editorial palette.
+ * process=orange (Notion's signature orange), decision=teal-blue, terminal=sage, io=purple.
+ * Distinctly warm-forward — orange process makes it immediately identifiable.
  */
 const notionPalette: Record<Mode, ThemeConfig> = {
   light: {
     ...STRUCTURAL_LIGHT,
-    nodeFills:   { process: '#dbeafe', decision: '#fef9c3', terminal: '#dcfce7', io: '#fae8ff' },
-    nodeStrokes: { process: '#3b82f6', decision: '#ca8a04', terminal: '#16a34a', io: '#a855f7' },
-    textColors:  { process: '#1d4ed8', decision: '#854d0e', terminal: '#15803d', io: '#7e22ce' },
+    nodeFills:   { process: '#fff4ec', decision: '#eff8ff', terminal: '#f0fdf4', io: '#fdf4ff' },
+    nodeStrokes: { process: '#d9730d', decision: '#337ea9', terminal: '#448361', io: '#9065b0' },
+    textColors:  { process: '#a85200', decision: '#1a5f8a', terminal: '#2d6b4a', io: '#6b3f9e' },
   },
   dark: {
     ...STRUCTURAL_DARK,
-    nodeFills:   { process: '#1e3a5f', decision: '#3f3008', terminal: '#14301e', io: '#2e1040' },
-    nodeStrokes: { process: '#60a5fa', decision: '#fbbf24', terminal: '#4ade80', io: '#c084fc' },
-    textColors:  { process: '#93c5fd', decision: '#fde68a', terminal: '#86efac', io: '#d8b4fe' },
+    nodeFills:   { process: '#3b1d00', decision: '#0d2540', terminal: '#0a2a18', io: '#25123a' },
+    nodeStrokes: { process: '#f09249', decision: '#5ba4d4', terminal: '#5fa882', io: '#b18bd0' },
+    textColors:  { process: '#f0b46a', decision: '#8ac9ee', terminal: '#8fcba8', io: '#cba8e8' },
   },
 };
 
 /**
- * `'figma'` — Figma / Tailwind-inspired modern UI palette.
- * process=indigo, decision=amber, terminal=emerald, io=pink.
+ * `'figma'` — Figma / design-tool palette.
+ * process=indigo, decision=cyan, terminal=emerald, io=rose-pink.
+ * No amber overlap with 'default'; cyan decision makes it instantly recognisable.
  */
 const figmaPalette: Record<Mode, ThemeConfig> = {
   light: {
     ...STRUCTURAL_LIGHT,
-    nodeFills:   { process: '#eef2ff', decision: '#fffbeb', terminal: '#ecfdf5', io: '#fdf2f8' },
-    nodeStrokes: { process: '#6366f1', decision: '#f59e0b', terminal: '#10b981', io: '#ec4899' },
-    textColors:  { process: '#4338ca', decision: '#b45309', terminal: '#047857', io: '#be185d' },
+    nodeFills:   { process: '#eef2ff', decision: '#ecfeff', terminal: '#ecfdf5', io: '#fdf2f8' },
+    nodeStrokes: { process: '#6366f1', decision: '#06b6d4', terminal: '#10b981', io: '#ec4899' },
+    textColors:  { process: '#4338ca', decision: '#0891b2', terminal: '#047857', io: '#be185d' },
   },
   dark: {
     ...STRUCTURAL_DARK,
-    nodeFills:   { process: '#1e1b4b', decision: '#3f2c00', terminal: '#022c22', io: '#4a044e' },
-    nodeStrokes: { process: '#818cf8', decision: '#fcd34d', terminal: '#34d399', io: '#f472b6' },
-    textColors:  { process: '#a5b4fc', decision: '#fde68a', terminal: '#6ee7b7', io: '#f9a8d4' },
+    nodeFills:   { process: '#1e1b4b', decision: '#012030', terminal: '#022c22', io: '#4a044e' },
+    nodeStrokes: { process: '#818cf8', decision: '#22d3ee', terminal: '#34d399', io: '#f472b6' },
+    textColors:  { process: '#a5b4fc', decision: '#67e8f9', terminal: '#6ee7b7', io: '#f9a8d4' },
   },
 };
 
 /**
  * `'github'` — GitHub Primer design system palette.
- * process=blue, decision=amber, terminal=green, io=purple.
+ * process=green (GitHub success), decision=blue, terminal=purple, io=red (danger).
+ * Green-forward identity — immediately distinct from 'default' (blue-forward).
  */
 const githubPalette: Record<Mode, ThemeConfig> = {
   light: {
     ...STRUCTURAL_LIGHT,
-    nodeFills:   { process: '#ddf4ff', decision: '#fff8c5', terminal: '#dafbe1', io: '#fbefff' },
-    nodeStrokes: { process: '#0969da', decision: '#9a6700', terminal: '#1a7f37', io: '#8250df' },
-    textColors:  { process: '#0550ae', decision: '#6e4f00', terminal: '#116329', io: '#5a32a3' },
+    nodeFills:   { process: '#dafbe1', decision: '#ddf4ff', terminal: '#fbefff', io: '#ffebe9' },
+    nodeStrokes: { process: '#1a7f37', decision: '#0969da', terminal: '#8250df', io: '#d1242f' },
+    textColors:  { process: '#116329', decision: '#0550ae', terminal: '#5a32a3', io: '#a30015' },
   },
   dark: {
     ...STRUCTURAL_DARK,
-    nodeFills:   { process: '#0d2d6f', decision: '#341a00', terminal: '#07270f', io: '#1b0a3f' },
-    nodeStrokes: { process: '#4493f8', decision: '#d29922', terminal: '#3fb950', io: '#b187f9' },
-    textColors:  { process: '#79c0ff', decision: '#f0b429', terminal: '#56d364', io: '#d2a8ff' },
+    nodeFills:   { process: '#0a2a14', decision: '#0d2d6f', terminal: '#1b0d36', io: '#3a0a0a' },
+    nodeStrokes: { process: '#3fb950', decision: '#4493f8', terminal: '#b187f9', io: '#fa7970' },
+    textColors:  { process: '#56d364', decision: '#79c0ff', terminal: '#d2a8ff', io: '#ffa198' },
   },
 };
 

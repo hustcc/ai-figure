@@ -282,20 +282,24 @@ describe('fig', () => {
     });
 
     expect(svg).toContain('<svg');
-    expect(svg).toContain('#3b82f6'); // notion process stroke
-    expect(svg).toContain('#ca8a04'); // notion decision stroke
+    expect(svg).toContain('#d9730d'); // notion process stroke (orange)
+    expect(svg).toContain('#337ea9'); // notion decision stroke (teal-blue)
   });
 
   it("palette='figma' renders flow diagram with figma colors", () => {
     const svg = fig({
       figure: 'flow',
-      nodes: [{ id: 'a', label: 'A', type: 'process' }],
-      edges: [],
+      nodes: [
+        { id: 'a', label: 'A', type: 'process' },
+        { id: 'b', label: 'B', type: 'decision' },
+      ],
+      edges: [{ from: 'a', to: 'b' }],
       palette: 'figma',
     });
 
     expect(svg).toContain('<svg');
-    expect(svg).toContain('#6366f1'); // figma process stroke
+    expect(svg).toContain('#6366f1'); // figma process stroke (indigo)
+    expect(svg).toContain('#06b6d4'); // figma decision stroke (cyan)
   });
 
   it("palette='github' renders arch diagram with github colors", () => {
@@ -310,7 +314,7 @@ describe('fig', () => {
 
     expect(svg).toContain('<svg');
     expect(svg).toContain('Frontend');
-    expect(svg).toContain('#0969da'); // github process stroke
+    expect(svg).toContain('#1a7f37'); // github process stroke (green — GitHub success)
   });
 
   it("palette='github' renders sequence diagram with github colors", () => {
@@ -322,7 +326,7 @@ describe('fig', () => {
     });
 
     expect(svg).toContain('<svg');
-    expect(svg).toContain('#1a7f37'); // github terminal stroke (actor[0] → terminal type)
+    expect(svg).toContain('#8250df'); // github terminal stroke (actor[0] → terminal type → purple)
   });
 
   it('throws for an edge referencing a missing node', () => {

@@ -11,21 +11,21 @@
   </style>
 </defs>
 <g class="sequence-diagram">
-<line x1="80" y1="68" x2="80" y2="660" stroke="#1a7f37" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4" class="seq-lifeline"/>
-<line x1="260" y1="68" x2="260" y2="660" stroke="#0969da" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4" class="seq-lifeline"/>
-<line x1="440" y1="68" x2="440" y2="660" stroke="#9a6700" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4" class="seq-lifeline"/>
-<line x1="620" y1="68" x2="620" y2="660" stroke="#8250df" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4" class="seq-lifeline"/>
-<line x1="800" y1="68" x2="800" y2="660" stroke="#1a7f37" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4" class="seq-lifeline"/>
-<rect x="20" y="24" width="120" height="44" rx="22" ry="22" fill="#dafbe1" stroke="#1a7f37" stroke-width="2"/>
-<text x="80" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#116329">Developer</text>
-<rect x="200" y="24" width="120" height="44" rx="22" ry="22" fill="#ddf4ff" stroke="#0969da" stroke-width="2"/>
-<text x="260" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0550ae">GitHub</text>
-<rect x="380" y="24" width="120" height="44" rx="22" ry="22" fill="#fff8c5" stroke="#9a6700" stroke-width="2"/>
-<text x="440" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#6e4f00">CI Runner</text>
-<rect x="560" y="24" width="120" height="44" rx="22" ry="22" fill="#fbefff" stroke="#8250df" stroke-width="2"/>
-<text x="620" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#5a32a3">Registry</text>
-<rect x="740" y="24" width="120" height="44" rx="22" ry="22" fill="#dafbe1" stroke="#1a7f37" stroke-width="2"/>
-<text x="800" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#116329">Cluster</text>
+<line x1="80" y1="68" x2="80" y2="660" stroke="#8250df" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4" class="seq-lifeline"/>
+<line x1="260" y1="68" x2="260" y2="660" stroke="#1a7f37" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4" class="seq-lifeline"/>
+<line x1="440" y1="68" x2="440" y2="660" stroke="#0969da" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4" class="seq-lifeline"/>
+<line x1="620" y1="68" x2="620" y2="660" stroke="#d1242f" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4" class="seq-lifeline"/>
+<line x1="800" y1="68" x2="800" y2="660" stroke="#8250df" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4" class="seq-lifeline"/>
+<rect x="20" y="24" width="120" height="44" rx="22" ry="22" fill="#fbefff" stroke="#8250df" stroke-width="2"/>
+<text x="80" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#5a32a3">Developer</text>
+<rect x="200" y="24" width="120" height="44" rx="22" ry="22" fill="#dafbe1" stroke="#1a7f37" stroke-width="2"/>
+<text x="260" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#116329">GitHub</text>
+<rect x="380" y="24" width="120" height="44" rx="22" ry="22" fill="#ddf4ff" stroke="#0969da" stroke-width="2"/>
+<text x="440" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0550ae">CI Runner</text>
+<rect x="560" y="24" width="120" height="44" rx="22" ry="22" fill="#ffebe9" stroke="#d1242f" stroke-width="2"/>
+<text x="620" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a30015">Registry</text>
+<rect x="740" y="24" width="120" height="44" rx="22" ry="22" fill="#fbefff" stroke="#8250df" stroke-width="2"/>
+<text x="800" y="46" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#5a32a3">Cluster</text>
 <line x1="80" y1="124" x2="260" y2="124" stroke="#495057" stroke-width="1.5" fill="none" marker-end="url(#seq-arrow-1)"/>
 <rect x="137.16" y="100" width="65.67999999999999" height="18" fill="white" rx="3" opacity="0.9"/>
 <text x="170" y="109" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057">git push</text>

@@ -18,9 +18,9 @@ export type ThemeType = 'light' | 'dark';
  * - `'default'` — built-in multi-hue palette: process=blue, decision=amber, terminal=green, io=purple
  * - `'antv'` — AntV G2 categorical palette (cornflower-blue, orange, teal, violet)
  * - `'drawio'` — draw.io / diagrams.net shape palette (sky-blue, amber, sage, red)
- * - `'notion'` — Notion block color palette (blue, yellow, green, purple)
- * - `'figma'` — Figma / Tailwind modern UI palette (indigo, amber, emerald, pink)
- * - `'github'` — GitHub Primer palette (blue, amber, green, purple)
+ * - `'notion'` — Notion editorial palette (orange process, teal-blue decision, sage terminal, purple io)
+ * - `'figma'` — Figma / design-tool palette (indigo process, cyan decision, emerald terminal, rose io)
+ * - `'github'` — GitHub Primer palette (green process, blue decision, purple terminal, red io)
  * - Custom 4-element hex array `[process, decision, terminal, io]`
  */
 export type PaletteType = string | string[];

@@ -52,11 +52,11 @@ Every renderer accepts two independent parameters:
 | Palette | Description | process | decision | terminal | io |
 |---------|-------------|---------|----------|----------|----|
 | `'default'` | Classic multi-hue | blue | amber | green | purple |
-| `'antv'` | AntV G2 categorical | cornflower `#5b8ff9` | orange `#e8684a` | teal `#5ad8a6` | violet `#9270ca` |
+| `'antv'` | AntV G2 categorical | cornflower `#5b8ff9` | coral `#e8684a` | mint `#5ad8a6` | violet `#9270ca` |
 | `'drawio'` | draw.io shape colors | sky-blue `#6c8ebf` | amber `#d6b656` | sage `#82b366` | red `#b85450` |
-| `'notion'` | Notion block colors | blue `#3b82f6` | yellow `#ca8a04` | green `#16a34a` | purple `#a855f7` |
-| `'figma'` | Figma / Tailwind UI | indigo `#6366f1` | amber `#f59e0b` | emerald `#10b981` | pink `#ec4899` |
-| `'github'` | GitHub Primer | blue `#0969da` | amber `#9a6700` | green `#1a7f37` | purple `#8250df` |
+| `'notion'` | Notion editorial | orange `#d9730d` | teal-blue `#337ea9` | sage `#448361` | purple `#9065b0` |
+| `'figma'` | Figma / design tool | indigo `#6366f1` | cyan `#06b6d4` | emerald `#10b981` | rose `#ec4899` |
+| `'github'` | GitHub Primer | green `#1a7f37` | blue `#0969da` | purple `#8250df` | red `#d1242f` |
 
 **Palette resolution order:**
 1. Named string (e.g. `'default'`, `'antv'`, `'notion'`) → looked up in `NAMED_PALETTES` dict in `src/theme.ts`

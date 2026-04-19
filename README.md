@@ -343,11 +343,11 @@ All six diagram types accept two independent styling parameters:
 | Value | Description |
 |-------|-------------|
 | `'default'` | Built-in multi-hue palette — `process`=blue, `decision`=amber, `terminal`=green, `io`=purple |
-| `'antv'` | AntV G2 categorical palette — cornflower-blue, orange, teal, violet |
+| `'antv'` | AntV G2 categorical palette — cornflower-blue, coral-orange, mint-teal, violet |
 | `'drawio'` | draw.io / diagrams.net shape palette — sky-blue, amber, sage, red |
-| `'notion'` | Notion block color palette — blue, yellow, green, purple |
-| `'figma'` | Figma / Tailwind modern UI palette — indigo, amber, emerald, pink |
-| `'github'` | GitHub Primer palette — blue, amber, green, purple |
+| `'notion'` | Notion editorial palette — orange, teal-blue, sage, purple |
+| `'figma'` | Figma / design-tool palette — indigo, cyan, emerald, rose-pink |
+| `'github'` | GitHub Primer palette — green, blue, purple, red |
 | `string[]` | 4-element hex array mapped to `[process, decision, terminal, io]` |
 
 ```typescript
