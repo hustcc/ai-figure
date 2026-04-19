@@ -7,7 +7,6 @@
 <line x1="160" y1="0" x2="160" y2="510" stroke="#868e96" stroke-width="1" opacity="0.4"/>
 <line x1="172" y1="44" x2="172" y2="486" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
 <line x1="172" y1="38" x2="172" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
-<text x="172" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Feb 2025</text>
 <line x1="320" y1="44" x2="320" y2="486" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
 <line x1="320" y1="38" x2="320" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
 <text x="320" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Mar 2025</text>

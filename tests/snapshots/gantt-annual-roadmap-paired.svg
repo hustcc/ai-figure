@@ -8,43 +8,36 @@
 <line x1="160" y1="0" x2="160" y2="476" stroke="#868e96" stroke-width="1" opacity="0.4"/>
 <line x1="175" y1="44" x2="175" y2="452" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
 <line x1="175" y1="38" x2="175" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
-<text x="175" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Jan 2025</text>
 <line x1="226" y1="44" x2="226" y2="452" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
 <line x1="226" y1="38" x2="226" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
 <text x="226" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Feb 2025</text>
 <line x1="272" y1="44" x2="272" y2="452" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
 <line x1="272" y1="38" x2="272" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
-<text x="272" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Mar 2025</text>
 <line x1="324" y1="44" x2="324" y2="452" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
 <line x1="324" y1="38" x2="324" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
 <text x="324" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Apr 2025</text>
 <line x1="373" y1="44" x2="373" y2="452" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
 <line x1="373" y1="38" x2="373" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
-<text x="373" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">May 2025</text>
 <line x1="425" y1="44" x2="425" y2="452" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
 <line x1="425" y1="38" x2="425" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
 <text x="425" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Jun 2025</text>
 <line x1="474" y1="44" x2="474" y2="452" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
 <line x1="474" y1="38" x2="474" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
-<text x="474" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Jul 2025</text>
 <line x1="525" y1="44" x2="525" y2="452" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
 <line x1="525" y1="38" x2="525" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
 <text x="525" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Aug 2025</text>
 <line x1="577" y1="44" x2="577" y2="452" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
 <line x1="577" y1="38" x2="577" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
-<text x="577" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Sep 2025</text>
 <line x1="626" y1="44" x2="626" y2="452" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
 <line x1="626" y1="38" x2="626" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
 <text x="626" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Oct 2025</text>
 <line x1="678" y1="44" x2="678" y2="452" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
 <line x1="678" y1="38" x2="678" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
-<text x="678" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Nov 2025</text>
 <line x1="727" y1="44" x2="727" y2="452" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
 <line x1="727" y1="38" x2="727" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
 <text x="727" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Dec 2025</text>
 <line x1="779" y1="44" x2="779" y2="452" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
 <line x1="779" y1="38" x2="779" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
-<text x="779" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Jan 2026</text>
 <rect x="0" y="44" width="804" height="34" fill="rgba(134,142,150,0.06)" stroke="none"/>
 <line x1="0" y1="78" x2="804" y2="78" stroke="#868e96" stroke-width="1" opacity="0.15"/>
 <text x="8" y="61" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057" clip-path="url(#gantt-1-lclip)">Q1</text>

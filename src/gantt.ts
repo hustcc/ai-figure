@@ -223,6 +223,13 @@ export function createGanttChart(options: GanttChartOptions): string {
   // ── Time-axis ticks and vertical grid lines ────────────────────────
   const { dates: tickDates, fmt: tickFmt } = buildTicks(minDate, maxDate);
 
+  // Approximate per-character pixel width for overlap detection.
+  // Proportional sans-serif at (fontSize-2) ≈ 0.62 × fontSize.
+  const CHAR_W = (theme.fontSize - 2) * 0.62;
+  // Tracks the x position of the right edge of the last rendered label so we
+  // can skip any label whose left edge would collide with it.
+  let lastLabelRight = LABEL_W;
+
   for (const td of tickDates) {
     const tx = dateToX(td, minTime, totalMs);
     if (tx <= LABEL_W || tx >= LABEL_W + PLOT_W) continue;
@@ -240,13 +247,19 @@ export function createGanttChart(options: GanttChartOptions): string {
         `stroke="${escapeXml(theme.groupColor)}" stroke-width="1" opacity="0.6"/>`,
     );
 
-    // Tick label centered above tick mark
-    parts.push(
-      `<text x="${tx}" y="${HEADER_H / 2 - 2}" ` +
-        `text-anchor="middle" dominant-baseline="middle" ` +
-        `font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize - 2}" ` +
-        `fill="${escapeXml(theme.edgeColor)}" opacity="0.7">${escapeXml(tickFmt(td))}</text>`,
-    );
+    // Tick label centered above tick mark — skipped when it would overlap
+    // the previous visible label (2 px minimum gap between labels).
+    const labelText  = tickFmt(td);
+    const labelHalfW = (labelText.length * CHAR_W) / 2;
+    if (tx - labelHalfW >= lastLabelRight + 2) {
+      parts.push(
+        `<text x="${tx}" y="${HEADER_H / 2 - 2}" ` +
+          `text-anchor="middle" dominant-baseline="middle" ` +
+          `font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize - 2}" ` +
+          `fill="${escapeXml(theme.edgeColor)}" opacity="0.7">${escapeXml(labelText)}</text>`,
+      );
+      lastLabelRight = tx + labelHalfW;
+    }
   }
 
   // ── Task / group rows ─────────────────────────────────────────────────
