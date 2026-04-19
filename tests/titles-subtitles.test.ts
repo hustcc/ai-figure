@@ -331,6 +331,44 @@ describe('quadrant chart title / subtitle', () => {
 });
 
 // ---------------------------------------------------------------------------
+// Gantt chart — title + subtitle
+// ---------------------------------------------------------------------------
+
+describe('gantt chart title / subtitle', () => {
+  it('renders title and subtitle in the SVG', () => {
+    const svg = fig({
+      figure: 'gantt',
+      title: 'Project Timeline',
+      subtitle: 'Q1 2025 roadmap',
+      tasks: [
+        { id: 'a', label: 'Design', start: '2025-01-06', end: '2025-01-24' },
+        { id: 'b', label: 'Dev',    start: '2025-01-20', end: '2025-02-28' },
+      ],
+    });
+
+    expect(svg).toContain('Project Timeline');
+    expect(svg).toContain('Q1 2025 roadmap');
+    expect(svg).toContain('font-weight="700"');
+  });
+
+  it('expands SVG height when a title is provided', () => {
+    const base = fig({
+      figure: 'gantt',
+      tasks: [{ id: 'a', label: 'Task', start: '2025-01-01', end: '2025-01-31' }],
+    });
+    const titled = fig({
+      figure: 'gantt',
+      title: 'My Gantt',
+      tasks: [{ id: 'a', label: 'Task', start: '2025-01-01', end: '2025-01-31' }],
+    });
+
+    const baseH  = Number(base.match(/height="(\d+)"/)?.[1] ?? 0);
+    const titledH = Number(titled.match(/height="(\d+)"/)?.[1] ?? 0);
+    expect(titledH).toBeGreaterThan(baseH);
+  });
+});
+
+// ---------------------------------------------------------------------------
 // Cross-cutting: escaping, dark theme, subtitle-only
 // ---------------------------------------------------------------------------
 

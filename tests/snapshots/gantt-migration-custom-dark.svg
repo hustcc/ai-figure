@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="804" height="305" viewBox="0 0 804 305">
+<rect width="100%" height="100%" fill="#1a1b1e"/>
+<text x="402" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#adb5bd">Database Migration</text>
+<text x="402" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#5c6370">Postgres → Aurora</text>
+<g class="gantt-chart" transform="translate(0,67)">
+<defs><clipPath id="gantt-1-lclip"><rect x="0" y="0" width="156" height="238"/></clipPath></defs>
+<rect x="0" y="0" width="804" height="44" fill="rgba(92,99,112,0.15)" stroke="none"/>
+<line x1="0" y1="44" x2="804" y2="44" stroke="#5c6370" stroke-width="1" opacity="0.4"/>
+<line x1="160" y1="0" x2="160" y2="238" stroke="#5c6370" stroke-width="1" opacity="0.4"/>
+<line x1="414" y1="44" x2="414" y2="214" stroke="#5c6370" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
+<line x1="414" y1="38" x2="414" y2="44" stroke="#5c6370" stroke-width="1" opacity="0.6"/>
+<text x="414" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#adb5bd" opacity="0.7">Jun 2025</text>
+<line x1="671" y1="44" x2="671" y2="214" stroke="#5c6370" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
+<line x1="671" y1="38" x2="671" y2="44" stroke="#5c6370" stroke-width="1" opacity="0.6"/>
+<text x="671" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#adb5bd" opacity="0.7">Jul 2025</text>
+<rect x="0" y="44" width="804" height="34" fill="rgba(92,99,112,0.15)" stroke="none"/>
+<line x1="0" y1="78" x2="804" y2="78" stroke="#5c6370" stroke-width="1" opacity="0.15"/>
+<text x="8" y="61" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" clip-path="url(#gantt-1-lclip)">Schema Audit</text>
+<rect x="183" y="51" width="94" height="20" fill="#20c99730" stroke="#20c997" stroke-width="1.5" rx="6"/>
+<text x="230" y="61" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#20c997">Schema Audit</text>
+<line x1="0" y1="112" x2="804" y2="112" stroke="#5c6370" stroke-width="1" opacity="0.15"/>
+<text x="8" y="95" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" clip-path="url(#gantt-1-lclip)">Shadow Write</text>
+<rect x="243" y="85" width="214" height="20" fill="#74c0fc30" stroke="#74c0fc" stroke-width="1.5" rx="6"/>
+<text x="350" y="95" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#74c0fc">Shadow Write</text>
+<rect x="0" y="112" width="804" height="34" fill="rgba(92,99,112,0.15)" stroke="none"/>
+<line x1="0" y1="146" x2="804" y2="146" stroke="#5c6370" stroke-width="1" opacity="0.15"/>
+<text x="8" y="129" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" clip-path="url(#gantt-1-lclip)">Data Backfill</text>
+<rect x="363" y="119" width="214" height="20" fill="#ffd43b30" stroke="#ffd43b" stroke-width="1.5" rx="6"/>
+<text x="470" y="129" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#ffd43b">Data Backfill</text>
+<line x1="0" y1="180" x2="804" y2="180" stroke="#5c6370" stroke-width="1" opacity="0.15"/>
+<text x="8" y="163" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" clip-path="url(#gantt-1-lclip)">Cutover</text>
+<rect x="603" y="153" width="34" height="20" fill="#ff6b6b30" stroke="#ff6b6b" stroke-width="1.5" rx="6"/>
+<rect x="0" y="180" width="804" height="34" fill="rgba(92,99,112,0.15)" stroke="none"/>
+<line x1="0" y1="214" x2="804" y2="214" stroke="#5c6370" stroke-width="1" opacity="0.15"/>
+<text x="8" y="197" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" clip-path="url(#gantt-1-lclip)">Post-migration Monitor</text>
+<rect x="603" y="187" width="154" height="20" fill="#a9e34b30" stroke="#a9e34b" stroke-width="1.5" rx="6"/>
+<text x="680" y="197" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#a9e34b">Post-migration Monitor</text>
+<line x1="603" y1="44" x2="603" y2="214" stroke="#f59f00" stroke-width="1.5" stroke-dasharray="4 3"/>
+<polygon points="603,23 610,30 603,37 596,30" fill="#f59f00" stroke="none"/>
+<text x="603" y="218" text-anchor="middle" dominant-baseline="hanging" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#f59f00">Cutover night</text>
+<rect x="0" y="0" width="804" height="238" fill="none" stroke="#5c6370" stroke-width="1" opacity="0.4"/>
+</g>
+</svg>

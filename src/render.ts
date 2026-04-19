@@ -152,7 +152,7 @@ function renderEdge(
     const labelH = labelFontSize + padY * 2;
     const bg =
       `<rect x="${mid.x - labelW / 2}" y="${mid.y - labelH / 2}" ` +
-      `width="${labelW}" height="${labelH}" fill="white" rx="3" opacity="0.9"/>`;
+      `width="${labelW}" height="${labelH}" fill="${theme.background || 'white'}" rx="3" opacity="0.9"/>`;
     labelSvg =
       bg +
       `\n<text x="${mid.x}" y="${mid.y}" dy="0.35em" text-anchor="middle" ` +

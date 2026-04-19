@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="804" height="238" viewBox="0 0 804 238">
+<g class="gantt-chart">
+<defs><clipPath id="gantt-1-lclip"><rect x="0" y="0" width="156" height="238"/></clipPath></defs>
+<rect x="0" y="0" width="804" height="44" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="44" x2="804" y2="44" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+<line x1="160" y1="0" x2="160" y2="238" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+<line x1="189" y1="44" x2="189" y2="214" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
+<line x1="189" y1="38" x2="189" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<text x="189" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">3/3</text>
+<line x1="290" y1="44" x2="290" y2="214" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
+<line x1="290" y1="38" x2="290" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<text x="290" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">3/10</text>
+<line x1="391" y1="44" x2="391" y2="214" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
+<line x1="391" y1="38" x2="391" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<text x="391" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">3/17</text>
+<line x1="492" y1="44" x2="492" y2="214" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
+<line x1="492" y1="38" x2="492" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<text x="492" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">3/24</text>
+<line x1="593" y1="44" x2="593" y2="214" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
+<line x1="593" y1="38" x2="593" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<text x="593" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">3/31</text>
+<line x1="693" y1="44" x2="693" y2="214" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
+<line x1="693" y1="38" x2="693" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<text x="693" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">4/7</text>
+<rect x="0" y="44" width="804" height="34" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="78" x2="804" y2="78" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="8" y="61" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">Research</text>
+<rect x="189" y="51" width="158" height="20" fill="#e7f5ff" stroke="#339af0" stroke-width="1.5" rx="6"/>
+<text x="268" y="61" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#1971c2">Research</text>
+<line x1="0" y1="112" x2="804" y2="112" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="8" y="95" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">Design</text>
+<rect x="290" y="85" width="158" height="20" fill="#ebfbee" stroke="#51cf66" stroke-width="1.5" rx="6"/>
+<text x="369" y="95" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#2f9e44">Design</text>
+<rect x="0" y="112" width="804" height="34" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="146" x2="804" y2="146" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="8" y="129" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">Build</text>
+<rect x="391" y="119" width="259" height="20" fill="#fff7e6" stroke="#f59f00" stroke-width="1.5" rx="6"/>
+<text x="520.5" y="129" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#e67700">Build</text>
+<line x1="0" y1="180" x2="804" y2="180" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="8" y="163" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">Code Review</text>
+<rect x="593" y="153" width="158" height="20" fill="#fdf4ff" stroke="#cc5de8" stroke-width="1.5" rx="6"/>
+<text x="672" y="163" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#862e9c">Code Review</text>
+<rect x="0" y="180" width="804" height="34" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="214" x2="804" y2="214" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="8" y="197" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">Ship</text>
+<rect x="693" y="187" width="58" height="20" fill="#e7f5ff" stroke="#339af0" stroke-width="1.5" rx="6"/>
+<rect x="0" y="0" width="804" height="238" fill="none" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+</g>
+</svg>

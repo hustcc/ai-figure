@@ -216,6 +216,50 @@ export interface QuadrantChartOptions {
 }
 
 // ---------------------------------------------------------------------------
+// GanttChart types
+// ---------------------------------------------------------------------------
+
+/** A single task bar in a Gantt chart. */
+export interface GanttTask {
+  /** Unique identifier. */
+  id: string;
+  /** Task name displayed in the label column and optionally inside the bar. */
+  label: string;
+  /** Start date in `yyyy-mm-dd` format. */
+  start: string;
+  /** End date in `yyyy-mm-dd` format. */
+  end: string;
+  /** Optional group identifier — tasks sharing the same `groupId` are clustered under a group header. */
+  groupId?: string;
+  /** Optional custom bar color (6-digit hex, e.g. `'#e64980'`). Overrides the theme palette cycle. */
+  color?: string;
+}
+
+/** A milestone marker displayed on the Gantt timeline. */
+export interface GanttMilestone {
+  /** Milestone date in `yyyy-mm-dd` format. */
+  date: string;
+  /** Short label displayed near the milestone diamond. */
+  label: string;
+}
+
+/** Options passed to {@link createGanttChart}. */
+export interface GanttChartOptions {
+  /** List of tasks to render as horizontal bars. */
+  tasks: GanttTask[];
+  /** Optional milestones to overlay on the timeline. */
+  milestones?: GanttMilestone[];
+  /** Light or dark rendering mode (default: `'light'`). */
+  theme?: ThemeType;
+  /** Color palette — `'default'` (built-in), d3-scale-chromatic short name (e.g. `'set2'`), or custom hex array (default: `'default'`). */
+  palette?: PaletteType;
+  /** Optional chart title displayed above the diagram. */
+  title?: string;
+  /** Optional subtitle displayed beneath the title. */
+  subtitle?: string;
+}
+
+// ---------------------------------------------------------------------------
 // Unified fig() API
 // ---------------------------------------------------------------------------
 
@@ -225,4 +269,5 @@ export type FigOptions =
   | ({ figure: 'tree' } & TreeDiagramOptions)
   | ({ figure: 'arch' } & ArchDiagramOptions)
   | ({ figure: 'sequence' } & SequenceDiagramOptions)
-  | ({ figure: 'quadrant' } & QuadrantChartOptions);
+  | ({ figure: 'quadrant' } & QuadrantChartOptions)
+  | ({ figure: 'gantt' } & GanttChartOptions);

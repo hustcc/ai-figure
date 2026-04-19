@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="804" height="407" viewBox="0 0 804 407">
+<text x="402" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Software Project Plan</text>
+<text x="402" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">Q1 2025 — Roadmap</text>
+<g class="gantt-chart" transform="translate(0,67)">
+<defs><clipPath id="gantt-1-lclip"><rect x="0" y="0" width="156" height="340"/></clipPath></defs>
+<rect x="0" y="0" width="804" height="44" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="44" x2="804" y2="44" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+<line x1="160" y1="0" x2="160" y2="340" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+<line x1="385" y1="44" x2="385" y2="316" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
+<line x1="385" y1="38" x2="385" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<text x="385" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Feb 2025</text>
+<line x1="602" y1="44" x2="602" y2="316" stroke="#868e96" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
+<line x1="602" y1="38" x2="602" y2="44" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<text x="602" y="20" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#495057" opacity="0.7">Mar 2025</text>
+<rect x="0" y="44" width="804" height="34" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="78" x2="804" y2="78" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="8" y="61" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">Design</text>
+<rect x="183" y="51" width="140" height="20" fill="#e7f5ff" stroke="#339af0" stroke-width="1.5" rx="6"/>
+<text x="253" y="61" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#1971c2">Design</text>
+<line x1="0" y1="112" x2="804" y2="112" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="8" y="95" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">Deploy</text>
+<rect x="726" y="85" width="31" height="20" fill="#ebfbee" stroke="#51cf66" stroke-width="1.5" rx="6"/>
+<rect x="0" y="112" width="804" height="34" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="146" x2="804" y2="146" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="8" y="129" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057" clip-path="url(#gantt-1-lclip)">dev</text>
+<line x1="0" y1="180" x2="804" y2="180" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="22" y="163" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">Frontend Dev</text>
+<rect x="292" y="153" width="302" height="20" fill="#fff7e6" stroke="#f59f00" stroke-width="1.5" rx="6"/>
+<text x="443" y="163" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#e67700">Frontend Dev</text>
+<rect x="0" y="180" width="804" height="34" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="214" x2="804" y2="214" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="22" y="197" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">Backend Dev</text>
+<rect x="237" y="187" width="411" height="20" fill="#fdf4ff" stroke="#cc5de8" stroke-width="1.5" rx="6"/>
+<text x="442.5" y="197" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#862e9c">Backend Dev</text>
+<line x1="0" y1="248" x2="804" y2="248" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="8" y="231" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057" clip-path="url(#gantt-1-lclip)">qa</text>
+<rect x="0" y="248" width="804" height="34" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="282" x2="804" y2="282" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="22" y="265" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">QA Testing</text>
+<rect x="563" y="255" width="140" height="20" fill="#e7f5ff" stroke="#339af0" stroke-width="1.5" rx="6"/>
+<text x="633" y="265" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#1971c2">QA Testing</text>
+<line x1="0" y1="316" x2="804" y2="316" stroke="#868e96" stroke-width="1" opacity="0.15"/>
+<text x="22" y="299" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" clip-path="url(#gantt-1-lclip)">Perf Testing</text>
+<rect x="617" y="289" width="86" height="20" fill="#ebfbee" stroke="#51cf66" stroke-width="1.5" rx="6"/>
+<text x="660" y="299" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#2f9e44">Perf Testing</text>
+<line x1="323" y1="44" x2="323" y2="316" stroke="#f59f00" stroke-width="1.5" stroke-dasharray="4 3"/>
+<polygon points="323,23 330,30 323,37 316,30" fill="#f59f00" stroke="none"/>
+<text x="323" y="320" text-anchor="middle" dominant-baseline="hanging" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#f59f00">Design freeze</text>
+<line x1="757" y1="44" x2="757" y2="316" stroke="#f59f00" stroke-width="1.5" stroke-dasharray="4 3"/>
+<polygon points="757,23 764,30 757,37 750,30" fill="#f59f00" stroke="none"/>
+<text x="757" y="320" text-anchor="middle" dominant-baseline="hanging" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#f59f00">Launch</text>
+<rect x="0" y="0" width="804" height="340" fill="none" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+</g>
+</svg>
