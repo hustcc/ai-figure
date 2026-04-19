@@ -528,6 +528,7 @@ const svg = fig(`
   validate -->|yes| dashboard((Dashboard))
   validate -->|no| error[Show Error]
   error --> creds
+  dashboard --> done((End))
 `);
 ```
 
