@@ -11,7 +11,7 @@
 - 🎨 **Rich visual styles** — light/dark mode, nine built-in palettes (`default`, `antv`, `drawio`, `figma`, `vega`, `mono-blue`, `mono-green`, `mono-purple`, `mono-orange`) plus custom hex arrays; every diagram supports optional title & subtitle, node groups, and color-coded layers
 - 📐 **Auto layout** — just describe the graph; x/y coordinates are computed automatically, and diagram dimensions scale to fit the content
 - 🤖 **AI-friendly** — single `fig()` entry point accepts a markdown string **or** a JSON config; streaming-safe (partial input never throws); ships a [`SKILL.md`](https://github.com/hustcc/ai-figure/blob/main/SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
-- 📊 **6 diagram types** — flowchart, tree, architecture, sequence, quadrant, and Gantt chart; pure SVG output with zero DOM dependency, works in browser and Node.js
+- 📊 **13 diagram types** — flowchart, tree, architecture, sequence, quadrant, Gantt, state machine, ER data model, timeline, swimlane, nested containment, Venn diagram, and pyramid/funnel; pure SVG output with zero DOM dependency, works in browser and Node.js
 
 ## Quick Start
 
@@ -87,6 +87,13 @@ fig({ figure: 'arch',     ...archOptions     }); // architecture diagram
 fig({ figure: 'sequence', ...sequenceOptions }); // sequence diagram
 fig({ figure: 'quadrant', ...quadrantOptions }); // quadrant chart
 fig({ figure: 'gantt',    ...ganttOptions    }); // Gantt chart
+fig({ figure: 'state',    ...stateOptions    }); // state machine
+fig({ figure: 'er',       ...erOptions       }); // ER data model
+fig({ figure: 'timeline', ...timelineOptions }); // timeline
+fig({ figure: 'swimlane', ...swimlaneOptions }); // swimlane flow
+fig({ figure: 'nested',   ...nestedOptions   }); // nested containment
+fig({ figure: 'venn',     ...vennOptions     }); // Venn diagram
+fig({ figure: 'pyramid',  ...pyramidOptions  }); // pyramid / funnel
 
 // markdown string
 fig(`flow LR\na[A] --> b[B]`);
@@ -334,7 +341,7 @@ fig({
 
 ### Palette API
 
-All six diagram types accept two independent styling parameters:
+All thirteen diagram types accept two independent styling parameters:
 
 | Field     | Type                   | Default       | Description                          |
 |-----------|------------------------|---------------|--------------------------------------|
@@ -379,7 +386,7 @@ fig({ figure: 'flow', nodes, edges, palette: ['#e64980', '#ae3ec9', '#7048e8', '
 
 | Token | Values | Default |
 |-------|--------|---------|
-| `type` | `flow` \| `tree` \| `arch` \| `sequence` \| `quadrant` \| `gantt` | **required** |
+| `type` | `flow` \| `tree` \| `arch` \| `sequence` \| `quadrant` \| `gantt` \| `state` \| `er` \| `timeline` \| `swimlane` \| `nested` \| `venn` \| `pyramid` | **required** |
 | `direction` | `TB` \| `LR` | `TB` |
 | `theme` | `light` \| `dark` | `light` |
 | `palette` | any named palette (see [Palette API](#palette-api)) | `default` |
@@ -474,6 +481,106 @@ section Section Name               %% group header (applied to subsequent tasks)
   Task Label: id, start, end       %% task bar (dates: yyyy-mm-dd)
 milestone: Label, date             %% milestone diamond
 ```
+</details>
+
+<details>
+<summary><strong>state</strong></summary>
+
+```
+state [light|dark] [palette]
+title: Optional Title
+idle[Idle]                         %% normal state (rounded rectangle)
+done((Done))                       %% end state (ringed circle)
+failed[Failed] accent              %% highlight as focal/error state
+[*] --> idle                       %% start pseudo-state → first state
+idle --> processing: order placed  %% transition with optional label
+```
+</details>
+
+<details>
+<summary><strong>er</strong></summary>
+
+```
+er [light|dark] [palette]
+title: Optional Title
+entity User[User]                  %% entity declaration
+  id pk: uuid                      %% field: name [pk|fk]: type
+  email: text
+  name                             %% bare field (no type)
+entity Post[Post]
+  id pk: uuid
+  author_id fk: uuid
+User --> Post: writes              %% relationship line
+```
+</details>
+
+<details>
+<summary><strong>timeline</strong></summary>
+
+```
+timeline [light|dark] [palette]
+title: Optional Title
+2020-01-15: v1.0 Launch milestone  %% major milestone (larger accent dot)
+2021-06-01: v1.5 Patch
+2022-03-10: v2.0 Redesign milestone
+```
+</details>
+
+<details>
+<summary><strong>swimlane</strong></summary>
+
+```
+swimlane [light|dark] [palette]
+title: Optional Title
+lanes: Customer, Warehouse, Shipping      %% declare lane labels
+Customer: order[Place Order]              %% LaneName: id[Node Label]
+Warehouse: pack[Pack Items]
+Shipping: ship[Ship Package]
+order --> pack                            %% edges between nodes
+pack --> ship
+```
+</details>
+
+<details>
+<summary><strong>nested</strong></summary>
+
+```
+nested [light|dark] [palette]
+title: Optional Title
+Internet: untrusted outside         %% outermost ring  (label: sublabel)
+VPC: cloud boundary
+Subnet: private zone
+Service accent                      %% innermost focal ring
+```
+</details>
+
+<details>
+<summary><strong>venn</strong></summary>
+
+```
+venn [light|dark] [palette]
+title: Optional Title
+sets: Desirable, Feasible, Viable   %% 2 or 3 sets
+Desirable & Feasible: Useful        %% intersection label
+Feasible & Viable: Possible
+Desirable & Viable: Lovable
+Desirable & Feasible & Viable: Sweet Spot accent   %% accent intersection
+```
+</details>
+
+<details>
+<summary><strong>pyramid / funnel</strong></summary>
+
+```
+pyramid [funnel] [light|dark] [palette]
+title: Optional Title
+Strategy: mission & vision accent   %% apex (narrowest top layer)
+Goals: OKRs & KPIs
+Initiatives: projects & epics
+Tasks: day-to-day work              %% base (widest bottom layer)
+```
+
+Add `funnel` after `pyramid` to flip: widest layer on top (full audience → narrowest conversion).
 </details>
 
 ## Using with AI

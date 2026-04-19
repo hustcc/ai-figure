@@ -855,14 +855,17 @@ function parseState(
       return pid;
     }
 
-    // terminal: id((label))
-    const termMatch = e.match(/^([\w-]+)\(\((.+)\)\)$/s);
-    if (termMatch) {
-      const id = termMatch[1];
-      if (!nodeMap.has(id)) {
-        nodeMap.set(id, { id, label: termMatch[2], type: 'end' });
+    // terminal: id((label)) — detect via indexOf to avoid regex backtracking
+    const dblOpenIdx = e.indexOf('((');
+    if (dblOpenIdx > 0 && e.endsWith('))')) {
+      const id    = e.slice(0, dblOpenIdx).trim();
+      const label = e.slice(dblOpenIdx + 2, e.length - 2).trim();
+      if (id && /^[\w-]+$/.test(id)) {
+        if (!nodeMap.has(id)) {
+          nodeMap.set(id, { id, label, type: 'end' });
+        }
+        return id;
       }
-      return id;
     }
 
     // process: id[label] or bare id
@@ -1466,11 +1469,41 @@ function parsePyramid(
       label = raw.slice(0, colonIdx).trim();
       let sub = raw.slice(colonIdx + 1).trim();
 
-      // Try to extract a trailing percentage like "42%" or "(42%)"
-      const pctMatch = sub.match(/\(?(\d+(?:\.\d+)?)%?\)?$/);
-      if (pctMatch) {
-        value = parseFloat(pctMatch[1]);
-        sub   = sub.slice(0, sub.length - pctMatch[0].length).trim();
+      // Try to extract a trailing percentage like "42%", "(42%)", or "42.5%".
+      // Use indexOf/slice instead of regex to avoid polynomial backtracking.
+      {
+        let t = sub;
+        // Strip optional closing paren
+        if (t.endsWith(')')) t = t.slice(0, -1).trimEnd();
+        // Must end with '%'
+        if (t.endsWith('%')) {
+          t = t.slice(0, -1).trimEnd();
+          // Strip optional opening paren
+          if (t.endsWith('(')) t = t.slice(0, -1).trimEnd();
+          // Scan backwards for the numeric token (digits + at most one '.')
+          let numEnd = t.length;
+          let dotSeen = false;
+          let numStart = numEnd;
+          while (numStart > 0) {
+            const ch = t[numStart - 1];
+            if (ch >= '0' && ch <= '9') {
+              numStart--;
+            } else if (ch === '.' && !dotSeen) {
+              dotSeen = true;
+              numStart--;
+            } else {
+              break;
+            }
+          }
+          const numStr = t.slice(numStart, numEnd);
+          if (numStr.length > 0) {
+            const numVal = Number(numStr);
+            if (Number.isFinite(numVal)) {
+              value = numVal;
+              sub   = t.slice(0, numStart).trimEnd();
+            }
+          }
+        }
       }
       if (sub) sublabel = sub;
     } else {
