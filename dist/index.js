@@ -7912,8 +7912,8 @@ function titleBlockHeight(title, subtitle, fontSize) {
   const SUBTITLE_FS = fontSize - 1;
   const PAD_TOP2 = 16;
   const INTER_GAP = 6;
-  const PAD_BOTTOM2 = 14;
-  return PAD_TOP2 + (title ? TITLE_FS : 0) + (title && subtitle ? INTER_GAP : 0) + (subtitle ? SUBTITLE_FS : 0) + PAD_BOTTOM2;
+  const PAD_BOTTOM3 = 14;
+  return PAD_TOP2 + (title ? TITLE_FS : 0) + (title && subtitle ? INTER_GAP : 0) + (subtitle ? SUBTITLE_FS : 0) + PAD_BOTTOM3;
 }
 function renderTitleBlock(title, subtitle, cx, topY, fontFamily, fontSize, titleColor, subtitleColor) {
   if (!title && !subtitle) return "";
@@ -8025,7 +8025,7 @@ function renderEdge(edge, layoutEdge, theme, arrowMarkerId) {
     const padY = 3;
     const labelW = edge.label.length * (labelFontSize * LABEL_CHAR_WIDTH_RATIO) + padX * 2;
     const labelH = labelFontSize + padY * 2;
-    const bg = `<rect x="${mid.x - labelW / 2}" y="${mid.y - labelH / 2}" width="${labelW}" height="${labelH}" fill="white" rx="3" opacity="0.9"/>`;
+    const bg = `<rect x="${mid.x - labelW / 2}" y="${mid.y - labelH / 2}" width="${labelW}" height="${labelH}" fill="${theme.background || "white"}" rx="3" opacity="0.9"/>`;
     labelSvg = bg + `
 <text x="${mid.x}" y="${mid.y}" dy="0.35em" text-anchor="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFontSize}" fill="${escapeXml(theme.edgeColor)}">${escapeXml(edge.label)}</text>`;
   }
@@ -8489,7 +8489,7 @@ function createSequenceDiagram(options) {
         const labelH = labelFontSize + padY * 2;
         const labelMidY = msgY + SELF_LOOP_H / 2;
         parts.push(
-          `<rect x="${labelX}" y="${labelMidY - labelH / 2}" width="${labelW}" height="${labelH}" fill="white" rx="3" opacity="0.9"/>`
+          `<rect x="${labelX}" y="${labelMidY - labelH / 2}" width="${labelW}" height="${labelH}" fill="${theme.background || "white"}" rx="3" opacity="0.9"/>`
         );
         parts.push(
           `<text x="${labelX + labelW / 2}" y="${labelMidY}" text-anchor="middle" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFontSize}" fill="${escapeXml(arrowColor)}">${escapeXml(msg.label)}</text>`
@@ -8506,7 +8506,7 @@ function createSequenceDiagram(options) {
         const labelH = labelFontSize + padY * 2;
         const labelY = msgY - 6;
         parts.push(
-          `<rect x="${midX - labelW / 2}" y="${labelY - labelH}" width="${labelW}" height="${labelH}" fill="white" rx="3" opacity="0.9"/>`
+          `<rect x="${midX - labelW / 2}" y="${labelY - labelH}" width="${labelW}" height="${labelH}" fill="${theme.background || "white"}" rx="3" opacity="0.9"/>`
         );
         parts.push(
           `<text x="${midX}" y="${labelY - labelH / 2}" text-anchor="middle" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFontSize}" fill="${escapeXml(arrowColor)}">${escapeXml(msg.label)}</text>`
@@ -8575,7 +8575,7 @@ function createQuadrantChart(options) {
   const SIZE = Math.min(MAX_SIZE, Math.max(BASE_SIZE, BASE_SIZE + (points.length - 4) * 24));
   const WIDTH = SIZE;
   const HEIGHT = SIZE;
-  const PLOT_W = WIDTH - PAD_LEFT - PAD_RIGHT;
+  const PLOT_W2 = WIDTH - PAD_LEFT - PAD_RIGHT;
   const PLOT_H = HEIGHT - PAD_TOP - PAD_BOTTOM;
   const sw = theme.strokeWidth;
   const axisColor = theme.groupColor;
@@ -8585,9 +8585,9 @@ function createQuadrantChart(options) {
   const cornerFs = theme.fontSize - 2;
   const plotX = PAD_LEFT;
   const plotY = PAD_TOP;
-  const midX = plotX + PLOT_W / 2;
+  const midX = plotX + PLOT_W2 / 2;
   const midY = plotY + PLOT_H / 2;
-  const halfW = PLOT_W / 2;
+  const halfW = PLOT_W2 / 2;
   const halfH = PLOT_H / 2;
   const uid = `qd-${++_quadrantCount}`;
   const parts = [];
@@ -8610,10 +8610,10 @@ function createQuadrantChart(options) {
     );
   }
   parts.push(
-    `<rect x="${plotX}" y="${plotY}" width="${PLOT_W}" height="${PLOT_H}" fill="none" stroke="${escapeXml(groupColor)}" stroke-width="1"/>`
+    `<rect x="${plotX}" y="${plotY}" width="${PLOT_W2}" height="${PLOT_H}" fill="none" stroke="${escapeXml(groupColor)}" stroke-width="1"/>`
   );
   for (const frac of [0.25, 0.75]) {
-    const gx = Math.round(plotX + PLOT_W * frac);
+    const gx = Math.round(plotX + PLOT_W2 * frac);
     parts.push(
       `<line x1="${gx}" y1="${plotY}" x2="${gx}" y2="${plotY + PLOT_H}" stroke="${escapeXml(axisColor)}" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>`
     );
@@ -8621,18 +8621,18 @@ function createQuadrantChart(options) {
   for (const frac of [0.25, 0.75]) {
     const gy = Math.round(plotY + PLOT_H * frac);
     parts.push(
-      `<line x1="${plotX}" y1="${gy}" x2="${plotX + PLOT_W}" y2="${gy}" stroke="${escapeXml(axisColor)}" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>`
+      `<line x1="${plotX}" y1="${gy}" x2="${plotX + PLOT_W2}" y2="${gy}" stroke="${escapeXml(axisColor)}" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>`
     );
   }
   parts.push(
-    `<line x1="${plotX}" y1="${midY}" x2="${plotX + PLOT_W}" y2="${midY}" stroke="${escapeXml(axisColor)}" stroke-width="${sw}" marker-end="url(#${uid}-arrow)"/>`
+    `<line x1="${plotX}" y1="${midY}" x2="${plotX + PLOT_W2}" y2="${midY}" stroke="${escapeXml(axisColor)}" stroke-width="${sw}" marker-end="url(#${uid}-arrow)"/>`
   );
   parts.push(
     `<line x1="${midX}" y1="${plotY + PLOT_H}" x2="${midX}" y2="${plotY}" stroke="${escapeXml(axisColor)}" stroke-width="${sw}" marker-end="url(#${uid}-arrow)"/>`
   );
   parts.push(
     `<text x="${plotX + 4}" y="${midY + 16}" text-anchor="start" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" fill="${escapeXml(textColor)}" opacity="0.6">${escapeXml(xAxis.min)}</text>`,
-    `<text x="${plotX + PLOT_W - 30}" y="${midY + 16}" text-anchor="end" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" fill="${escapeXml(textColor)}" opacity="0.6">${escapeXml(xAxis.max)}</text>`
+    `<text x="${plotX + PLOT_W2 - 30}" y="${midY + 16}" text-anchor="end" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" fill="${escapeXml(textColor)}" opacity="0.6">${escapeXml(xAxis.max)}</text>`
   );
   parts.push(
     `<text x="${midX}" y="${HEIGHT - 12}" text-anchor="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" font-weight="600" fill="${escapeXml(textColor)}">${escapeXml(xAxis.label)}</text>`
@@ -8648,9 +8648,9 @@ function createQuadrantChart(options) {
   );
   const qCorners = [
     { x: plotX + CORNER_PAD, y: plotY + CORNER_PAD + cornerFs, label: quadrants[0], anchor: "start" },
-    { x: plotX + PLOT_W - CORNER_PAD, y: plotY + CORNER_PAD + cornerFs, label: quadrants[1], anchor: "end" },
+    { x: plotX + PLOT_W2 - CORNER_PAD, y: plotY + CORNER_PAD + cornerFs, label: quadrants[1], anchor: "end" },
     { x: plotX + CORNER_PAD, y: plotY + PLOT_H - CORNER_PAD, label: quadrants[2], anchor: "start" },
-    { x: plotX + PLOT_W - CORNER_PAD, y: plotY + PLOT_H - CORNER_PAD, label: quadrants[3], anchor: "end" }
+    { x: plotX + PLOT_W2 - CORNER_PAD, y: plotY + PLOT_H - CORNER_PAD, label: quadrants[3], anchor: "end" }
   ];
   for (const q of qCorners) {
     parts.push(
@@ -8658,7 +8658,7 @@ function createQuadrantChart(options) {
     );
   }
   for (const pt of points) {
-    const cx = plotX + pt.x * PLOT_W;
+    const cx = plotX + pt.x * PLOT_W2;
     const cy = plotY + (1 - pt.y) * PLOT_H;
     const qi = quadrantOf(pt.x, pt.y);
     const ptFill = theme.nodeStrokes[QUAD_NODE_TYPES[qi]];
@@ -8695,6 +8695,301 @@ function createQuadrantChart(options) {
   ].join("\n");
 }
 
+// src/gantt.ts
+var LABEL_W = 160;
+var PLOT_W = 620;
+var PAD_RIGHT2 = 24;
+var HEADER_H = 44;
+var ROW_H = 34;
+var BAR_H = 20;
+var BAR_OFFSET = (ROW_H - BAR_H) / 2;
+var PAD_BOTTOM2 = 24;
+var LABEL_PAD = 8;
+var INDENT = 14;
+var MILESTONE_HALF = 7;
+var MILESTONE_Y_RATIO = 0.68;
+var SVG_W = LABEL_W + PLOT_W + PAD_RIGHT2;
+var MS_PER_DAY = 864e5;
+var CHART_PADDING_RATIO = 0.04;
+var BAR_NODE_TYPES = ["process", "terminal", "decision", "io"];
+var _ganttCount = 0;
+function parseDate(s) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
+  if (!match) {
+    throw new Error(`Invalid date "${s}": expected yyyy-mm-dd format`);
+  }
+  const y = Number(match[1]);
+  const m = Number(match[2]);
+  const d = Number(match[3]);
+  const date = new Date(y, m - 1, d);
+  if (Number.isNaN(date.getTime()) || date.getFullYear() !== y || date.getMonth() !== m - 1 || date.getDate() !== d) {
+    throw new Error(`Invalid date "${s}": not a real calendar date`);
+  }
+  return date;
+}
+function dateToX(date, minTime, totalMs) {
+  return LABEL_W + Math.round((date.getTime() - minTime) / totalMs * PLOT_W);
+}
+function buildTicks(minDate, maxDate) {
+  const totalDays = (maxDate.getTime() - minDate.getTime()) / MS_PER_DAY;
+  if (totalDays <= 63) {
+    const dates2 = [];
+    const cur2 = new Date(minDate);
+    const dow = cur2.getDay();
+    cur2.setDate(cur2.getDate() - (dow + 6) % 7);
+    while (cur2 <= maxDate) {
+      if (cur2 >= minDate) dates2.push(new Date(cur2));
+      cur2.setDate(cur2.getDate() + 7);
+    }
+    return {
+      dates: dates2,
+      fmt: (d) => `${d.getMonth() + 1}/${d.getDate()}`
+    };
+  }
+  if (totalDays <= 400) {
+    const MONTHS = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ];
+    const dates2 = [];
+    const cur2 = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
+    while (cur2 <= maxDate) {
+      if (cur2 >= minDate) dates2.push(new Date(cur2));
+      cur2.setMonth(cur2.getMonth() + 1);
+    }
+    return {
+      dates: dates2,
+      fmt: (d) => `${MONTHS[d.getMonth()]} ${d.getFullYear()}`
+    };
+  }
+  const dates = [];
+  const startQ = Math.floor(minDate.getMonth() / 3);
+  const cur = new Date(minDate.getFullYear(), startQ * 3, 1);
+  while (cur <= maxDate) {
+    if (cur >= minDate) dates.push(new Date(cur));
+    cur.setMonth(cur.getMonth() + 3);
+  }
+  return {
+    dates,
+    fmt: (d) => {
+      const q = Math.floor(d.getMonth() / 3) + 1;
+      return `${d.getFullYear()} Q${q}`;
+    }
+  };
+}
+function createGanttChart(options) {
+  const {
+    tasks,
+    milestones = [],
+    theme: mode = "light",
+    palette,
+    title,
+    subtitle
+  } = options;
+  const theme = resolveTheme(palette, mode);
+  const titleH = titleBlockHeight(title, subtitle, theme.fontSize);
+  const allDates = [
+    ...tasks.flatMap((t) => [parseDate(t.start), parseDate(t.end)]),
+    ...milestones.map((m) => parseDate(m.date))
+  ];
+  if (allDates.length === 0) {
+    const svgH = titleH + HEADER_H + PAD_BOTTOM2;
+    const bgParts2 = theme.background ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`] : [];
+    const titleSvg2 = renderTitleBlock(
+      title,
+      subtitle,
+      SVG_W / 2,
+      0,
+      theme.fontFamily,
+      theme.fontSize,
+      theme.edgeColor,
+      theme.groupColor
+    );
+    return [
+      `<svg xmlns="http://www.w3.org/2000/svg" width="${SVG_W}" height="${svgH}" viewBox="0 0 ${SVG_W} ${svgH}">`,
+      ...bgParts2,
+      ...titleSvg2 ? [titleSvg2] : [],
+      `</svg>`
+    ].join("\n");
+  }
+  const rawMin = Math.min(...allDates.map((d) => d.getTime()));
+  const rawMax = Math.max(...allDates.map((d) => d.getTime()));
+  const padMs = Math.max((rawMax - rawMin) * CHART_PADDING_RATIO, MS_PER_DAY * 2);
+  const minTime = rawMin - padMs;
+  const maxTime = rawMax + padMs;
+  const totalMs = maxTime - minTime;
+  const minDate = new Date(minTime);
+  const maxDate = new Date(maxTime);
+  const rows = [];
+  let colorIdx = 0;
+  for (const task of tasks.filter((t) => !t.groupId)) {
+    rows.push({ type: "task", task, indent: false, colorIdx: colorIdx++ });
+  }
+  const groupOrder = [];
+  const groupTaskMap = /* @__PURE__ */ new Map();
+  for (const task of tasks.filter((t) => !!t.groupId)) {
+    const gid = task.groupId;
+    if (!groupTaskMap.has(gid)) {
+      groupOrder.push(gid);
+      groupTaskMap.set(gid, []);
+    }
+    groupTaskMap.get(gid).push(task);
+  }
+  for (const gid of groupOrder) {
+    rows.push({ type: "group", id: gid });
+    for (const task of groupTaskMap.get(gid)) {
+      rows.push({ type: "task", task, indent: true, colorIdx: colorIdx++ });
+    }
+  }
+  const diagramH = HEADER_H + rows.length * ROW_H + PAD_BOTTOM2;
+  const SVG_H = titleH + diagramH;
+  const uid = `gantt-${++_ganttCount}`;
+  const parts = [];
+  parts.push(
+    `<defs><clipPath id="${uid}-lclip"><rect x="0" y="0" width="${LABEL_W - 4}" height="${diagramH}"/></clipPath></defs>`
+  );
+  parts.push(
+    `<rect x="0" y="0" width="${SVG_W}" height="${HEADER_H}" fill="${escapeXml(theme.groupFill)}" stroke="none"/>`
+  );
+  parts.push(
+    `<line x1="0" y1="${HEADER_H}" x2="${SVG_W}" y2="${HEADER_H}" stroke="${escapeXml(theme.groupColor)}" stroke-width="1" opacity="0.4"/>`
+  );
+  parts.push(
+    `<line x1="${LABEL_W}" y1="0" x2="${LABEL_W}" y2="${diagramH}" stroke="${escapeXml(theme.groupColor)}" stroke-width="1" opacity="0.4"/>`
+  );
+  const { dates: tickDates, fmt: tickFmt } = buildTicks(minDate, maxDate);
+  const CHAR_W = (theme.fontSize - 2) * 0.62;
+  let lastLabelRight = LABEL_W;
+  for (const td of tickDates) {
+    const tx = dateToX(td, minTime, totalMs);
+    if (tx <= LABEL_W || tx >= LABEL_W + PLOT_W) continue;
+    parts.push(
+      `<line x1="${tx}" y1="${HEADER_H}" x2="${tx}" y2="${diagramH - PAD_BOTTOM2}" stroke="${escapeXml(theme.groupColor)}" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>`
+    );
+    parts.push(
+      `<line x1="${tx}" y1="${HEADER_H - 6}" x2="${tx}" y2="${HEADER_H}" stroke="${escapeXml(theme.groupColor)}" stroke-width="1" opacity="0.6"/>`
+    );
+    const labelText = tickFmt(td);
+    const labelHalfW = labelText.length * CHAR_W / 2;
+    if (tx - labelHalfW >= lastLabelRight + 2) {
+      parts.push(
+        `<text x="${tx}" y="${HEADER_H / 2 - 2}" text-anchor="middle" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize - 2}" fill="${escapeXml(theme.edgeColor)}" opacity="0.7">${escapeXml(labelText)}</text>`
+      );
+      lastLabelRight = tx + labelHalfW;
+    }
+  }
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i];
+    const rowY = HEADER_H + i * ROW_H;
+    if (i % 2 === 0) {
+      parts.push(
+        `<rect x="0" y="${rowY}" width="${SVG_W}" height="${ROW_H}" fill="${escapeXml(theme.groupFill)}" stroke="none"/>`
+      );
+    }
+    parts.push(
+      `<line x1="0" y1="${rowY + ROW_H}" x2="${SVG_W}" y2="${rowY + ROW_H}" stroke="${escapeXml(theme.groupColor)}" stroke-width="1" opacity="0.15"/>`
+    );
+    if (row.type === "group") {
+      parts.push(
+        `<text x="${LABEL_PAD}" y="${rowY + ROW_H / 2}" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize - 1}" font-weight="700" fill="${escapeXml(theme.edgeColor)}" clip-path="url(#${uid}-lclip)">${escapeXml(row.id)}</text>`
+      );
+    } else {
+      const { task, indent, colorIdx: ci } = row;
+      const nt = BAR_NODE_TYPES[ci % BAR_NODE_TYPES.length];
+      let barFill;
+      let barStroke;
+      let textFill;
+      if (task.color) {
+        if (!/^#[0-9a-fA-F]{6}$/.test(task.color)) {
+          throw new Error(
+            `Invalid task.color "${task.color}" for task "${task.label}": expected a 6-digit hex color (#RRGGBB)`
+          );
+        }
+        barFill = task.color + (mode === "dark" ? "30" : "1a");
+        barStroke = task.color;
+        textFill = task.color;
+      } else {
+        barFill = theme.nodeFills[nt];
+        barStroke = theme.nodeStrokes[nt];
+        textFill = theme.textColors[nt];
+      }
+      const labelX = indent ? LABEL_PAD + INDENT : LABEL_PAD;
+      parts.push(
+        `<text x="${labelX}" y="${rowY + ROW_H / 2}" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize - 1}" fill="${escapeXml(theme.edgeColor)}" clip-path="url(#${uid}-lclip)">${escapeXml(task.label)}</text>`
+      );
+      const startDate = parseDate(task.start);
+      const endDate = parseDate(task.end);
+      if (endDate.getTime() < startDate.getTime()) {
+        throw new Error(
+          `Invalid date range for task "${task.label}": end "${task.end}" is before start "${task.start}"`
+        );
+      }
+      const startX = dateToX(startDate, minTime, totalMs);
+      const endX = dateToX(endDate, minTime, totalMs);
+      const barW = Math.max(4, endX - startX);
+      const barY = rowY + BAR_OFFSET;
+      parts.push(
+        `<rect x="${startX}" y="${barY}" width="${barW}" height="${BAR_H}" fill="${escapeXml(barFill)}" stroke="${escapeXml(barStroke)}" stroke-width="1.5" rx="${theme.cornerRadius}"/>`
+      );
+      if (barW >= 64) {
+        parts.push(
+          `<text x="${startX + barW / 2}" y="${barY + BAR_H / 2}" text-anchor="middle" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize - 3}" fill="${escapeXml(textFill)}">${escapeXml(task.label)}</text>`
+        );
+      }
+    }
+  }
+  const msColor = theme.nodeStrokes["decision"];
+  for (const ms of milestones) {
+    const mx = dateToX(parseDate(ms.date), minTime, totalMs);
+    if (mx <= LABEL_W || mx >= LABEL_W + PLOT_W) continue;
+    parts.push(
+      `<line x1="${mx}" y1="${HEADER_H}" x2="${mx}" y2="${HEADER_H + rows.length * ROW_H}" stroke="${escapeXml(msColor)}" stroke-width="1.5" stroke-dasharray="4 3"/>`
+    );
+    const half = MILESTONE_HALF;
+    const my = Math.round(HEADER_H * MILESTONE_Y_RATIO);
+    parts.push(
+      `<polygon points="${mx},${my - half} ${mx + half},${my} ${mx},${my + half} ${mx - half},${my}" fill="${escapeXml(msColor)}" stroke="none"/>`
+    );
+    const msLabelY = HEADER_H + rows.length * ROW_H + 4;
+    parts.push(
+      `<text x="${mx}" y="${msLabelY}" text-anchor="middle" dominant-baseline="hanging" font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize - 3}" fill="${escapeXml(msColor)}">${escapeXml(ms.label)}</text>`
+    );
+  }
+  parts.push(
+    `<rect x="0" y="0" width="${SVG_W}" height="${diagramH}" fill="none" stroke="${escapeXml(theme.groupColor)}" stroke-width="1" opacity="0.4"/>`
+  );
+  const bgParts = theme.background ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`] : [];
+  const titleSvg = renderTitleBlock(
+    title,
+    subtitle,
+    SVG_W / 2,
+    0,
+    theme.fontFamily,
+    theme.fontSize,
+    theme.edgeColor,
+    theme.groupColor
+  );
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${SVG_W}" height="${SVG_H}" viewBox="0 0 ${SVG_W} ${SVG_H}">`,
+    ...bgParts,
+    ...titleSvg ? [titleSvg] : [],
+    `<g class="gantt-chart"${titleH > 0 ? ` transform="translate(0,${titleH})"` : ""}>`,
+    ...parts,
+    `</g>`,
+    `</svg>`
+  ].join("\n");
+}
+
 // src/index.ts
 function fig(options) {
   switch (options.figure) {
@@ -8708,6 +9003,8 @@ function fig(options) {
       return createSequenceDiagram(options);
     case "quadrant":
       return createQuadrantChart(options);
+    case "gantt":
+      return createGanttChart(options);
     default: {
       const _exhaustive = options;
       throw new Error(`Unknown figure type: ${_exhaustive.figure}`);

@@ -190,6 +190,43 @@ interface QuadrantChartOptions {
     /** Optional subtitle displayed beneath the title. */
     subtitle?: string;
 }
+/** A single task bar in a Gantt chart. */
+interface GanttTask {
+    /** Unique identifier. */
+    id: string;
+    /** Task name displayed in the label column and optionally inside the bar. */
+    label: string;
+    /** Start date in `yyyy-mm-dd` format. */
+    start: string;
+    /** End date in `yyyy-mm-dd` format. */
+    end: string;
+    /** Optional group identifier — tasks sharing the same `groupId` are clustered under a group header. */
+    groupId?: string;
+    /** Optional custom bar color (6-digit hex, e.g. `'#e64980'`). Overrides the theme palette cycle. */
+    color?: string;
+}
+/** A milestone marker displayed on the Gantt timeline. */
+interface GanttMilestone {
+    /** Milestone date in `yyyy-mm-dd` format. */
+    date: string;
+    /** Short label displayed near the milestone diamond. */
+    label: string;
+}
+/** Options passed to {@link createGanttChart}. */
+interface GanttChartOptions {
+    /** List of tasks to render as horizontal bars. */
+    tasks: GanttTask[];
+    /** Optional milestones to overlay on the timeline. */
+    milestones?: GanttMilestone[];
+    /** Light or dark rendering mode (default: `'light'`). */
+    theme?: ThemeType;
+    /** Color palette — `'default'` (built-in), d3-scale-chromatic short name (e.g. `'set2'`), or custom hex array (default: `'default'`). */
+    palette?: PaletteType;
+    /** Optional chart title displayed above the diagram. */
+    title?: string;
+    /** Optional subtitle displayed beneath the title. */
+    subtitle?: string;
+}
 /** Options for the unified {@link fig} function — select the diagram type with `figure`. */
 type FigOptions = ({
     figure: 'flow';
@@ -201,7 +238,9 @@ type FigOptions = ({
     figure: 'sequence';
 } & SequenceDiagramOptions) | ({
     figure: 'quadrant';
-} & QuadrantChartOptions);
+} & QuadrantChartOptions) | ({
+    figure: 'gantt';
+} & GanttChartOptions);
 
 /**
  * Generate an SVG diagram. The `figure` field selects the diagram type:
@@ -210,9 +249,10 @@ type FigOptions = ({
  * - `'arch'`     — architecture diagram (layered grid, no edges)
  * - `'sequence'` — sequence diagram (actors + message arrows)
  * - `'quadrant'` — quadrant chart (2×2 matrix with data points)
+ * - `'gantt'`    — Gantt chart (task bars, optional milestones, optional groups)
  *
  * Returns a fully self-contained SVG string; no coordinates needed.
  */
 declare function fig(options: FigOptions): string;
 
-export { type ArchDiagramOptions, type ArchLayer, type ArchNode, type Direction, type FigOptions, type FlowChartOptions, type FlowEdge, type FlowGroup, type FlowNode, type NodeType, type QuadrantChartOptions, type QuadrantPoint, type SeqMessage, type SequenceDiagramOptions, type ThemeType, type TreeDiagramOptions, type TreeNode, fig };
+export { type ArchDiagramOptions, type ArchLayer, type ArchNode, type Direction, type FigOptions, type FlowChartOptions, type FlowEdge, type FlowGroup, type FlowNode, type GanttChartOptions, type GanttMilestone, type GanttTask, type NodeType, type QuadrantChartOptions, type QuadrantPoint, type SeqMessage, type SequenceDiagramOptions, type ThemeType, type TreeDiagramOptions, type TreeNode, fig };
