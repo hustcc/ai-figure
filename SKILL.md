@@ -41,7 +41,7 @@ const svg2 = fig({ figure: 'flow', nodes: [...], edges: [...] });
 
 **First non-empty line is the header:**
 
-```
+```figure
 <type> [direction] [theme] [palette]
 ```
 
@@ -66,7 +66,7 @@ Lines starting with `%%` are comments. `title:` and `subtitle:` work in all type
 
 ### flow
 
-```
+```figure
 flow [LR|TB] [theme] [palette]
 title: My Flow
 A[Source] --> B[Target]          %% simple edge
@@ -76,7 +76,7 @@ group Name: id1, id2, id3        %% logical group (dashed border)
 
 ### tree
 
-```
+```figure
 tree [LR|TB] [theme] [palette]
 title: Org Chart
 root[Root]
@@ -86,7 +86,7 @@ child --> leaf[Leaf]
 
 ### arch
 
-```
+```figure
 arch TB antv
 title: Web Stack
 layer frontend[Frontend]
@@ -101,7 +101,7 @@ layer data[Data]
 
 ### sequence
 
-```
+```figure
 sequence [theme] [palette]
 title: Login
 actors: Browser, API, DB         %% optional; inferred from messages if omitted
@@ -111,7 +111,7 @@ API --> Browser: 200 OK          %% dashed return arrow
 
 ### quadrant
 
-```
+```figure
 quadrant [theme] [palette]
 title: Priority
 x-axis Effort: Low .. High
@@ -125,7 +125,7 @@ Feature A: 0.2, 0.9       %% label: x, y  (x/y in [0,1])
 
 ### gantt
 
-```
+```figure
 gantt [theme] [palette]
 title: Q1 Roadmap
 section Design
