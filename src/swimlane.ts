@@ -220,7 +220,7 @@ export function createSwimlaneDiagram(options: SwimlaneDiagramOptions): string {
     const pos     = layout.nodePos.get(node.id);
     if (!pos) continue;
 
-    const nodeType = SWIM_NODE_TYPES[ni % SWIM_NODE_TYPES.length];
+    const nodeType: NodeType = node.type ?? SWIM_NODE_TYPES[ni % SWIM_NODE_TYPES.length];
     const fill     = theme.nodeFills[nodeType];
     const stroke   = theme.nodeStrokes[nodeType];
     const txtClr   = theme.textColors[nodeType];

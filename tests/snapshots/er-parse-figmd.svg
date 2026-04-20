@@ -4,7 +4,6 @@
 <defs><marker id="er-1-arrow" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 6 2.5, 0 5" fill="#868e96"/></marker></defs>
 <line x1="260" y1="88" x2="340" y2="88" stroke="#868e96" stroke-width="1.5" marker-end="url(#er-1-arrow)"/>
 <text x="300" y="82" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" font-style="italic">writes</text>
-<text x="324" y="98" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057">&gt;</text>
 <rect x="40" y="40" width="220" height="96" rx="6" ry="6" fill="#e7f5ff" stroke="none"/>
 <rect x="40" y="40" width="220" height="44" rx="6" ry="6" fill="#e7f5ff" stroke="none"/>
 <rect x="40" y="78" width="220" height="6" fill="#e7f5ff" stroke="none"/>

@@ -16,7 +16,7 @@
 <path d="M254,82 C254,114 254,114 254,146" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
 <rect x="178" y="32" width="152" height="50" rx="8" ry="8" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
 <text x="254" y="57" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#1971c2">Place Order</text>
-<rect x="178" y="146" width="152" height="50" rx="8" ry="8" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
-<text x="254" y="171" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#2f9e44">Process Order</text>
+<rect x="178" y="146" width="152" height="50" rx="8" ry="8" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="254" y="171" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#1971c2">Process Order</text>
 </g>
 </svg>

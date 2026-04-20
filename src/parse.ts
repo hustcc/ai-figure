@@ -827,7 +827,7 @@ function parseState(
   const { title, subtitle, rest } = extractMeta(lines);
   const nodeMap = new Map<string, StateNode>();
   const transitions: StateTransition[] = [];
-  let startCounter = 0;
+  // (counters reserved for future composite-state support)
   let endCounter   = 0;
 
   const ensureState = (expr: string): string => {
@@ -842,7 +842,7 @@ function parseState(
 
     // [*] — UML pseudo-state (start or end determined by usage, default start)
     if (e === '[*]') {
-      const pid = `__start_${startCounter++}`;
+      const pid = '__start';
       if (!nodeMap.has(pid)) {
         nodeMap.set(pid, { id: pid, label: '', type: 'start' });
       }
@@ -1021,9 +1021,10 @@ function parseEr(
     }
 
     // Relationship line using crow's foot: A ||--o{ B: label
-    // Detect by looking for -- between two non-space sequences
+    // Detect by looking for -- between two non-space sequences.
+    // Guard: skip if the '--' is actually '-->' (handled below as a simple arrow).
     const cfIdx = line.indexOf('--');
-    if (cfIdx !== -1) {
+    if (cfIdx !== -1 && (cfIdx + 2 >= line.length || line[cfIdx + 2] !== '>')) {
       const beforeDash = line.slice(0, cfIdx).trim();
       const afterDash  = line.slice(cfIdx + 2).trim();
       // afterDash should start with cardinality then entity id

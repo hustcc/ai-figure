@@ -98,8 +98,9 @@ export function createStateDiagram(options: StateDiagramOptions): string {
     return { id: n.id, width: NODE_W, height: NODE_H };
   });
 
+  const nodeIds = new Set(nodes.map((n) => n.id));
   const dagreEdges = transitions
-    .filter((t) => t.from !== t.to)
+    .filter((t) => t.from !== t.to && nodeIds.has(t.from) && nodeIds.has(t.to))
     .map((t, i) => ({ id: 'e' + i, from: t.from, to: t.to }));
 
   const layout = layoutGraph(dagreNodes, dagreEdges);

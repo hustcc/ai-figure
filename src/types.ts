@@ -431,7 +431,7 @@ export interface SwimlaneEdge {
 export interface SwimlaneDiagramOptions {
   /**
    * Lane identifiers in display order. Each string is used as both the lane ID
-   * and its visible label. Alternatively provide `{ id, label }` objects.
+   * and its visible label.
    */
   lanes: string[];
   /** Nodes placed inside their respective lanes. */
