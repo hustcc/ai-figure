@@ -65,19 +65,6 @@ it('swimlane — parseFigmd markdown round-trip', () => {
   matchSvgSnapshot('swimlane-parse-figmd', svg);
 });
 
-it('venn — parseFigmd markdown round-trip', () => {
-  const svg = fig(`
-    venn
-    title: Overlap
-    sets: A, B, C
-    A & B: Common AB
-    A & B & C: All Three accent
-  `);
-  expect(svg).toContain('venn-diagram');
-  expect(svg).toContain('Overlap');
-  matchSvgSnapshot('venn-parse-figmd', svg);
-});
-
 it('pyramid — parseFigmd markdown round-trip', () => {
   const svg = fig(`
     pyramid

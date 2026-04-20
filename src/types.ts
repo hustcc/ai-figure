@@ -449,49 +449,6 @@ export interface SwimlaneDiagramOptions {
 }
 
 // ---------------------------------------------------------------------------
-// VennDiagram types
-// ---------------------------------------------------------------------------
-
-/** A single set (circle) in a Venn diagram. */
-export interface VennSet {
-  /** Unique identifier. */
-  id: string;
-  /** Set name displayed outside the circle. */
-  label: string;
-  /** Optional sublabel displayed under the set name. */
-  sublabel?: string;
-}
-
-/** An intersection region between two or more sets. */
-export interface VennIntersection {
-  /** IDs of the sets that form this intersection. */
-  sets: string[];
-  /** Label shown inside the overlap region. */
-  label: string;
-  /** Highlight this intersection with the accent color (the "sweet spot"; max 1). */
-  accent?: boolean;
-}
-
-/** Options passed to {@link createVennDiagram}. */
-export interface VennDiagramOptions {
-  /**
-   * Sets to render as circles. Supports 2 or 3 sets.
-   * Four or more sets are not recommended (use a matrix instead).
-   */
-  sets: VennSet[];
-  /** Intersection labels for overlap regions. */
-  intersections?: VennIntersection[];
-  /** Light or dark rendering mode (default: 'light'). */
-  theme?: ThemeType;
-  /** Color palette (default: `'default'`). */
-  palette?: PaletteType;
-  /** Optional chart title. */
-  title?: string;
-  /** Optional subtitle. */
-  subtitle?: string;
-}
-
-// ---------------------------------------------------------------------------
 // PyramidDiagram types
 // ---------------------------------------------------------------------------
 
@@ -549,5 +506,4 @@ export type FigOptions =
   | ({ figure: 'er' } & ErDiagramOptions)
   | ({ figure: 'timeline' } & TimelineDiagramOptions)
   | ({ figure: 'swimlane' } & SwimlaneDiagramOptions)
-  | ({ figure: 'venn' } & VennDiagramOptions)
   | ({ figure: 'pyramid' } & PyramidDiagramOptions);

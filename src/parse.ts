@@ -17,8 +17,6 @@ import type {
   TimelineEvent,
   SwimlaneNode,
   SwimlaneEdge,
-  VennSet,
-  VennIntersection,
   PyramidLayer,
   Direction,
   ThemeType,
@@ -36,7 +34,7 @@ import type {
  * The first non-empty line is the **header**: `<type> [direction] [theme] [palette]`
  *
  * - `type`      — one of `flow`, `tree`, `arch`, `sequence`, `quadrant`, `gantt`,
- *                 `state`, `er`, `timeline`, `swimlane`, `venn`, `pyramid`
+ *                 `state`, `er`, `timeline`, `swimlane`, `pyramid`
  * - `direction` — `TB` (top→bottom) or `LR` (left→right); applies to flow / tree / arch
  * - `theme`     — `light` (default) or `dark`
  * - `palette`   — any named palette: `default`, `antv`, `drawio`, `figma`, `vega`,
@@ -115,15 +113,13 @@ export function parseFigmd(markdown: string): FigOptions {
       return parseTimeline(bodyLines, theme, palette);
     case 'swimlane':
       return parseSwimlane(bodyLines, theme, palette);
-    case 'venn':
-      return parseVenn(bodyLines, theme, palette);
     case 'pyramid':
       return parsePyramid(bodyLines, theme, palette, pyramidOrientation);
     default:
       throw new Error(
         `figmd: unknown figure type "${figureType}". ` +
           `Expected one of: flow, tree, arch, sequence, quadrant, gantt, ` +
-          `state, er, timeline, swimlane, venn, pyramid`,
+          `state, er, timeline, swimlane, pyramid`,
       );
   }
 }
@@ -1281,91 +1277,6 @@ function parseSwimlane(
     lanes: lanesList,
     nodes,
     edges,
-    ...(theme !== undefined ? { theme } : {}),
-    ...(palette !== undefined ? { palette } : {}),
-    ...(title !== undefined ? { title } : {}),
-    ...(subtitle !== undefined ? { subtitle } : {}),
-  };
-}
-
-// ---------------------------------------------------------------------------
-// Venn parser
-// ---------------------------------------------------------------------------
-
-/**
- * Parse Venn diagram body lines.
- *
- * - `sets: A, B, C`                      — declare sets (2 or 3)
- * - `A & B: Overlap Label`               — intersection label
- * - `A & B: Overlap Label accent`        — accent (focal) intersection
- *
- * @example
- * ```
- * venn
- * title: Product Thinking
- * sets: Desirable, Feasible, Viable
- * Desirable & Feasible: Useful
- * Feasible & Viable: Possible
- * Desirable & Viable: Lovable
- * Desirable & Feasible & Viable: Sweet Spot accent
- * ```
- */
-function parseVenn(
-  lines: string[],
-  theme?: ThemeType,
-  palette?: PaletteType,
-): FigOptions {
-  const { title, subtitle, rest } = extractMeta(lines);
-  const sets: VennSet[] = [];
-  const intersections: VennIntersection[] = [];
-
-  for (const line of rest) {
-    // sets: A, B, C — use startsWith + slice
-    if (line.startsWith('sets:')) {
-      const raw = line.slice('sets:'.length).split(',').map((s) => s.trim()).filter(Boolean);
-      for (const name of raw) {
-        const id = name.toLowerCase().replace(/\s+/g, '-');
-        sets.push({ id, label: name });
-      }
-      continue;
-    }
-
-    // Intersection: "A & B: label [accent]"
-    // Check for '&' before ':'
-    const ampIdx = line.indexOf('&');
-    const colIdx = line.indexOf(':');
-    if (ampIdx !== -1 && colIdx !== -1 && ampIdx < colIdx) {
-      const setsPart  = line.slice(0, colIdx).trim();
-      let labelPart   = line.slice(colIdx + 1).trim();
-      let accent = false;
-
-      if (labelPart.endsWith(' accent')) {
-        accent = true;
-        labelPart = labelPart.slice(0, -' accent'.length).trim();
-      }
-
-      const setNames = setsPart.split('&').map((s) => s.trim()).filter(Boolean);
-      const setIds   = setNames.map((name) => {
-        // Try to match against declared sets by label
-        const found = sets.find((s) => s.label.toLowerCase() === name.toLowerCase());
-        return found ? found.id : name.toLowerCase().replace(/\s+/g, '-');
-      });
-
-      if (setIds.length >= 2 && labelPart) {
-        intersections.push({
-          sets: setIds,
-          label: labelPart,
-          ...(accent ? { accent: true } : {}),
-        });
-      }
-      continue;
-    }
-  }
-
-  return {
-    figure: 'venn',
-    sets,
-    ...(intersections.length > 0 ? { intersections } : {}),
     ...(theme !== undefined ? { theme } : {}),
     ...(palette !== undefined ? { palette } : {}),
     ...(title !== undefined ? { title } : {}),

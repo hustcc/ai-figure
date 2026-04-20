@@ -11,7 +11,7 @@
 - 🎨 **Rich visual styles** — light/dark mode, nine built-in palettes (`default`, `antv`, `drawio`, `figma`, `vega`, `mono-blue`, `mono-green`, `mono-purple`, `mono-orange`) plus custom hex arrays; every diagram supports optional title & subtitle, node groups, and color-coded layers
 - 📐 **Auto layout** — just describe the graph; x/y coordinates are computed automatically, and diagram dimensions scale to fit the content
 - 🤖 **AI-friendly** — single `fig()` entry point accepts a markdown string **or** a JSON config; streaming-safe (partial input never throws); ships a [`SKILL.md`](https://github.com/hustcc/ai-figure/blob/main/SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
-- 📊 **12 diagram types** — flowchart, tree, architecture, sequence, quadrant, Gantt, state machine, ER data model, timeline, swimlane, Venn diagram, and pyramid/funnel; pure SVG output with zero DOM dependency, works in browser and Node.js
+- 📊 **11 diagram types** — flowchart, tree, architecture, sequence, quadrant, Gantt, state machine, ER data model, timeline, swimlane, and pyramid/funnel; pure SVG output with zero DOM dependency, works in browser and Node.js
 
 ## Quick Start
 
@@ -91,7 +91,6 @@ fig({ figure: 'state',    ...stateOptions    }); // state machine
 fig({ figure: 'er',       ...erOptions       }); // ER data model
 fig({ figure: 'timeline', ...timelineOptions }); // timeline
 fig({ figure: 'swimlane', ...swimlaneOptions }); // swimlane flow
-fig({ figure: 'venn',     ...vennOptions     }); // Venn diagram
 fig({ figure: 'pyramid',  ...pyramidOptions  }); // pyramid / funnel
 
 // markdown string
@@ -385,7 +384,7 @@ fig({ figure: 'flow', nodes, edges, palette: ['#e64980', '#ae3ec9', '#7048e8', '
 
 | Token | Values | Default |
 |-------|--------|---------|
-| `type` | `flow` \| `tree` \| `arch` \| `sequence` \| `quadrant` \| `gantt` \| `state` \| `er` \| `timeline` \| `swimlane` \| `venn` \| `pyramid` | **required** |
+| `type` | `flow` \| `tree` \| `arch` \| `sequence` \| `quadrant` \| `gantt` \| `state` \| `er` \| `timeline` \| `swimlane` \| `pyramid` | **required** |
 | `direction` | `TB` \| `LR` | `TB` |
 | `theme` | `light` \| `dark` | `light` |
 | `palette` | any named palette (see [Palette API](#palette-api)) | `default` |
@@ -537,20 +536,6 @@ Warehouse: pack[Pack Items]
 Shipping: ship[Ship Package]
 order --> pack                            %% edges between nodes
 pack --> ship
-```
-</details>
-
-<details>
-<summary><strong>venn</strong></summary>
-
-```
-venn [light|dark] [palette]
-title: Optional Title
-sets: Desirable, Feasible, Viable   %% 2 or 3 sets
-Desirable & Feasible: Useful        %% intersection label
-Feasible & Viable: Possible
-Desirable & Viable: Lovable
-Desirable & Feasible & Viable: Sweet Spot accent   %% accent intersection
 ```
 </details>
 

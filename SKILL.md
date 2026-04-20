@@ -1,12 +1,12 @@
 ---
 name: ai-figure
 version: "0.2.0"
-description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence, quadrant, gantt, state machine, ER, timeline, swimlane, venn, pyramid) from a markdown string or a JSON config via fig(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
+description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence, quadrant, gantt, state machine, ER, timeline, swimlane, pyramid) from a markdown string or a JSON config via fig(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
 author: hustcc
 license: MIT
 package: ai-figure
 api: fig(markdown|options) → string (SVG)
-tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, state-machine, er-diagram, timeline, swimlane, venn, pyramid, svg, layout, visualization, markdown]
+tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, state-machine, er-diagram, timeline, swimlane, pyramid, svg, layout, visualization, markdown]
 ---
 
 # ai-figure Skill
@@ -47,7 +47,7 @@ const svg2 = fig({ figure: 'flow', nodes: [...], edges: [...] });
 
 | Token | Values | Default |
 |-------|--------|---------|
-| `type` | `flow` `tree` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` `venn` `pyramid` | required |
+| `type` | `flow` `tree` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` `pyramid` | required |
 | `direction` | `TB` `LR` | `TB` |
 | `theme` | `light` `dark` | `light` |
 | `palette` | `default` `antv` `drawio` `figma` `vega` `mono-blue` `mono-green` `mono-purple` `mono-orange` | `default` |
@@ -218,22 +218,6 @@ pack --> ship
 - `LaneName: id[Node Label]` — node declaration inside a lane
 - `A --> B` or `A --> B: label` — directed edges (may cross lanes)
 
-### venn
-
-```figure
-venn [theme] [palette]
-title: Product Thinking
-sets: Desirable, Feasible, Viable
-Desirable & Feasible: Useful
-Feasible & Viable: Possible
-Desirable & Viable: Lovable
-Desirable & Feasible & Viable: Sweet Spot accent
-```
-
-- `sets: A, B, C` — declare 2 or 3 sets (4+ not supported)
-- `A & B: label` — intersection label; `A & B & C: label accent` — focal intersection
-- Append ` accent` to one intersection for the "sweet spot" highlight
-
 ### pyramid
 
 ```figure
@@ -343,14 +327,6 @@ interface SwimlaneDiagramOptions {
   lanes: string[];          // lane labels in display order
   nodes: SwimlaneNode[];    // { id, label, lane, type? }  lane = one of lanes[]
   edges: SwimlaneEdge[];    // { from, to, label? }
-  title?: string; subtitle?: string;
-  theme?: 'light'|'dark'; palette?: string|string[];
-}
-
-interface VennDiagramOptions {
-  figure: 'venn';
-  sets: VennSet[];          // 2–3 sets  { id, label, sublabel? }
-  intersections?: VennIntersection[]; // { sets: string[], label, accent? }
   title?: string; subtitle?: string;
   theme?: 'light'|'dark'; palette?: string|string[];
 }
