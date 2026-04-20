@@ -134,9 +134,9 @@ export function createVennDiagram(options: VennDiagramOptions): string {
     );
   }
 
-  // ── Intersection labels — placed outside circles with leader lines ────────
-  // Overall centroid of all circle centers (used to determine outward directions)
-  const gCx = circles.reduce((s, c) => s + c.cx, 0) / circles.length;
+  // ── Intersection labels ───────────────────────────────────────────────────
+  // Triple (3+) intersections: placed outside all circles with a leader line.
+  // Pairwise intersections: rendered inline at the overlap centroid.
   const gCy = circles.reduce((s, c) => s + c.cy, 0) / circles.length;
 
   for (const inter of intersections) {
@@ -149,61 +149,45 @@ export function createVennDiagram(options: VennDiagramOptions): string {
     const ocx = setIdxs.reduce((s, i) => s + circles[i].cx, 0) / setIdxs.length;
     const ocy = setIdxs.reduce((s, i) => s + circles[i].cy, 0) / setIdxs.length;
 
-    const isAccent = inter.accent === true;
-    const fill     = isAccent ? accentText : theme.edgeColor;
-    const mainR    = circles[0].r;
-    const isAll    = setIdxs.length >= displaySets.length;
+    const isAccent  = inter.accent === true;
+    const fill      = isAccent ? accentText : theme.edgeColor;
+    const isTriple  = setIdxs.length >= 3;
 
-    let lx: number, ly: number, anchor: string;
-
-    if (isAll && displaySets.length >= 3) {
-      // Triple intersection: place label to the right of all circles
+    if (isTriple) {
+      // Place label to the right of all circles with a leader line
       const rightExtent = Math.max(...circles.map((c) => c.cx + c.r));
-      lx = rightExtent + 28;
-      ly = gCy;
-      anchor = 'start';
-    } else if (displaySets.length >= 3 && setIdxs.length === 2) {
-      // Pairwise in 3-circle diagram: go in direction away from the excluded third circle.
-      // The guard above (setIdxs.length === 2) guarantees exactly one of [0,1,2] is absent.
-      const thirdIdx = ([0, 1, 2] as const).find((i) => !setIdxs.includes(i));
-      if (thirdIdx === undefined) continue; // safety guard — should never happen
-      let dx = ocx - circles[thirdIdx].cx;
-      let dy = ocy - circles[thirdIdx].cy;
-      const dl = Math.sqrt(dx * dx + dy * dy) || 1;
-      dx /= dl; dy /= dl;
-      const labelDist = mainR + 38;
-      lx = ocx + dx * labelDist;
-      ly = ocy + dy * labelDist;
-      anchor = dx < -0.3 ? 'end' : dx > 0.3 ? 'start' : 'middle';
+      const lx = rightExtent + 28;
+      const ly = gCy;
+
+      // Small dot at overlap centroid
+      parts.push(
+        `<circle cx="${ocx}" cy="${ocy}" r="3" ` +
+          `fill="${escapeXml(isAccent ? accentStroke : theme.groupColor)}" opacity="0.55"/>`,
+      );
+
+      // Leader line
+      const lineDx = lx - ocx, lineDy = ly - ocy;
+      const lineLen = Math.sqrt(lineDx * lineDx + lineDy * lineDy) || 1;
+      const lux = lineDx / lineLen, luy = lineDy / lineLen;
+      parts.push(
+        `<line x1="${ocx + lux * 6}" y1="${ocy + luy * 6}" ` +
+             `x2="${lx - lux * 8}" y2="${ly - luy * 8}" ` +
+          `stroke="${escapeXml(isAccent ? accentStroke : theme.groupColor)}" stroke-width="1" opacity="0.65"/>`,
+      );
+
+      parts.push(
+        `<text x="${lx}" y="${ly}" text-anchor="start" dominant-baseline="central" ` +
+          `font-family="${escapeXml(theme.fontFamily)}" font-size="${INTER_FS}" ` +
+          `font-weight="${isAccent ? '700' : '600'}" fill="${escapeXml(fill)}">${escapeXml(inter.label)}</text>`,
+      );
     } else {
-      // 2-circle diagram or fallback: place below the overlap
-      lx = ocx;
-      ly = ocy + mainR + 38;
-      anchor = 'middle';
+      // Pairwise intersection: render inline at overlap centroid
+      parts.push(
+        `<text x="${ocx}" y="${ocy}" text-anchor="middle" dominant-baseline="central" ` +
+          `font-family="${escapeXml(theme.fontFamily)}" font-size="${INTER_FS}" ` +
+          `font-weight="${isAccent ? '700' : '600'}" fill="${escapeXml(fill)}">${escapeXml(inter.label)}</text>`,
+      );
     }
-
-    // Small dot at overlap centroid to anchor the leader line
-    parts.push(
-      `<circle cx="${ocx}" cy="${ocy}" r="3" ` +
-        `fill="${escapeXml(isAccent ? accentStroke : theme.groupColor)}" opacity="0.55"/>`,
-    );
-
-    // Leader line from dot to just before the label
-    const lineDx = lx - ocx, lineDy = ly - ocy;
-    const lineLen = Math.sqrt(lineDx * lineDx + lineDy * lineDy) || 1;
-    const lux = lineDx / lineLen, luy = lineDy / lineLen;
-    parts.push(
-      `<line x1="${ocx + lux * 6}" y1="${ocy + luy * 6}" ` +
-           `x2="${lx - lux * 8}" y2="${ly - luy * 8}" ` +
-        `stroke="${escapeXml(isAccent ? accentStroke : theme.groupColor)}" stroke-width="1" opacity="0.65"/>`,
-    );
-
-    // Label text outside the circles
-    parts.push(
-      `<text x="${lx}" y="${ly}" text-anchor="${anchor}" dominant-baseline="central" ` +
-        `font-family="${escapeXml(theme.fontFamily)}" font-size="${INTER_FS}" ` +
-        `font-weight="${isAccent ? '700' : '600'}" fill="${escapeXml(fill)}">${escapeXml(inter.label)}</text>`,
-    );
   }
 
   // ── Set name labels (outside circles) ─────────────────────────────────────
