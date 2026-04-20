@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="707" viewBox="0 0 680 707" id="vn-1">
+<text x="340" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Developer Skill Map</text>
+<text x="340" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">Cross-discipline competency overlap</text>
+<g class="venn-diagram" transform="translate(0,67)">
+<defs>
+<clipPath id="vn-1-clip0"><circle cx="268" cy="258" r="90"/></clipPath>
+<clipPath id="vn-1-clip1"><circle cx="412" cy="258" r="90"/></clipPath>
+<clipPath id="vn-1-clip2"><circle cx="268" cy="402" r="90"/></clipPath>
+<clipPath id="vn-1-clip3"><circle cx="412" cy="402" r="90"/></clipPath>
+</defs>
+<circle cx="268" cy="258" r="90" fill="#5b8ff9" fill-opacity="0.07" stroke="#5b8ff9" stroke-width="1.5"/>
+<circle cx="412" cy="258" r="90" fill="#5ad8a6" fill-opacity="0.07" stroke="#5ad8a6" stroke-width="1.5"/>
+<circle cx="268" cy="402" r="90" fill="#9270ca" fill-opacity="0.07" stroke="#9270ca" stroke-width="1.5"/>
+<circle cx="412" cy="402" r="90" fill="#e8684a" fill-opacity="0.07" stroke="#e8684a" stroke-width="1.5"/>
+<circle cx="340" cy="330" r="31.499999999999996" fill="#fff4ef" fill-opacity="0.35" stroke="none" clip-path="url(#vn-1-clip0)"/>
+<text x="340" y="258" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#495057">Fullstack</text>
+<text x="340" y="321" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#495057">Data Eng</text>
+<text x="340" y="402" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#495057">MLOps</text>
+<text x="340" y="339" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#495057">FE Ops</text>
+<circle cx="340" cy="330" r="3" fill="#e8684a" opacity="0.55"/>
+<line x1="346" y1="330" x2="522" y2="330" stroke="#e8684a" stroke-width="1" opacity="0.65"/>
+<text x="530" y="330" text-anchor="start" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#bf3c22">10x Dev</text>
+<text x="234.90740264046957" y="224.90740264046957" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#5b8ff9">Frontend</text>
+<text x="234.90740264046957" y="240.90740264046957" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#5b8ff9" opacity="0.7">UI / UX</text>
+<text x="445.09259735953043" y="224.90740264046957" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#5ad8a6">Backend</text>
+<text x="445.09259735953043" y="240.90740264046957" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#5ad8a6" opacity="0.7">APIs / DBs</text>
+<text x="234.90740264046957" y="435.09259735953043" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#9270ca">Data</text>
+<text x="234.90740264046957" y="451.09259735953043" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#9270ca" opacity="0.7">ML / Analytics</text>
+<text x="445.09259735953043" y="435.09259735953043" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#e8684a">DevOps</text>
+<text x="445.09259735953043" y="451.09259735953043" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#e8684a" opacity="0.7">Infra / CI</text>
+</g>
+</svg>

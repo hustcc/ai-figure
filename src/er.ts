@@ -129,12 +129,9 @@ export function createErDiagram(options: ErDiagramOptions): string {
 
   const parts: string[] = [];
 
-  // ── Defs: drop shadow + arrowhead ───────────────────────────────────────
+  // ── Defs: arrowhead ─────────────────────────────────────────────────────
   parts.push(
     `<defs>` +
-      `<filter id="${uid}-shadow" x="-20%" y="-20%" width="140%" height="140%">` +
-        `<feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="rgba(0,0,0,0.10)"/>` +
-      `</filter>` +
       `<marker id="${uid}-arrow" markerWidth="6" markerHeight="5" ` +
         `refX="5" refY="2.5" orient="auto" markerUnits="strokeWidth">` +
         `<polygon points="0 0, 6 2.5, 0 5" fill="${escapeXml(theme.groupColor)}"/>` +
@@ -217,19 +214,18 @@ export function createErDiagram(options: ErDiagramOptions): string {
     const { x, y, width, height } = pos;
     const bodyH = height - HEADER_H;
 
-    // Entity outer box
+    // Entity body fill (rounded rect, no stroke — border drawn on top later)
     parts.push(
       `<rect x="${x}" y="${y}" width="${width}" height="${height}" ` +
         `rx="${ENTITY_RX}" ry="${ENTITY_RX}" ` +
-        `fill="${escapeXml(theme.nodeFills['process'])}" stroke="${escapeXml(hdrStroke)}" ` +
-        `stroke-width="1.5" filter="url(#${uid}-shadow)"/>`,
+        `fill="${escapeXml(theme.nodeFills['process'])}" stroke="none"/>`,
     );
 
-    // Header section
+    // Header fill
     parts.push(
       `<rect x="${x}" y="${y}" width="${width}" height="${HEADER_H}" ` +
         `rx="${ENTITY_RX}" ry="${ENTITY_RX}" fill="${escapeXml(hdrFill)}" stroke="none"/>`,
-      // Cover bottom rounded corners of header with a plain rect
+      // Cover bottom rounded corners of header with a straight rect
       `<rect x="${x}" y="${y + HEADER_H - ENTITY_RX}" width="${width}" height="${ENTITY_RX}" ` +
         `fill="${escapeXml(hdrFill)}" stroke="none"/>`,
     );
@@ -296,13 +292,12 @@ export function createErDiagram(options: ErDiagramOptions): string {
       }
     }
 
-    // Bottom clipping rect to cover any bottom rounded corners of last row
-    if (bodyH > 0) {
-      parts.push(
-        `<rect x="${x + 1}" y="${y + height - ENTITY_RX}" width="${width - 2}" height="${ENTITY_RX}" ` +
-          `fill="${escapeXml(theme.nodeFills['process'])}" stroke="none"/>`,
-      );
-    }
+    // Border drawn on top of all fills (clean stroke, no fill — ensures visible rounded corners)
+    parts.push(
+      `<rect x="${x}" y="${y}" width="${width}" height="${height}" ` +
+        `rx="${ENTITY_RX}" ry="${ENTITY_RX}" ` +
+        `fill="none" stroke="${escapeXml(hdrStroke)}" stroke-width="1.5"/>`,
+    );
   }
 
   const bgParts: string[] = theme.background

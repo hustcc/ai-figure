@@ -1,37 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="530" height="409" viewBox="0 0 530 409">
-<text x="265" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Expense Approval</text>
-<text x="265" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">Reimbursement workflow across departments</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="578" height="409" viewBox="0 0 578 409">
+<text x="289" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Expense Approval</text>
+<text x="289" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">Reimbursement workflow across departments</text>
 <g class="swimlane-diagram" transform="translate(0,67)">
 <defs><marker id="sw-1-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/></marker></defs>
-<rect x="130" y="0" width="400" height="114" fill="none" stroke="none"/>
-<line x1="0" y1="0" x2="530" y2="0" stroke="#868e96" stroke-width="1.5"/>
+<rect x="130" y="0" width="448" height="114" fill="none" stroke="none"/>
+<line x1="0" y1="0" x2="578" y2="0" stroke="#868e96" stroke-width="1.5"/>
 <rect x="0" y="0" width="130" height="114" fill="#868e96" fill-opacity="0.08" stroke="none"/>
 <line x1="130" y1="0" x2="130" y2="114" stroke="#868e96" stroke-width="1.5"/>
 <text x="65" y="57" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057">Employee</text>
-<rect x="130" y="114" width="400" height="114" fill="rgba(134,142,150,0.06)" stroke="none"/>
-<line x1="0" y1="114" x2="530" y2="114" stroke="#868e96" stroke-width="1.5"/>
+<rect x="130" y="114" width="448" height="114" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="114" x2="578" y2="114" stroke="#868e96" stroke-width="1.5"/>
 <rect x="0" y="114" width="130" height="114" fill="#868e96" fill-opacity="0.14" stroke="none"/>
 <line x1="130" y1="114" x2="130" y2="228" stroke="#868e96" stroke-width="1.5"/>
 <text x="65" y="171" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057">Manager</text>
-<rect x="130" y="228" width="400" height="114" fill="none" stroke="none"/>
-<line x1="0" y1="228" x2="530" y2="228" stroke="#868e96" stroke-width="1.5"/>
+<rect x="130" y="228" width="448" height="114" fill="none" stroke="none"/>
+<line x1="0" y1="228" x2="578" y2="228" stroke="#868e96" stroke-width="1.5"/>
 <rect x="0" y="228" width="130" height="114" fill="#868e96" fill-opacity="0.2" stroke="none"/>
 <line x1="130" y1="228" x2="130" y2="342" stroke="#868e96" stroke-width="1.5"/>
 <text x="65" y="285" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057">Finance</text>
-<line x1="0" y1="342" x2="530" y2="342" stroke="#868e96" stroke-width="1.5"/>
-<path d="M238,82 C238,114 238,114 238,146" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M314,171 L346,171" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M422,196 C422,228 238,228 238,260" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M314,285 L346,285" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<rect x="162" y="32" width="152" height="50" rx="8" ry="8" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
-<text x="238" y="57" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#4338ca">Submit Expense</text>
-<rect x="162" y="146" width="152" height="50" rx="8" ry="8" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
-<text x="238" y="171" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#047857">Review Request</text>
-<rect x="346" y="146" width="152" height="50" rx="8" ry="8" fill="#fdf2f8" stroke="#ec4899" stroke-width="2"/>
-<text x="422" y="171" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#be185d">Approve / Reject</text>
-<rect x="162" y="260" width="152" height="50" rx="8" ry="8" fill="#ecfeff" stroke="#06b6d4" stroke-width="2"/>
-<text x="238" y="285" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#0891b2">Audit Claim</text>
-<rect x="346" y="260" width="152" height="50" rx="8" ry="8" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
-<text x="422" y="285" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#4338ca">Process Payment</text>
+<line x1="0" y1="342" x2="578" y2="342" stroke="#868e96" stroke-width="1.5"/>
+<path d="M254,82 C254,114 254,114 254,146" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M330,171 L378,171" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M454,196 C454,228 254,228 254,260" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M330,285 L378,285" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<rect x="178" y="32" width="152" height="50" rx="8" ry="8" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="254" y="57" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#4338ca">Submit Expense</text>
+<rect x="178" y="146" width="152" height="50" rx="8" ry="8" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+<text x="254" y="171" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#047857">Review Request</text>
+<rect x="378" y="146" width="152" height="50" rx="8" ry="8" fill="#fdf2f8" stroke="#ec4899" stroke-width="2"/>
+<text x="454" y="171" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#be185d">Approve / Reject</text>
+<rect x="178" y="260" width="152" height="50" rx="8" ry="8" fill="#ecfeff" stroke="#06b6d4" stroke-width="2"/>
+<text x="254" y="285" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#0891b2">Audit Claim</text>
+<rect x="378" y="260" width="152" height="50" rx="8" ry="8" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="454" y="285" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#4338ca">Process Payment</text>
 </g>
 </svg>

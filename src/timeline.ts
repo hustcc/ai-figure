@@ -13,11 +13,12 @@ const AXIS_Y      = 160;    // Y of the horizontal baseline (more room below)
 const ABOVE_Y     = AXIS_Y - 36;  // label Y for above-axis items (higher up)
 const BELOW_Y     = AXIS_Y + 48;  // label Y for below-axis items (lower down)
 const DROP_H      = 30;     // length of the drop-line from label to dot
-const DOT_R       = 5;      // normal event dot radius
-const MILESTONE_R = 8;      // milestone dot radius
-const TICK_H      = 6;      // tick mark half-height
+const DOT_R       = 6;      // normal event dot radius
+const MILESTONE_R = 9;      // milestone dot radius
+const TICK_H      = 7;      // tick mark half-height
 const LABEL_FS    = 13;     // event label font size
 const TICK_FS     = 10;     // tick date label font size
+const MIN_TICK_PX = 68;     // minimum pixel gap between consecutive tick labels
 // Gap constants for label drop-line endpoints (space between text baseline/cap and line end)
 const LABEL_LINE_GAP_ABOVE = 4;  // pixels below label baseline to end of drop-line (above axis)
 const LABEL_LINE_GAP_BELOW = 2;  // pixels above label cap-height to end of drop-line (below axis)
@@ -97,10 +98,10 @@ export function createTimelineDiagram(options: TimelineDiagramOptions): string {
   // ── Baseline ─────────────────────────────────────────────────────────────
   parts.push(
     `<line x1="${PAD_LEFT}" y1="${AXIS_Y}" x2="${PAD_LEFT + PLOT_W}" y2="${AXIS_Y}" ` +
-      `stroke="${escapeXml(theme.groupColor)}" stroke-width="1"/>`,
+      `stroke="${escapeXml(theme.edgeColor)}" stroke-width="1.5"/>`,
   );
 
-  // ── Tick marks (up to 8, aligned to month/year boundaries) ───────────────
+  // ── Tick marks (aligned to month/year boundaries, skipping crowded ones) ─
   const totalDays = rangeMs / 86_400_000;
   const tickDates: Date[] = [];
 
@@ -135,11 +136,15 @@ export function createTimelineDiagram(options: TimelineDiagramOptions): string {
     }
   }
 
+  // Filter to minimum spacing to prevent label overlap
+  let prevTx = -Infinity;
   for (const tick of tickDates) {
     const tx = tsToX(tick.getTime());
+    if (tx - prevTx < MIN_TICK_PX) continue;
+    prevTx = tx;
     parts.push(
       `<line x1="${tx}" y1="${AXIS_Y - TICK_H}" x2="${tx}" y2="${AXIS_Y + TICK_H}" ` +
-        `stroke="${escapeXml(theme.groupColor)}" stroke-width="1"/>`,
+        `stroke="${escapeXml(theme.edgeColor)}" stroke-width="1" opacity="0.5"/>`,
       `<text x="${tx}" y="${AXIS_Y + TICK_H + 14}" text-anchor="middle" ` +
         `font-family="${escapeXml(theme.fontFamily)}" font-size="${TICK_FS}" ` +
         `fill="${escapeXml(theme.groupColor)}">${escapeXml(fmtTick(tick))}</text>`,

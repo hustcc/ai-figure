@@ -2,7 +2,7 @@
 <rect width="100%" height="100%" fill="#1a1b1e"/>
 <text x="210" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#adb5bd">User Session</text>
 <text x="210" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#5c6370">Auth token lifecycle with refresh</text>
-<g class="state-diagram" transform="translate(0,67)">
+<g class="state-diagram" transform="translate(96,67)">
 <defs><marker id="st-1-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#adb5bd"/></marker><marker id="st-1-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#e8684a"/></marker></defs>
 <path d="M114,58 Q114,93 114,110.5 L114,128" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
 <path d="M110.14035087719299,172 Q104,207 107.0701754385965,224.5 L110.14035087719299,242" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>

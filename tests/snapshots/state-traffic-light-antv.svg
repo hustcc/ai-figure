@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="420" height="507" viewBox="0 0 420 507">
 <text x="210" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Traffic Light</text>
 <text x="210" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">Pedestrian crossing FSM</text>
-<g class="state-diagram" transform="translate(0,67)">
+<g class="state-diagram" transform="translate(69,67)">
 <defs><marker id="st-1-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/></marker><marker id="st-1-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#e8684a"/></marker></defs>
 <path d="M168.5,58 Q168.5,93 168.5,110.5 L168.5,128" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
 <path d="M147.46491228070175,172 Q114,207 114,224.5 L114,242" fill="none" stroke="#e8684a" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow-accent)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>

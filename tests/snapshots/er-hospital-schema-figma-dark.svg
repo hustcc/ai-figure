@@ -3,7 +3,7 @@
 <text x="300" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#adb5bd">Hospital Schema</text>
 <text x="300" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#5c6370">Patient, doctor and appointment model</text>
 <g class="er-diagram" transform="translate(0,67)">
-<defs><filter id="er-1-shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="rgba(0,0,0,0.10)"/></filter><marker id="er-1-arrow" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 6 2.5, 0 5" fill="#5c6370"/></marker></defs>
+<defs><marker id="er-1-arrow" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 6 2.5, 0 5" fill="#5c6370"/></marker></defs>
 <line x1="229.55801104972375" y1="234" x2="348.89502762430936" y2="162" stroke="#5c6370" stroke-width="1.5" marker-end="url(#er-1-arrow)"/>
 <text x="289.22651933701655" y="192" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" font-style="italic">employs</text>
 <text x="243.2577101561429" y="234.29682681397242" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd">1</text>
@@ -16,7 +16,7 @@
 <text x="450" y="192" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" font-style="italic">attends</text>
 <text x="450" y="178" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd">1</text>
 <text x="450" y="218" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd">N</text>
-<rect x="40" y="40" width="220" height="122" rx="6" ry="6" fill="#1e1b4b" stroke="#22d3ee" stroke-width="1.5" filter="url(#er-1-shadow)"/>
+<rect x="40" y="40" width="220" height="122" rx="6" ry="6" fill="#1e1b4b" stroke="none"/>
 <rect x="40" y="40" width="220" height="44" rx="6" ry="6" fill="#012030" stroke="none"/>
 <rect x="40" y="78" width="220" height="6" fill="#012030" stroke="none"/>
 <line x1="40" y1="84" x2="260" y2="84" stroke="#22d3ee" stroke-width="1"/>
@@ -30,8 +30,8 @@
 <rect x="41" y="136" width="218" height="26" fill="rgba(92,99,112,0.15)" stroke="none" rx="6" ry="6"/>
 <text x="50" y="155.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#adb5bd">dob</text>
 <text x="252" y="155.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#5c6370">date</text>
-<rect x="41" y="156" width="218" height="6" fill="#1e1b4b" stroke="none"/>
-<rect x="340" y="40" width="220" height="122" rx="6" ry="6" fill="#1e1b4b" stroke="#34d399" stroke-width="1.5" filter="url(#er-1-shadow)"/>
+<rect x="40" y="40" width="220" height="122" rx="6" ry="6" fill="none" stroke="#22d3ee" stroke-width="1.5"/>
+<rect x="340" y="40" width="220" height="122" rx="6" ry="6" fill="#1e1b4b" stroke="none"/>
 <rect x="340" y="40" width="220" height="44" rx="6" ry="6" fill="#022c22" stroke="none"/>
 <rect x="340" y="78" width="220" height="6" fill="#022c22" stroke="none"/>
 <line x1="340" y1="84" x2="560" y2="84" stroke="#34d399" stroke-width="1"/>
@@ -45,8 +45,8 @@
 <rect x="341" y="136" width="218" height="26" fill="rgba(92,99,112,0.15)" stroke="none" rx="6" ry="6"/>
 <text x="350" y="155.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#adb5bd">name</text>
 <text x="552" y="155.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#5c6370">text</text>
-<rect x="341" y="156" width="218" height="6" fill="#1e1b4b" stroke="none"/>
-<rect x="40" y="234" width="220" height="96" rx="6" ry="6" fill="#1e1b4b" stroke="#f472b6" stroke-width="1.5" filter="url(#er-1-shadow)"/>
+<rect x="340" y="40" width="220" height="122" rx="6" ry="6" fill="none" stroke="#34d399" stroke-width="1.5"/>
+<rect x="40" y="234" width="220" height="96" rx="6" ry="6" fill="#1e1b4b" stroke="none"/>
 <rect x="40" y="234" width="220" height="44" rx="6" ry="6" fill="#4a044e" stroke="none"/>
 <rect x="40" y="272" width="220" height="6" fill="#4a044e" stroke="none"/>
 <line x1="40" y1="278" x2="260" y2="278" stroke="#f472b6" stroke-width="1"/>
@@ -57,8 +57,8 @@
 <text x="252" y="297.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#5c6370">uuid</text>
 <text x="50" y="323.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#adb5bd">name</text>
 <text x="252" y="323.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#5c6370">text</text>
-<rect x="41" y="324" width="218" height="6" fill="#1e1b4b" stroke="none"/>
-<rect x="340" y="234" width="220" height="148" rx="6" ry="6" fill="#1e1b4b" stroke="#22d3ee" stroke-width="1.5" filter="url(#er-1-shadow)"/>
+<rect x="40" y="234" width="220" height="96" rx="6" ry="6" fill="none" stroke="#f472b6" stroke-width="1.5"/>
+<rect x="340" y="234" width="220" height="148" rx="6" ry="6" fill="#1e1b4b" stroke="none"/>
 <rect x="340" y="234" width="220" height="44" rx="6" ry="6" fill="#012030" stroke="none"/>
 <rect x="340" y="272" width="220" height="6" fill="#012030" stroke="none"/>
 <line x1="340" y1="278" x2="560" y2="278" stroke="#22d3ee" stroke-width="1"/>
@@ -74,6 +74,6 @@
 <text x="552" y="349.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#5c6370">uuid</text>
 <text x="350" y="375.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#adb5bd">date</text>
 <text x="552" y="375.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#5c6370">datetime</text>
-<rect x="341" y="376" width="218" height="6" fill="#1e1b4b" stroke="none"/>
+<rect x="340" y="234" width="220" height="148" rx="6" ry="6" fill="none" stroke="#22d3ee" stroke-width="1.5"/>
 </g>
 </svg>

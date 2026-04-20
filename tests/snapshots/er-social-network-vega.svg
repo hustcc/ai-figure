@@ -2,7 +2,7 @@
 <text x="300" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Social Network</text>
 <text x="300" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">Users, posts and interactions</text>
 <g class="er-diagram" transform="translate(0,67)">
-<defs><filter id="er-1-shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="rgba(0,0,0,0.10)"/></filter><marker id="er-1-arrow" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 6 2.5, 0 5" fill="#868e96"/></marker></defs>
+<defs><marker id="er-1-arrow" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 6 2.5, 0 5" fill="#868e96"/></marker></defs>
 <line x1="260" y1="105.76666666666667" x2="340" y2="109.23333333333333" stroke="#868e96" stroke-width="1.5" marker-end="url(#er-1-arrow)"/>
 <text x="300" y="101.5" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" font-style="italic">writes</text>
 <text x="275.98499890102266" y="116.44997426551683" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057">1</text>
@@ -15,7 +15,7 @@
 <text x="300" y="218" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" font-style="italic">receives</text>
 <text x="336.18842915721785" y="189.3977686594832" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057">1</text>
 <text x="263.8115708427822" y="242.47413142340267" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057">N</text>
-<rect x="40" y="40" width="220" height="122" rx="6" ry="6" fill="#e8eff7" stroke="#f58518" stroke-width="1.5" filter="url(#er-1-shadow)"/>
+<rect x="40" y="40" width="220" height="122" rx="6" ry="6" fill="#e8eff7" stroke="none"/>
 <rect x="40" y="40" width="220" height="44" rx="6" ry="6" fill="#fff0e0" stroke="none"/>
 <rect x="40" y="78" width="220" height="6" fill="#fff0e0" stroke="none"/>
 <line x1="40" y1="84" x2="260" y2="84" stroke="#f58518" stroke-width="1"/>
@@ -29,8 +29,8 @@
 <rect x="41" y="136" width="218" height="26" fill="rgba(134,142,150,0.06)" stroke="none" rx="6" ry="6"/>
 <text x="50" y="155.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#495057">bio</text>
 <text x="252" y="155.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">text</text>
-<rect x="41" y="156" width="218" height="6" fill="#e8eff7" stroke="none"/>
-<rect x="340" y="40" width="220" height="148" rx="6" ry="6" fill="#e8eff7" stroke="#72b7b2" stroke-width="1.5" filter="url(#er-1-shadow)"/>
+<rect x="40" y="40" width="220" height="122" rx="6" ry="6" fill="none" stroke="#f58518" stroke-width="1.5"/>
+<rect x="340" y="40" width="220" height="148" rx="6" ry="6" fill="#e8eff7" stroke="none"/>
 <rect x="340" y="40" width="220" height="44" rx="6" ry="6" fill="#e4f3f3" stroke="none"/>
 <rect x="340" y="78" width="220" height="6" fill="#e4f3f3" stroke="none"/>
 <line x1="340" y1="84" x2="560" y2="84" stroke="#72b7b2" stroke-width="1"/>
@@ -46,8 +46,8 @@
 <text x="552" y="155.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">text</text>
 <text x="350" y="181.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#495057">created</text>
 <text x="552" y="181.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">datetime</text>
-<rect x="341" y="182" width="218" height="6" fill="#e8eff7" stroke="none"/>
-<rect x="40" y="260" width="220" height="148" rx="6" ry="6" fill="#e8eff7" stroke="#e45756" stroke-width="1.5" filter="url(#er-1-shadow)"/>
+<rect x="340" y="40" width="220" height="148" rx="6" ry="6" fill="none" stroke="#72b7b2" stroke-width="1.5"/>
+<rect x="40" y="260" width="220" height="148" rx="6" ry="6" fill="#e8eff7" stroke="none"/>
 <rect x="40" y="260" width="220" height="44" rx="6" ry="6" fill="#fce8e8" stroke="none"/>
 <rect x="40" y="298" width="220" height="6" fill="#fce8e8" stroke="none"/>
 <line x1="40" y1="304" x2="260" y2="304" stroke="#e45756" stroke-width="1"/>
@@ -63,6 +63,6 @@
 <text x="252" y="375.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">uuid</text>
 <text x="50" y="401.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#495057">text</text>
 <text x="252" y="401.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">text</text>
-<rect x="41" y="402" width="218" height="6" fill="#e8eff7" stroke="none"/>
+<rect x="40" y="260" width="220" height="148" rx="6" ry="6" fill="none" stroke="#e45756" stroke-width="1.5"/>
 </g>
 </svg>

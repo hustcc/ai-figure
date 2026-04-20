@@ -242,12 +242,18 @@ export function createStateDiagram(options: StateDiagramOptions): string {
     theme.fontFamily, theme.fontSize, theme.edgeColor, theme.groupColor,
   );
 
+  // Center the diagram horizontally if the dagre layout is narrower than MIN_WIDTH
+  const offsetX = Math.round(Math.max(0, (WIDTH - layout.width) / 2));
+  const groupTransform = offsetX > 0
+    ? (titleH > 0 ? 'translate(' + offsetX + ',' + titleH + ')' : 'translate(' + offsetX + ',0)')
+    : (titleH > 0 ? 'translate(0,' + titleH + ')' : '');
+
   return [
     '<svg xmlns="http://www.w3.org/2000/svg" width="' + WIDTH + '" height="' + (HEIGHT + titleH) + '" ' +
       'viewBox="0 0 ' + WIDTH + ' ' + (HEIGHT + titleH) + '">',
     ...bgParts,
     ...(titleSvg ? [titleSvg] : []),
-    '<g class="state-diagram"' + (titleH > 0 ? ' transform="translate(0,' + titleH + ')"' : '') + '>',
+    '<g class="state-diagram"' + (groupTransform ? ' transform="' + groupTransform + '"' : '') + '>',
     ...parts,
     '</g>',
     '</svg>',

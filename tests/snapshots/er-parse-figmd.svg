@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="348" viewBox="0 0 600 348">
 <text x="300" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Mini Schema</text>
 <g class="er-diagram" transform="translate(0,48)">
-<defs><filter id="er-1-shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="rgba(0,0,0,0.10)"/></filter><marker id="er-1-arrow" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 6 2.5, 0 5" fill="#868e96"/></marker></defs>
+<defs><marker id="er-1-arrow" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 6 2.5, 0 5" fill="#868e96"/></marker></defs>
 <line x1="260" y1="88" x2="340" y2="88" stroke="#868e96" stroke-width="1.5" marker-end="url(#er-1-arrow)"/>
 <text x="300" y="82" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" font-style="italic">writes</text>
 <text x="324" y="98" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057">&gt;</text>
-<rect x="40" y="40" width="220" height="96" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="1.5" filter="url(#er-1-shadow)"/>
+<rect x="40" y="40" width="220" height="96" rx="6" ry="6" fill="#e7f5ff" stroke="none"/>
 <rect x="40" y="40" width="220" height="44" rx="6" ry="6" fill="#e7f5ff" stroke="none"/>
 <rect x="40" y="78" width="220" height="6" fill="#e7f5ff" stroke="none"/>
 <line x1="40" y1="84" x2="260" y2="84" stroke="#339af0" stroke-width="1"/>
@@ -16,8 +16,8 @@
 <text x="252" y="103.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">uuid</text>
 <text x="50" y="129.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#495057">email</text>
 <text x="252" y="129.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">text</text>
-<rect x="41" y="130" width="218" height="6" fill="#e7f5ff" stroke="none"/>
-<rect x="340" y="40" width="220" height="96" rx="6" ry="6" fill="#e7f5ff" stroke="#51cf66" stroke-width="1.5" filter="url(#er-1-shadow)"/>
+<rect x="40" y="40" width="220" height="96" rx="6" ry="6" fill="none" stroke="#339af0" stroke-width="1.5"/>
+<rect x="340" y="40" width="220" height="96" rx="6" ry="6" fill="#e7f5ff" stroke="none"/>
 <rect x="340" y="40" width="220" height="44" rx="6" ry="6" fill="#ebfbee" stroke="none"/>
 <rect x="340" y="78" width="220" height="6" fill="#ebfbee" stroke="none"/>
 <line x1="340" y1="84" x2="560" y2="84" stroke="#51cf66" stroke-width="1"/>
@@ -28,6 +28,6 @@
 <text x="552" y="103.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">uuid</text>
 <text x="350" y="129.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#51cf66" font-weight="600">→ user_id</text>
 <text x="552" y="129.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">uuid</text>
-<rect x="341" y="130" width="218" height="6" fill="#e7f5ff" stroke="none"/>
+<rect x="340" y="40" width="220" height="96" rx="6" ry="6" fill="none" stroke="#51cf66" stroke-width="1.5"/>
 </g>
 </svg>

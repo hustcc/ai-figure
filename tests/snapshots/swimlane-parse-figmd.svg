@@ -13,10 +13,10 @@
 <line x1="130" y1="114" x2="130" y2="228" stroke="#868e96" stroke-width="1.5"/>
 <text x="65" y="171" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057">Ops</text>
 <line x1="0" y1="228" x2="500" y2="228" stroke="#868e96" stroke-width="1.5"/>
-<path d="M238,82 C238,114 238,114 238,146" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<rect x="162" y="32" width="152" height="50" rx="8" ry="8" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
-<text x="238" y="57" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#1971c2">Place Order</text>
-<rect x="162" y="146" width="152" height="50" rx="8" ry="8" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
-<text x="238" y="171" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#2f9e44">Process Order</text>
+<path d="M254,82 C254,114 254,114 254,146" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<rect x="178" y="32" width="152" height="50" rx="8" ry="8" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="254" y="57" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#1971c2">Place Order</text>
+<rect x="178" y="146" width="152" height="50" rx="8" ry="8" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="254" y="171" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#2f9e44">Process Order</text>
 </g>
 </svg>
