@@ -160,18 +160,44 @@ export function createSwimlaneDiagram(options: SwimlaneDiagramOptions): string {
     const toPos   = layout.nodePos.get(edge.to);
     if (!fromPos || !toPos) continue;
 
+    const fromNode = nodeMap.get(edge.from);
+    const toNode   = nodeMap.get(edge.to);
+    const sameLane = fromNode?.lane === toNode?.lane;
+
+    let pathD: string;
+    let labelX: number;
+    let labelY: number;
+
+    if (sameLane) {
+      // Same lane: horizontal arrow from right edge to left edge
+      const x1 = fromPos.cx + NODE_W / 2;
+      const y1 = fromPos.cy;
+      const x2 = toPos.cx - NODE_W / 2;
+      const y2 = toPos.cy;
+      pathD  = `M${x1},${y1} L${x2},${y2}`;
+      labelX = (x1 + x2) / 2;
+      labelY = y1 - 8;
+    } else {
+      // Cross-lane: S-curve from bottom-center of source to top-center of target
+      const x1   = fromPos.cx;
+      const y1   = fromPos.cy + NODE_H / 2;
+      const x2   = toPos.cx;
+      const y2   = toPos.cy - NODE_H / 2;
+      const midY = (y1 + y2) / 2;
+      pathD  = `M${x1},${y1} C${x1},${midY} ${x2},${midY} ${x2},${y2}`;
+      labelX = (x1 + x2) / 2;
+      labelY = midY - 6;
+    }
+
     parts.push(
-      `<line x1="${fromPos.cx + NODE_W / 2}" y1="${fromPos.cy}" ` +
-        `x2="${toPos.cx - NODE_W / 2}" y2="${toPos.cy}" ` +
+      `<path d="${escapeXml(pathD)}" fill="none" ` +
         `stroke="${escapeXml(theme.edgeColor)}" stroke-width="${theme.edgeWidth}" ` +
         `marker-end="url(#${uid}-arrow)"/>`,
     );
 
     if (edge.label) {
-      const mx = (fromPos.cx + toPos.cx) / 2;
-      const my = (fromPos.cy + toPos.cy) / 2 - 6;
       parts.push(
-        `<text x="${mx}" y="${my}" text-anchor="middle" ` +
+        `<text x="${labelX}" y="${labelY}" text-anchor="middle" ` +
           `font-family="${escapeXml(theme.fontFamily)}" font-size="${LABEL_FS - 2}" ` +
           `fill="${escapeXml(theme.edgeColor)}" opacity="0.85">${escapeXml(edge.label)}</text>`,
       );

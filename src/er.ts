@@ -6,18 +6,20 @@ import type { ErDiagramOptions, ErEntity, ErRelation, NodeType } from './types';
 let _erCount = 0;
 
 // ── Layout constants ────────────────────────────────────────────────────────
-const ENTITY_W      = 192;   // entity box width
-const HEADER_H      = 36;    // entity header height
-const FIELD_H       = 22;    // height per field row
+const ENTITY_W      = 220;   // entity box width
+const HEADER_H      = 44;    // entity header height
+const FIELD_H       = 26;    // height per field row
 const ENTITY_RX     = 6;     // corner radius
-const FONT_SIZE     = 13;    // field font size
-const HEADER_FS     = 13;    // entity name font size
+const FONT_SIZE     = 14;    // field font size
+const HEADER_FS     = 14;    // entity name font size
 const TAG_FS        = 9;     // "ENTITY" eyebrow tag font size
-const COL_GAP       = 56;    // gap between entity columns
-const ROW_GAP       = 40;    // gap between entity rows
+const COL_GAP       = 48;    // gap between entity columns
+const ROW_GAP       = 48;    // gap between entity rows
 const PAD           = 40;    // canvas outer padding
-const CARD_FS       = 10;    // cardinality label font size
-const CARD_OFFSET   = 14;    // how far from the entity edge to draw cardinality
+const CARD_FS       = 11;    // cardinality label font size
+const CARD_OFFSET   = 16;    // how far from the entity edge to draw cardinality
+// Maximum columns: 2 keeps entities large and readable
+const MAX_COLS      = 2;
 
 // Node types cycled for entity accent colors
 const ENTITY_NODE_TYPES: NodeType[] = ['process', 'terminal', 'io', 'decision'];
@@ -27,11 +29,11 @@ function entityHeight(entity: ErEntity): number {
   return HEADER_H + entity.fields.length * FIELD_H;
 }
 
-/** Compute a simple grid layout for entities: up to 3 per row. */
+/** Compute a simple grid layout for entities: up to MAX_COLS per row. */
 function layoutEntities(
   entities: ErEntity[],
 ): Map<string, { x: number; y: number; width: number; height: number }> {
-  const COLS = Math.min(3, entities.length);
+  const COLS = Math.min(MAX_COLS, entities.length);
   const result = new Map<string, { x: number; y: number; width: number; height: number }>();
 
   // Row heights — each row is the tallest entity in that row

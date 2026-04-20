@@ -7,7 +7,7 @@ let _vennCount = 0;
 
 // ── Layout constants ────────────────────────────────────────────────────────
 const SVG_W   = 560;
-const SVG_H   = 480;
+const SVG_H   = 540;   // taller to prevent top set-label clipping
 const LABEL_FS   = 13;
 const SUBLAB_FS  = 10;
 const INTER_FS   = 12;
@@ -25,10 +25,12 @@ interface CircleDef {
  * Pre-computed circle centers for 2 and 3 set Venn layouts.
  * For 2 sets: side-by-side with ~40 % overlap.
  * For 3 sets: equilateral triangle arrangement.
+ * The centroid is shifted slightly below SVG mid so labels don't clip at top.
  */
 function getCircles(n: number): CircleDef[] {
   const cx = SVG_W / 2;
-  const cy = SVG_H / 2;
+  // Shift centroid 20px below center so top-label has room above circles
+  const cy = SVG_H / 2 + 20;
 
   if (n <= 2) {
     const r   = 140;
@@ -161,9 +163,10 @@ export function createVennDiagram(options: VennDiagramOptions): string {
     const nodeType = SET_NODE_TYPES[i % SET_NODE_TYPES.length];
     const fill = theme.nodeStrokes[nodeType];
 
-    // Place label outside the circle based on position relative to center of diagram
+    // Place label outside the circle based on position relative to centroid of diagram
+    // (matches the shifted centroid used in getCircles)
     const dcx = SVG_W / 2;
-    const dcy = SVG_H / 2;
+    const dcy = SVG_H / 2 + 20;
     const outDx = (c.cx - dcx);
     const outDy = (c.cy - dcy);
     const outLen = Math.sqrt(outDx * outDx + outDy * outDy) || 1;

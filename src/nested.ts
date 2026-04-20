@@ -6,15 +6,15 @@ import type { NestedDiagramOptions } from './types';
 let _nestedCount = 0;
 
 // ── Layout constants ────────────────────────────────────────────────────────
-const PAD_H      = 24;   // horizontal inset between rings
-const PAD_V      = 32;   // vertical inset between rings
-const LABEL_INSET = 8;   // label offset from left edge of its ring
-const LABEL_INSET_TOP = 10; // label offset from top edge of its ring
+const PAD_H      = 30;   // horizontal inset between rings
+const PAD_V      = 40;   // vertical inset between rings
+const LABEL_INSET = 10;   // label offset from left edge of its ring
+const LABEL_INSET_TOP = 12; // label offset from top edge of its ring
 const LABEL_FS   = 11;   // eyebrow label font size
 const SUBLAB_FS  = 10;   // sublabel font size
-const RX         = 8;    // corner radius
-const INNER_W    = 160;  // minimum inner content width
-const INNER_H    = 80;   // minimum inner content height
+const RX         = 10;   // corner radius
+const INNER_W    = 200;  // minimum inner content width
+const INNER_H    = 120;  // minimum inner content height
 
 /**
  * Generate an SVG nested containment diagram.

@@ -7,17 +7,20 @@ let _timelineCount = 0;
 
 // ── Layout constants ────────────────────────────────────────────────────────
 const SVG_W       = 800;
-const PAD_LEFT    = 40;
-const PAD_RIGHT   = 40;
-const AXIS_Y      = 120;    // Y of the horizontal baseline
-const ABOVE_Y     = AXIS_Y - 24;  // label Y for above-axis items
-const BELOW_Y     = AXIS_Y + 34;  // label Y for below-axis items
-const DROP_H      = 18;     // length of the drop-line from label to dot
-const DOT_R       = 4;      // normal event dot radius
-const MILESTONE_R = 7;      // milestone dot radius
+const PAD_LEFT    = 48;
+const PAD_RIGHT   = 48;
+const AXIS_Y      = 160;    // Y of the horizontal baseline (more room below)
+const ABOVE_Y     = AXIS_Y - 36;  // label Y for above-axis items (higher up)
+const BELOW_Y     = AXIS_Y + 48;  // label Y for below-axis items (lower down)
+const DROP_H      = 30;     // length of the drop-line from label to dot
+const DOT_R       = 5;      // normal event dot radius
+const MILESTONE_R = 8;      // milestone dot radius
 const TICK_H      = 6;      // tick mark half-height
-const LABEL_FS    = 12;     // event label font size
+const LABEL_FS    = 13;     // event label font size
 const TICK_FS     = 10;     // tick date label font size
+// Gap constants for label drop-line endpoints (space between text baseline/cap and line end)
+const LABEL_LINE_GAP_ABOVE = 4;  // pixels below label baseline to end of drop-line (above axis)
+const LABEL_LINE_GAP_BELOW = 2;  // pixels above label cap-height to end of drop-line (below axis)
 
 /** Parse a date string to a timestamp (ms since epoch). Returns NaN on failure. */
 function parseEventDate(s: string): number {
@@ -81,7 +84,7 @@ export function createTimelineDiagram(options: TimelineDiagramOptions): string {
   }
 
   // ── SVG height: enough for above/below labels + title ────────────────────
-  const SVG_H = AXIS_Y + DROP_H + 60;
+  const SVG_H = AXIS_Y + DROP_H + 100;
 
   const accentStroke = theme.nodeStrokes['decision'];
   const accentFill   = theme.nodeFills['decision'];
@@ -153,11 +156,11 @@ export function createTimelineDiagram(options: TimelineDiagramOptions): string {
     const dotStroke = ev.milestone ? accentStroke : 'none';
     const textFill  = ev.milestone ? accentStroke : theme.edgeColor;
 
-    // Drop-line from dot to label
+    // Drop-line: from just outside the dot to the label anchor
     const dotY   = AXIS_Y;
     const lineY1 = above ? dotY - r - 1 : dotY + r + 1;
-    const lineY2 = above ? dotY - r - DROP_H : dotY + r + DROP_H;
-    const labelY = above ? lineY2 - 4 : lineY2 + LABEL_FS;
+    const lineY2 = above ? ABOVE_Y + LABEL_FS + LABEL_LINE_GAP_ABOVE : BELOW_Y - LABEL_FS - LABEL_LINE_GAP_BELOW;
+    const labelY = above ? ABOVE_Y : BELOW_Y;
 
     parts.push(
       `<line x1="${ex}" y1="${lineY1}" x2="${ex}" y2="${lineY2}" ` +
