@@ -8,7 +8,6 @@ import { createStateDiagram } from './state';
 import { createErDiagram } from './er';
 import { createTimelineDiagram } from './timeline';
 import { createSwimlaneDiagram } from './swimlane';
-import { createNestedDiagram } from './nested';
 import { createVennDiagram } from './venn';
 import { createPyramidDiagram } from './pyramid';
 import { parseFigmd } from './parse';
@@ -37,7 +36,6 @@ const EMPTY_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1">
  * - `'er'`       — ER / data model (entities with fields, relationships)
  * - `'timeline'` — timeline (events plotted on a horizontal date axis)
  * - `'swimlane'` — swimlane (cross-functional flow with lane bands)
- * - `'nested'`   — nested containment (concentric rounded rectangles)
  * - `'venn'`     — Venn diagram (2–3 set overlap)
  * - `'pyramid'`  — pyramid / funnel (ranked hierarchy trapezoids)
  *
@@ -91,8 +89,6 @@ function figDispatch(options: FigOptions): string {
       return createTimelineDiagram(options);
     case 'swimlane':
       return createSwimlaneDiagram(options);
-    case 'nested':
-      return createNestedDiagram(options);
     case 'venn':
       return createVennDiagram(options);
     case 'pyramid':
@@ -139,8 +135,6 @@ export type {
   SwimlaneNode,
   SwimlaneEdge,
   SwimlaneDiagramOptions,
-  NestedRing,
-  NestedDiagramOptions,
   VennSet,
   VennIntersection,
   VennDiagramOptions,

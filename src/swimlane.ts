@@ -6,15 +6,15 @@ import type { SwimlaneDiagramOptions, SwimlaneNode, SwimlaneEdge, NodeType } fro
 let _swimlaneCount = 0;
 
 // ── Layout constants ────────────────────────────────────────────────────────
-const LANE_LABEL_W  = 120;   // left column width for lane labels
+const LANE_LABEL_W  = 130;   // left column width for lane labels
 const NODE_W        = 152;   // node box width
 const NODE_H        = 50;    // node box height
 const NODE_RX       = 8;
 const NODE_H_GAP    = 32;    // horizontal gap between nodes within a lane
 const NODE_V_GAP    = 30;    // vertical gap between nodes within a lane (reserved)
-const LANE_PAD_TOP  = 30;    // padding at top of each lane above nodes
-const LANE_PAD_BOT  = 30;    // padding at bottom of each lane below nodes
-const LANE_FS       = 11;    // lane label font size
+const LANE_PAD_TOP  = 32;    // padding at top of each lane above nodes
+const LANE_PAD_BOT  = 32;    // padding at bottom of each lane below nodes
+const LANE_FS       = 13;    // lane label font size
 const LABEL_FS      = 13;    // node label font size
 
 // ── Node type → color cycle ──────────────────────────────────────────────────
@@ -116,25 +116,35 @@ export function createSwimlaneDiagram(options: SwimlaneDiagramOptions): string {
     const y     = layout.laneY.get(lane) ?? 0;
     const h     = layout.laneH.get(lane) ?? NODE_H + LANE_PAD_TOP + LANE_PAD_BOT;
 
-    // Alternate tint for odd lanes
+    // Each lane gets a distinct color from the node palette for its header
+    const laneType   = SWIM_NODE_TYPES[li % SWIM_NODE_TYPES.length];
+    const laneHdrFill   = theme.nodeFills[laneType];
+    const laneHdrStroke = theme.nodeStrokes[laneType];
+    const laneHdrText   = theme.textColors[laneType];
+
+    // Subtle content band tint (alternating): light tint derived from lane color
     const bandFill = li % 2 === 1 ? theme.groupFill : 'none';
     parts.push(
-      `<rect x="0" y="${y}" width="${WIDTH}" height="${h}" ` +
+      `<rect x="${LANE_LABEL_W}" y="${y}" width="${WIDTH - LANE_LABEL_W}" height="${h}" ` +
         `fill="${escapeXml(bandFill)}" stroke="none"/>`,
     );
 
-    // Horizontal divider line
+    // Horizontal divider line (top of lane)
     parts.push(
       `<line x1="0" y1="${y}" x2="${WIDTH}" y2="${y}" ` +
-        `stroke="${escapeXml(theme.groupColor)}" stroke-width="1"/>`,
+        `stroke="${escapeXml(laneHdrStroke)}" stroke-width="1.5"/>`,
     );
 
-    // Lane label column background
+    // Lane label column — use this lane's palette color as background
     parts.push(
       `<rect x="0" y="${y}" width="${LANE_LABEL_W}" height="${h}" ` +
-        `fill="${escapeXml(theme.groupFill)}" stroke="none"/>`,
+        `fill="${escapeXml(laneHdrFill)}" stroke="none"/>`,
+    );
+
+    // Right border of label column
+    parts.push(
       `<line x1="${LANE_LABEL_W}" y1="${y}" x2="${LANE_LABEL_W}" y2="${y + h}" ` +
-        `stroke="${escapeXml(theme.groupColor)}" stroke-width="1"/>`,
+        `stroke="${escapeXml(laneHdrStroke)}" stroke-width="2"/>`,
     );
 
     // Lane label text (vertical centering)
@@ -143,14 +153,14 @@ export function createSwimlaneDiagram(options: SwimlaneDiagramOptions): string {
       `<text x="${LANE_LABEL_W / 2}" y="${labelCY}" text-anchor="middle" ` +
         `dominant-baseline="central" ` +
         `font-family="${escapeXml(theme.fontFamily)}" font-size="${LANE_FS}" ` +
-        `font-weight="600" fill="${escapeXml(theme.edgeColor)}">${escapeXml(lane)}</text>`,
+        `font-weight="700" fill="${escapeXml(laneHdrText)}">${escapeXml(lane)}</text>`,
     );
   }
 
   // Bottom border
   parts.push(
     `<line x1="0" y1="${HEIGHT}" x2="${WIDTH}" y2="${HEIGHT}" ` +
-      `stroke="${escapeXml(theme.groupColor)}" stroke-width="1"/>`,
+      `stroke="${escapeXml(theme.groupColor)}" stroke-width="1.5"/>`,
   );
 
   // ── Edges ─────────────────────────────────────────────────────────────────

@@ -449,37 +449,6 @@ export interface SwimlaneDiagramOptions {
 }
 
 // ---------------------------------------------------------------------------
-// NestedDiagram types
-// ---------------------------------------------------------------------------
-
-/** One containment ring in a nested diagram (outermost first). */
-export interface NestedRing {
-  /** Text label shown at the top-left corner of the ring. */
-  label: string;
-  /** Optional sublabel shown below the label (e.g. a short description). */
-  sublabel?: string;
-  /** Highlight this ring with the accent color (innermost focal; max 1). */
-  accent?: boolean;
-}
-
-/** Options passed to {@link createNestedDiagram}. */
-export interface NestedDiagramOptions {
-  /**
-   * Rings from outermost (index 0) to innermost (last index).
-   * Aim for 3–5 rings; more than 6 is illegible.
-   */
-  rings: NestedRing[];
-  /** Light or dark rendering mode (default: 'light'). */
-  theme?: ThemeType;
-  /** Color palette (default: `'default'`). */
-  palette?: PaletteType;
-  /** Optional chart title. */
-  title?: string;
-  /** Optional subtitle. */
-  subtitle?: string;
-}
-
-// ---------------------------------------------------------------------------
 // VennDiagram types
 // ---------------------------------------------------------------------------
 
@@ -580,6 +549,5 @@ export type FigOptions =
   | ({ figure: 'er' } & ErDiagramOptions)
   | ({ figure: 'timeline' } & TimelineDiagramOptions)
   | ({ figure: 'swimlane' } & SwimlaneDiagramOptions)
-  | ({ figure: 'nested' } & NestedDiagramOptions)
   | ({ figure: 'venn' } & VennDiagramOptions)
   | ({ figure: 'pyramid' } & PyramidDiagramOptions);

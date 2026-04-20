@@ -65,19 +65,6 @@ it('swimlane — parseFigmd markdown round-trip', () => {
   matchSvgSnapshot('swimlane-parse-figmd', svg);
 });
 
-it('nested — parseFigmd markdown round-trip', () => {
-  const svg = fig(`
-    nested
-    title: Zones
-    Internet
-    VPC: cloud network
-    Service accent
-  `);
-  expect(svg).toContain('nested-diagram');
-  expect(svg).toContain('Zones');
-  matchSvgSnapshot('nested-parse-figmd', svg);
-});
-
 it('venn — parseFigmd markdown round-trip', () => {
   const svg = fig(`
     venn

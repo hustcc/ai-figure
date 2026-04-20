@@ -17,7 +17,6 @@ import type {
   TimelineEvent,
   SwimlaneNode,
   SwimlaneEdge,
-  NestedRing,
   VennSet,
   VennIntersection,
   PyramidLayer,
@@ -37,7 +36,7 @@ import type {
  * The first non-empty line is the **header**: `<type> [direction] [theme] [palette]`
  *
  * - `type`      — one of `flow`, `tree`, `arch`, `sequence`, `quadrant`, `gantt`,
- *                 `state`, `er`, `timeline`, `swimlane`, `nested`, `venn`, `pyramid`
+ *                 `state`, `er`, `timeline`, `swimlane`, `venn`, `pyramid`
  * - `direction` — `TB` (top→bottom) or `LR` (left→right); applies to flow / tree / arch
  * - `theme`     — `light` (default) or `dark`
  * - `palette`   — any named palette: `default`, `antv`, `drawio`, `figma`, `vega`,
@@ -116,8 +115,6 @@ export function parseFigmd(markdown: string): FigOptions {
       return parseTimeline(bodyLines, theme, palette);
     case 'swimlane':
       return parseSwimlane(bodyLines, theme, palette);
-    case 'nested':
-      return parseNested(bodyLines, theme, palette);
     case 'venn':
       return parseVenn(bodyLines, theme, palette);
     case 'pyramid':
@@ -126,7 +123,7 @@ export function parseFigmd(markdown: string): FigOptions {
       throw new Error(
         `figmd: unknown figure type "${figureType}". ` +
           `Expected one of: flow, tree, arch, sequence, quadrant, gantt, ` +
-          `state, er, timeline, swimlane, nested, venn, pyramid`,
+          `state, er, timeline, swimlane, venn, pyramid`,
       );
   }
 }
@@ -1284,72 +1281,6 @@ function parseSwimlane(
     lanes: lanesList,
     nodes,
     edges,
-    ...(theme !== undefined ? { theme } : {}),
-    ...(palette !== undefined ? { palette } : {}),
-    ...(title !== undefined ? { title } : {}),
-    ...(subtitle !== undefined ? { subtitle } : {}),
-  };
-}
-
-// ---------------------------------------------------------------------------
-// Nested parser
-// ---------------------------------------------------------------------------
-
-/**
- * Parse nested containment body lines.
- *
- * Each non-blank line defines one ring from outermost (first) to innermost (last).
- * Format: `Label` or `Label: sublabel` or `Label accent`.
- *
- * @example
- * ```
- * nested
- * title: Trust Zones
- * Internet
- * VPC: your cloud network
- * Subnet
- * Service: critical path accent
- * ```
- */
-function parseNested(
-  lines: string[],
-  theme?: ThemeType,
-  palette?: PaletteType,
-): FigOptions {
-  const { title, subtitle, rest } = extractMeta(lines);
-  const rings: NestedRing[] = [];
-
-  for (const line of rest) {
-    let raw = line;
-    let accent = false;
-
-    if (raw.endsWith(' accent')) {
-      accent = true;
-      raw = raw.slice(0, -' accent'.length).trim();
-    }
-
-    const colonIdx = raw.indexOf(':');
-    let label: string;
-    let sublabel: string | undefined;
-    if (colonIdx !== -1) {
-      label    = raw.slice(0, colonIdx).trim();
-      sublabel = raw.slice(colonIdx + 1).trim();
-    } else {
-      label = raw.trim();
-    }
-
-    if (label) {
-      rings.push({
-        label,
-        ...(sublabel ? { sublabel } : {}),
-        ...(accent ? { accent: true } : {}),
-      });
-    }
-  }
-
-  return {
-    figure: 'nested',
-    rings,
     ...(theme !== undefined ? { theme } : {}),
     ...(palette !== undefined ? { palette } : {}),
     ...(title !== undefined ? { title } : {}),

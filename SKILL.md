@@ -1,12 +1,12 @@
 ---
 name: ai-figure
 version: "0.2.0"
-description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence, quadrant, gantt, state machine, ER, timeline, swimlane, nested, venn, pyramid) from a markdown string or a JSON config via fig(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
+description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence, quadrant, gantt, state machine, ER, timeline, swimlane, venn, pyramid) from a markdown string or a JSON config via fig(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
 author: hustcc
 license: MIT
 package: ai-figure
 api: fig(markdown|options) → string (SVG)
-tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, state-machine, er-diagram, timeline, swimlane, nested, venn, pyramid, svg, layout, visualization, markdown]
+tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, state-machine, er-diagram, timeline, swimlane, venn, pyramid, svg, layout, visualization, markdown]
 ---
 
 # ai-figure Skill
@@ -47,7 +47,7 @@ const svg2 = fig({ figure: 'flow', nodes: [...], edges: [...] });
 
 | Token | Values | Default |
 |-------|--------|---------|
-| `type` | `flow` `tree` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` `nested` `venn` `pyramid` | required |
+| `type` | `flow` `tree` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` `venn` `pyramid` | required |
 | `direction` | `TB` `LR` | `TB` |
 | `theme` | `light` `dark` | `light` |
 | `palette` | `default` `antv` `drawio` `figma` `vega` `mono-blue` `mono-green` `mono-purple` `mono-orange` | `default` |
@@ -218,22 +218,6 @@ pack --> ship
 - `LaneName: id[Node Label]` — node declaration inside a lane
 - `A --> B` or `A --> B: label` — directed edges (may cross lanes)
 
-### nested
-
-```figure
-nested [theme] [palette]
-title: Trust Zones
-Internet: untrusted outside
-VPC: cloud network
-Subnet: private zone
-Service: critical path accent   %% innermost focal ring
-```
-
-- Each line is one ring, from outermost (first) to innermost (last)
-- Format: `Label` or `Label: sublabel` or `Label: sublabel accent`
-- Append ` accent` to mark the innermost focal ring (max 1)
-- Aim for 3–5 rings; 6+ is illegible
-
 ### venn
 
 ```figure
@@ -359,13 +343,6 @@ interface SwimlaneDiagramOptions {
   lanes: string[];          // lane labels in display order
   nodes: SwimlaneNode[];    // { id, label, lane, type? }  lane = one of lanes[]
   edges: SwimlaneEdge[];    // { from, to, label? }
-  title?: string; subtitle?: string;
-  theme?: 'light'|'dark'; palette?: string|string[];
-}
-
-interface NestedDiagramOptions {
-  figure: 'nested';
-  rings: NestedRing[];      // [outermost..innermost]  { label, sublabel?, accent? }
   title?: string; subtitle?: string;
   theme?: 'light'|'dark'; palette?: string|string[];
 }
