@@ -8,7 +8,6 @@ import { createStateDiagram } from './state';
 import { createErDiagram } from './er';
 import { createTimelineDiagram } from './timeline';
 import { createSwimlaneDiagram } from './swimlane';
-import { createPyramidDiagram } from './pyramid';
 import { parseFigmd } from './parse';
 import type { FigOptions } from './types';
 
@@ -35,7 +34,6 @@ const EMPTY_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1">
  * - `'er'`       — ER / data model (entities with fields, relationships)
  * - `'timeline'` — timeline (events plotted on a horizontal date axis)
  * - `'swimlane'` — swimlane (cross-functional flow with lane bands)
- * - `'pyramid'`  — pyramid / funnel (ranked hierarchy trapezoids)
  *
  * Returns a fully self-contained SVG string; no coordinates needed.
  *
@@ -87,8 +85,6 @@ function figDispatch(options: FigOptions): string {
       return createTimelineDiagram(options);
     case 'swimlane':
       return createSwimlaneDiagram(options);
-    case 'pyramid':
-      return createPyramidDiagram(options);
     default: {
       const _exhaustive: never = options;
       throw new Error(`Unknown figure type: ${(_exhaustive as FigOptions).figure}`);
@@ -131,6 +127,4 @@ export type {
   SwimlaneNode,
   SwimlaneEdge,
   SwimlaneDiagramOptions,
-  PyramidLayer,
-  PyramidDiagramOptions,
 } from './types';

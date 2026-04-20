@@ -11,7 +11,7 @@
 - 🎨 **Rich visual styles** — light/dark mode, nine built-in palettes (`default`, `antv`, `drawio`, `figma`, `vega`, `mono-blue`, `mono-green`, `mono-purple`, `mono-orange`) plus custom hex arrays; every diagram supports optional title & subtitle, node groups, and color-coded layers
 - 📐 **Auto layout** — just describe the graph; x/y coordinates are computed automatically, and diagram dimensions scale to fit the content
 - 🤖 **AI-friendly** — single `fig()` entry point accepts a markdown string **or** a JSON config; streaming-safe (partial input never throws); ships a [`SKILL.md`](https://github.com/hustcc/ai-figure/blob/main/SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
-- 📊 **11 diagram types** — flowchart, tree, architecture, sequence, quadrant, Gantt, state machine, ER data model, timeline, swimlane, and pyramid/funnel; pure SVG output with zero DOM dependency, works in browser and Node.js
+- 📊 **10 diagram types** — flowchart, tree, architecture, sequence, quadrant, Gantt, state machine, ER data model, timeline, and swimlane; pure SVG output with zero DOM dependency, works in browser and Node.js
 
 ## Quick Start
 
@@ -91,7 +91,6 @@ fig({ figure: 'state',    ...stateOptions    }); // state machine
 fig({ figure: 'er',       ...erOptions       }); // ER data model
 fig({ figure: 'timeline', ...timelineOptions }); // timeline
 fig({ figure: 'swimlane', ...swimlaneOptions }); // swimlane flow
-fig({ figure: 'pyramid',  ...pyramidOptions  }); // pyramid / funnel
 
 // markdown string
 fig(`flow LR\na[A] --> b[B]`);
@@ -536,58 +535,9 @@ fig({
 });
 ```
 
-### `figure: 'pyramid'` — Pyramid / Funnel
-
-Renders trapezoid layers from narrow apex to wide base (`'pyramid'`) or wide top to narrow bottom (`'funnel'`). Provide `value` on all layers for proportional widths.
-
-| Field         | Type              | Default       | Description                                  |
-|---------------|-------------------|---------------|----------------------------------------------|
-| `figure`      | `'pyramid'`       | **required**  | Selects the pyramid / funnel renderer        |
-| `layers`      | `PyramidLayer[]`  | **required**  | Layers from apex to base                     |
-| `orientation` | `'pyramid'\|'funnel'` | `'pyramid'` | `'funnel'` flips apex to bottom            |
-| `title`       | `string`          | `undefined`   | Optional centered title above the diagram    |
-| `subtitle`    | `string`          | `undefined`   | Optional centered subtitle below the title   |
-| `theme`       | `ThemeType`       | `'light'`     | Light or dark rendering mode                 |
-| `palette`     | `PaletteType`     | `'default'`   | Color palette — see [Palette API](#palette-api) below |
-
-#### `PyramidLayer`
-
-| Field      | Type      | Default      | Description                                               |
-|------------|-----------|--------------|-----------------------------------------------------------|
-| `label`    | `string`  | **required** | Text centered inside the trapezoid                        |
-| `sublabel` | `string`  | `undefined`  | Optional smaller text below the label                     |
-| `value`    | `number`  | `undefined`  | Numeric value — when all layers have values, widths scale proportionally |
-| `accent`   | `boolean` | `false`      | Highlight this layer with the accent color (max 1)        |
-
-```typescript
-fig({
-  figure: 'pyramid',
-  title: 'Content Hierarchy',
-  layers: [
-    { label: 'Strategy',    sublabel: 'mission & vision', accent: true },
-    { label: 'Goals',       sublabel: 'OKRs & KPIs' },
-    { label: 'Initiatives', sublabel: 'projects & epics' },
-    { label: 'Tasks',       sublabel: 'day-to-day work' },
-  ],
-});
-
-// Funnel with proportional widths
-fig({
-  figure: 'pyramid',
-  title: 'Conversion Funnel',
-  orientation: 'funnel',
-  layers: [
-    { label: 'Visitors',          value: 100 },
-    { label: 'Signups',           value: 42  },
-    { label: 'Active Users',      value: 18  },
-    { label: 'Paying Customers',  value: 5, accent: true },
-  ],
-});
-```
-
 ### Palette API
 
-All eleven diagram types accept two independent styling parameters:
+All ten diagram types accept two independent styling parameters:
 
 | Field     | Type                   | Default       | Description                          |
 |-----------|------------------------|---------------|--------------------------------------|
@@ -632,7 +582,7 @@ fig({ figure: 'flow', nodes, edges, palette: ['#e64980', '#ae3ec9', '#7048e8', '
 
 | Token | Values | Default |
 |-------|--------|---------|
-| `type` | `flow` \| `tree` \| `arch` \| `sequence` \| `quadrant` \| `gantt` \| `state` \| `er` \| `timeline` \| `swimlane` \| `pyramid` | **required** |
+| `type` | `flow` \| `tree` \| `arch` \| `sequence` \| `quadrant` \| `gantt` \| `state` \| `er` \| `timeline` \| `swimlane` | **required** |
 | `direction` | `TB` \| `LR` | `TB` |
 | `theme` | `light` \| `dark` | `light` |
 | `palette` | any named palette (see [Palette API](#palette-api)) | `default` |
@@ -785,21 +735,6 @@ Shipping: ship[Ship Package]
 order --> pack                            %% edges between nodes
 pack --> ship
 ```
-</details>
-
-<details>
-<summary><strong>pyramid / funnel</strong></summary>
-
-```
-pyramid [funnel] [light|dark] [palette]
-title: Optional Title
-Strategy: mission & vision accent   %% apex (narrowest top layer)
-Goals: OKRs & KPIs
-Initiatives: projects & epics
-Tasks: day-to-day work              %% base (widest bottom layer)
-```
-
-Add `funnel` after `pyramid` to flip: widest layer on top (full audience → narrowest conversion).
 </details>
 
 ## Using with AI

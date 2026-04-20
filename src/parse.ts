@@ -17,7 +17,6 @@ import type {
   TimelineEvent,
   SwimlaneNode,
   SwimlaneEdge,
-  PyramidLayer,
   Direction,
   ThemeType,
   PaletteType,
@@ -34,7 +33,7 @@ import type {
  * The first non-empty line is the **header**: `<type> [direction] [theme] [palette]`
  *
  * - `type`      — one of `flow`, `tree`, `arch`, `sequence`, `quadrant`, `gantt`,
- *                 `state`, `er`, `timeline`, `swimlane`, `pyramid`
+ *                 `state`, `er`, `timeline`, `swimlane`
  * - `direction` — `TB` (top→bottom) or `LR` (left→right); applies to flow / tree / arch
  * - `theme`     — `light` (default) or `dark`
  * - `palette`   — any named palette: `default`, `antv`, `drawio`, `figma`, `vega`,
@@ -75,7 +74,6 @@ export function parseFigmd(markdown: string): FigOptions {
   let direction: Direction | undefined;
   let theme: ThemeType | undefined;
   let palette: PaletteType | undefined;
-  let pyramidOrientation: 'pyramid' | 'funnel' | undefined;
 
   for (let j = 1; j < headerTokens.length; j++) {
     const t = headerTokens[j];
@@ -83,8 +81,6 @@ export function parseFigmd(markdown: string): FigOptions {
       direction = t as Direction;
     } else if (t === 'light' || t === 'dark') {
       theme = t as ThemeType;
-    } else if (t === 'funnel' && figureType === 'pyramid') {
-      pyramidOrientation = 'funnel';
     } else {
       palette = t;
     }
@@ -113,13 +109,11 @@ export function parseFigmd(markdown: string): FigOptions {
       return parseTimeline(bodyLines, theme, palette);
     case 'swimlane':
       return parseSwimlane(bodyLines, theme, palette);
-    case 'pyramid':
-      return parsePyramid(bodyLines, theme, palette, pyramidOrientation);
     default:
       throw new Error(
         `figmd: unknown figure type "${figureType}". ` +
           `Expected one of: flow, tree, arch, sequence, quadrant, gantt, ` +
-          `state, er, timeline, swimlane, pyramid`,
+          `state, er, timeline, swimlane`,
       );
   }
 }
@@ -1277,128 +1271,6 @@ function parseSwimlane(
     lanes: lanesList,
     nodes,
     edges,
-    ...(theme !== undefined ? { theme } : {}),
-    ...(palette !== undefined ? { palette } : {}),
-    ...(title !== undefined ? { title } : {}),
-    ...(subtitle !== undefined ? { subtitle } : {}),
-  };
-}
-
-// ---------------------------------------------------------------------------
-// Pyramid parser
-// ---------------------------------------------------------------------------
-
-/**
- * Parse pyramid / funnel body lines.
- *
- * Each line defines one layer from top to bottom. Format:
- * `Label` or `Label: sublabel` or `Label: sublabel (value%)` or `Label accent`.
- *
- * The header token may include `funnel` to set orientation.
- * (The caller strips header tokens before passing lines here; orientation
- *  is determined by whether the header contained `funnel` — see parseFigmd.)
- *
- * @example
- * ```
- * pyramid
- * title: Content Hierarchy
- * Leadership
- * Management: directors & VPs
- * Individual Contributors: ICs
- * Contractors accent
- * ```
- *
- * ```
- * pyramid funnel
- * title: Conversion
- * Visitors: 100%
- * Signups: 42%
- * Active: 18%
- * Paying accent
- * ```
- */
-function parsePyramid(
-  lines: string[],
-  theme?: ThemeType,
-  palette?: PaletteType,
-  orientation?: 'pyramid' | 'funnel',
-): FigOptions {
-  const { title, subtitle, rest } = extractMeta(lines);
-  const layers: PyramidLayer[] = [];
-
-  for (const line of rest) {
-    let raw = line;
-    let accent = false;
-
-    if (raw.endsWith(' accent')) {
-      accent = true;
-      raw = raw.slice(0, -' accent'.length).trim();
-    }
-
-    let label: string;
-    let sublabel: string | undefined;
-    let value: number | undefined;
-
-    const colonIdx = raw.indexOf(':');
-    if (colonIdx !== -1) {
-      label = raw.slice(0, colonIdx).trim();
-      let sub = raw.slice(colonIdx + 1).trim();
-
-      // Try to extract a trailing percentage like "42%", "(42%)", or "42.5%".
-      // Use indexOf/slice instead of regex to avoid polynomial backtracking.
-      {
-        let t = sub;
-        // Strip optional closing paren
-        if (t.endsWith(')')) t = t.slice(0, -1).trimEnd();
-        // Must end with '%'
-        if (t.endsWith('%')) {
-          t = t.slice(0, -1).trimEnd();
-          // Strip optional opening paren
-          if (t.endsWith('(')) t = t.slice(0, -1).trimEnd();
-          // Scan backwards for the numeric token (digits + at most one '.')
-          let numEnd = t.length;
-          let dotSeen = false;
-          let numStart = numEnd;
-          while (numStart > 0) {
-            const ch = t[numStart - 1];
-            if (ch >= '0' && ch <= '9') {
-              numStart--;
-            } else if (ch === '.' && !dotSeen) {
-              dotSeen = true;
-              numStart--;
-            } else {
-              break;
-            }
-          }
-          const numStr = t.slice(numStart, numEnd);
-          if (numStr.length > 0) {
-            const numVal = Number(numStr);
-            if (Number.isFinite(numVal)) {
-              value = numVal;
-              sub   = t.slice(0, numStart).trimEnd();
-            }
-          }
-        }
-      }
-      if (sub) sublabel = sub;
-    } else {
-      label = raw.trim();
-    }
-
-    if (label) {
-      layers.push({
-        label,
-        ...(sublabel ? { sublabel } : {}),
-        ...(value !== undefined ? { value } : {}),
-        ...(accent ? { accent: true } : {}),
-      });
-    }
-  }
-
-  return {
-    figure: 'pyramid',
-    layers,
-    ...(orientation ? { orientation } : {}),
     ...(theme !== undefined ? { theme } : {}),
     ...(palette !== undefined ? { palette } : {}),
     ...(title !== undefined ? { title } : {}),

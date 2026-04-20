@@ -64,28 +64,3 @@ it('swimlane — parseFigmd markdown round-trip', () => {
   expect(svg).toContain('Order Flow');
   matchSvgSnapshot('swimlane-parse-figmd', svg);
 });
-
-it('pyramid — parseFigmd markdown round-trip', () => {
-  const svg = fig(`
-    pyramid
-    title: Hierarchy
-    Level 1 accent
-    Level 2
-    Level 3
-  `);
-  expect(svg).toContain('pyramid-diagram');
-  expect(svg).toContain('Hierarchy');
-  matchSvgSnapshot('pyramid-parse-figmd', svg);
-});
-
-it('pyramid funnel — parseFigmd markdown round-trip', () => {
-  const svg = fig(`
-    pyramid funnel
-    title: Funnel
-    Visitors: 100%
-    Trials: 30%
-    Paying: 8% accent
-  `);
-  expect(svg).toContain('pyramid-diagram');
-  matchSvgSnapshot('pyramid-funnel-parse-figmd', svg);
-});

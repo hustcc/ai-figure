@@ -449,48 +449,6 @@ export interface SwimlaneDiagramOptions {
 }
 
 // ---------------------------------------------------------------------------
-// PyramidDiagram types
-// ---------------------------------------------------------------------------
-
-/** A single layer (tier) in a pyramid or funnel diagram. */
-export interface PyramidLayer {
-  /** Text label centered inside the trapezoid. */
-  label: string;
-  /** Optional sublabel shown in smaller type below the label. */
-  sublabel?: string;
-  /**
-   * Optional numeric value — when provided across all layers, widths are
-   * scaled proportionally (honest sizing for funnel conversion data).
-   */
-  value?: number;
-  /** Highlight this layer with the accent color (max 1). */
-  accent?: boolean;
-}
-
-/** Options passed to {@link createPyramidDiagram}. */
-export interface PyramidDiagramOptions {
-  /**
-   * Layers from top (apex) to bottom (base) for `'pyramid'` orientation,
-   * or from top (widest audience) to bottom (narrowest conversion) for `'funnel'`.
-   * Aim for 4–6 layers.
-   */
-  layers: PyramidLayer[];
-  /**
-   * - `'pyramid'` (default) — narrow apex = most important / rarest.
-   * - `'funnel'` — wide top = full audience, narrow bottom = conversions.
-   */
-  orientation?: 'pyramid' | 'funnel';
-  /** Light or dark rendering mode (default: 'light'). */
-  theme?: ThemeType;
-  /** Color palette (default: `'default'`). */
-  palette?: PaletteType;
-  /** Optional chart title. */
-  title?: string;
-  /** Optional subtitle. */
-  subtitle?: string;
-}
-
-// ---------------------------------------------------------------------------
 // Unified fig() API
 // ---------------------------------------------------------------------------
 
@@ -505,5 +463,4 @@ export type FigOptions =
   | ({ figure: 'state' } & StateDiagramOptions)
   | ({ figure: 'er' } & ErDiagramOptions)
   | ({ figure: 'timeline' } & TimelineDiagramOptions)
-  | ({ figure: 'swimlane' } & SwimlaneDiagramOptions)
-  | ({ figure: 'pyramid' } & PyramidDiagramOptions);
+  | ({ figure: 'swimlane' } & SwimlaneDiagramOptions);

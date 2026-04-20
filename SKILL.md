@@ -1,12 +1,12 @@
 ---
 name: ai-figure
 version: "0.2.0"
-description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence, quadrant, gantt, state machine, ER, timeline, swimlane, pyramid) from a markdown string or a JSON config via fig(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
+description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence, quadrant, gantt, state machine, ER, timeline, swimlane) from a markdown string or a JSON config via fig(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
 author: hustcc
 license: MIT
 package: ai-figure
 api: fig(markdown|options) → string (SVG)
-tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, state-machine, er-diagram, timeline, swimlane, pyramid, svg, layout, visualization, markdown]
+tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, state-machine, er-diagram, timeline, swimlane, svg, layout, visualization, markdown]
 ---
 
 # ai-figure Skill
@@ -47,7 +47,7 @@ const svg2 = fig({ figure: 'flow', nodes: [...], edges: [...] });
 
 | Token | Values | Default |
 |-------|--------|---------|
-| `type` | `flow` `tree` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` `pyramid` | required |
+| `type` | `flow` `tree` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` | required |
 | `direction` | `TB` `LR` | `TB` |
 | `theme` | `light` `dark` | `light` |
 | `palette` | `default` `antv` `drawio` `figma` `vega` `mono-blue` `mono-green` `mono-purple` `mono-orange` | `default` |
@@ -218,32 +218,6 @@ pack --> ship
 - `LaneName: id[Node Label]` — node declaration inside a lane
 - `A --> B` or `A --> B: label` — directed edges (may cross lanes)
 
-### pyramid
-
-```figure
-pyramid [funnel] [theme] [palette]
-title: Content Hierarchy
-Strategy: mission & vision accent    %% apex (narrowest)
-Goals: OKRs & KPIs
-Initiatives: projects & epics
-Tasks: day-to-day work               %% base (widest)
-```
-
-```figure
-pyramid funnel [theme] [palette]
-title: Conversion Funnel
-Visitors: 100%
-Signups: 42%
-Active Users: 18%
-Paying Customers: 5% accent
-```
-
-- Each line is one layer from top (narrowest apex) to bottom (widest base)
-- Format: `Label` or `Label: sublabel` or `Label: value%` or `Label: sublabel (value%)`
-- Append ` accent` to mark the focal layer (max 1)
-- Add `funnel` to the header token to flip orientation (wide top = full audience)
-- Provide `value%` on all layers for proportional widths (honest funnel sizing)
-
 ## JSON config (fig(options))
 
 Same result as markdown but typed. Use when building diagrams programmatically.
@@ -327,14 +301,6 @@ interface SwimlaneDiagramOptions {
   lanes: string[];          // lane labels in display order
   nodes: SwimlaneNode[];    // { id, label, lane, type? }  lane = one of lanes[]
   edges: SwimlaneEdge[];    // { from, to, label? }
-  title?: string; subtitle?: string;
-  theme?: 'light'|'dark'; palette?: string|string[];
-}
-
-interface PyramidDiagramOptions {
-  figure: 'pyramid';
-  layers: PyramidLayer[];   // [top-apex..bottom-base]  { label, sublabel?, value?, accent? }
-  orientation?: 'pyramid'|'funnel'; // default: 'pyramid'
   title?: string; subtitle?: string;
   theme?: 'light'|'dark'; palette?: string|string[];
 }
