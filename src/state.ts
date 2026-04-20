@@ -172,7 +172,9 @@ export function createStateDiagram(options: StateDiagramOptions): string {
 
     parts.push(
       '<path d="' + escapeXml(pathD) + '" fill="none" stroke="' + escapeXml(edgeStroke) + '" ' +
-        'stroke-width="' + theme.edgeWidth + '" marker-end="' + markerRef + '"/>',
+        'stroke-width="' + theme.edgeWidth + '" stroke-dasharray="6,4" marker-end="' + markerRef + '">' +
+        '<animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/>' +
+      '</path>',
     );
 
     if (t.label) {

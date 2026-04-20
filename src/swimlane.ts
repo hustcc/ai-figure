@@ -6,14 +6,14 @@ import type { SwimlaneDiagramOptions, SwimlaneNode, SwimlaneEdge, NodeType } fro
 let _swimlaneCount = 0;
 
 // ── Layout constants ────────────────────────────────────────────────────────
-const LANE_LABEL_W  = 110;   // left column width for lane labels
-const NODE_W        = 144;   // node box width
-const NODE_H        = 44;    // node box height
-const NODE_RX       = 6;
-const NODE_H_GAP    = 20;    // horizontal gap between nodes within a lane
-const NODE_V_GAP    = 24;    // vertical gap between nodes within a lane
-const LANE_PAD_TOP  = 20;    // padding at top of each lane above nodes
-const LANE_PAD_BOT  = 20;    // padding at bottom of each lane below nodes
+const LANE_LABEL_W  = 120;   // left column width for lane labels
+const NODE_W        = 152;   // node box width
+const NODE_H        = 50;    // node box height
+const NODE_RX       = 8;
+const NODE_H_GAP    = 32;    // horizontal gap between nodes within a lane
+const NODE_V_GAP    = 30;    // vertical gap between nodes within a lane (reserved)
+const LANE_PAD_TOP  = 30;    // padding at top of each lane above nodes
+const LANE_PAD_BOT  = 30;    // padding at bottom of each lane below nodes
 const LANE_FS       = 11;    // lane label font size
 const LABEL_FS      = 13;    // node label font size
 
@@ -191,8 +191,10 @@ export function createSwimlaneDiagram(options: SwimlaneDiagramOptions): string {
 
     parts.push(
       `<path d="${escapeXml(pathD)}" fill="none" ` +
-        `stroke="${escapeXml(theme.edgeColor)}" stroke-width="${theme.edgeWidth}" ` +
-        `marker-end="url(#${uid}-arrow)"/>`,
+        `stroke="${escapeXml(theme.edgeColor)}" stroke-width="${theme.edgeWidth}" stroke-dasharray="6,4" ` +
+        `marker-end="url(#${uid}-arrow)">` +
+        `<animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/>` +
+      `</path>`,
     );
 
     if (edge.label) {

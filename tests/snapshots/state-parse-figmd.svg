@@ -2,14 +2,14 @@
 <text x="210" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Auth State</text>
 <g class="state-diagram" transform="translate(0,48)">
 <defs><marker id="st-1-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/></marker><marker id="st-1-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#f59f00"/></marker></defs>
-<path d="M171.5,58 Q171.5,93 171.5,110.5 L171.5,128" fill="none" stroke="#495057" stroke-width="1.5" marker-end="url(#st-1-arrow)"/>
-<path d="M149.30701754385964,172 Q114,207 114,224.5 L114,242" fill="none" stroke="#495057" stroke-width="1.5" marker-end="url(#st-1-arrow)"/>
+<path d="M171.5,58 Q171.5,93 171.5,110.5 L171.5,128" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M149.30701754385964,172 Q114,207 114,224.5 L114,242" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
 <text x="114" y="200" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057" opacity="0.9">login</text>
-<path d="M110.14035087719299,286 Q104,321 104,344 L104,367" fill="none" stroke="#495057" stroke-width="1.5" marker-end="url(#st-1-arrow)"/>
+<path d="M110.14035087719299,286 Q104,321 104,344 L104,367" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
 <text x="104" y="314" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057" opacity="0.9">success</text>
-<path d="M140.05263157894737,286 Q181.5,321 199.1535087719298,338.5 L216.80701754385964,356" fill="none" stroke="#495057" stroke-width="1.5" marker-end="url(#st-1-arrow)"/>
+<path d="M140.05263157894737,286 Q181.5,321 199.1535087719298,338.5 L216.80701754385964,356" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
 <text x="181.5" y="314" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057" opacity="0.9">error</text>
-<path d="M242.859649122807,356 Q249,321 249,292.5 Q249,264 249,235.5 Q249,207 225.2061403508772,189.5 L201.41228070175438,172" fill="none" stroke="#f59f00" stroke-width="1.5" marker-end="url(#st-1-arrow-accent)"/>
+<path d="M242.859649122807,356 Q249,321 249,292.5 Q249,264 249,235.5 Q249,207 225.2061403508772,189.5 L201.41228070175438,172" fill="none" stroke="#f59f00" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow-accent)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
 <text x="249" y="257" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#e67700" opacity="0.9">retry</text>
 <rect x="97.5" y="128" width="148" height="44" rx="8" ry="8" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
 <text x="171.5" y="150" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#1971c2">Idle</text>

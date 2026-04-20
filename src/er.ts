@@ -13,8 +13,8 @@ const ENTITY_RX     = 6;     // corner radius
 const FONT_SIZE     = 14;    // field font size
 const HEADER_FS     = 14;    // entity name font size
 const TAG_FS        = 9;     // "ENTITY" eyebrow tag font size
-const COL_GAP       = 48;    // gap between entity columns
-const ROW_GAP       = 48;    // gap between entity rows
+const COL_GAP       = 80;    // gap between entity columns
+const ROW_GAP       = 72;    // gap between entity rows
 const PAD           = 40;    // canvas outer padding
 const CARD_FS       = 11;    // cardinality label font size
 const CARD_OFFSET   = 16;    // how far from the entity edge to draw cardinality
@@ -129,12 +129,16 @@ export function createErDiagram(options: ErDiagramOptions): string {
 
   const parts: string[] = [];
 
-  // ── Defs: drop shadow ────────────────────────────────────────────────────
+  // ── Defs: drop shadow + arrowhead ───────────────────────────────────────
   parts.push(
     `<defs>` +
       `<filter id="${uid}-shadow" x="-20%" y="-20%" width="140%" height="140%">` +
         `<feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="rgba(0,0,0,0.10)"/>` +
       `</filter>` +
+      `<marker id="${uid}-arrow" markerWidth="6" markerHeight="5" ` +
+        `refX="5" refY="2.5" orient="auto" markerUnits="strokeWidth">` +
+        `<polygon points="0 0, 6 2.5, 0 5" fill="${escapeXml(theme.groupColor)}"/>` +
+      `</marker>` +
     `</defs>`,
   );
 
@@ -155,7 +159,7 @@ export function createErDiagram(options: ErDiagramOptions): string {
 
     parts.push(
       `<line x1="${fromPt.x}" y1="${fromPt.y}" x2="${toPt.x}" y2="${toPt.y}" ` +
-        `stroke="${escapeXml(lineColor)}" stroke-width="1.5"/>`,
+        `stroke="${escapeXml(lineColor)}" stroke-width="1.5" marker-end="url(#${uid}-arrow)"/>`,
     );
 
     // Relationship label (centered on line)
