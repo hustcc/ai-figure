@@ -3,20 +3,20 @@
 <g class="swimlane-diagram" transform="translate(0,48)">
 <defs><marker id="sw-1-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/></marker></defs>
 <rect x="130" y="0" width="400" height="114" fill="none" stroke="none"/>
-<line x1="0" y1="0" x2="530" y2="0" stroke="#5b8ff9" stroke-width="1.5"/>
-<rect x="0" y="0" width="130" height="114" fill="#eff4ff" stroke="none"/>
-<line x1="130" y1="0" x2="130" y2="114" stroke="#5b8ff9" stroke-width="2"/>
-<text x="65" y="57" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#1d5bc7">Customer</text>
+<line x1="0" y1="0" x2="530" y2="0" stroke="#868e96" stroke-width="1.5"/>
+<rect x="0" y="0" width="130" height="114" fill="#868e96" fill-opacity="0.08" stroke="none"/>
+<line x1="130" y1="0" x2="130" y2="114" stroke="#868e96" stroke-width="1.5"/>
+<text x="65" y="57" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057">Customer</text>
 <rect x="130" y="114" width="400" height="114" fill="rgba(134,142,150,0.06)" stroke="none"/>
-<line x1="0" y1="114" x2="530" y2="114" stroke="#5ad8a6" stroke-width="1.5"/>
-<rect x="0" y="114" width="130" height="114" fill="#edfaf5" stroke="none"/>
-<line x1="130" y1="114" x2="130" y2="228" stroke="#5ad8a6" stroke-width="2"/>
-<text x="65" y="171" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#1c9c6f">Warehouse</text>
+<line x1="0" y1="114" x2="530" y2="114" stroke="#868e96" stroke-width="1.5"/>
+<rect x="0" y="114" width="130" height="114" fill="#868e96" fill-opacity="0.14" stroke="none"/>
+<line x1="130" y1="114" x2="130" y2="228" stroke="#868e96" stroke-width="1.5"/>
+<text x="65" y="171" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057">Warehouse</text>
 <rect x="130" y="228" width="400" height="114" fill="none" stroke="none"/>
-<line x1="0" y1="228" x2="530" y2="228" stroke="#9270ca" stroke-width="1.5"/>
-<rect x="0" y="228" width="130" height="114" fill="#f5f0fd" stroke="none"/>
-<line x1="130" y1="228" x2="130" y2="342" stroke="#9270ca" stroke-width="2"/>
-<text x="65" y="285" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#5e3b9e">Shipping</text>
+<line x1="0" y1="228" x2="530" y2="228" stroke="#868e96" stroke-width="1.5"/>
+<rect x="0" y="228" width="130" height="114" fill="#868e96" fill-opacity="0.2" stroke="none"/>
+<line x1="130" y1="228" x2="130" y2="342" stroke="#868e96" stroke-width="1.5"/>
+<text x="65" y="285" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057">Shipping</text>
 <line x1="0" y1="342" x2="530" y2="342" stroke="#868e96" stroke-width="1.5"/>
 <path d="M314,57 L346,57" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
 <path d="M422,82 C422,114 238,114 238,146" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>

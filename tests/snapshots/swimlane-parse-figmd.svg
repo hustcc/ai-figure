@@ -3,15 +3,15 @@
 <g class="swimlane-diagram" transform="translate(0,48)">
 <defs><marker id="sw-1-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/></marker></defs>
 <rect x="130" y="0" width="370" height="114" fill="none" stroke="none"/>
-<line x1="0" y1="0" x2="500" y2="0" stroke="#339af0" stroke-width="1.5"/>
-<rect x="0" y="0" width="130" height="114" fill="#e7f5ff" stroke="none"/>
-<line x1="130" y1="0" x2="130" y2="114" stroke="#339af0" stroke-width="2"/>
-<text x="65" y="57" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#1971c2">Customer</text>
+<line x1="0" y1="0" x2="500" y2="0" stroke="#868e96" stroke-width="1.5"/>
+<rect x="0" y="0" width="130" height="114" fill="#868e96" fill-opacity="0.08" stroke="none"/>
+<line x1="130" y1="0" x2="130" y2="114" stroke="#868e96" stroke-width="1.5"/>
+<text x="65" y="57" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057">Customer</text>
 <rect x="130" y="114" width="370" height="114" fill="rgba(134,142,150,0.06)" stroke="none"/>
-<line x1="0" y1="114" x2="500" y2="114" stroke="#51cf66" stroke-width="1.5"/>
-<rect x="0" y="114" width="130" height="114" fill="#ebfbee" stroke="none"/>
-<line x1="130" y1="114" x2="130" y2="228" stroke="#51cf66" stroke-width="2"/>
-<text x="65" y="171" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#2f9e44">Ops</text>
+<line x1="0" y1="114" x2="500" y2="114" stroke="#868e96" stroke-width="1.5"/>
+<rect x="0" y="114" width="130" height="114" fill="#868e96" fill-opacity="0.14" stroke="none"/>
+<line x1="130" y1="114" x2="130" y2="228" stroke="#868e96" stroke-width="1.5"/>
+<text x="65" y="171" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057">Ops</text>
 <line x1="0" y1="228" x2="500" y2="228" stroke="#868e96" stroke-width="1.5"/>
 <path d="M238,82 C238,114 238,114 238,146" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
 <rect x="162" y="32" width="152" height="50" rx="8" ry="8" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
