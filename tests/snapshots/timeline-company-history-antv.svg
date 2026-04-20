@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="357" viewBox="0 0 800 357">
+<text x="400" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Company History</text>
+<text x="400" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">Key milestones from founding to IPO</text>
+<g class="timeline-diagram" transform="translate(0,67)">
+<defs/>
+<line x1="48" y1="160" x2="752" y2="160" stroke="#868e96" stroke-width="1"/>
+<line x1="59.88796195542659" y1="154" x2="59.88796195542659" y2="166" stroke="#868e96" stroke-width="1"/>
+<text x="59.88796195542659" y="180" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2012</text>
+<line x1="146.42324587917625" y1="154" x2="146.42324587917625" y2="166" stroke="#868e96" stroke-width="1"/>
+<text x="146.42324587917625" y="180" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2013</text>
+<line x1="232.72209460094842" y1="154" x2="232.72209460094842" y2="166" stroke="#868e96" stroke-width="1"/>
+<text x="232.72209460094842" y="180" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2014</text>
+<line x1="319.02094332272065" y1="154" x2="319.02094332272065" y2="166" stroke="#868e96" stroke-width="1"/>
+<text x="319.02094332272065" y="180" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2015</text>
+<line x1="405.3197920444928" y1="154" x2="405.3197920444928" y2="166" stroke="#868e96" stroke-width="1"/>
+<text x="405.3197920444928" y="180" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2016</text>
+<line x1="491.85507596824243" y1="154" x2="491.85507596824243" y2="166" stroke="#868e96" stroke-width="1"/>
+<text x="491.85507596824243" y="180" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2017</text>
+<line x1="578.1539246900147" y1="154" x2="578.1539246900147" y2="166" stroke="#868e96" stroke-width="1"/>
+<text x="578.1539246900147" y="180" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2018</text>
+<line x1="664.4527734117868" y1="154" x2="664.4527734117868" y2="166" stroke="#868e96" stroke-width="1"/>
+<text x="664.4527734117868" y="180" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2019</text>
+<line x1="750.7516221335591" y1="154" x2="750.7516221335591" y2="166" stroke="#868e96" stroke-width="1"/>
+<text x="750.7516221335591" y="180" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2020</text>
+<line x1="74.07407407407408" y1="151" x2="74.07407407407408" y2="141" stroke="#868e96" stroke-width="1"/>
+<circle cx="74.07407407407408" cy="160" r="8" fill="#fff4ef" stroke="#e8684a" stroke-width="1.5"/>
+<text x="74.07407407407408" y="124" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#e8684a">Founded</text>
+<line x1="192.52811026478054" y1="166" x2="192.52811026478054" y2="193" stroke="#868e96" stroke-width="1"/>
+<circle cx="192.52811026478054" cy="160" r="5" fill="#5b8ff9" stroke="none" stroke-width="1.5"/>
+<text x="192.52811026478054" y="208" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="400" fill="#495057">Seed Round</text>
+<line x1="265.58658767581505" y1="151" x2="265.58658767581505" y2="141" stroke="#868e96" stroke-width="1"/>
+<circle cx="265.58658767581505" cy="160" r="8" fill="#fff4ef" stroke="#e8684a" stroke-width="1.5"/>
+<text x="265.58658767581505" y="124" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#e8684a">Product Launch</text>
+<line x1="393.025161541665" y1="166" x2="393.025161541665" y2="193" stroke="#868e96" stroke-width="1"/>
+<circle cx="393.025161541665" cy="160" r="5" fill="#5b8ff9" stroke="none" stroke-width="1.5"/>
+<text x="393.025161541665" y="208" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="400" fill="#495057">Series A ($10M)</text>
+<line x1="527.5567914668386" y1="151" x2="527.5567914668386" y2="141" stroke="#868e96" stroke-width="1"/>
+<circle cx="527.5567914668386" cy="160" r="8" fill="#fff4ef" stroke="#e8684a" stroke-width="1.5"/>
+<text x="527.5567914668386" y="124" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#e8684a">Global Expansion</text>
+<line x1="725.9259259259259" y1="169" x2="725.9259259259259" y2="193" stroke="#868e96" stroke-width="1"/>
+<circle cx="725.9259259259259" cy="160" r="8" fill="#fff4ef" stroke="#e8684a" stroke-width="1.5"/>
+<text x="725.9259259259259" y="208" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#e8684a">IPO</text>
+</g>
+</svg>

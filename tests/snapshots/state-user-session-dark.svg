@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="713" viewBox="0 0 420 713">
+<rect width="100%" height="100%" fill="#1a1b1e"/>
+<text x="210" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#adb5bd">User Session</text>
+<text x="210" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#5c6370">Auth token lifecycle with refresh</text>
+<g class="state-diagram" transform="translate(0,67)">
+<defs><marker id="st-1-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#adb5bd"/></marker><marker id="st-1-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#e8684a"/></marker></defs>
+<path d="M114,58 Q114,93 114,110.5 L114,128" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M110.14035087719299,172 Q104,207 107.0701754385965,224.5 L110.14035087719299,242" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<text x="104" y="200" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd" opacity="0.9">login</text>
+<path d="M110.14035087719299,286 Q104,321 107.0701754385965,338.5 L110.14035087719299,356" fill="none" stroke="#e8684a" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow-accent)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<text x="104" y="314" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#f0987d" opacity="0.9">token expiring</text>
+<path d="M117.85964912280701,356 Q124,321 120.9298245614035,303.5 L117.85964912280701,286" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<text x="124" y="314" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd" opacity="0.9">refresh ok</text>
+<path d="M114,400 Q114,435 114,452.5 L114,470" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<text x="114" y="428" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd" opacity="0.9">refresh fail</text>
+<path d="M117.85964912280701,242 Q124,207 120.9298245614035,189.5 L117.85964912280701,172" fill="none" stroke="#e8684a" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow-accent)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<text x="124" y="200" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#f0987d" opacity="0.9">logout</text>
+<path d="M114,514 Q114,549 114,566.5 L114,584" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<circle cx="114" cy="49" r="7" fill="#adb5bd" stroke="none"/>
+<rect x="40" y="128" width="148" height="44" rx="8" ry="8" fill="#1a2740" stroke="#5b8ff9" stroke-width="2"/>
+<text x="114" y="150" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#8caff5">Anonymous</text>
+<rect x="40" y="242" width="148" height="44" rx="8" ry="8" fill="#3d1a13" stroke="#e8684a" stroke-width="2"/>
+<text x="114" y="264" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#f0987d">Active</text>
+<rect x="40" y="356" width="148" height="44" rx="8" ry="8" fill="#1a2740" stroke="#5b8ff9" stroke-width="2"/>
+<text x="114" y="378" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#8caff5">Refreshing</text>
+<rect x="40" y="470" width="148" height="44" rx="8" ry="8" fill="#1a2740" stroke="#5b8ff9" stroke-width="2"/>
+<text x="114" y="492" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#8caff5">Expired</text>
+<circle cx="114" cy="595" r="9" fill="none" stroke="#adb5bd" stroke-width="2"/>
+<circle cx="114" cy="595" r="5" fill="#adb5bd" stroke="none"/>
+</g>
+</svg>

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="489" viewBox="0 0 600 489">
+<rect width="100%" height="100%" fill="#1a1b1e"/>
+<text x="300" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#adb5bd">Hospital Schema</text>
+<text x="300" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#5c6370">Patient, doctor and appointment model</text>
+<g class="er-diagram" transform="translate(0,67)">
+<defs><filter id="er-1-shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="rgba(0,0,0,0.10)"/></filter><marker id="er-1-arrow" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 6 2.5, 0 5" fill="#5c6370"/></marker></defs>
+<line x1="229.55801104972375" y1="234" x2="348.89502762430936" y2="162" stroke="#5c6370" stroke-width="1.5" marker-end="url(#er-1-arrow)"/>
+<text x="289.22651933701655" y="192" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" font-style="italic">employs</text>
+<text x="243.2577101561429" y="234.29682681397242" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd">1</text>
+<text x="335.1953285178902" y="178.82779706905154" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd">N</text>
+<line x1="238.40579710144925" y1="162" x2="342.7536231884058" y2="234" stroke="#5c6370" stroke-width="1.5" marker-end="url(#er-1-arrow)"/>
+<text x="290.5797101449275" y="192" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" font-style="italic">books</text>
+<text x="251.5750789504492" y="179.31760563143496" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd">1</text>
+<text x="329.58434133940585" y="233.14399667981502" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd">N</text>
+<line x1="450" y1="162" x2="450" y2="234" stroke="#5c6370" stroke-width="1.5" marker-end="url(#er-1-arrow)"/>
+<text x="450" y="192" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" font-style="italic">attends</text>
+<text x="450" y="178" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd">1</text>
+<text x="450" y="218" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd">N</text>
+<rect x="40" y="40" width="220" height="122" rx="6" ry="6" fill="#1e1b4b" stroke="#22d3ee" stroke-width="1.5" filter="url(#er-1-shadow)"/>
+<rect x="40" y="40" width="220" height="44" rx="6" ry="6" fill="#012030" stroke="none"/>
+<rect x="40" y="78" width="220" height="6" fill="#012030" stroke="none"/>
+<line x1="40" y1="84" x2="260" y2="84" stroke="#22d3ee" stroke-width="1"/>
+<text x="48" y="51" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="9" font-weight="500" letter-spacing="0.12em" fill="#67e8f9" opacity="0.7">ENTITY</text>
+<text x="150" y="75" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#67e8f9">Patient</text>
+<rect x="41" y="84" width="218" height="26" fill="rgba(92,99,112,0.15)" stroke="none"/>
+<text x="50" y="103.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#818cf8" font-weight="600"># id</text>
+<text x="252" y="103.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#5c6370">uuid</text>
+<text x="50" y="129.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#adb5bd">name</text>
+<text x="252" y="129.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#5c6370">text</text>
+<rect x="41" y="136" width="218" height="26" fill="rgba(92,99,112,0.15)" stroke="none" rx="6" ry="6"/>
+<text x="50" y="155.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#adb5bd">dob</text>
+<text x="252" y="155.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#5c6370">date</text>
+<rect x="41" y="156" width="218" height="6" fill="#1e1b4b" stroke="none"/>
+<rect x="340" y="40" width="220" height="122" rx="6" ry="6" fill="#1e1b4b" stroke="#34d399" stroke-width="1.5" filter="url(#er-1-shadow)"/>
+<rect x="340" y="40" width="220" height="44" rx="6" ry="6" fill="#022c22" stroke="none"/>
+<rect x="340" y="78" width="220" height="6" fill="#022c22" stroke="none"/>
+<line x1="340" y1="84" x2="560" y2="84" stroke="#34d399" stroke-width="1"/>
+<text x="348" y="51" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="9" font-weight="500" letter-spacing="0.12em" fill="#6ee7b7" opacity="0.7">ENTITY</text>
+<text x="450" y="75" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#6ee7b7">Doctor</text>
+<rect x="341" y="84" width="218" height="26" fill="rgba(92,99,112,0.15)" stroke="none"/>
+<text x="350" y="103.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#34d399" font-weight="600"># id</text>
+<text x="552" y="103.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#5c6370">uuid</text>
+<text x="350" y="129.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#34d399" font-weight="600">→ dept_id</text>
+<text x="552" y="129.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#5c6370">uuid</text>
+<rect x="341" y="136" width="218" height="26" fill="rgba(92,99,112,0.15)" stroke="none" rx="6" ry="6"/>
+<text x="350" y="155.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#adb5bd">name</text>
+<text x="552" y="155.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#5c6370">text</text>
+<rect x="341" y="156" width="218" height="6" fill="#1e1b4b" stroke="none"/>
+<rect x="40" y="234" width="220" height="96" rx="6" ry="6" fill="#1e1b4b" stroke="#f472b6" stroke-width="1.5" filter="url(#er-1-shadow)"/>
+<rect x="40" y="234" width="220" height="44" rx="6" ry="6" fill="#4a044e" stroke="none"/>
+<rect x="40" y="272" width="220" height="6" fill="#4a044e" stroke="none"/>
+<line x1="40" y1="278" x2="260" y2="278" stroke="#f472b6" stroke-width="1"/>
+<text x="48" y="245" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="9" font-weight="500" letter-spacing="0.12em" fill="#f9a8d4" opacity="0.7">ENTITY</text>
+<text x="150" y="269" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#f9a8d4">Department</text>
+<rect x="41" y="278" width="218" height="26" fill="rgba(92,99,112,0.15)" stroke="none"/>
+<text x="50" y="297.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#f472b6" font-weight="600"># id</text>
+<text x="252" y="297.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#5c6370">uuid</text>
+<text x="50" y="323.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#adb5bd">name</text>
+<text x="252" y="323.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#5c6370">text</text>
+<rect x="41" y="324" width="218" height="6" fill="#1e1b4b" stroke="none"/>
+<rect x="340" y="234" width="220" height="148" rx="6" ry="6" fill="#1e1b4b" stroke="#22d3ee" stroke-width="1.5" filter="url(#er-1-shadow)"/>
+<rect x="340" y="234" width="220" height="44" rx="6" ry="6" fill="#012030" stroke="none"/>
+<rect x="340" y="272" width="220" height="6" fill="#012030" stroke="none"/>
+<line x1="340" y1="278" x2="560" y2="278" stroke="#22d3ee" stroke-width="1"/>
+<text x="348" y="245" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="9" font-weight="500" letter-spacing="0.12em" fill="#67e8f9" opacity="0.7">ENTITY</text>
+<text x="450" y="269" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#67e8f9">Appointment</text>
+<rect x="341" y="278" width="218" height="26" fill="rgba(92,99,112,0.15)" stroke="none"/>
+<text x="350" y="297.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#22d3ee" font-weight="600"># id</text>
+<text x="552" y="297.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#5c6370">uuid</text>
+<text x="350" y="323.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#22d3ee" font-weight="600">→ patient_id</text>
+<text x="552" y="323.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#5c6370">uuid</text>
+<rect x="341" y="330" width="218" height="26" fill="rgba(92,99,112,0.15)" stroke="none"/>
+<text x="350" y="349.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#22d3ee" font-weight="600">→ doctor_id</text>
+<text x="552" y="349.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#5c6370">uuid</text>
+<text x="350" y="375.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#adb5bd">date</text>
+<text x="552" y="375.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#5c6370">datetime</text>
+<rect x="341" y="376" width="218" height="6" fill="#1e1b4b" stroke="none"/>
+</g>
+</svg>

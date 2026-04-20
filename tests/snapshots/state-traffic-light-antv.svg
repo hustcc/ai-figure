@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="507" viewBox="0 0 420 507">
+<text x="210" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Traffic Light</text>
+<text x="210" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">Pedestrian crossing FSM</text>
+<g class="state-diagram" transform="translate(0,67)">
+<defs><marker id="st-1-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/></marker><marker id="st-1-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#e8684a"/></marker></defs>
+<path d="M168.5,58 Q168.5,93 168.5,110.5 L168.5,128" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M147.46491228070175,172 Q114,207 114,224.5 L114,242" fill="none" stroke="#e8684a" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow-accent)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<text x="114" y="200" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#bf3c22" opacity="0.9">timer</text>
+<path d="M114,286 Q114,321 130.73245614035088,338.5 L147.46491228070175,356" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<text x="114" y="314" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057" opacity="0.9">timer</text>
+<path d="M189.53508771929825,356 Q223,321 223,292.5 Q223,264 223,235.5 Q223,207 206.26754385964912,189.5 L189.53508771929825,172" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<text x="223" y="257" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057" opacity="0.9">timer</text>
+<circle cx="168.5" cy="49" r="7" fill="#495057" stroke="none"/>
+<rect x="94.5" y="128" width="148" height="44" rx="8" ry="8" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="168.5" y="150" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#bf3c22">Red</text>
+<rect x="40" y="242" width="148" height="44" rx="8" ry="8" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="114" y="264" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#1d5bc7">Green</text>
+<rect x="94.5" y="356" width="148" height="44" rx="8" ry="8" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="168.5" y="378" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#1d5bc7">Yellow</text>
+</g>
+</svg>

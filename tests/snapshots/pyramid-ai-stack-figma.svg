@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="423" viewBox="0 0 480 423" id="py-1">
+<text x="240" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">AI Technology Stack</text>
+<text x="240" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">Layered view from hardware to user-facing applications</text>
+<g class="pyramid-diagram" transform="translate(0,67)">
+<polygon points="224,32 256,32 302,92 178,92" fill="#ecfeff" stroke="#06b6d4" stroke-width="1"/>
+<text x="240" y="57" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#0891b2">Applications</text>
+<text x="240" y="74" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#0891b2" opacity="0.75">chatbots, copilots</text>
+<polygon points="178,92 302,92 348,152 132,152" fill="#ecfdf5" stroke="#10b981" stroke-width="1"/>
+<text x="240" y="117" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#047857">Foundation Models</text>
+<text x="240" y="134" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#047857" opacity="0.75">LLMs, diffusion</text>
+<polygon points="132,152 348,152 394,212 86,212" fill="#fdf2f8" stroke="#ec4899" stroke-width="1"/>
+<text x="240" y="177" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#be185d">ML Frameworks</text>
+<text x="240" y="194" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#be185d" opacity="0.75">PyTorch, JAX</text>
+<polygon points="86,212 394,212 440,272 40,272" fill="#ecfeff" stroke="#06b6d4" stroke-width="1"/>
+<text x="240" y="237" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#0891b2">Cloud Compute</text>
+<text x="240" y="254" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#0891b2" opacity="0.75">GPUs &amp; TPUs</text>
+<polygon points="40,272 440,272 440,332 40,332" fill="#eef2ff" stroke="#6366f1" stroke-width="1"/>
+<text x="240" y="297" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#4338ca">Hardware</text>
+<text x="240" y="314" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#4338ca" opacity="0.75">silicon &amp; memory</text>
+</g>
+</svg>
