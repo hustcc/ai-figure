@@ -226,6 +226,166 @@ interface GanttChartOptions {
     /** Optional subtitle displayed beneath the title. */
     subtitle?: string;
 }
+/**
+ * Node type in a state machine diagram.
+ * - `'state'`  — a normal state (rounded rectangle)
+ * - `'start'`  — the initial state (filled circle)
+ * - `'end'`    — the terminal / accepting state (ringed circle)
+ */
+type StateNodeType = 'state' | 'start' | 'end';
+/** A single state in a state machine diagram. */
+interface StateNode {
+    /** Unique identifier. */
+    id: string;
+    /** Text label displayed inside the state box. */
+    label: string;
+    /** Visual shape (default: 'state'). */
+    type?: StateNodeType;
+    /** Highlight this state with the accent color (use for error / happy-path focus; max 1–2). */
+    accent?: boolean;
+}
+/** A transition (arrow) between two states. */
+interface StateTransition {
+    /** ID of the source state. */
+    from: string;
+    /** ID of the target state. */
+    to: string;
+    /** Optional label shown on the arrow — typically `event [guard] / action`. */
+    label?: string;
+}
+/** Options passed to {@link createStateDiagram}. */
+interface StateDiagramOptions {
+    /** States in the machine. */
+    nodes: StateNode[];
+    /** Directed transitions between states. */
+    transitions: StateTransition[];
+    /** Light or dark rendering mode (default: 'light'). */
+    theme?: ThemeType;
+    /** Color palette (default: `'default'`). */
+    palette?: PaletteType;
+    /** Optional chart title. */
+    title?: string;
+    /** Optional subtitle. */
+    subtitle?: string;
+}
+/**
+ * Field key designation in an ER entity.
+ * - `'pk'` — primary key (prefixed with `#`)
+ * - `'fk'` — foreign key (prefixed with `→`)
+ */
+type ErFieldKey = 'pk' | 'fk';
+/** A single field (column) inside an ER entity. */
+interface ErField {
+    /** Field name. */
+    name: string;
+    /** Optional data type string (e.g. `'uuid'`, `'text'`, `'int'`). */
+    type?: string;
+    /** Optional key designation: `'pk'` or `'fk'`. */
+    key?: ErFieldKey;
+}
+/** An entity (table) in an ER diagram. */
+interface ErEntity {
+    /** Unique identifier. */
+    id: string;
+    /** Entity display name. */
+    label: string;
+    /** Ordered list of fields. */
+    fields: ErField[];
+    /** Highlight this entity with the accent color (use for the aggregate root; max 1). */
+    accent?: boolean;
+}
+/** A relationship line between two entities. */
+interface ErRelation {
+    /** ID of the source entity. */
+    from: string;
+    /** ID of the target entity. */
+    to: string;
+    /** Optional label shown centered on the line (e.g. `'has'`, `'belongs to'`). */
+    label?: string;
+    /** Cardinality annotation at the `from` end (e.g. `'1'`, `'N'`, `'0..1'`, `'1..*'`). */
+    fromCard?: string;
+    /** Cardinality annotation at the `to` end. */
+    toCard?: string;
+}
+/** Options passed to {@link createErDiagram}. */
+interface ErDiagramOptions {
+    /** Entities (tables) in the model. */
+    entities: ErEntity[];
+    /** Relationships between entities. */
+    relations: ErRelation[];
+    /** Light or dark rendering mode (default: 'light'). */
+    theme?: ThemeType;
+    /** Color palette (default: `'default'`). */
+    palette?: PaletteType;
+    /** Optional chart title. */
+    title?: string;
+    /** Optional subtitle. */
+    subtitle?: string;
+}
+/** A single event on the timeline. */
+interface TimelineEvent {
+    /** Unique identifier. */
+    id: string;
+    /** Short label displayed near the event dot. */
+    label: string;
+    /** Event date in `yyyy-mm-dd` format (or any parseable date string). */
+    date: string;
+    /** When true, render as a major milestone (larger, accent-colored dot). */
+    milestone?: boolean;
+}
+/** Options passed to {@link createTimelineDiagram}. */
+interface TimelineDiagramOptions {
+    /** Ordered or unordered list of events (auto-sorted by date). */
+    events: TimelineEvent[];
+    /** Light or dark rendering mode (default: 'light'). */
+    theme?: ThemeType;
+    /** Color palette (default: `'default'`). */
+    palette?: PaletteType;
+    /** Optional chart title. */
+    title?: string;
+    /** Optional subtitle. */
+    subtitle?: string;
+}
+/** A single node inside a swimlane. */
+interface SwimlaneNode {
+    /** Unique identifier. */
+    id: string;
+    /** Text label. */
+    label: string;
+    /** ID of the lane this node belongs to. */
+    lane: string;
+    /** Visual shape (default: 'process'). */
+    type?: NodeType;
+}
+/** A directed edge between swimlane nodes. */
+interface SwimlaneEdge {
+    /** ID of the source node. */
+    from: string;
+    /** ID of the target node. */
+    to: string;
+    /** Optional label shown on the edge. */
+    label?: string;
+}
+/** Options passed to {@link createSwimlaneDiagram}. */
+interface SwimlaneDiagramOptions {
+    /**
+     * Lane identifiers in display order. Each string is used as both the lane ID
+     * and its visible label.
+     */
+    lanes: string[];
+    /** Nodes placed inside their respective lanes. */
+    nodes: SwimlaneNode[];
+    /** Directed edges between nodes (may cross lane boundaries). */
+    edges: SwimlaneEdge[];
+    /** Light or dark rendering mode (default: 'light'). */
+    theme?: ThemeType;
+    /** Color palette (default: `'default'`). */
+    palette?: PaletteType;
+    /** Optional chart title. */
+    title?: string;
+    /** Optional subtitle. */
+    subtitle?: string;
+}
 /** Options for the unified {@link fig} function — select the diagram type with `figure`. */
 type FigOptions = ({
     figure: 'flow';
@@ -239,7 +399,15 @@ type FigOptions = ({
     figure: 'quadrant';
 } & QuadrantChartOptions) | ({
     figure: 'gantt';
-} & GanttChartOptions);
+} & GanttChartOptions) | ({
+    figure: 'state';
+} & StateDiagramOptions) | ({
+    figure: 'er';
+} & ErDiagramOptions) | ({
+    figure: 'timeline';
+} & TimelineDiagramOptions) | ({
+    figure: 'swimlane';
+} & SwimlaneDiagramOptions);
 
 /**
  * Generate an SVG diagram from either a Mermaid-like markdown string or a JSON config object.
@@ -257,6 +425,10 @@ type FigOptions = ({
  * - `'sequence'` — sequence diagram (actors + message arrows)
  * - `'quadrant'` — quadrant chart (2×2 matrix with data points)
  * - `'gantt'`    — Gantt chart (task bars, optional milestones, optional groups)
+ * - `'state'`    — state machine (states + transitions, UML pseudo-states)
+ * - `'er'`       — ER / data model (entities with fields, relationships)
+ * - `'timeline'` — timeline (events plotted on a horizontal date axis)
+ * - `'swimlane'` — swimlane (cross-functional flow with lane bands)
  *
  * Returns a fully self-contained SVG string; no coordinates needed.
  *
@@ -277,4 +449,4 @@ type FigOptions = ({
  */
 declare function fig(input: string | FigOptions): string;
 
-export { type ArchDiagramOptions, type ArchLayer, type ArchNode, type Direction, type FigOptions, type FlowChartOptions, type FlowEdge, type FlowGroup, type FlowNode, type GanttChartOptions, type GanttMilestone, type GanttTask, type NodeType, type QuadrantChartOptions, type QuadrantPoint, type SeqMessage, type SequenceDiagramOptions, type ThemeType, type TreeDiagramOptions, type TreeNode, fig };
+export { type ArchDiagramOptions, type ArchLayer, type ArchNode, type Direction, type ErDiagramOptions, type ErEntity, type ErField, type ErFieldKey, type ErRelation, type FigOptions, type FlowChartOptions, type FlowEdge, type FlowGroup, type FlowNode, type GanttChartOptions, type GanttMilestone, type GanttTask, type NodeType, type QuadrantChartOptions, type QuadrantPoint, type SeqMessage, type SequenceDiagramOptions, type StateDiagramOptions, type StateNode, type StateNodeType, type StateTransition, type SwimlaneDiagramOptions, type SwimlaneEdge, type SwimlaneNode, type ThemeType, type TimelineDiagramOptions, type TimelineEvent, type TreeDiagramOptions, type TreeNode, fig };

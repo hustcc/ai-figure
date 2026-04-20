@@ -4493,17 +4493,17 @@ var require_graphlib = __commonJS({
 // node_modules/dagre/lib/graphlib.js
 var require_graphlib2 = __commonJS({
   "node_modules/dagre/lib/graphlib.js"(exports$1, module) {
-    var graphlib2;
+    var graphlib3;
     if (typeof __require === "function") {
       try {
-        graphlib2 = require_graphlib();
+        graphlib3 = require_graphlib();
       } catch (e) {
       }
     }
-    if (!graphlib2) {
-      graphlib2 = window.graphlib;
+    if (!graphlib3) {
+      graphlib3 = window.graphlib;
     }
-    module.exports = graphlib2;
+    module.exports = graphlib3;
   }
 });
 
@@ -7242,18 +7242,18 @@ var require_layout = __commonJS({
     var position = require_position();
     var util = require_util();
     var Graph = require_graphlib2().Graph;
-    module.exports = layout2;
-    function layout2(g, opts) {
+    module.exports = layout3;
+    function layout3(g, opts) {
       var time = opts && opts.debugTiming ? util.time : util.notime;
       time("layout", function() {
-        var layoutGraph = time("  buildLayoutGraph", function() {
+        var layoutGraph2 = time("  buildLayoutGraph", function() {
           return buildLayoutGraph(g);
         });
         time("  runLayout", function() {
-          runLayout(layoutGraph, time);
+          runLayout(layoutGraph2, time);
         });
         time("  updateInputGraph", function() {
-          updateInputGraph(g, layoutGraph);
+          updateInputGraph(g, layoutGraph2);
         });
       });
     }
@@ -7340,14 +7340,14 @@ var require_layout = __commonJS({
         acyclic.undo(g);
       });
     }
-    function updateInputGraph(inputGraph, layoutGraph) {
+    function updateInputGraph(inputGraph, layoutGraph2) {
       _.forEach(inputGraph.nodes(), function(v) {
         var inputLabel = inputGraph.node(v);
-        var layoutLabel = layoutGraph.node(v);
+        var layoutLabel = layoutGraph2.node(v);
         if (inputLabel) {
           inputLabel.x = layoutLabel.x;
           inputLabel.y = layoutLabel.y;
-          if (layoutGraph.children(v).length) {
+          if (layoutGraph2.children(v).length) {
             inputLabel.width = layoutLabel.width;
             inputLabel.height = layoutLabel.height;
           }
@@ -7355,15 +7355,15 @@ var require_layout = __commonJS({
       });
       _.forEach(inputGraph.edges(), function(e) {
         var inputLabel = inputGraph.edge(e);
-        var layoutLabel = layoutGraph.edge(e);
+        var layoutLabel = layoutGraph2.edge(e);
         inputLabel.points = layoutLabel.points;
         if (_.has(layoutLabel, "x")) {
           inputLabel.x = layoutLabel.x;
           inputLabel.y = layoutLabel.y;
         }
       });
-      inputGraph.graph().width = layoutGraph.graph().width;
-      inputGraph.graph().height = layoutGraph.graph().height;
+      inputGraph.graph().width = layoutGraph2.graph().width;
+      inputGraph.graph().height = layoutGraph2.graph().height;
     }
     var graphNumAttrs = ["nodesep", "edgesep", "ranksep", "marginx", "marginy"];
     var graphDefaults = { ranksep: 50, edgesep: 20, nodesep: 50, rankdir: "tb" };
@@ -8043,8 +8043,8 @@ function pointsToSmoothPath(points) {
 }
 var _flowChartCount = 0;
 var LABEL_CHAR_WIDTH_RATIO = 0.58;
-function renderNode(node, layout2, theme) {
-  const { x, y, width, height } = layout2;
+function renderNode(node, layout3, theme) {
+  const { x, y, width, height } = layout3;
   const type = node.type ?? "process";
   const fill = theme.nodeFills[type] ?? theme.nodeFills["process"];
   const stroke = theme.nodeStrokes[type] ?? theme.nodeStrokes["process"];
@@ -8142,7 +8142,7 @@ function renderFlowChart(options) {
     return `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"></svg>`;
   }
   const theme = resolveTheme(palette, mode);
-  const layout2 = computeLayout(nodes, edges, direction);
+  const layout3 = computeLayout(nodes, edges, direction);
   const uid = `fc-${++_flowChartCount}`;
   const arrowMarkerId = `${uid}-arrow`;
   const defs = `<defs>
@@ -8155,9 +8155,9 @@ function renderFlowChart(options) {
       .ai-fc-edge { animation: ai-fc-flow 1.2s linear infinite; }
     </style>
   </defs>`;
-  const groupsSvg = groups.map((g) => renderGroup(g, layout2.nodes, theme)).join("\n");
+  const groupsSvg = groups.map((g) => renderGroup(g, layout3.nodes, theme)).join("\n");
   const layoutEdgeByIndex = /* @__PURE__ */ new Map();
-  for (const le of layout2.edges) {
+  for (const le of layout3.edges) {
     layoutEdgeByIndex.set(le.index, le);
   }
   const edgesSvg = edges.map((edge, i) => {
@@ -8166,17 +8166,17 @@ function renderFlowChart(options) {
     return renderEdge(edge, layoutEdge, theme, arrowMarkerId);
   }).join("\n");
   const nodesSvg = nodes.map((node) => {
-    const layoutNode = layout2.nodes.get(node.id);
+    const layoutNode = layout3.nodes.get(node.id);
     if (!layoutNode) return "";
     return renderNode(node, layoutNode, theme);
   }).join("\n");
-  let { width, height, viewBox: vb } = layout2;
+  let { width, height, viewBox: vb } = layout3;
   if (groups.length > 0) {
     const GROUP_PAD = 24;
     const labelH = theme.fontSize + 8;
     let minX = vb.x, minY = vb.y, maxX = vb.x + vb.width, maxY = vb.y + vb.height;
     for (const group of groups) {
-      const gNodes = group.nodes.map((id) => layout2.nodes.get(id)).filter((n) => n !== void 0);
+      const gNodes = group.nodes.map((id) => layout3.nodes.get(id)).filter((n) => n !== void 0);
       if (!gNodes.length) continue;
       let gMinX = Infinity, gMinY = Infinity, gMaxX = -Infinity, gMaxY = -Infinity;
       for (const n of gNodes) {
@@ -9065,6 +9065,718 @@ function createGanttChart(options) {
   ].join("\n");
 }
 
+// src/state.ts
+var dagre2 = __toESM(require_dagre());
+var _stateCount = 0;
+var NODE_W = 148;
+var NODE_H = 44;
+var NODE_RX = 8;
+var START_R = 7;
+var END_R = 9;
+var END_INNER_R = 5;
+var PAD2 = 40;
+function selfLoopPath(cx, top) {
+  const r = 28;
+  const dx = 16;
+  const startX = cx - dx;
+  const endX = cx + dx;
+  const cpY = top - r;
+  return "M" + startX + "," + top + " C" + startX + "," + cpY + " " + endX + "," + cpY + " " + endX + "," + top;
+}
+function layoutGraph(nodes, edges) {
+  const g = new dagre2.graphlib.Graph({ multigraph: true });
+  g.setGraph({ rankdir: "TB", ranksep: 70, nodesep: 50, marginx: PAD2, marginy: PAD2 });
+  g.setDefaultEdgeLabel(() => ({}));
+  for (const n of nodes) {
+    g.setNode(n.id, { width: n.width, height: n.height });
+  }
+  for (const e of edges) {
+    g.setEdge(e.from, e.to, {}, e.id);
+  }
+  dagre2.layout(g);
+  const outNodes = /* @__PURE__ */ new Map();
+  for (const id of g.nodes()) {
+    const n = g.node(id);
+    outNodes.set(id, { cx: n.x, cy: n.y, width: n.width, height: n.height });
+  }
+  const outEdges = /* @__PURE__ */ new Map();
+  for (const { v, w, name } of g.edges()) {
+    const e = g.edge(v, w, name);
+    outEdges.set(name ?? v + "-" + w, { points: e.points ?? [] });
+  }
+  let maxX = 0, maxY = 0;
+  for (const n of outNodes.values()) {
+    maxX = Math.max(maxX, n.cx + n.width / 2);
+    maxY = Math.max(maxY, n.cy + n.height / 2);
+  }
+  return { nodes: outNodes, edges: outEdges, width: maxX + PAD2, height: maxY + PAD2 };
+}
+function createStateDiagram(options) {
+  const {
+    nodes,
+    transitions,
+    theme: mode = "light",
+    palette,
+    title,
+    subtitle
+  } = options;
+  const theme = resolveTheme(palette, mode);
+  const titleH = titleBlockHeight(title, subtitle, theme.fontSize);
+  const uid = "st-" + ++_stateCount;
+  const accentStroke = theme.nodeStrokes["decision"];
+  const accentFill = theme.nodeFills["decision"];
+  const accentText = theme.textColors["decision"];
+  const dagreNodes = nodes.map((n) => {
+    const t = n.type ?? "state";
+    if (t === "start") return { id: n.id, width: START_R * 2 + 4, height: START_R * 2 + 4 };
+    if (t === "end") return { id: n.id, width: END_R * 2 + 4, height: END_R * 2 + 4 };
+    return { id: n.id, width: NODE_W, height: NODE_H };
+  });
+  const nodeIds = new Set(nodes.map((n) => n.id));
+  const dagreEdges = transitions.filter((t) => t.from !== t.to && nodeIds.has(t.from) && nodeIds.has(t.to)).map((t, i) => ({ id: "e" + i, from: t.from, to: t.to }));
+  const layout3 = layoutGraph(dagreNodes, dagreEdges);
+  const WIDTH = Math.max(420, layout3.width);
+  const HEIGHT = Math.max(300, layout3.height);
+  const parts = [];
+  parts.push(
+    '<defs><marker id="' + uid + '-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="' + escapeXml(theme.edgeColor) + '"/></marker><marker id="' + uid + '-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="' + escapeXml(accentStroke) + '"/></marker></defs>'
+  );
+  const nodeMap = new Map(nodes.map((n) => [n.id, n]));
+  let nonSelfIdx = 0;
+  for (let i = 0; i < transitions.length; i++) {
+    const t = transitions[i];
+    const fromNode = nodeMap.get(t.from);
+    const fromLn = layout3.nodes.get(t.from);
+    if (!fromLn) continue;
+    const isAccentEdge = fromNode?.accent === true;
+    const edgeStroke = isAccentEdge ? accentStroke : theme.edgeColor;
+    const markerRef = "url(#" + uid + "-" + (isAccentEdge ? "arrow-accent" : "arrow") + ")";
+    let pathD;
+    let labelX = 0, labelY = 0;
+    if (t.from === t.to) {
+      const top = fromLn.cy - fromLn.height / 2;
+      pathD = selfLoopPath(fromLn.cx, top);
+      labelX = fromLn.cx;
+      labelY = top - 32;
+    } else {
+      const edgeKey = "e" + nonSelfIdx;
+      nonSelfIdx++;
+      const le = layout3.edges.get(edgeKey);
+      const toLn = layout3.nodes.get(t.to);
+      if (le && le.points.length >= 2) {
+        const pts = le.points;
+        pathD = "M" + pts[0].x + "," + pts[0].y;
+        for (let p = 1; p < pts.length - 1; p++) {
+          const cp = pts[p];
+          const np = pts[p + 1];
+          pathD += " Q" + cp.x + "," + cp.y + " " + (cp.x + np.x) / 2 + "," + (cp.y + np.y) / 2;
+        }
+        const last = pts[pts.length - 1];
+        pathD += " L" + last.x + "," + last.y;
+        const mid = pts[Math.floor(pts.length / 2)];
+        labelX = mid.x;
+        labelY = mid.y - 7;
+      } else {
+        const toLnF = toLn ?? fromLn;
+        pathD = "M" + fromLn.cx + "," + fromLn.cy + " L" + toLnF.cx + "," + toLnF.cy;
+        labelX = (fromLn.cx + toLnF.cx) / 2;
+        labelY = (fromLn.cy + toLnF.cy) / 2 - 7;
+      }
+    }
+    parts.push(
+      '<path d="' + escapeXml(pathD) + '" fill="none" stroke="' + escapeXml(edgeStroke) + '" stroke-width="' + theme.edgeWidth + '" stroke-dasharray="6,4" marker-end="' + markerRef + '"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>'
+    );
+    if (t.label) {
+      const labelFill = isAccentEdge ? accentText : theme.edgeColor;
+      const labelFs = theme.fontSize - 3;
+      parts.push(
+        '<text x="' + labelX + '" y="' + labelY + '" text-anchor="middle" font-family="' + escapeXml(theme.fontFamily) + '" font-size="' + labelFs + '" fill="' + escapeXml(labelFill) + '" opacity="0.9">' + escapeXml(t.label) + "</text>"
+      );
+    }
+  }
+  for (const [id, ln] of layout3.nodes) {
+    const node = nodeMap.get(id);
+    if (!node) continue;
+    const type = node.type ?? "state";
+    const isAcc = node.accent === true;
+    const fill = isAcc ? accentFill : theme.nodeFills["process"];
+    const stroke = isAcc ? accentStroke : theme.nodeStrokes["process"];
+    const txtClr = isAcc ? accentText : theme.textColors["process"];
+    if (type === "start") {
+      parts.push(
+        '<circle cx="' + ln.cx + '" cy="' + ln.cy + '" r="' + START_R + '" fill="' + escapeXml(theme.edgeColor) + '" stroke="none"/>'
+      );
+    } else if (type === "end") {
+      parts.push(
+        '<circle cx="' + ln.cx + '" cy="' + ln.cy + '" r="' + END_R + '" fill="none" stroke="' + escapeXml(theme.edgeColor) + '" stroke-width="2"/>',
+        '<circle cx="' + ln.cx + '" cy="' + ln.cy + '" r="' + END_INNER_R + '" fill="' + escapeXml(theme.edgeColor) + '" stroke="none"/>'
+      );
+    } else {
+      const x = ln.cx - ln.width / 2;
+      const y = ln.cy - ln.height / 2;
+      const textLines = wrapText(node.label, ln.width - 16, theme.fontSize);
+      const lineH = theme.fontSize * 1.3;
+      const textStartY = ln.cy - (textLines.length - 1) * lineH / 2;
+      parts.push(
+        '<rect x="' + x + '" y="' + y + '" width="' + ln.width + '" height="' + ln.height + '" rx="' + NODE_RX + '" ry="' + NODE_RX + '" fill="' + escapeXml(fill) + '" stroke="' + escapeXml(stroke) + '" stroke-width="' + theme.strokeWidth + '"/>'
+      );
+      for (let li = 0; li < textLines.length; li++) {
+        parts.push(
+          '<text x="' + ln.cx + '" y="' + (textStartY + li * lineH) + '" text-anchor="middle" dominant-baseline="central" font-family="' + escapeXml(theme.fontFamily) + '" font-size="' + theme.fontSize + '" font-weight="600" fill="' + escapeXml(txtClr) + '">' + escapeXml(textLines[li]) + "</text>"
+        );
+      }
+    }
+  }
+  const bgParts = theme.background ? ['<rect width="100%" height="100%" fill="' + theme.background + '"/>'] : [];
+  const titleSvg = renderTitleBlock(
+    title,
+    subtitle,
+    WIDTH / 2,
+    0,
+    theme.fontFamily,
+    theme.fontSize,
+    theme.edgeColor,
+    theme.groupColor
+  );
+  const offsetX = Math.round(Math.max(0, (WIDTH - layout3.width) / 2));
+  const groupTransform = offsetX > 0 ? titleH > 0 ? "translate(" + offsetX + "," + titleH + ")" : "translate(" + offsetX + ",0)" : titleH > 0 ? "translate(0," + titleH + ")" : "";
+  return [
+    '<svg xmlns="http://www.w3.org/2000/svg" width="' + WIDTH + '" height="' + (HEIGHT + titleH) + '" viewBox="0 0 ' + WIDTH + " " + (HEIGHT + titleH) + '">',
+    ...bgParts,
+    ...titleSvg ? [titleSvg] : [],
+    '<g class="state-diagram"' + (groupTransform ? ' transform="' + groupTransform + '"' : "") + ">",
+    ...parts,
+    "</g>",
+    "</svg>"
+  ].join("\n");
+}
+
+// src/er.ts
+var _erCount = 0;
+var ENTITY_W = 220;
+var HEADER_H2 = 44;
+var FIELD_H = 26;
+var ENTITY_RX = 6;
+var FONT_SIZE = 14;
+var HEADER_FS = 14;
+var TAG_FS = 9;
+var COL_GAP = 80;
+var ROW_GAP = 72;
+var PAD3 = 40;
+var CARD_FS = 11;
+var CARD_OFFSET = 16;
+var MAX_COLS = 2;
+var ENTITY_NODE_TYPES = ["process", "terminal", "io", "decision"];
+function entityHeight(entity) {
+  return HEADER_H2 + entity.fields.length * FIELD_H;
+}
+function layoutEntities(entities) {
+  const COLS = Math.min(MAX_COLS, entities.length);
+  const result = /* @__PURE__ */ new Map();
+  const rowCount = Math.ceil(entities.length / COLS);
+  const rowHeights = Array.from({ length: rowCount }, () => 0);
+  for (let i = 0; i < entities.length; i++) {
+    const row = Math.floor(i / COLS);
+    rowHeights[row] = Math.max(rowHeights[row], entityHeight(entities[i]));
+  }
+  let cumY = PAD3;
+  for (let row = 0; row < rowCount; row++) {
+    for (let col = 0; col < COLS; col++) {
+      const idx = row * COLS + col;
+      if (idx >= entities.length) break;
+      const entity = entities[idx];
+      const x = PAD3 + col * (ENTITY_W + COL_GAP);
+      result.set(entity.id, {
+        x,
+        y: cumY,
+        width: ENTITY_W,
+        height: entityHeight(entity)
+      });
+    }
+    cumY += rowHeights[row] + ROW_GAP;
+  }
+  return result;
+}
+function entityCenter(pos) {
+  return { x: pos.x + pos.width / 2, y: pos.y + pos.height / 2 };
+}
+function edgePoint(pos, target) {
+  const cx = pos.x + pos.width / 2;
+  const cy = pos.y + pos.height / 2;
+  const dx = target.x - cx;
+  const dy = target.y - cy;
+  if (Math.abs(dx) < 1e-3 && Math.abs(dy) < 1e-3) {
+    return { x: cx, y: pos.y };
+  }
+  const hw = pos.width / 2;
+  const hh = pos.height / 2;
+  const scaleX = Math.abs(dx) > 1e-3 ? hw / Math.abs(dx) : Infinity;
+  const scaleY = Math.abs(dy) > 1e-3 ? hh / Math.abs(dy) : Infinity;
+  const scale = Math.min(scaleX, scaleY);
+  return { x: cx + dx * scale, y: cy + dy * scale };
+}
+function createErDiagram(options) {
+  const {
+    entities,
+    relations,
+    theme: mode = "light",
+    palette,
+    title,
+    subtitle
+  } = options;
+  const theme = resolveTheme(palette, mode);
+  const titleH = titleBlockHeight(title, subtitle, theme.fontSize);
+  const uid = `er-${++_erCount}`;
+  const positions = layoutEntities(entities);
+  let maxX = 0, maxY = 0;
+  for (const pos of positions.values()) {
+    maxX = Math.max(maxX, pos.x + pos.width);
+    maxY = Math.max(maxY, pos.y + pos.height);
+  }
+  const WIDTH = Math.max(480, maxX + PAD3);
+  const HEIGHT = Math.max(300, maxY + PAD3);
+  const parts = [];
+  parts.push(
+    `<defs><marker id="${uid}-arrow" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 6 2.5, 0 5" fill="${escapeXml(theme.groupColor)}"/></marker></defs>`
+  );
+  new Map(entities.map((e) => [e.id, e]));
+  for (const rel of relations) {
+    const fromPos = positions.get(rel.from);
+    const toPos = positions.get(rel.to);
+    if (!fromPos || !toPos) continue;
+    const fromCenter = entityCenter(fromPos);
+    const toCenter = entityCenter(toPos);
+    const fromPt = edgePoint(fromPos, toCenter);
+    const toPt = edgePoint(toPos, fromCenter);
+    const lineColor = theme.groupColor;
+    parts.push(
+      `<line x1="${fromPt.x}" y1="${fromPt.y}" x2="${toPt.x}" y2="${toPt.y}" stroke="${escapeXml(lineColor)}" stroke-width="1.5" marker-end="url(#${uid}-arrow)"/>`
+    );
+    if (rel.label) {
+      const mx = (fromPt.x + toPt.x) / 2;
+      const my = (fromPt.y + toPt.y) / 2 - 6;
+      parts.push(
+        `<text x="${mx}" y="${my}" text-anchor="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${FONT_SIZE - 1}" fill="${escapeXml(theme.edgeColor)}" font-style="italic">${escapeXml(rel.label)}</text>`
+      );
+    }
+    const dx = toPt.x - fromPt.x;
+    const dy = toPt.y - fromPt.y;
+    const len = Math.sqrt(dx * dx + dy * dy);
+    if (len > 1e-3) {
+      const ux = dx / len, uy = dy / len;
+      const perpY = ux * 10;
+      if (rel.fromCard) {
+        const cx = fromPt.x + ux * CARD_OFFSET;
+        const cy = fromPt.y + uy * CARD_OFFSET + perpY;
+        parts.push(
+          `<text x="${cx}" y="${cy}" text-anchor="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${CARD_FS}" fill="${escapeXml(theme.edgeColor)}">${escapeXml(rel.fromCard)}</text>`
+        );
+      }
+      if (rel.toCard) {
+        const cx = toPt.x - ux * CARD_OFFSET;
+        const cy = toPt.y - uy * CARD_OFFSET + perpY;
+        parts.push(
+          `<text x="${cx}" y="${cy}" text-anchor="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${CARD_FS}" fill="${escapeXml(theme.edgeColor)}">${escapeXml(rel.toCard)}</text>`
+        );
+      }
+    }
+  }
+  for (let ei = 0; ei < entities.length; ei++) {
+    const entity = entities[ei];
+    const pos = positions.get(entity.id);
+    if (!pos) continue;
+    const isAccent = entity.accent === true;
+    const nodeType = ENTITY_NODE_TYPES[ei % ENTITY_NODE_TYPES.length];
+    const hdrFill = isAccent ? theme.nodeFills["decision"] : theme.nodeFills[nodeType];
+    const hdrStroke = isAccent ? theme.nodeStrokes["decision"] : theme.nodeStrokes[nodeType];
+    const hdrText = isAccent ? theme.textColors["decision"] : theme.textColors[nodeType];
+    const { x, y, width, height } = pos;
+    parts.push(
+      `<rect x="${x}" y="${y}" width="${width}" height="${height}" rx="${ENTITY_RX}" ry="${ENTITY_RX}" fill="${escapeXml(theme.nodeFills["process"])}" stroke="none"/>`
+    );
+    parts.push(
+      `<rect x="${x}" y="${y}" width="${width}" height="${HEADER_H2}" rx="${ENTITY_RX}" ry="${ENTITY_RX}" fill="${escapeXml(hdrFill)}" stroke="none"/>`,
+      // Cover bottom rounded corners of header with a straight rect
+      `<rect x="${x}" y="${y + HEADER_H2 - ENTITY_RX}" width="${width}" height="${ENTITY_RX}" fill="${escapeXml(hdrFill)}" stroke="none"/>`
+    );
+    parts.push(
+      `<line x1="${x}" y1="${y + HEADER_H2}" x2="${x + width}" y2="${y + HEADER_H2}" stroke="${escapeXml(hdrStroke)}" stroke-width="1"/>`
+    );
+    parts.push(
+      `<text x="${x + 8}" y="${y + 11}" font-family="${escapeXml(theme.fontFamily)}" font-size="${TAG_FS}" font-weight="500" letter-spacing="0.12em" fill="${escapeXml(hdrText)}" opacity="0.7">ENTITY</text>`
+    );
+    parts.push(
+      `<text x="${x + width / 2}" y="${y + HEADER_H2 - 9}" text-anchor="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${HEADER_FS}" font-weight="600" fill="${escapeXml(hdrText)}">${escapeXml(entity.label)}</text>`
+    );
+    for (let fi = 0; fi < entity.fields.length; fi++) {
+      const field = entity.fields[fi];
+      const fieldY = y + HEADER_H2 + (fi + 0.75) * FIELD_H;
+      const fieldBg = y + HEADER_H2 + fi * FIELD_H;
+      if (fi % 2 === 0) {
+        parts.push(
+          `<rect x="${x + 1}" y="${fieldBg}" width="${width - 2}" height="${FIELD_H}" fill="${escapeXml(theme.groupFill)}" stroke="none"` + (fi === entity.fields.length - 1 ? ` rx="${ENTITY_RX}" ry="${ENTITY_RX}"` : "") + `/>`
+        );
+      }
+      let prefix = "";
+      if (field.key === "pk") prefix = "#";
+      else if (field.key === "fk") prefix = "\u2192";
+      const textFill = field.key ? theme.nodeStrokes[nodeType] : theme.edgeColor;
+      parts.push(
+        `<text x="${x + 10}" y="${fieldY}" font-family="${escapeXml(theme.fontFamily)}" font-size="${FONT_SIZE}" fill="${escapeXml(textFill)}"` + (field.key ? ` font-weight="600"` : "") + `>${escapeXml((prefix ? prefix + " " : "") + field.name)}</text>`
+      );
+      if (field.type) {
+        parts.push(
+          `<text x="${x + width - 8}" y="${fieldY}" text-anchor="end" font-family="${escapeXml(theme.fontFamily)}" font-size="${FONT_SIZE - 2}" fill="${escapeXml(theme.groupColor)}">${escapeXml(field.type)}</text>`
+        );
+      }
+    }
+    parts.push(
+      `<rect x="${x}" y="${y}" width="${width}" height="${height}" rx="${ENTITY_RX}" ry="${ENTITY_RX}" fill="none" stroke="${escapeXml(hdrStroke)}" stroke-width="1.5"/>`
+    );
+  }
+  const bgParts = theme.background ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`] : [];
+  const titleSvg = renderTitleBlock(
+    title,
+    subtitle,
+    WIDTH / 2,
+    0,
+    theme.fontFamily,
+    theme.fontSize,
+    theme.edgeColor,
+    theme.groupColor
+  );
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT + titleH}" viewBox="0 0 ${WIDTH} ${HEIGHT + titleH}">`,
+    ...bgParts,
+    ...titleSvg ? [titleSvg] : [],
+    `<g class="er-diagram"${titleH > 0 ? ` transform="translate(0,${titleH})"` : ""}>`,
+    ...parts,
+    `</g>`,
+    `</svg>`
+  ].join("\n");
+}
+var SVG_W2 = 800;
+var PAD_LEFT2 = 48;
+var PAD_RIGHT3 = 48;
+var AXIS_Y = 160;
+var ABOVE_Y = AXIS_Y - 36;
+var BELOW_Y = AXIS_Y + 48;
+var DROP_H = 30;
+var DOT_R = 6;
+var MILESTONE_R = 9;
+var TICK_H = 7;
+var LABEL_FS = 13;
+var TICK_FS = 10;
+var MIN_TICK_PX = 68;
+var LABEL_LINE_GAP_ABOVE = 4;
+var LABEL_LINE_GAP_BELOW = 2;
+function parseEventDate(s) {
+  const d = new Date(s);
+  return isNaN(d.getTime()) ? NaN : d.getTime();
+}
+function fmtTick(d) {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  ];
+  return `${months[d.getMonth()]} ${d.getFullYear()}`;
+}
+function createTimelineDiagram(options) {
+  const {
+    events: rawEvents,
+    theme: mode = "light",
+    palette,
+    title,
+    subtitle
+  } = options;
+  const theme = resolveTheme(palette, mode);
+  const titleH = titleBlockHeight(title, subtitle, theme.fontSize);
+  const events = rawEvents.map((e) => ({ ...e, ts: parseEventDate(e.date) })).filter((e) => !isNaN(e.ts)).sort((a, b) => a.ts - b.ts);
+  if (events.length === 0) {
+    const h = 200 + titleH;
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="${SVG_W2}" height="${h}" viewBox="0 0 ${SVG_W2} ${h}"></svg>`;
+  }
+  const minTs = events[0].ts;
+  const maxTs = events[events.length - 1].ts;
+  const rangeMs = maxTs - minTs || 1;
+  const padMs = rangeMs * 0.04;
+  const plotMin = minTs - padMs;
+  const plotMax = maxTs + padMs;
+  const plotMs = plotMax - plotMin;
+  const PLOT_W2 = SVG_W2 - PAD_LEFT2 - PAD_RIGHT3;
+  function tsToX(ts) {
+    return PAD_LEFT2 + (ts - plotMin) / plotMs * PLOT_W2;
+  }
+  const SVG_H = AXIS_Y + DROP_H + 100;
+  const accentStroke = theme.nodeStrokes["decision"];
+  const accentFill = theme.nodeFills["decision"];
+  const parts = [];
+  parts.push(`<defs/>`);
+  parts.push(
+    `<line x1="${PAD_LEFT2}" y1="${AXIS_Y}" x2="${PAD_LEFT2 + PLOT_W2}" y2="${AXIS_Y}" stroke="${escapeXml(theme.edgeColor)}" stroke-width="1.5"/>`
+  );
+  const totalDays = rangeMs / 864e5;
+  const tickDates = [];
+  if (totalDays <= 90) {
+    const d = new Date(plotMin);
+    d.setDate(1);
+    d.setHours(0, 0, 0, 0);
+    while (d.getTime() <= plotMax) {
+      if (d.getTime() >= plotMin) tickDates.push(new Date(d));
+      d.setMonth(d.getMonth() + 1);
+    }
+  } else if (totalDays <= 730) {
+    const d = new Date(plotMin);
+    d.setDate(1);
+    const startQ = Math.floor(d.getMonth() / 3) * 3;
+    d.setMonth(startQ, 1);
+    d.setHours(0, 0, 0, 0);
+    while (d.getTime() <= plotMax) {
+      if (d.getTime() >= plotMin) tickDates.push(new Date(d));
+      d.setMonth(d.getMonth() + 3);
+    }
+  } else {
+    const d = new Date(plotMin);
+    d.setMonth(0, 1);
+    d.setHours(0, 0, 0, 0);
+    while (d.getTime() <= plotMax) {
+      if (d.getTime() >= plotMin) tickDates.push(new Date(d));
+      d.setFullYear(d.getFullYear() + 1);
+    }
+  }
+  let prevTx = -Infinity;
+  for (const tick of tickDates) {
+    const tx = tsToX(tick.getTime());
+    if (tx - prevTx < MIN_TICK_PX) continue;
+    prevTx = tx;
+    parts.push(
+      `<line x1="${tx}" y1="${AXIS_Y - TICK_H}" x2="${tx}" y2="${AXIS_Y + TICK_H}" stroke="${escapeXml(theme.edgeColor)}" stroke-width="1" opacity="0.5"/>`,
+      `<text x="${tx}" y="${AXIS_Y + TICK_H + 14}" text-anchor="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${TICK_FS}" fill="${escapeXml(theme.groupColor)}">${escapeXml(fmtTick(tick))}</text>`
+    );
+  }
+  for (let i = 0; i < events.length; i++) {
+    const ev = events[i];
+    const ex = tsToX(ev.ts);
+    const above = i % 2 === 0;
+    const r = ev.milestone ? MILESTONE_R : DOT_R;
+    const dotFill = ev.milestone ? accentFill : theme.nodeStrokes["process"];
+    const dotStroke = ev.milestone ? accentStroke : "none";
+    const textFill = ev.milestone ? accentStroke : theme.edgeColor;
+    const dotY = AXIS_Y;
+    const lineY1 = above ? dotY - r - 1 : dotY + r + 1;
+    const lineY2 = above ? ABOVE_Y + LABEL_FS + LABEL_LINE_GAP_ABOVE : BELOW_Y - LABEL_FS - LABEL_LINE_GAP_BELOW;
+    const labelY = above ? ABOVE_Y : BELOW_Y;
+    parts.push(
+      `<line x1="${ex}" y1="${lineY1}" x2="${ex}" y2="${lineY2}" stroke="${escapeXml(theme.groupColor)}" stroke-width="1"/>`
+    );
+    parts.push(
+      `<circle cx="${ex}" cy="${dotY}" r="${r}" fill="${escapeXml(dotFill)}" stroke="${escapeXml(dotStroke)}" stroke-width="1.5"/>`
+    );
+    const fw = ev.milestone ? "700" : "400";
+    parts.push(
+      `<text x="${ex}" y="${labelY}" text-anchor="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${LABEL_FS}" font-weight="${fw}" fill="${escapeXml(textFill)}">${escapeXml(ev.label)}</text>`
+    );
+  }
+  const bgParts = theme.background ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`] : [];
+  const titleSvg = renderTitleBlock(
+    title,
+    subtitle,
+    SVG_W2 / 2,
+    0,
+    theme.fontFamily,
+    theme.fontSize,
+    theme.edgeColor,
+    theme.groupColor
+  );
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${SVG_W2}" height="${SVG_H + titleH}" viewBox="0 0 ${SVG_W2} ${SVG_H + titleH}">`,
+    ...bgParts,
+    ...titleSvg ? [titleSvg] : [],
+    `<g class="timeline-diagram"${titleH > 0 ? ` transform="translate(0,${titleH})"` : ""}>`,
+    ...parts,
+    `</g>`,
+    `</svg>`
+  ].join("\n");
+}
+
+// src/swimlane.ts
+var _swimlaneCount = 0;
+var LANE_LABEL_W = 130;
+var NODE_W2 = 152;
+var NODE_H2 = 50;
+var NODE_RX2 = 8;
+var NODE_H_GAP = 48;
+var LANE_PAD_TOP = 32;
+var LANE_PAD_BOT = 32;
+var LANE_FS = 13;
+var LABEL_FS2 = 13;
+var SWIM_NODE_TYPES = ["process", "terminal", "io", "decision"];
+function computeLayout2(lanes, nodes) {
+  const byLane = /* @__PURE__ */ new Map();
+  for (const lane of lanes) byLane.set(lane, []);
+  for (const node of nodes) {
+    const arr = byLane.get(node.lane);
+    if (arr) arr.push(node);
+  }
+  const nodePos = /* @__PURE__ */ new Map();
+  const laneY = /* @__PURE__ */ new Map();
+  const laneH = /* @__PURE__ */ new Map();
+  let curY = 0;
+  let maxWidth = LANE_LABEL_W + NODE_W2 + NODE_H_GAP * 2;
+  for (const lane of lanes) {
+    const laneNodes = byLane.get(lane) ?? [];
+    laneY.set(lane, curY);
+    let cx = LANE_LABEL_W + NODE_H_GAP + NODE_W2 / 2;
+    const cy = curY + LANE_PAD_TOP + NODE_H2 / 2;
+    for (const node of laneNodes) {
+      nodePos.set(node.id, { cx, cy });
+      maxWidth = Math.max(maxWidth, cx + NODE_W2 / 2 + NODE_H_GAP);
+      cx += NODE_W2 + NODE_H_GAP;
+    }
+    const h = LANE_PAD_TOP + NODE_H2 + LANE_PAD_BOT;
+    laneH.set(lane, h);
+    curY += h;
+  }
+  return { nodePos, laneY, laneH, totalW: maxWidth, totalH: curY };
+}
+function createSwimlaneDiagram(options) {
+  const {
+    lanes,
+    nodes,
+    edges,
+    theme: mode = "light",
+    palette,
+    title,
+    subtitle
+  } = options;
+  const theme = resolveTheme(palette, mode);
+  const titleH = titleBlockHeight(title, subtitle, theme.fontSize);
+  const uid = `sw-${++_swimlaneCount}`;
+  const layout3 = computeLayout2(lanes, nodes);
+  const WIDTH = Math.max(500, layout3.totalW);
+  const HEIGHT = Math.max(200, layout3.totalH);
+  const parts = [];
+  parts.push(
+    `<defs><marker id="${uid}-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="${escapeXml(theme.edgeColor)}"/></marker></defs>`
+  );
+  for (let li = 0; li < lanes.length; li++) {
+    const lane = lanes[li];
+    const y = layout3.laneY.get(lane) ?? 0;
+    const h = layout3.laneH.get(lane) ?? NODE_H2 + LANE_PAD_TOP + LANE_PAD_BOT;
+    const hdrOpacity = 0.08 + li % 4 * 0.06;
+    const bandFill = li % 2 === 1 ? theme.groupFill : "none";
+    parts.push(
+      `<rect x="${LANE_LABEL_W}" y="${y}" width="${WIDTH - LANE_LABEL_W}" height="${h}" fill="${escapeXml(bandFill)}" stroke="none"/>`
+    );
+    parts.push(
+      `<line x1="0" y1="${y}" x2="${WIDTH}" y2="${y}" stroke="${escapeXml(theme.groupColor)}" stroke-width="1.5"/>`
+    );
+    parts.push(
+      `<rect x="0" y="${y}" width="${LANE_LABEL_W}" height="${h}" fill="${escapeXml(theme.groupColor)}" fill-opacity="${hdrOpacity}" stroke="none"/>`
+    );
+    parts.push(
+      `<line x1="${LANE_LABEL_W}" y1="${y}" x2="${LANE_LABEL_W}" y2="${y + h}" stroke="${escapeXml(theme.groupColor)}" stroke-width="1.5"/>`
+    );
+    const labelCY = y + h / 2;
+    parts.push(
+      `<text x="${LANE_LABEL_W / 2}" y="${labelCY}" text-anchor="middle" dominant-baseline="central" font-family="${escapeXml(theme.fontFamily)}" font-size="${LANE_FS}" font-weight="700" fill="${escapeXml(theme.edgeColor)}">${escapeXml(lane)}</text>`
+    );
+  }
+  parts.push(
+    `<line x1="0" y1="${HEIGHT}" x2="${WIDTH}" y2="${HEIGHT}" stroke="${escapeXml(theme.groupColor)}" stroke-width="1.5"/>`
+  );
+  const nodeMap = new Map(nodes.map((n) => [n.id, n]));
+  for (const edge of edges) {
+    const fromPos = layout3.nodePos.get(edge.from);
+    const toPos = layout3.nodePos.get(edge.to);
+    if (!fromPos || !toPos) continue;
+    const fromNode = nodeMap.get(edge.from);
+    const toNode = nodeMap.get(edge.to);
+    const sameLane = fromNode?.lane === toNode?.lane;
+    let pathD;
+    let labelX;
+    let labelY;
+    if (sameLane) {
+      const x1 = fromPos.cx + NODE_W2 / 2;
+      const y1 = fromPos.cy;
+      const x2 = toPos.cx - NODE_W2 / 2;
+      const y2 = toPos.cy;
+      pathD = `M${x1},${y1} L${x2},${y2}`;
+      labelX = (x1 + x2) / 2;
+      labelY = y1 - 8;
+    } else {
+      const x1 = fromPos.cx;
+      const y1 = fromPos.cy + NODE_H2 / 2;
+      const x2 = toPos.cx;
+      const y2 = toPos.cy - NODE_H2 / 2;
+      const midY = (y1 + y2) / 2;
+      pathD = `M${x1},${y1} C${x1},${midY} ${x2},${midY} ${x2},${y2}`;
+      labelX = (x1 + x2) / 2;
+      labelY = midY - 6;
+    }
+    parts.push(
+      `<path d="${escapeXml(pathD)}" fill="none" stroke="${escapeXml(theme.edgeColor)}" stroke-width="${theme.edgeWidth}" stroke-dasharray="6,4" marker-end="url(#${uid}-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>`
+    );
+    if (edge.label) {
+      parts.push(
+        `<text x="${labelX}" y="${labelY}" text-anchor="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${LABEL_FS2 - 2}" fill="${escapeXml(theme.edgeColor)}" opacity="0.85">${escapeXml(edge.label)}</text>`
+      );
+    }
+  }
+  for (let ni = 0; ni < nodes.length; ni++) {
+    const node = nodes[ni];
+    const pos = layout3.nodePos.get(node.id);
+    if (!pos) continue;
+    const nodeType = node.type ?? SWIM_NODE_TYPES[ni % SWIM_NODE_TYPES.length];
+    const fill = theme.nodeFills[nodeType];
+    const stroke = theme.nodeStrokes[nodeType];
+    const txtClr = theme.textColors[nodeType];
+    const x = pos.cx - NODE_W2 / 2;
+    const y = pos.cy - NODE_H2 / 2;
+    const lines = wrapText(node.label, NODE_W2 - 16, LABEL_FS2);
+    const lineH = LABEL_FS2 * 1.3;
+    const textY0 = pos.cy - (lines.length - 1) * lineH / 2;
+    parts.push(
+      `<rect x="${x}" y="${y}" width="${NODE_W2}" height="${NODE_H2}" rx="${NODE_RX2}" ry="${NODE_RX2}" fill="${escapeXml(fill)}" stroke="${escapeXml(stroke)}" stroke-width="${theme.strokeWidth}"/>`
+    );
+    for (let li = 0; li < lines.length; li++) {
+      parts.push(
+        `<text x="${pos.cx}" y="${textY0 + li * lineH}" text-anchor="middle" dominant-baseline="central" font-family="${escapeXml(theme.fontFamily)}" font-size="${LABEL_FS2}" font-weight="600" fill="${escapeXml(txtClr)}">${escapeXml(lines[li])}</text>`
+      );
+    }
+  }
+  const bgParts = theme.background ? [`<rect width="100%" height="100%" fill="${theme.background}"/>`] : [];
+  const titleSvg = renderTitleBlock(
+    title,
+    subtitle,
+    WIDTH / 2,
+    0,
+    theme.fontFamily,
+    theme.fontSize,
+    theme.edgeColor,
+    theme.groupColor
+  );
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT + titleH}" viewBox="0 0 ${WIDTH} ${HEIGHT + titleH}">`,
+    ...bgParts,
+    ...titleSvg ? [titleSvg] : [],
+    `<g class="swimlane-diagram"${titleH > 0 ? ` transform="translate(0,${titleH})"` : ""}>`,
+    ...parts,
+    `</g>`,
+    `</svg>`
+  ].join("\n");
+}
+
 // src/parse.ts
 function parseFigmd(markdown) {
   const lines = markdown.split("\n");
@@ -9100,9 +9812,17 @@ function parseFigmd(markdown) {
       return parseQuadrant(bodyLines, theme, palette);
     case "gantt":
       return parseGantt(bodyLines, theme, palette);
+    case "state":
+      return parseState(bodyLines, theme, palette);
+    case "er":
+      return parseEr(bodyLines, theme, palette);
+    case "timeline":
+      return parseTimeline(bodyLines, theme, palette);
+    case "swimlane":
+      return parseSwimlane(bodyLines, theme, palette);
     default:
       throw new Error(
-        `figmd: unknown figure type "${figureType}". Expected one of: flow, tree, arch, sequence, quadrant, gantt`
+        `figmd: unknown figure type "${figureType}". Expected one of: flow, tree, arch, sequence, quadrant, gantt, state, er, timeline, swimlane`
       );
   }
 }
@@ -9485,6 +10205,315 @@ function parseGantt(lines, theme, palette) {
     ...subtitle !== void 0 ? { subtitle } : {}
   };
 }
+function parseState(lines, theme, palette) {
+  const { title, subtitle, rest } = extractMeta(lines);
+  const nodeMap = /* @__PURE__ */ new Map();
+  const transitions = [];
+  const ensureState = (expr) => {
+    let e = expr.trim();
+    let markAccent = false;
+    if (e.endsWith(" accent")) {
+      markAccent = true;
+      e = e.slice(0, -" accent".length).trim();
+    }
+    if (e === "[*]") {
+      const pid = "__start";
+      if (!nodeMap.has(pid)) {
+        nodeMap.set(pid, { id: pid, label: "", type: "start" });
+      }
+      return pid;
+    }
+    const dblOpenIdx = e.indexOf("((");
+    if (dblOpenIdx > 0 && e.endsWith("))")) {
+      const id2 = e.slice(0, dblOpenIdx).trim();
+      const label2 = e.slice(dblOpenIdx + 2, e.length - 2).trim();
+      if (id2 && /^[\w-]+$/.test(id2)) {
+        if (!nodeMap.has(id2)) {
+          nodeMap.set(id2, { id: id2, label: label2, type: "end" });
+        }
+        if (markAccent) {
+          const n = nodeMap.get(id2);
+          if (n) n.accent = true;
+        }
+        return id2;
+      }
+    }
+    const { id, label } = parseNodeExpr(e);
+    if (!nodeMap.has(id)) {
+      nodeMap.set(id, { id, label, type: "state" });
+    } else if (isExplicitNodeExpr(e, id)) {
+      const existing = nodeMap.get(id);
+      if (existing.label === id) existing.label = label;
+    }
+    if (markAccent) {
+      const n = nodeMap.get(id);
+      if (n) n.accent = true;
+    }
+    return id;
+  };
+  for (const line of rest) {
+    if (line.startsWith("accent:")) {
+      const id = line.slice("accent:".length).trim();
+      const node = nodeMap.get(id);
+      if (node) node.accent = true;
+      continue;
+    }
+    if (line.includes("-->")) {
+      const parts = splitOnArrow(line, "-->");
+      if (parts) {
+        const [left, rightRaw] = parts;
+        const colonIdx = rightRaw.indexOf(":");
+        let to = rightRaw;
+        let label;
+        if (colonIdx !== -1) {
+          to = rightRaw.slice(0, colonIdx).trim();
+          label = rightRaw.slice(colonIdx + 1).trim();
+        }
+        const fromId = ensureState(left);
+        const toId = ensureState(to);
+        transitions.push(label !== void 0 ? { from: fromId, to: toId, label } : { from: fromId, to: toId });
+        continue;
+      }
+    }
+    if (line.endsWith(" accent")) {
+      const expr = line.slice(0, -" accent".length).trim();
+      const id = ensureState(expr);
+      const node = nodeMap.get(id);
+      if (node) node.accent = true;
+      continue;
+    }
+    ensureState(line);
+  }
+  return {
+    figure: "state",
+    nodes: [...nodeMap.values()],
+    transitions,
+    ...theme !== void 0 ? { theme } : {},
+    ...palette !== void 0 ? { palette } : {},
+    ...title !== void 0 ? { title } : {},
+    ...subtitle !== void 0 ? { subtitle } : {}
+  };
+}
+function parseEr(lines, theme, palette) {
+  let title;
+  let subtitle;
+  const cleanLines = [];
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (!line || line.startsWith("%%")) continue;
+    cleanLines.push(line);
+  }
+  const entities = [];
+  const relations = [];
+  let currentEntity = null;
+  function parseCard(s) {
+    const trim = s.trim();
+    if (trim === "||" || trim === "1") return "1";
+    if (trim === "o{" || trim === "N" || trim === "n") return "N";
+    if (trim === "o|" || trim === "0..1") return "0..1";
+    if (trim === "}|" || trim === "}o" || trim === "1..*") return "1..*";
+    return trim;
+  }
+  for (const line of cleanLines) {
+    if (currentEntity === null) {
+      if (line.startsWith("title:")) {
+        title = line.slice("title:".length).trim();
+        continue;
+      }
+      if (line.startsWith("subtitle:")) {
+        subtitle = line.slice("subtitle:".length).trim();
+        continue;
+      }
+    }
+    if (line.startsWith("accent:")) {
+      const id = line.slice("accent:".length).trim();
+      const entity = entities.find((e) => e.id === id);
+      if (entity) entity.accent = true;
+      continue;
+    }
+    if (line.startsWith("entity ")) {
+      const expr = line.slice("entity ".length).trim();
+      const { id, label } = parseNodeExpr(expr);
+      currentEntity = { id, label, fields: [] };
+      entities.push(currentEntity);
+      continue;
+    }
+    const cfIdx = line.indexOf("--");
+    if (cfIdx !== -1 && (cfIdx + 2 >= line.length || line[cfIdx + 2] !== ">")) {
+      const beforeDash = line.slice(0, cfIdx).trim();
+      const afterDash = line.slice(cfIdx + 2).trim();
+      const spIdx = afterDash.indexOf(" ");
+      if (spIdx !== -1 && beforeDash) {
+        const fromParts = beforeDash.split(/\s+/);
+        const fromId = fromParts[0];
+        const fromCard = fromParts.length > 1 ? parseCard(fromParts[fromParts.length - 1]) : void 0;
+        const toToken = afterDash.slice(0, spIdx);
+        const toCard = parseCard(toToken);
+        const rest2 = afterDash.slice(spIdx).trim();
+        const colonIdx2 = rest2.indexOf(":");
+        let toId;
+        let label;
+        if (colonIdx2 !== -1) {
+          toId = rest2.slice(0, colonIdx2).trim();
+          label = rest2.slice(colonIdx2 + 1).trim();
+        } else {
+          toId = rest2;
+        }
+        if (fromId && toId) {
+          relations.push({
+            from: fromId,
+            to: toId,
+            ...label ? { label } : {},
+            ...fromCard ? { fromCard } : {},
+            ...toCard ? { toCard } : {}
+          });
+          currentEntity = null;
+          continue;
+        }
+      }
+    }
+    if (line.includes("-->")) {
+      const parts = splitOnArrow(line, "-->");
+      if (parts) {
+        const [from, rightRaw] = parts;
+        const colonIdx = rightRaw.indexOf(":");
+        if (colonIdx !== -1) {
+          relations.push({
+            from,
+            to: rightRaw.slice(0, colonIdx).trim(),
+            label: rightRaw.slice(colonIdx + 1).trim()
+          });
+        } else {
+          relations.push({ from, to: rightRaw });
+        }
+        currentEntity = null;
+        continue;
+      }
+    }
+    if (currentEntity) {
+      let rest3 = line;
+      let key;
+      let type;
+      const colonIdx = rest3.indexOf(":");
+      if (colonIdx !== -1) {
+        type = rest3.slice(colonIdx + 1).trim();
+        rest3 = rest3.slice(0, colonIdx).trim();
+      }
+      const tokens = rest3.split(/\s+/);
+      const name = tokens[0];
+      for (let ti = 1; ti < tokens.length; ti++) {
+        const tok = tokens[ti].toLowerCase();
+        if (tok === "pk") {
+          key = "pk";
+          break;
+        }
+        if (tok === "fk") {
+          key = "fk";
+          break;
+        }
+      }
+      if (name) {
+        currentEntity.fields.push({
+          name,
+          ...type ? { type } : {},
+          ...key ? { key } : {}
+        });
+      }
+    }
+  }
+  return {
+    figure: "er",
+    entities,
+    relations,
+    ...theme !== void 0 ? { theme } : {},
+    ...palette !== void 0 ? { palette } : {},
+    ...title !== void 0 ? { title } : {},
+    ...subtitle !== void 0 ? { subtitle } : {}
+  };
+}
+function parseTimeline(lines, theme, palette) {
+  const { title, subtitle, rest } = extractMeta(lines);
+  const events = [];
+  const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+  for (const line of rest) {
+    const colonIdx = line.indexOf(":");
+    if (colonIdx === -1) continue;
+    const date = line.slice(0, colonIdx).trim();
+    if (!DATE_RE.test(date)) continue;
+    let label = line.slice(colonIdx + 1).trim();
+    let milestone = false;
+    if (label.endsWith(" milestone")) {
+      milestone = true;
+      label = label.slice(0, -" milestone".length).trim();
+    }
+    events.push({
+      id: `ev${events.length}`,
+      label,
+      date,
+      ...milestone ? { milestone: true } : {}
+    });
+  }
+  return {
+    figure: "timeline",
+    events,
+    ...theme !== void 0 ? { theme } : {},
+    ...palette !== void 0 ? { palette } : {},
+    ...title !== void 0 ? { title } : {},
+    ...subtitle !== void 0 ? { subtitle } : {}
+  };
+}
+function parseSwimlane(lines, theme, palette) {
+  const { title, subtitle, rest } = extractMeta(lines);
+  const lanesList = [];
+  const nodes = [];
+  const edges = [];
+  const nodeMap = /* @__PURE__ */ new Map();
+  for (const line of rest) {
+    if (line.startsWith("lanes:")) {
+      const raw = line.slice("lanes:".length).split(",").map((l) => l.trim()).filter(Boolean);
+      lanesList.push(...raw);
+      continue;
+    }
+    if (line.includes("-->")) {
+      const parts = splitOnArrow(line, "-->");
+      if (parts) {
+        const [from, rightRaw] = parts;
+        const colonIdx2 = rightRaw.indexOf(":");
+        let to = rightRaw;
+        let label;
+        if (colonIdx2 !== -1) {
+          to = rightRaw.slice(0, colonIdx2).trim();
+          label = rightRaw.slice(colonIdx2 + 1).trim();
+        }
+        edges.push(label !== void 0 ? { from, to, label } : { from, to });
+        continue;
+      }
+    }
+    const colonIdx = line.indexOf(":");
+    if (colonIdx !== -1) {
+      const laneLabel = line.slice(0, colonIdx).trim();
+      const nodeExpr = line.slice(colonIdx + 1).trim();
+      if (nodeExpr) {
+        const { id, label, type } = parseNodeExpr(nodeExpr);
+        const snode = { id, label, lane: laneLabel, type };
+        if (!nodeMap.has(id)) {
+          nodeMap.set(id, snode);
+          nodes.push(snode);
+        }
+      }
+    }
+  }
+  return {
+    figure: "swimlane",
+    lanes: lanesList,
+    nodes,
+    edges,
+    ...theme !== void 0 ? { theme } : {},
+    ...palette !== void 0 ? { palette } : {},
+    ...title !== void 0 ? { title } : {},
+    ...subtitle !== void 0 ? { subtitle } : {}
+  };
+}
 
 // src/index.ts
 var EMPTY_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"></svg>';
@@ -9512,6 +10541,14 @@ function figDispatch(options) {
       return createQuadrantChart(options);
     case "gantt":
       return createGanttChart(options);
+    case "state":
+      return createStateDiagram(options);
+    case "er":
+      return createErDiagram(options);
+    case "timeline":
+      return createTimelineDiagram(options);
+    case "swimlane":
+      return createSwimlaneDiagram(options);
     default: {
       const _exhaustive = options;
       throw new Error(`Unknown figure type: ${_exhaustive.figure}`);
