@@ -844,7 +844,14 @@ function parseState(
   let endCounter   = 0;
 
   const ensureState = (expr: string): string => {
-    const e = expr.trim();
+    let e = expr.trim();
+
+    // Strip inline accent suffix before any node parsing
+    let markAccent = false;
+    if (e.endsWith(' accent')) {
+      markAccent = true;
+      e = e.slice(0, -' accent'.length).trim();
+    }
 
     // [*] — UML pseudo-state (start or end determined by usage, default start)
     if (e === '[*]') {
@@ -852,6 +859,7 @@ function parseState(
       if (!nodeMap.has(pid)) {
         nodeMap.set(pid, { id: pid, label: '', type: 'start' });
       }
+      // [*] pseudo-states can't be accented
       return pid;
     }
 
@@ -864,6 +872,7 @@ function parseState(
         if (!nodeMap.has(id)) {
           nodeMap.set(id, { id, label, type: 'end' });
         }
+        if (markAccent) { const n = nodeMap.get(id); if (n) n.accent = true; }
         return id;
       }
     }
@@ -876,6 +885,7 @@ function parseState(
       const existing = nodeMap.get(id)!;
       if (existing.label === id) existing.label = label;
     }
+    if (markAccent) { const n = nodeMap.get(id); if (n) n.accent = true; }
     return id;
   };
 
@@ -967,7 +977,18 @@ function parseEr(
   theme?: ThemeType,
   palette?: PaletteType,
 ): FigOptions {
-  const { title, subtitle, rest } = extractMeta(lines);
+  // Do NOT use extractMeta here — entity fields can look like "title: text"
+  // and would be incorrectly grabbed as the diagram title. Instead, extract
+  // title/subtitle inline only when we are NOT inside an entity block.
+  let title: string | undefined;
+  let subtitle: string | undefined;
+  const cleanLines: string[] = [];
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (!line || line.startsWith('%%')) continue;
+    cleanLines.push(line);
+  }
+
   const entities: ErEntity[] = [];
   const relations: ErRelation[] = [];
   let currentEntity: ErEntity | null = null;
@@ -982,7 +1003,19 @@ function parseEr(
     return trim;
   }
 
-  for (const line of rest) {
+  for (const line of cleanLines) {
+    // title/subtitle — only at top level (not inside an entity block)
+    if (currentEntity === null) {
+      if (line.startsWith('title:')) {
+        title = line.slice('title:'.length).trim();
+        continue;
+      }
+      if (line.startsWith('subtitle:')) {
+        subtitle = line.slice('subtitle:'.length).trim();
+        continue;
+      }
+    }
+
     // accent: id — use startsWith + slice to avoid backtracking
     if (line.startsWith('accent:')) {
       const id = line.slice('accent:'.length).trim();
