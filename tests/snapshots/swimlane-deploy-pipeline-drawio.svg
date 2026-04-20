@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="578" height="523" viewBox="0 0 578 523">
+<text x="289" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Deploy Pipeline</text>
+<text x="289" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">Continuous delivery from commit to production</text>
+<g class="swimlane-diagram" transform="translate(0,67)">
+<defs><marker id="sw-1-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/></marker></defs>
+<rect x="130" y="0" width="448" height="114" fill="none" stroke="none"/>
+<line x1="0" y1="0" x2="578" y2="0" stroke="#868e96" stroke-width="1.5"/>
+<rect x="0" y="0" width="130" height="114" fill="#868e96" fill-opacity="0.08" stroke="none"/>
+<line x1="130" y1="0" x2="130" y2="114" stroke="#868e96" stroke-width="1.5"/>
+<text x="65" y="57" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057">Developer</text>
+<rect x="130" y="114" width="448" height="114" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="114" x2="578" y2="114" stroke="#868e96" stroke-width="1.5"/>
+<rect x="0" y="114" width="130" height="114" fill="#868e96" fill-opacity="0.14" stroke="none"/>
+<line x1="130" y1="114" x2="130" y2="228" stroke="#868e96" stroke-width="1.5"/>
+<text x="65" y="171" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057">CI</text>
+<rect x="130" y="228" width="448" height="114" fill="none" stroke="none"/>
+<line x1="0" y1="228" x2="578" y2="228" stroke="#868e96" stroke-width="1.5"/>
+<rect x="0" y="228" width="130" height="114" fill="#868e96" fill-opacity="0.2" stroke="none"/>
+<line x1="130" y1="228" x2="130" y2="342" stroke="#868e96" stroke-width="1.5"/>
+<text x="65" y="285" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057">Staging</text>
+<rect x="130" y="342" width="448" height="114" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<line x1="0" y1="342" x2="578" y2="342" stroke="#868e96" stroke-width="1.5"/>
+<rect x="0" y="342" width="130" height="114" fill="#868e96" fill-opacity="0.26" stroke="none"/>
+<line x1="130" y1="342" x2="130" y2="456" stroke="#868e96" stroke-width="1.5"/>
+<text x="65" y="399" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#495057">Production</text>
+<line x1="0" y1="456" x2="578" y2="456" stroke="#868e96" stroke-width="1.5"/>
+<path d="M254,82 C254,114 254,114 254,146" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M330,171 L378,171" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M454,196 C454,228 254,228 254,260" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M330,285 L378,285" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M454,310 C454,342 254,342 254,374" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#sw-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<rect x="178" y="32" width="152" height="50" rx="8" ry="8" fill="#dae8fc" stroke="#6c8ebf" stroke-width="2"/>
+<text x="254" y="57" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#23527c">Push Commit</text>
+<rect x="178" y="146" width="152" height="50" rx="8" ry="8" fill="#d5e8d4" stroke="#82b366" stroke-width="2"/>
+<text x="254" y="171" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#3b6e37">Build &amp; Test</text>
+<rect x="378" y="146" width="152" height="50" rx="8" ry="8" fill="#f8cecc" stroke="#b85450" stroke-width="2"/>
+<text x="454" y="171" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#7a2829">Build Image</text>
+<rect x="178" y="260" width="152" height="50" rx="8" ry="8" fill="#fff2cc" stroke="#d6b656" stroke-width="2"/>
+<text x="254" y="285" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#755e00">Deploy to Staging</text>
+<rect x="378" y="260" width="152" height="50" rx="8" ry="8" fill="#dae8fc" stroke="#6c8ebf" stroke-width="2"/>
+<text x="454" y="285" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#23527c">QA Checks</text>
+<rect x="178" y="374" width="152" height="50" rx="8" ry="8" fill="#d5e8d4" stroke="#82b366" stroke-width="2"/>
+<text x="254" y="399" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#3b6e37">Deploy to Prod</text>
+</g>
+</svg>

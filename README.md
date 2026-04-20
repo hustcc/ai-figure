@@ -11,7 +11,7 @@
 - 🎨 **Rich visual styles** — light/dark mode, nine built-in palettes (`default`, `antv`, `drawio`, `figma`, `vega`, `mono-blue`, `mono-green`, `mono-purple`, `mono-orange`) plus custom hex arrays; every diagram supports optional title & subtitle, node groups, and color-coded layers
 - 📐 **Auto layout** — just describe the graph; x/y coordinates are computed automatically, and diagram dimensions scale to fit the content
 - 🤖 **AI-friendly** — single `fig()` entry point accepts a markdown string **or** a JSON config; streaming-safe (partial input never throws); ships a [`SKILL.md`](https://github.com/hustcc/ai-figure/blob/main/SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
-- 📊 **6 diagram types** — flowchart, tree, architecture, sequence, quadrant, and Gantt chart; pure SVG output with zero DOM dependency, works in browser and Node.js
+- 📊 **10 diagram types** — flowchart, tree, architecture, sequence, quadrant, Gantt, state machine, ER data model, timeline, and swimlane; pure SVG output with zero DOM dependency, works in browser and Node.js
 
 ## Quick Start
 
@@ -87,6 +87,10 @@ fig({ figure: 'arch',     ...archOptions     }); // architecture diagram
 fig({ figure: 'sequence', ...sequenceOptions }); // sequence diagram
 fig({ figure: 'quadrant', ...quadrantOptions }); // quadrant chart
 fig({ figure: 'gantt',    ...ganttOptions    }); // Gantt chart
+fig({ figure: 'state',    ...stateOptions    }); // state machine
+fig({ figure: 'er',       ...erOptions       }); // ER data model
+fig({ figure: 'timeline', ...timelineOptions }); // timeline
+fig({ figure: 'swimlane', ...swimlaneOptions }); // swimlane flow
 
 // markdown string
 fig(`flow LR\na[A] --> b[B]`);
@@ -332,9 +336,208 @@ fig({
 });
 ```
 
+### `figure: 'state'` — State Machine
+
+Renders a UML state machine with dagre layout. Supports start (●) and end (◎) pseudo-states, accent states, self-loops, and labeled transitions.
+
+| Field         | Type                  | Default      | Description                                  |
+|---------------|-----------------------|--------------|----------------------------------------------|
+| `figure`      | `'state'`             | **required** | Selects the state machine renderer           |
+| `nodes`       | `StateNode[]`         | **required** | List of states                               |
+| `transitions` | `StateTransition[]`   | **required** | List of directed transitions                 |
+| `title`       | `string`              | `undefined`  | Optional centered title above the diagram    |
+| `subtitle`    | `string`              | `undefined`  | Optional centered subtitle below the title   |
+| `theme`       | `ThemeType`           | `'light'`    | Light or dark rendering mode                 |
+| `palette`     | `PaletteType`         | `'default'`  | Color palette — see [Palette API](#palette-api) below |
+
+#### `StateNode`
+
+| Field    | Type             | Default     | Description                                           |
+|----------|------------------|-------------|-------------------------------------------------------|
+| `id`     | `string`         | **required**| Unique state identifier                               |
+| `label`  | `string`         | **required**| Text displayed in the state box                       |
+| `type`   | `StateNodeType`  | `'state'`   | `'state'` \| `'start'` \| `'end'`                   |
+| `accent` | `boolean`        | `false`     | Highlight this state with the accent color (max 1–2)  |
+
+#### `StateTransition`
+
+| Field   | Type     | Default      | Description                                           |
+|---------|----------|--------------|-------------------------------------------------------|
+| `from`  | `string` | **required** | Source state ID                                       |
+| `to`    | `string` | **required** | Target state ID                                       |
+| `label` | `string` | `undefined`  | Optional label — typically `event [guard] / action`   |
+
+```typescript
+fig({
+  figure: 'state',
+  title: 'Order Status',
+  nodes: [
+    { id: 'start',      label: '',           type: 'start' },
+    { id: 'idle',       label: 'Idle' },
+    { id: 'processing', label: 'Processing' },
+    { id: 'shipped',    label: 'Shipped' },
+    { id: 'failed',     label: 'Failed',     accent: true },
+    { id: 'end',        label: '',           type: 'end' },
+  ],
+  transitions: [
+    { from: 'start',      to: 'idle' },
+    { from: 'idle',       to: 'processing', label: 'place order' },
+    { from: 'processing', to: 'shipped',    label: 'confirmed' },
+    { from: 'processing', to: 'failed',     label: 'error' },
+    { from: 'failed',     to: 'idle',       label: 'retry' },
+    { from: 'shipped',    to: 'end' },
+  ],
+});
+```
+
+### `figure: 'er'` — Entity-Relationship Diagram
+
+Renders a database schema with entity boxes (header + field list) and relationship lines with optional cardinality annotations.
+
+| Field      | Type           | Default      | Description                                  |
+|------------|----------------|--------------|----------------------------------------------|
+| `figure`   | `'er'`         | **required** | Selects the ER renderer                      |
+| `entities` | `ErEntity[]`   | **required** | List of entities (tables)                    |
+| `relations`| `ErRelation[]` | **required** | List of relationship lines                   |
+| `title`    | `string`       | `undefined`  | Optional centered title above the diagram    |
+| `subtitle` | `string`       | `undefined`  | Optional centered subtitle below the title   |
+| `theme`    | `ThemeType`    | `'light'`    | Light or dark rendering mode                 |
+| `palette`  | `PaletteType`  | `'default'`  | Color palette — see [Palette API](#palette-api) below |
+
+#### `ErEntity`
+
+| Field    | Type        | Default      | Description                                                  |
+|----------|-------------|--------------|--------------------------------------------------------------|
+| `id`     | `string`    | **required** | Unique entity identifier                                     |
+| `label`  | `string`    | **required** | Entity display name shown in the header                      |
+| `fields` | `ErField[]` | **required** | Ordered list of fields (columns)                             |
+| `accent` | `boolean`   | `false`      | Highlight as the aggregate root (max 1)                      |
+
+#### `ErField`
+
+| Field  | Type          | Default      | Description                                     |
+|--------|---------------|--------------|-------------------------------------------------|
+| `name` | `string`      | **required** | Field name                                      |
+| `type` | `string`      | `undefined`  | Data type string (e.g. `'uuid'`, `'text'`)      |
+| `key`  | `'pk'\|'fk'`  | `undefined`  | `'pk'` = primary key (#), `'fk'` = foreign key (→) |
+
+#### `ErRelation`
+
+| Field      | Type     | Default      | Description                                        |
+|------------|----------|--------------|----------------------------------------------------|
+| `from`     | `string` | **required** | Source entity ID                                   |
+| `to`       | `string` | **required** | Target entity ID                                   |
+| `label`    | `string` | `undefined`  | Optional label centered on the line                |
+| `fromCard` | `string` | `undefined`  | Cardinality at the `from` end (e.g. `'1'`, `'N'`) |
+| `toCard`   | `string` | `undefined`  | Cardinality at the `to` end                        |
+
+```typescript
+fig({
+  figure: 'er',
+  title: 'Blog Schema',
+  entities: [
+    { id: 'user', label: 'User',
+      fields: [{ name: 'id', type: 'uuid', key: 'pk' }, { name: 'email', type: 'text' }] },
+    { id: 'post', label: 'Post',
+      fields: [{ name: 'id', type: 'uuid', key: 'pk' }, { name: 'author_id', type: 'uuid', key: 'fk' }] },
+  ],
+  relations: [
+    { from: 'user', to: 'post', label: 'writes', fromCard: '1', toCard: 'N' },
+  ],
+});
+```
+
+### `figure: 'timeline'` — Timeline
+
+Renders a horizontal date axis with events spaced proportionally. Labels alternate above and below the axis to reduce collision. Major milestones are rendered with a larger accent dot.
+
+| Field      | Type              | Default      | Description                                  |
+|------------|-------------------|--------------|----------------------------------------------|
+| `figure`   | `'timeline'`      | **required** | Selects the timeline renderer                |
+| `events`   | `TimelineEvent[]` | **required** | List of events (auto-sorted by date)         |
+| `title`    | `string`          | `undefined`  | Optional centered title above the diagram    |
+| `subtitle` | `string`          | `undefined`  | Optional centered subtitle below the title   |
+| `theme`    | `ThemeType`       | `'light'`    | Light or dark rendering mode                 |
+| `palette`  | `PaletteType`     | `'default'`  | Color palette — see [Palette API](#palette-api) below |
+
+#### `TimelineEvent`
+
+| Field       | Type      | Default      | Description                                          |
+|-------------|-----------|--------------|------------------------------------------------------|
+| `id`        | `string`  | **required** | Unique event identifier                              |
+| `label`     | `string`  | **required** | Short label displayed near the event dot             |
+| `date`      | `string`  | **required** | Event date in `yyyy-mm-dd` format                    |
+| `milestone` | `boolean` | `false`      | Render as a major milestone (larger accent-color dot)|
+
+```typescript
+fig({
+  figure: 'timeline',
+  title: 'Product History',
+  events: [
+    { id: 'v1',   label: 'v1.0 Launch',   date: '2020-01-15', milestone: true },
+    { id: 'v15',  label: 'v1.5 Patch',    date: '2021-06-01' },
+    { id: 'v2',   label: 'v2.0 Redesign', date: '2022-03-10', milestone: true },
+    { id: 'v3',   label: 'v3.0 AI',       date: '2023-11-01', milestone: true },
+  ],
+});
+```
+
+### `figure: 'swimlane'` — Swimlane Flow
+
+Renders a cross-functional flowchart with horizontal lane bands. Nodes are placed in their declared lane; cross-lane edges use S-curve routing.
+
+| Field      | Type              | Default      | Description                                  |
+|------------|-------------------|--------------|----------------------------------------------|
+| `figure`   | `'swimlane'`      | **required** | Selects the swimlane renderer                |
+| `lanes`    | `string[]`        | **required** | Lane labels in display order                 |
+| `nodes`    | `SwimlaneNode[]`  | **required** | Nodes placed inside their respective lanes   |
+| `edges`    | `SwimlaneEdge[]`  | **required** | Directed edges between nodes                 |
+| `title`    | `string`          | `undefined`  | Optional centered title above the diagram    |
+| `subtitle` | `string`          | `undefined`  | Optional centered subtitle below the title   |
+| `theme`    | `ThemeType`       | `'light'`    | Light or dark rendering mode                 |
+| `palette`  | `PaletteType`     | `'default'`  | Color palette — see [Palette API](#palette-api) below |
+
+#### `SwimlaneNode`
+
+| Field   | Type       | Default      | Description                              |
+|---------|------------|--------------|------------------------------------------|
+| `id`    | `string`   | **required** | Unique node identifier                   |
+| `label` | `string`   | **required** | Text displayed in the node               |
+| `lane`  | `string`   | **required** | Lane label this node belongs to          |
+| `type`  | `NodeType` | `'process'`  | Visual shape (same as flowchart nodes)   |
+
+#### `SwimlaneEdge`
+
+| Field   | Type     | Default      | Description         |
+|---------|----------|--------------|---------------------|
+| `from`  | `string` | **required** | Source node ID      |
+| `to`    | `string` | **required** | Target node ID      |
+| `label` | `string` | `undefined`  | Optional edge label |
+
+```typescript
+fig({
+  figure: 'swimlane',
+  title: 'Order Processing',
+  lanes: ['Customer', 'Warehouse', 'Shipping'],
+  nodes: [
+    { id: 'order',   label: 'Place Order',     lane: 'Customer'  },
+    { id: 'pay',     label: 'Confirm Payment', lane: 'Customer'  },
+    { id: 'receive', label: 'Receive Order',   lane: 'Warehouse' },
+    { id: 'pack',    label: 'Pack Items',      lane: 'Warehouse' },
+    { id: 'ship',    label: 'Ship Package',    lane: 'Shipping'  },
+  ],
+  edges: [
+    { from: 'order',   to: 'pay'     },
+    { from: 'pay',     to: 'receive' },
+    { from: 'receive', to: 'pack'    },
+    { from: 'pack',    to: 'ship'    },
+  ],
+});
+```
+
 ### Palette API
 
-All six diagram types accept two independent styling parameters:
+All ten diagram types accept two independent styling parameters:
 
 | Field     | Type                   | Default       | Description                          |
 |-----------|------------------------|---------------|--------------------------------------|
@@ -379,7 +582,7 @@ fig({ figure: 'flow', nodes, edges, palette: ['#e64980', '#ae3ec9', '#7048e8', '
 
 | Token | Values | Default |
 |-------|--------|---------|
-| `type` | `flow` \| `tree` \| `arch` \| `sequence` \| `quadrant` \| `gantt` | **required** |
+| `type` | `flow` \| `tree` \| `arch` \| `sequence` \| `quadrant` \| `gantt` \| `state` \| `er` \| `timeline` \| `swimlane` | **required** |
 | `direction` | `TB` \| `LR` | `TB` |
 | `theme` | `light` \| `dark` | `light` |
 | `palette` | any named palette (see [Palette API](#palette-api)) | `default` |
@@ -473,6 +676,64 @@ title: Optional Title
 section Section Name               %% group header (applied to subsequent tasks)
   Task Label: id, start, end       %% task bar (dates: yyyy-mm-dd)
 milestone: Label, date             %% milestone diamond
+```
+</details>
+
+<details>
+<summary><strong>state</strong></summary>
+
+```
+state [light|dark] [palette]
+title: Optional Title
+idle[Idle]                         %% normal state (rounded rectangle)
+done((Done))                       %% end state (ringed circle)
+failed[Failed] accent              %% highlight as focal/error state
+[*] --> idle                       %% start pseudo-state → first state
+idle --> processing: order placed  %% transition with optional label
+```
+</details>
+
+<details>
+<summary><strong>er</strong></summary>
+
+```
+er [light|dark] [palette]
+title: Optional Title
+entity User[User]                  %% entity declaration
+  id pk: uuid                      %% field: name [pk|fk]: type
+  email: text
+  name                             %% bare field (no type)
+entity Post[Post]
+  id pk: uuid
+  author_id fk: uuid
+User --> Post: writes              %% relationship line
+```
+</details>
+
+<details>
+<summary><strong>timeline</strong></summary>
+
+```
+timeline [light|dark] [palette]
+title: Optional Title
+2020-01-15: v1.0 Launch milestone  %% major milestone (larger accent dot)
+2021-06-01: v1.5 Patch
+2022-03-10: v2.0 Redesign milestone
+```
+</details>
+
+<details>
+<summary><strong>swimlane</strong></summary>
+
+```
+swimlane [light|dark] [palette]
+title: Optional Title
+lanes: Customer, Warehouse, Shipping      %% declare lane labels
+Customer: order[Place Order]              %% LaneName: id[Node Label]
+Warehouse: pack[Pack Items]
+Shipping: ship[Ship Package]
+order --> pack                            %% edges between nodes
+pack --> ship
 ```
 </details>
 

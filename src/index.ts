@@ -4,6 +4,10 @@ import { createArchDiagram } from './arch';
 import { createSequenceDiagram } from './sequence';
 import { createQuadrantChart } from './quadrant';
 import { createGanttChart } from './gantt';
+import { createStateDiagram } from './state';
+import { createErDiagram } from './er';
+import { createTimelineDiagram } from './timeline';
+import { createSwimlaneDiagram } from './swimlane';
 import { parseFigmd } from './parse';
 import type { FigOptions } from './types';
 
@@ -26,6 +30,10 @@ const EMPTY_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1">
  * - `'sequence'` — sequence diagram (actors + message arrows)
  * - `'quadrant'` — quadrant chart (2×2 matrix with data points)
  * - `'gantt'`    — Gantt chart (task bars, optional milestones, optional groups)
+ * - `'state'`    — state machine (states + transitions, UML pseudo-states)
+ * - `'er'`       — ER / data model (entities with fields, relationships)
+ * - `'timeline'` — timeline (events plotted on a horizontal date axis)
+ * - `'swimlane'` — swimlane (cross-functional flow with lane bands)
  *
  * Returns a fully self-contained SVG string; no coordinates needed.
  *
@@ -69,6 +77,14 @@ function figDispatch(options: FigOptions): string {
       return createQuadrantChart(options);
     case 'gantt':
       return createGanttChart(options);
+    case 'state':
+      return createStateDiagram(options);
+    case 'er':
+      return createErDiagram(options);
+    case 'timeline':
+      return createTimelineDiagram(options);
+    case 'swimlane':
+      return createSwimlaneDiagram(options);
     default: {
       const _exhaustive: never = options;
       throw new Error(`Unknown figure type: ${(_exhaustive as FigOptions).figure}`);
@@ -97,4 +113,18 @@ export type {
   GanttTask,
   GanttMilestone,
   GanttChartOptions,
+  StateNodeType,
+  StateNode,
+  StateTransition,
+  StateDiagramOptions,
+  ErFieldKey,
+  ErField,
+  ErEntity,
+  ErRelation,
+  ErDiagramOptions,
+  TimelineEvent,
+  TimelineDiagramOptions,
+  SwimlaneNode,
+  SwimlaneEdge,
+  SwimlaneDiagramOptions,
 } from './types';

@@ -1,12 +1,12 @@
 ---
 name: ai-figure
-version: "0.1.0"
-description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence, quadrant, gantt) from a markdown string or a JSON config via fig(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
+version: "0.2.0"
+description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence, quadrant, gantt, state machine, ER, timeline, swimlane) from a markdown string or a JSON config via fig(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
 author: hustcc
 license: MIT
 package: ai-figure
 api: fig(markdown|options) → string (SVG)
-tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, svg, layout, visualization, markdown]
+tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, state-machine, er-diagram, timeline, swimlane, svg, layout, visualization, markdown]
 ---
 
 # ai-figure Skill
@@ -47,7 +47,7 @@ const svg2 = fig({ figure: 'flow', nodes: [...], edges: [...] });
 
 | Token | Values | Default |
 |-------|--------|---------|
-| `type` | `flow` `tree` `arch` `sequence` `quadrant` `gantt` | required |
+| `type` | `flow` `tree` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` | required |
 | `direction` | `TB` `LR` | `TB` |
 | `theme` | `light` `dark` | `light` |
 | `palette` | `default` `antv` `drawio` `figma` `vega` `mono-blue` `mono-green` `mono-purple` `mono-orange` | `default` |
@@ -139,6 +139,85 @@ milestone: Launch, 2025-03-01
 - Task format: `<label>: <id>, <yyyy-mm-dd>, <yyyy-mm-dd>` — **id is required**, even if you don't reference it
 - `end` ≥ `start`; `section` groups tasks under a bold header; `milestone: <label>, <date>` marks a point in time
 
+### state
+
+```figure
+state [theme] [palette]
+title: Order Status
+idle[Idle]
+processing[Processing]
+failed[Failed] accent        %% mark as accent/focal state
+done((Done))                 %% end state (ringed circle)
+[*] --> idle                 %% start pseudo-state
+idle --> processing: order placed
+processing --> done: shipped
+processing --> failed: error
+failed --> idle: retry
+```
+
+- `id[label]` — normal state (rounded rectangle)
+- `id((label))` — end/terminal state (ringed circle)
+- `[*]` — start pseudo-state (filled circle)
+- `id --> id2: event` — transition with optional label
+- Append ` accent` to mark a state as the focal/error state (max 1–2)
+
+### er
+
+```figure
+er [theme] [palette]
+title: Blog Schema
+entity User[User]
+  id pk: uuid
+  email: text
+entity Post[Post]
+  id pk: uuid
+  author_id fk: uuid
+  title: text
+User --> Post: writes
+```
+
+- `entity id[Label]` — declare an entity box
+- Fields: `name pk: type` (primary key), `name fk: type` (foreign key), `name: type`, or bare `name`
+- `A --> B: label` — relationship line with optional label
+- `A ||--o{ B: label` — crow's foot cardinality notation
+- Append `accent: id` to mark the aggregate root entity
+
+### timeline
+
+```figure
+timeline [theme] [palette]
+title: Product History
+2020-01-15: v1.0 Launch milestone   %% major milestone (larger accent dot)
+2021-06-01: v1.5 Improvements
+2022-03-10: v2.0 Redesign milestone
+2023-11-01: v3.0 AI Features
+```
+
+- Lines: `yyyy-mm-dd: label` or `yyyy-mm-dd: label milestone`
+- Events are sorted chronologically and spaced proportionally on a horizontal axis
+- Labels alternate above and below the baseline to reduce collision
+
+### swimlane
+
+```figure
+swimlane [theme] [palette]
+title: Order Flow
+lanes: Customer, Warehouse, Shipping
+Customer: order[Place Order]
+Customer: pay[Confirm Payment]
+Warehouse: receive[Receive Order]
+Warehouse: pack[Pack Items]
+Shipping: ship[Ship Package]
+order --> pay
+pay --> receive
+receive --> pack
+pack --> ship
+```
+
+- `lanes: Lane A, Lane B, ...` — declare lane labels in display order
+- `LaneName: id[Node Label]` — node declaration inside a lane
+- `A --> B` or `A --> B: label` — directed edges (may cross lanes)
+
 ## JSON config (fig(options))
 
 Same result as markdown but typed. Use when building diagrams programmatically.
@@ -189,6 +268,39 @@ interface GanttChartOptions {
   figure: 'gantt';
   tasks: GanttTask[];       // { id, label, start, end, groupId?, color? }
   milestones?: GanttMilestone[]; // { date, label }
+  title?: string; subtitle?: string;
+  theme?: 'light'|'dark'; palette?: string|string[];
+}
+
+interface StateDiagramOptions {
+  figure: 'state';
+  nodes: StateNode[];       // { id, label, type?: 'state'|'start'|'end', accent?: boolean }
+  transitions: StateTransition[]; // { from, to, label? }
+  title?: string; subtitle?: string;
+  theme?: 'light'|'dark'; palette?: string|string[];
+}
+
+interface ErDiagramOptions {
+  figure: 'er';
+  entities: ErEntity[];     // { id, label, fields: ErField[], accent?: boolean }
+  relations: ErRelation[];  // { from, to, label?, fromCard?, toCard? }
+  title?: string; subtitle?: string;
+  theme?: 'light'|'dark'; palette?: string|string[];
+}
+// ErField: { name, type?, key?: 'pk'|'fk' }
+
+interface TimelineDiagramOptions {
+  figure: 'timeline';
+  events: TimelineEvent[];  // { id, label, date, milestone? }  date: 'yyyy-mm-dd'
+  title?: string; subtitle?: string;
+  theme?: 'light'|'dark'; palette?: string|string[];
+}
+
+interface SwimlaneDiagramOptions {
+  figure: 'swimlane';
+  lanes: string[];          // lane labels in display order
+  nodes: SwimlaneNode[];    // { id, label, lane, type? }  lane = one of lanes[]
+  edges: SwimlaneEdge[];    // { from, to, label? }
   title?: string; subtitle?: string;
   theme?: 'light'|'dark'; palette?: string|string[];
 }

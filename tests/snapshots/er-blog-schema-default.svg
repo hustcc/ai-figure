@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="496" viewBox="0 0 600 496">
+<text x="300" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Blog Schema</text>
+<g class="er-diagram" transform="translate(0,48)">
+<defs><marker id="er-1-arrow" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 6 2.5, 0 5" fill="#868e96"/></marker></defs>
+<line x1="260" y1="105.76666666666667" x2="340" y2="109.23333333333333" stroke="#868e96" stroke-width="1.5" marker-end="url(#er-1-arrow)"/>
+<text x="300" y="101.5" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" font-style="italic">writes</text>
+<text x="275.98499890102266" y="116.44997426551683" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057">1</text>
+<text x="324.01500109897734" y="118.53127436076153" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057">N</text>
+<line x1="349.0909090909091" y1="188" x2="250.9090909090909" y2="260" stroke="#868e96" stroke-width="1.5" marker-end="url(#er-1-arrow)"/>
+<text x="300" y="218" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" font-style="italic">has</text>
+<text x="336.18842915721785" y="189.3977686594832" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057">1</text>
+<text x="263.8115708427822" y="242.47413142340267" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057">N</text>
+<line x1="150" y1="162" x2="150" y2="260" stroke="#868e96" stroke-width="1.5" marker-end="url(#er-1-arrow)"/>
+<text x="150" y="205" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" font-style="italic">authors</text>
+<text x="150" y="178" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057">1</text>
+<text x="150" y="244" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057">N</text>
+<rect x="40" y="40" width="220" height="122" rx="6" ry="6" fill="#e7f5ff" stroke="none"/>
+<rect x="40" y="40" width="220" height="44" rx="6" ry="6" fill="#fff7e6" stroke="none"/>
+<rect x="40" y="78" width="220" height="6" fill="#fff7e6" stroke="none"/>
+<line x1="40" y1="84" x2="260" y2="84" stroke="#f59f00" stroke-width="1"/>
+<text x="48" y="51" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="9" font-weight="500" letter-spacing="0.12em" fill="#e67700" opacity="0.7">ENTITY</text>
+<text x="150" y="75" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#e67700">User</text>
+<rect x="41" y="84" width="218" height="26" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<text x="50" y="103.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#339af0" font-weight="600"># id</text>
+<text x="252" y="103.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">uuid</text>
+<text x="50" y="129.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#495057">email</text>
+<text x="252" y="129.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">text</text>
+<rect x="41" y="136" width="218" height="26" fill="rgba(134,142,150,0.06)" stroke="none" rx="6" ry="6"/>
+<text x="50" y="155.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#495057">name</text>
+<text x="252" y="155.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">text</text>
+<rect x="40" y="40" width="220" height="122" rx="6" ry="6" fill="none" stroke="#f59f00" stroke-width="1.5"/>
+<rect x="340" y="40" width="220" height="148" rx="6" ry="6" fill="#e7f5ff" stroke="none"/>
+<rect x="340" y="40" width="220" height="44" rx="6" ry="6" fill="#ebfbee" stroke="none"/>
+<rect x="340" y="78" width="220" height="6" fill="#ebfbee" stroke="none"/>
+<line x1="340" y1="84" x2="560" y2="84" stroke="#51cf66" stroke-width="1"/>
+<text x="348" y="51" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="9" font-weight="500" letter-spacing="0.12em" fill="#2f9e44" opacity="0.7">ENTITY</text>
+<text x="450" y="75" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#2f9e44">Post</text>
+<rect x="341" y="84" width="218" height="26" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<text x="350" y="103.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#51cf66" font-weight="600"># id</text>
+<text x="552" y="103.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">uuid</text>
+<text x="350" y="129.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#51cf66" font-weight="600">→ author_id</text>
+<text x="552" y="129.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">uuid</text>
+<rect x="341" y="136" width="218" height="26" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<text x="350" y="155.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#495057">title</text>
+<text x="552" y="155.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">text</text>
+<text x="350" y="181.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#495057">body</text>
+<text x="552" y="181.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">text</text>
+<rect x="340" y="40" width="220" height="148" rx="6" ry="6" fill="none" stroke="#51cf66" stroke-width="1.5"/>
+<rect x="40" y="260" width="220" height="148" rx="6" ry="6" fill="#e7f5ff" stroke="none"/>
+<rect x="40" y="260" width="220" height="44" rx="6" ry="6" fill="#fdf4ff" stroke="none"/>
+<rect x="40" y="298" width="220" height="6" fill="#fdf4ff" stroke="none"/>
+<line x1="40" y1="304" x2="260" y2="304" stroke="#cc5de8" stroke-width="1"/>
+<text x="48" y="271" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="9" font-weight="500" letter-spacing="0.12em" fill="#862e9c" opacity="0.7">ENTITY</text>
+<text x="150" y="295" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#862e9c">Comment</text>
+<rect x="41" y="304" width="218" height="26" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<text x="50" y="323.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#cc5de8" font-weight="600"># id</text>
+<text x="252" y="323.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">uuid</text>
+<text x="50" y="349.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#cc5de8" font-weight="600">→ post_id</text>
+<text x="252" y="349.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">uuid</text>
+<rect x="41" y="356" width="218" height="26" fill="rgba(134,142,150,0.06)" stroke="none"/>
+<text x="50" y="375.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#cc5de8" font-weight="600">→ user_id</text>
+<text x="252" y="375.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">uuid</text>
+<text x="50" y="401.5" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#495057">content</text>
+<text x="252" y="401.5" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="12" fill="#868e96">text</text>
+<rect x="40" y="260" width="220" height="148" rx="6" ry="6" fill="none" stroke="#cc5de8" stroke-width="1.5"/>
+</g>
+</svg>
