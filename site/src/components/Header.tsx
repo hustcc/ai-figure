@@ -8,9 +8,6 @@ export default function Header() {
           ai-figure<span className="text-orange-500">.</span>
         </Link>
         <nav className="flex items-center gap-6">
-          <Link href="/" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-            Home
-          </Link>
           <Link href="/docs" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
             Docs
           </Link>
