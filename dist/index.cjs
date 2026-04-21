@@ -9352,7 +9352,7 @@ function createErDiagram(options) {
     const toPt = edgePoint(toPos, fromCenter);
     const lineColor = theme.groupColor;
     parts.push(
-      `<line x1="${fromPt.x}" y1="${fromPt.y}" x2="${toPt.x}" y2="${toPt.y}" stroke="${escapeXml(lineColor)}" stroke-width="1.5" marker-end="url(#${uid}-arrow)"/>`
+      `<path d="M${fromPt.x},${fromPt.y} L${toPt.x},${toPt.y}" fill="none" stroke="${escapeXml(lineColor)}" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#${uid}-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>`
     );
     if (rel.label) {
       const mx = (fromPt.x + toPt.x) / 2;
@@ -9781,72 +9781,71 @@ function createSwimlaneDiagram(options) {
 
 // src/parse.ts
 function parseFigmd(markdown) {
-  const lines = markdown.split("\n");
-  let headerIdx = 0;
-  while (headerIdx < lines.length && lines[headerIdx].trim() === "") headerIdx++;
-  if (headerIdx >= lines.length) throw new Error("figmd: empty diagram definition");
-  const headerTokens = lines[headerIdx].trim().split(/\s+/);
-  const figureType = headerTokens[0].toLowerCase();
-  let direction;
-  let theme;
-  let palette;
-  for (let j = 1; j < headerTokens.length; j++) {
-    const t = headerTokens[j];
-    if (t === "TB" || t === "LR") {
-      direction = t;
-    } else if (t === "light" || t === "dark") {
-      theme = t;
-    } else {
-      palette = t;
-    }
+  const lines = [];
+  for (const raw of markdown.split("\n")) {
+    const line = raw.trim();
+    if (line && !line.startsWith("%%")) lines.push(line);
   }
-  const bodyLines = lines.slice(headerIdx + 1);
+  if (lines.length === 0) throw new Error("figmd: empty diagram definition");
+  const header = lines[0];
+  if (!header.startsWith("figure ")) {
+    throw new Error(`figmd: header must start with "figure <type>", got "${header}"`);
+  }
+  const figureType = header.slice("figure ".length).trim().toLowerCase();
+  const body = lines.slice(1);
   switch (figureType) {
     case "flow":
-      return parseFlow(bodyLines, direction, theme, palette);
+      return parseFlow(body);
     case "tree":
-      return parseTree(bodyLines, direction, theme, palette);
+      return parseTree(body);
     case "arch":
-      return parseArch(bodyLines, direction, theme, palette);
+      return parseArch(body);
     case "sequence":
-      return parseSequence(bodyLines, theme, palette);
+      return parseSequence(body);
     case "quadrant":
-      return parseQuadrant(bodyLines, theme, palette);
+      return parseQuadrant(body);
     case "gantt":
-      return parseGantt(bodyLines, theme, palette);
+      return parseGantt(body);
     case "state":
-      return parseState(bodyLines, theme, palette);
+      return parseState(body);
     case "er":
-      return parseEr(bodyLines, theme, palette);
+      return parseEr(body);
     case "timeline":
-      return parseTimeline(bodyLines, theme, palette);
+      return parseTimeline(body);
     case "swimlane":
-      return parseSwimlane(bodyLines, theme, palette);
+      return parseSwimlane(body);
     default:
       throw new Error(
         `figmd: unknown figure type "${figureType}". Expected one of: flow, tree, arch, sequence, quadrant, gantt, state, er, timeline, swimlane`
       );
   }
 }
-function extractMeta(lines) {
-  let title;
-  let subtitle;
-  const rest = [];
-  for (const rawLine of lines) {
-    const line = rawLine.trim();
-    if (!line || line.startsWith("%%")) continue;
-    if (line.startsWith("title:")) {
-      title = line.slice("title:".length).trim();
-      continue;
-    }
-    if (line.startsWith("subtitle:")) {
-      subtitle = line.slice("subtitle:".length).trim();
-      continue;
-    }
-    rest.push(line);
+function applyCommonConfig(line, cfg) {
+  const ci = line.indexOf(":");
+  if (ci === -1) return false;
+  const key = line.slice(0, ci).trim();
+  const val = line.slice(ci + 1).trim();
+  switch (key) {
+    case "title":
+      cfg.title = val;
+      return true;
+    case "subtitle":
+      cfg.subtitle = val;
+      return true;
+    case "theme":
+      cfg.theme = val;
+      return true;
+    case "palette":
+      cfg.palette = val;
+      return true;
+    case "direction":
+      cfg.direction = val;
+      return true;
+    default:
+      return false;
   }
-  return { title, subtitle, rest };
 }
+var cfgSpread = (c) => Object.fromEntries(Object.entries(c).filter(([, v]) => v !== void 0));
 function splitOnArrow(line, arrow) {
   const idx = line.indexOf(arrow);
   if (idx === -1) return null;
@@ -9856,255 +9855,198 @@ function splitOnArrow(line, arrow) {
   return [left, right];
 }
 function parseNodeExpr(expr) {
-  expr = expr.trim();
-  const terminalMatch = expr.match(/^([\w-]+)\(\((.+)\)\)$/s);
-  if (terminalMatch) return { id: terminalMatch[1], label: terminalMatch[2], type: "terminal" };
-  const ioMatch = expr.match(/^([\w-]+)\[\/(.+)\/\]$/s);
-  if (ioMatch) return { id: ioMatch[1], label: ioMatch[2], type: "io" };
-  const processMatch = expr.match(/^([\w-]+)\[(.+)\]$/s);
-  if (processMatch) return { id: processMatch[1], label: processMatch[2], type: "process" };
-  const decisionMatch = expr.match(/^([\w-]+)\{(.+)\}$/s);
-  if (decisionMatch) return { id: decisionMatch[1], label: decisionMatch[2], type: "decision" };
-  return { id: expr, label: expr, type: "process" };
+  const s = expr.trim();
+  const dblOpen = s.indexOf("((");
+  if (dblOpen > 0 && s.endsWith("))")) {
+    const id = s.slice(0, dblOpen).trim();
+    if (id) return { id, label: s.slice(dblOpen + 2, s.length - 2).trim() || id, type: "terminal" };
+  }
+  const ioOpen = s.indexOf("[/");
+  if (ioOpen > 0 && s.endsWith("/]")) {
+    const id = s.slice(0, ioOpen).trim();
+    if (id) return { id, label: s.slice(ioOpen + 2, s.length - 2).trim() || id, type: "io" };
+  }
+  const sqOpen = s.indexOf("[");
+  if (sqOpen > 0 && s.endsWith("]") && s[sqOpen + 1] !== "/") {
+    const id = s.slice(0, sqOpen).trim();
+    if (id) return { id, label: s.slice(sqOpen + 1, s.length - 1).trim() || id, type: "process" };
+  }
+  const curlOpen = s.indexOf("{");
+  if (curlOpen > 0 && s.endsWith("}")) {
+    const id = s.slice(0, curlOpen).trim();
+    if (id) return { id, label: s.slice(curlOpen + 1, s.length - 1).trim() || id, type: "decision" };
+  }
+  return { id: s, label: s, type: "process" };
 }
-function isExplicitNodeExpr(expr, id) {
-  return expr.trim() !== id;
+function splitFlowRight(s) {
+  const lastSq = s.lastIndexOf("]");
+  const lastCu = s.lastIndexOf("}");
+  const lastDbl = s.lastIndexOf("))");
+  const term = Math.max(lastSq, lastCu, lastDbl !== -1 ? lastDbl + 1 : -1);
+  if (term > 0) {
+    const after = s.slice(term + 1).trimStart();
+    return after.startsWith(":") ? [s.slice(0, term + 1).trim(), after.slice(1).trim()] : [s, void 0];
+  }
+  const ci = s.indexOf(":");
+  return ci !== -1 ? [s.slice(0, ci).trim(), s.slice(ci + 1).trim()] : [s, void 0];
 }
-function parseFlow(lines, direction, theme, palette) {
-  const { title, subtitle, rest } = extractMeta(lines);
+function parseEdge(line, arrow = "-->") {
+  if (!line.includes(arrow)) return null;
+  const p = splitOnArrow(line, arrow);
+  if (!p) return null;
+  const [from, r] = p;
+  const ci = r.indexOf(":");
+  return ci !== -1 ? { from, to: r.slice(0, ci).trim(), label: r.slice(ci + 1).trim() } : { from, to: r };
+}
+function parseFlow(lines) {
+  const cfg = {};
   const nodeMap = /* @__PURE__ */ new Map();
   const edges = [];
   const groups = [];
   const ensureNode = (expr) => {
     const { id, label, type } = parseNodeExpr(expr);
-    const existing = nodeMap.get(id);
-    if (!existing) {
-      nodeMap.set(id, { id, label, type });
-    } else if (isExplicitNodeExpr(expr, id)) {
-      nodeMap.set(id, { id, label, type });
-    }
+    if (!nodeMap.has(id) || expr.trim() !== id) nodeMap.set(id, { id, label, type });
     return id;
   };
-  for (const line of rest) {
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
     if (line.startsWith("group ")) {
       const body = line.slice("group ".length);
-      const colonIdx = body.indexOf(":");
-      if (colonIdx !== -1) {
-        const label = body.slice(0, colonIdx).trim();
-        const nodeList = body.slice(colonIdx + 1).trim();
-        const nodes = nodeList.split(",").map((n) => n.trim()).filter((n) => n.length > 0);
-        if (nodes.length === 0) continue;
-        groups.push({
-          id: `grp-${groups.length}`,
-          label,
-          nodes
-        });
+      const ci = body.indexOf(":");
+      if (ci !== -1) {
+        const label = body.slice(0, ci).trim();
+        const nodes = body.slice(ci + 1).split(",").map((n) => n.trim()).filter(Boolean);
+        if (nodes.length > 0) groups.push({ id: `grp-${groups.length}`, label, nodes });
       }
       continue;
     }
     if (line.includes("-->")) {
-      const parts = splitOnArrow(line, "-->");
-      if (parts) {
-        const [left, rightRaw] = parts;
-        let right = rightRaw;
-        let label;
-        if (right.startsWith("|")) {
-          const closePipe = right.indexOf("|", 1);
-          if (closePipe !== -1) {
-            label = right.slice(1, closePipe).trim();
-            right = right.slice(closePipe + 1).trim();
-          }
+      const p = splitOnArrow(line, "-->");
+      if (p) {
+        const [left, rightRaw] = p;
+        const [to, label] = splitFlowRight(rightRaw);
+        if (to) {
+          const fromId = ensureNode(left);
+          const toId = ensureNode(to);
+          edges.push(label ? { from: fromId, to: toId, label } : { from: fromId, to: toId });
         }
-        if (!right) continue;
-        const fromId = ensureNode(left);
-        const toId = ensureNode(right);
-        edges.push(label !== void 0 ? { from: fromId, to: toId, label } : { from: fromId, to: toId });
         continue;
       }
     }
     ensureNode(line);
   }
-  return {
-    figure: "flow",
-    nodes: [...nodeMap.values()],
-    edges,
-    ...groups.length > 0 ? { groups } : {},
-    ...direction !== void 0 ? { direction } : {},
-    ...theme !== void 0 ? { theme } : {},
-    ...palette !== void 0 ? { palette } : {},
-    ...title !== void 0 ? { title } : {},
-    ...subtitle !== void 0 ? { subtitle } : {}
-  };
+  return { figure: "flow", nodes: [...nodeMap.values()], edges, ...groups.length ? { groups } : {}, ...cfgSpread(cfg) };
 }
-function parseTree(lines, direction, theme, palette) {
-  const { title, subtitle, rest } = extractMeta(lines);
+function parseTree(lines) {
+  const cfg = {};
   const nodeMap = /* @__PURE__ */ new Map();
   const ensureNode = (expr, parent) => {
     const { id, label } = parseNodeExpr(expr);
     const existing = nodeMap.get(id);
     if (!existing) {
       nodeMap.set(id, { id, label, ...parent !== void 0 ? { parent } : {} });
-      return id;
-    }
-    if (isExplicitNodeExpr(expr, id) && existing.label === id) {
-      existing.label = label;
-    }
-    if (parent !== void 0) {
-      if (existing.parent === void 0) {
-        existing.parent = parent;
-      }
+    } else {
+      if (expr.trim() !== id && existing.label === id) existing.label = label;
+      if (parent !== void 0 && existing.parent === void 0) existing.parent = parent;
     }
     return id;
   };
-  for (const line of rest) {
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
     if (line.includes("-->")) {
-      const parts = splitOnArrow(line, "-->");
-      if (parts) {
-        const [left, right] = parts;
-        const parentId = ensureNode(left);
-        ensureNode(right, parentId);
+      const p = splitOnArrow(line, "-->");
+      if (p) {
+        ensureNode(p[1], ensureNode(p[0]));
         continue;
       }
     }
     ensureNode(line);
   }
-  return {
-    figure: "tree",
-    nodes: [...nodeMap.values()],
-    ...direction !== void 0 ? { direction } : {},
-    ...theme !== void 0 ? { theme } : {},
-    ...palette !== void 0 ? { palette } : {},
-    ...title !== void 0 ? { title } : {},
-    ...subtitle !== void 0 ? { subtitle } : {}
-  };
+  return { figure: "tree", nodes: [...nodeMap.values()], ...cfgSpread(cfg) };
 }
-function parseArch(lines, direction, theme, palette) {
-  const { title, subtitle, rest } = extractMeta(lines);
+function parseArch(lines) {
+  const cfg = {};
   const layers = [];
-  let currentLayer = null;
-  for (const line of rest) {
+  let cur = null;
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
     if (line.startsWith("layer ")) {
-      const layerExpr = line.slice("layer ".length).trim();
-      const { id, label } = parseNodeExpr(layerExpr);
-      currentLayer = { id, label, nodes: [] };
-      layers.push(currentLayer);
+      const label = line.slice("layer ".length).trim();
+      cur = { id: label, label, nodes: [] };
+      layers.push(cur);
       continue;
     }
-    if (currentLayer) {
+    if (cur) {
       const { id, label } = parseNodeExpr(line);
-      currentLayer.nodes.push({ id, label });
+      cur.nodes.push({ id, label });
     }
   }
-  return {
-    figure: "arch",
-    layers,
-    ...direction !== void 0 ? { direction } : {},
-    ...theme !== void 0 ? { theme } : {},
-    ...palette !== void 0 ? { palette } : {},
-    ...title !== void 0 ? { title } : {},
-    ...subtitle !== void 0 ? { subtitle } : {}
-  };
+  return { figure: "arch", layers, ...cfgSpread(cfg) };
 }
-function parseSequence(lines, theme, palette) {
-  const { title, subtitle, rest } = extractMeta(lines);
+function parseSequence(lines) {
+  const cfg = {};
   let actors = [];
   const messages = [];
-  for (const line of rest) {
+  const addMsg = (e, style) => {
+    if (!e) return;
+    messages.push({ from: e.from, to: e.to, ...e.label ? { label: e.label } : {}, ...style ? { style } : {} });
+  };
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
     if (line.startsWith("actors:")) {
       actors = line.slice("actors:".length).split(",").map((a) => a.trim()).filter(Boolean);
       continue;
     }
     if (line.includes("-->")) {
-      const parts = splitOnArrow(line, "-->");
-      if (parts) {
-        const [from, rightRaw] = parts;
-        const colonIdx = rightRaw.indexOf(":");
-        if (colonIdx !== -1) {
-          messages.push({
-            from,
-            to: rightRaw.slice(0, colonIdx).trim(),
-            label: rightRaw.slice(colonIdx + 1).trim(),
-            style: "return"
-          });
-        } else {
-          messages.push({ from, to: rightRaw, style: "return" });
-        }
-        continue;
-      }
+      addMsg(parseEdge(line, "-->"), "return");
+      continue;
     }
     if (line.includes("->")) {
-      const parts = splitOnArrow(line, "->");
-      if (parts) {
-        const [from, rightRaw] = parts;
-        const colonIdx = rightRaw.indexOf(":");
-        if (colonIdx !== -1) {
-          messages.push({
-            from,
-            to: rightRaw.slice(0, colonIdx).trim(),
-            label: rightRaw.slice(colonIdx + 1).trim()
-          });
-        } else {
-          messages.push({ from, to: rightRaw });
-        }
-        continue;
-      }
+      addMsg(parseEdge(line, "->"));
+      continue;
     }
   }
   if (actors.length === 0) {
     const seen = /* @__PURE__ */ new Set();
-    for (const msg of messages) {
-      if (!seen.has(msg.from)) {
-        seen.add(msg.from);
-        actors.push(msg.from);
+    for (const m of messages) {
+      if (!seen.has(m.from)) {
+        seen.add(m.from);
+        actors.push(m.from);
       }
-      if (!seen.has(msg.to)) {
-        seen.add(msg.to);
-        actors.push(msg.to);
+      if (!seen.has(m.to)) {
+        seen.add(m.to);
+        actors.push(m.to);
       }
     }
   }
-  return {
-    figure: "sequence",
-    actors,
-    messages,
-    ...theme !== void 0 ? { theme } : {},
-    ...palette !== void 0 ? { palette } : {},
-    ...title !== void 0 ? { title } : {},
-    ...subtitle !== void 0 ? { subtitle } : {}
-  };
+  return { figure: "sequence", actors, messages, ...cfgSpread(cfg) };
 }
 function parseAxisLine(line, prefix) {
   if (!line.startsWith(prefix)) return null;
   const content = line.slice(prefix.length);
-  const dotdotIdx = content.indexOf("..");
-  if (dotdotIdx === -1) return null;
-  const leftPart = content.slice(0, dotdotIdx).trim();
-  const max = content.slice(dotdotIdx + 2).trim();
-  const colonIdx = leftPart.indexOf(":");
-  if (colonIdx !== -1) {
-    return {
-      label: leftPart.slice(0, colonIdx).trim(),
-      min: leftPart.slice(colonIdx + 1).trim(),
-      max
-    };
-  }
-  return { label: "", min: leftPart, max };
+  const dotdot = content.indexOf("..");
+  if (dotdot === -1) return null;
+  const left = content.slice(0, dotdot).trim();
+  const max = content.slice(dotdot + 2).trim();
+  const ci = left.indexOf(":");
+  return ci !== -1 ? { label: left.slice(0, ci).trim(), min: left.slice(ci + 1).trim(), max } : { label: "", min: left, max };
 }
-function parseQuadrant(lines, theme, palette) {
-  const { title, subtitle, rest } = extractMeta(lines);
+function parseQuadrant(lines) {
+  const cfg = {};
   let xAxis = { label: "", min: "", max: "" };
   let yAxis = { label: "", min: "", max: "" };
   const quadrantLabels = ["", "", "", ""];
   const points = [];
-  for (const line of rest) {
-    const xResult = parseAxisLine(line, "x-axis");
-    if (xResult) {
-      xAxis = xResult;
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
+    const xa = parseAxisLine(line, "x-axis");
+    if (xa) {
+      xAxis = xa;
       continue;
     }
-    const yResult = parseAxisLine(line, "y-axis");
-    if (yResult) {
-      yAxis = yResult;
+    const ya = parseAxisLine(line, "y-axis");
+    if (ya) {
+      yAxis = ya;
       continue;
     }
     if (line.startsWith("quadrant-")) {
@@ -10115,406 +10057,196 @@ function parseQuadrant(lines, theme, palette) {
         continue;
       }
     }
-    const lastComma = line.lastIndexOf(",");
-    if (lastComma !== -1) {
-      const yStr = line.slice(lastComma + 1).trim();
-      const y = Number(yStr);
+    const lc = line.lastIndexOf(",");
+    if (lc !== -1) {
+      const y = Number(line.slice(lc + 1).trim());
       if (Number.isFinite(y) && y >= 0 && y <= 1) {
-        const beforeComma = line.slice(0, lastComma);
-        const colonIdx = beforeComma.indexOf(":");
-        if (colonIdx !== -1) {
-          const label = beforeComma.slice(0, colonIdx).trim();
-          const xStr = beforeComma.slice(colonIdx + 1).trim();
-          const x = Number(xStr);
+        const before = line.slice(0, lc);
+        const ci = before.indexOf(":");
+        if (ci !== -1) {
+          const label = before.slice(0, ci).trim();
+          const x = Number(before.slice(ci + 1).trim());
           if (label && Number.isFinite(x) && x >= 0 && x <= 1) {
-            points.push({
-              id: `p${points.length}`,
-              label,
-              x,
-              y
-            });
+            points.push({ id: `p${points.length}`, label, x, y });
             continue;
           }
         }
       }
     }
   }
-  return {
-    figure: "quadrant",
-    xAxis,
-    yAxis,
-    quadrants: quadrantLabels,
-    points,
-    ...theme !== void 0 ? { theme } : {},
-    ...palette !== void 0 ? { palette } : {},
-    ...title !== void 0 ? { title } : {},
-    ...subtitle !== void 0 ? { subtitle } : {}
-  };
+  return { figure: "quadrant", xAxis, yAxis, quadrants: quadrantLabels, points, ...cfgSpread(cfg) };
 }
-function parseGantt(lines, theme, palette) {
-  const { title, subtitle, rest } = extractMeta(lines);
+function parseGantt(lines) {
+  const cfg = {};
   const tasks = [];
   const milestones = [];
-  let currentSection;
-  const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
-  for (const line of rest) {
+  let section;
+  const DATE = /^\d{4}-\d{2}-\d{2}$/;
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
     if (line.startsWith("section ")) {
-      currentSection = line.slice("section ".length).trim();
+      section = line.slice("section ".length).trim();
       continue;
     }
     if (line.startsWith("milestone:")) {
       const body = line.slice("milestone:".length).trim();
-      const lastComma2 = body.lastIndexOf(",");
-      if (lastComma2 !== -1) {
-        const date = body.slice(lastComma2 + 1).trim();
-        if (DATE_RE.test(date)) {
-          milestones.push({ label: body.slice(0, lastComma2).trim(), date });
-          continue;
-        }
+      const lc2 = body.lastIndexOf(",");
+      if (lc2 !== -1) {
+        const date = body.slice(lc2 + 1).trim();
+        if (DATE.test(date)) milestones.push({ label: body.slice(0, lc2).trim(), date });
       }
       continue;
     }
-    const lastComma = line.lastIndexOf(",");
-    if (lastComma === -1) continue;
-    const end = line.slice(lastComma + 1).trim();
-    if (!DATE_RE.test(end)) continue;
-    const beforeEnd = line.slice(0, lastComma);
-    const prevComma = beforeEnd.lastIndexOf(",");
-    if (prevComma === -1) continue;
-    const start = beforeEnd.slice(prevComma + 1).trim();
-    if (!DATE_RE.test(start)) continue;
-    const labelAndId = beforeEnd.slice(0, prevComma);
-    const colonIdx = labelAndId.indexOf(":");
-    if (colonIdx === -1) continue;
-    const taskLabel = labelAndId.slice(0, colonIdx).trim();
-    const taskId = labelAndId.slice(colonIdx + 1).trim();
+    const lc = line.lastIndexOf(",");
+    if (lc === -1) continue;
+    const end = line.slice(lc + 1).trim();
+    if (!DATE.test(end)) continue;
+    const before = line.slice(0, lc);
+    const pc = before.lastIndexOf(",");
+    if (pc === -1) continue;
+    const start = before.slice(pc + 1).trim();
+    if (!DATE.test(start)) continue;
+    const rest = before.slice(0, pc);
+    const ci = rest.indexOf(":");
+    if (ci === -1) continue;
+    const taskLabel = rest.slice(0, ci).trim();
+    const taskId = rest.slice(ci + 1).trim();
     if (!taskLabel || !taskId) continue;
-    tasks.push({
-      id: taskId,
-      label: taskLabel,
-      start,
-      end,
-      ...currentSection !== void 0 ? { groupId: currentSection } : {}
-    });
+    tasks.push({ id: taskId, label: taskLabel, start, end, ...section !== void 0 ? { groupId: section } : {} });
   }
-  return {
-    figure: "gantt",
-    tasks,
-    ...milestones.length > 0 ? { milestones } : {},
-    ...theme !== void 0 ? { theme } : {},
-    ...palette !== void 0 ? { palette } : {},
-    ...title !== void 0 ? { title } : {},
-    ...subtitle !== void 0 ? { subtitle } : {}
-  };
+  return { figure: "gantt", tasks, ...milestones.length ? { milestones } : {}, ...cfgSpread(cfg) };
 }
-function parseState(lines, theme, palette) {
-  const { title, subtitle, rest } = extractMeta(lines);
+function parseState(lines) {
+  const cfg = {};
   const nodeMap = /* @__PURE__ */ new Map();
   const transitions = [];
   const ensureState = (expr) => {
-    let e = expr.trim();
-    let markAccent = false;
-    if (e.endsWith(" accent")) {
-      markAccent = true;
-      e = e.slice(0, -" accent".length).trim();
-    }
-    if (e === "[*]") {
-      const pid = "__start";
-      if (!nodeMap.has(pid)) {
-        nodeMap.set(pid, { id: pid, label: "", type: "start" });
-      }
-      return pid;
-    }
-    const dblOpenIdx = e.indexOf("((");
-    if (dblOpenIdx > 0 && e.endsWith("))")) {
-      const id2 = e.slice(0, dblOpenIdx).trim();
-      const label2 = e.slice(dblOpenIdx + 2, e.length - 2).trim();
-      if (id2 && /^[\w-]+$/.test(id2)) {
-        if (!nodeMap.has(id2)) {
-          nodeMap.set(id2, { id: id2, label: label2, type: "end" });
-        }
-        if (markAccent) {
-          const n = nodeMap.get(id2);
-          if (n) n.accent = true;
-        }
-        return id2;
-      }
-    }
-    const { id, label } = parseNodeExpr(e);
+    const { id, label } = parseNodeExpr(expr);
     if (!nodeMap.has(id)) {
-      nodeMap.set(id, { id, label, type: "state" });
-    } else if (isExplicitNodeExpr(e, id)) {
-      const existing = nodeMap.get(id);
-      if (existing.label === id) existing.label = label;
-    }
-    if (markAccent) {
-      const n = nodeMap.get(id);
-      if (n) n.accent = true;
+      const type = id === "start" ? "start" : id === "end" ? "end" : "state";
+      nodeMap.set(id, { id, label: type === "state" ? label : "", type });
+    } else if (expr.trim() !== id) {
+      const node = nodeMap.get(id);
+      if (node.type === "state" && node.label === id) node.label = label;
     }
     return id;
   };
-  for (const line of rest) {
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
     if (line.startsWith("accent:")) {
-      const id = line.slice("accent:".length).trim();
-      const node = nodeMap.get(id);
+      const node = nodeMap.get(line.slice("accent:".length).trim());
       if (node) node.accent = true;
       continue;
     }
-    if (line.includes("-->")) {
-      const parts = splitOnArrow(line, "-->");
-      if (parts) {
-        const [left, rightRaw] = parts;
-        const colonIdx = rightRaw.indexOf(":");
-        let to = rightRaw;
-        let label;
-        if (colonIdx !== -1) {
-          to = rightRaw.slice(0, colonIdx).trim();
-          label = rightRaw.slice(colonIdx + 1).trim();
-        }
-        const fromId = ensureState(left);
-        const toId = ensureState(to);
-        transitions.push(label !== void 0 ? { from: fromId, to: toId, label } : { from: fromId, to: toId });
-        continue;
-      }
-    }
-    if (line.endsWith(" accent")) {
-      const expr = line.slice(0, -" accent".length).trim();
-      const id = ensureState(expr);
-      const node = nodeMap.get(id);
-      if (node) node.accent = true;
+    const e = parseEdge(line);
+    if (e) {
+      const from = ensureState(e.from);
+      const to = ensureState(e.to);
+      transitions.push(e.label !== void 0 ? { from, to, label: e.label } : { from, to });
       continue;
     }
     ensureState(line);
   }
-  return {
-    figure: "state",
-    nodes: [...nodeMap.values()],
-    transitions,
-    ...theme !== void 0 ? { theme } : {},
-    ...palette !== void 0 ? { palette } : {},
-    ...title !== void 0 ? { title } : {},
-    ...subtitle !== void 0 ? { subtitle } : {}
-  };
+  return { figure: "state", nodes: [...nodeMap.values()], transitions, ...cfgSpread(cfg) };
 }
-function parseEr(lines, theme, palette) {
-  let title;
-  let subtitle;
-  const cleanLines = [];
-  for (const rawLine of lines) {
-    const line = rawLine.trim();
-    if (!line || line.startsWith("%%")) continue;
-    cleanLines.push(line);
-  }
+function parseEr(lines) {
+  const cfg = {};
   const entities = [];
   const relations = [];
-  let currentEntity = null;
-  function parseCard(s) {
-    const trim = s.trim();
-    if (trim === "||" || trim === "1") return "1";
-    if (trim === "o{" || trim === "N" || trim === "n") return "N";
-    if (trim === "o|" || trim === "0..1") return "0..1";
-    if (trim === "}|" || trim === "}o" || trim === "1..*") return "1..*";
-    return trim;
-  }
-  for (const line of cleanLines) {
-    if (currentEntity === null) {
-      if (line.startsWith("title:")) {
-        title = line.slice("title:".length).trim();
-        continue;
-      }
-      if (line.startsWith("subtitle:")) {
-        subtitle = line.slice("subtitle:".length).trim();
-        continue;
-      }
-    }
+  let cur = null;
+  let seenEntity = false;
+  for (const line of lines) {
+    if (!seenEntity && applyCommonConfig(line, cfg)) continue;
     if (line.startsWith("accent:")) {
-      const id = line.slice("accent:".length).trim();
-      const entity = entities.find((e) => e.id === id);
-      if (entity) entity.accent = true;
+      const ent = entities.find((e2) => e2.id === line.slice("accent:".length).trim());
+      if (ent) ent.accent = true;
       continue;
     }
     if (line.startsWith("entity ")) {
-      const expr = line.slice("entity ".length).trim();
-      const { id, label } = parseNodeExpr(expr);
-      currentEntity = { id, label, fields: [] };
-      entities.push(currentEntity);
+      seenEntity = true;
+      const label = line.slice("entity ".length).trim();
+      cur = { id: label, label, fields: [] };
+      entities.push(cur);
       continue;
     }
-    const cfIdx = line.indexOf("--");
-    if (cfIdx !== -1 && (cfIdx + 2 >= line.length || line[cfIdx + 2] !== ">")) {
-      const beforeDash = line.slice(0, cfIdx).trim();
-      const afterDash = line.slice(cfIdx + 2).trim();
-      const spIdx = afterDash.indexOf(" ");
-      if (spIdx !== -1 && beforeDash) {
-        const fromParts = beforeDash.split(/\s+/);
-        const fromId = fromParts[0];
-        const fromCard = fromParts.length > 1 ? parseCard(fromParts[fromParts.length - 1]) : void 0;
-        const toToken = afterDash.slice(0, spIdx);
-        const toCard = parseCard(toToken);
-        const rest2 = afterDash.slice(spIdx).trim();
-        const colonIdx2 = rest2.indexOf(":");
-        let toId;
-        let label;
-        if (colonIdx2 !== -1) {
-          toId = rest2.slice(0, colonIdx2).trim();
-          label = rest2.slice(colonIdx2 + 1).trim();
-        } else {
-          toId = rest2;
-        }
-        if (fromId && toId) {
-          relations.push({
-            from: fromId,
-            to: toId,
-            ...label ? { label } : {},
-            ...fromCard ? { fromCard } : {},
-            ...toCard ? { toCard } : {}
-          });
-          currentEntity = null;
-          continue;
-        }
-      }
+    const e = parseEdge(line);
+    if (e) {
+      relations.push(e.label !== void 0 ? { from: e.from, to: e.to, label: e.label } : { from: e.from, to: e.to });
+      cur = null;
+      continue;
     }
-    if (line.includes("-->")) {
-      const parts = splitOnArrow(line, "-->");
-      if (parts) {
-        const [from, rightRaw] = parts;
-        const colonIdx = rightRaw.indexOf(":");
-        if (colonIdx !== -1) {
-          relations.push({
-            from,
-            to: rightRaw.slice(0, colonIdx).trim(),
-            label: rightRaw.slice(colonIdx + 1).trim()
-          });
-        } else {
-          relations.push({ from, to: rightRaw });
-        }
-        currentEntity = null;
-        continue;
-      }
-    }
-    if (currentEntity) {
-      let rest3 = line;
+    if (cur) {
+      let rest = line;
       let key;
       let type;
-      const colonIdx = rest3.indexOf(":");
-      if (colonIdx !== -1) {
-        type = rest3.slice(colonIdx + 1).trim();
-        rest3 = rest3.slice(0, colonIdx).trim();
+      const ci = rest.indexOf(":");
+      if (ci !== -1) {
+        type = rest.slice(ci + 1).trim();
+        rest = rest.slice(0, ci).trim();
       }
-      const tokens = rest3.split(/\s+/);
+      const tokens = rest.split(/\s+/);
       const name = tokens[0];
-      for (let ti = 1; ti < tokens.length; ti++) {
-        const tok = tokens[ti].toLowerCase();
-        if (tok === "pk") {
-          key = "pk";
-          break;
-        }
-        if (tok === "fk") {
-          key = "fk";
+      for (let i = 1; i < tokens.length; i++) {
+        const t = tokens[i].toLowerCase();
+        if (t === "pk" || t === "fk") {
+          key = t;
           break;
         }
       }
-      if (name) {
-        currentEntity.fields.push({
-          name,
-          ...type ? { type } : {},
-          ...key ? { key } : {}
-        });
-      }
+      if (name) cur.fields.push({ name, ...type ? { type } : {}, ...key ? { key } : {} });
     }
   }
-  return {
-    figure: "er",
-    entities,
-    relations,
-    ...theme !== void 0 ? { theme } : {},
-    ...palette !== void 0 ? { palette } : {},
-    ...title !== void 0 ? { title } : {},
-    ...subtitle !== void 0 ? { subtitle } : {}
-  };
+  return { figure: "er", entities, relations, ...cfgSpread(cfg) };
 }
-function parseTimeline(lines, theme, palette) {
-  const { title, subtitle, rest } = extractMeta(lines);
+function parseTimeline(lines) {
+  const cfg = {};
   const events = [];
-  const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
-  for (const line of rest) {
-    const colonIdx = line.indexOf(":");
-    if (colonIdx === -1) continue;
-    const date = line.slice(0, colonIdx).trim();
-    if (!DATE_RE.test(date)) continue;
-    let label = line.slice(colonIdx + 1).trim();
+  const DATE = /^\d{4}-\d{2}-\d{2}$/;
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
+    const ci = line.indexOf(":");
+    if (ci === -1) continue;
+    const date = line.slice(0, ci).trim();
+    if (!DATE.test(date)) continue;
+    let label = line.slice(ci + 1).trim();
     let milestone = false;
     if (label.endsWith(" milestone")) {
       milestone = true;
       label = label.slice(0, -" milestone".length).trim();
     }
-    events.push({
-      id: `ev${events.length}`,
-      label,
-      date,
-      ...milestone ? { milestone: true } : {}
-    });
+    events.push({ id: `ev${events.length}`, label, date, ...milestone ? { milestone: true } : {} });
   }
-  return {
-    figure: "timeline",
-    events,
-    ...theme !== void 0 ? { theme } : {},
-    ...palette !== void 0 ? { palette } : {},
-    ...title !== void 0 ? { title } : {},
-    ...subtitle !== void 0 ? { subtitle } : {}
-  };
+  return { figure: "timeline", events, ...cfgSpread(cfg) };
 }
-function parseSwimlane(lines, theme, palette) {
-  const { title, subtitle, rest } = extractMeta(lines);
+function parseSwimlane(lines) {
+  const cfg = {};
   const lanesList = [];
   const nodes = [];
   const edges = [];
   const nodeMap = /* @__PURE__ */ new Map();
-  for (const line of rest) {
-    if (line.startsWith("lanes:")) {
-      const raw = line.slice("lanes:".length).split(",").map((l) => l.trim()).filter(Boolean);
-      lanesList.push(...raw);
+  let lane = null;
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
+    if (line.startsWith("section ")) {
+      lane = line.slice("section ".length).trim();
+      if (!lanesList.includes(lane)) lanesList.push(lane);
       continue;
     }
-    if (line.includes("-->")) {
-      const parts = splitOnArrow(line, "-->");
-      if (parts) {
-        const [from, rightRaw] = parts;
-        const colonIdx2 = rightRaw.indexOf(":");
-        let to = rightRaw;
-        let label;
-        if (colonIdx2 !== -1) {
-          to = rightRaw.slice(0, colonIdx2).trim();
-          label = rightRaw.slice(colonIdx2 + 1).trim();
-        }
-        edges.push(label !== void 0 ? { from, to, label } : { from, to });
-        continue;
-      }
+    const e = parseEdge(line);
+    if (e) {
+      edges.push(e.label !== void 0 ? { from: e.from, to: e.to, label: e.label } : { from: e.from, to: e.to });
+      continue;
     }
-    const colonIdx = line.indexOf(":");
-    if (colonIdx !== -1) {
-      const laneLabel = line.slice(0, colonIdx).trim();
-      const nodeExpr = line.slice(colonIdx + 1).trim();
-      if (nodeExpr) {
-        const { id, label, type } = parseNodeExpr(nodeExpr);
-        const snode = { id, label, lane: laneLabel, type };
-        if (!nodeMap.has(id)) {
-          nodeMap.set(id, snode);
-          nodes.push(snode);
-        }
+    if (lane) {
+      const { id, label, type } = parseNodeExpr(line);
+      if (!nodeMap.has(id)) {
+        const snode = { id, label, lane, type };
+        nodeMap.set(id, snode);
+        nodes.push(snode);
       }
     }
   }
-  return {
-    figure: "swimlane",
-    lanes: lanesList,
-    nodes,
-    edges,
-    ...theme !== void 0 ? { theme } : {},
-    ...palette !== void 0 ? { palette } : {},
-    ...title !== void 0 ? { title } : {},
-    ...subtitle !== void 0 ? { subtitle } : {}
-  };
+  return { figure: "swimlane", lanes: lanesList, nodes, edges, ...cfgSpread(cfg) };
 }
 
 // src/index.ts
