@@ -10,7 +10,7 @@ export default function CopyButton({ encoded }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
-    const url = `figure.ling.pub/s/${encoded}`;
+    const url = `https://figure.ling.pub/s#${encoded}`;
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);

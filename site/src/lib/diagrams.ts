@@ -94,6 +94,64 @@ approve --> revise[Request Revision]: revise
 approve --> reject[Reject]: reject
 revise --> submit`,
       },
+      {
+        title: 'Refund Process',
+        markdown: `figure flow
+direction: TB
+palette: mono-blue
+title: Refund Request Flow
+request[Customer Requests Refund] --> eligible{Eligible?}
+eligible --> reason{Reason?}: yes
+eligible --> deny[Deny Refund]: no
+reason --> defect[Item Defective]: defect
+reason --> change[Changed Mind]: changed
+defect --> replace{Replace?}
+replace --> ship[Ship Replacement]: yes
+replace --> credit[Issue Credit]: no
+change --> restock[Restock Item]
+restock --> credit
+credit --> notify((Notify Customer))
+ship --> notify
+deny --> notify`,
+      },
+      {
+        title: 'Sales Pipeline',
+        markdown: `figure flow
+direction: LR
+palette: mono-green
+title: Sales Lead Qualification
+lead[New Lead] --> score{Lead Score?}
+score --> hot[Assign AE]: hot
+score --> warm[Nurture Campaign]: warm
+score --> cold[Newsletter]: cold
+hot --> demo[Schedule Demo]
+demo --> proposal[Send Proposal]
+proposal --> negotiate{Negotiation}
+negotiate --> won((Closed Won)): agreed
+negotiate --> lost[Closed Lost]: no deal
+warm --> requalify{Re-qualify?}
+requalify --> hot: improved
+group Pipeline: lead, score, hot, demo, proposal`,
+      },
+      {
+        title: 'Bug Triage',
+        markdown: `figure flow
+direction: LR
+palette: drawio
+title: Bug Triage Workflow
+report[Bug Reported] --> repro{Reproducible?}
+repro --> severity{Severity?}: yes
+repro --> close[Close: Cannot Repro]: no
+severity --> critical[P0 Hotfix]: critical
+severity --> high[P1 Sprint]: high
+severity --> low[P2 Backlog]: low
+critical --> hotfix[Hotfix Branch]
+hotfix --> fix[Fix & Deploy]
+high --> sprint[Add to Sprint]
+low --> backlog[Add to Backlog]
+fix --> verify((Verified))
+sprint --> verify`,
+      },
     ],
   },
   {
@@ -185,6 +243,61 @@ v2 --> search[/search]
 users1 --> uid[/:id]
 posts1 --> pid[/:id]
 search --> query[?q=]`,
+      },
+      {
+        title: 'Marketing Channels',
+        markdown: `figure tree
+direction: TB
+palette: antv
+title: Marketing Channel Hierarchy
+marketing[Marketing]
+marketing --> paid[Paid]
+marketing --> organic[Organic]
+marketing --> partners[Partners]
+paid --> search[Search Ads]
+paid --> social[Social Ads]
+paid --> display[Display]
+organic --> seo[SEO]
+organic --> content[Content Blog]
+organic --> referral[Referral]
+partners --> affiliate[Affiliate]
+partners --> events[Events]`,
+      },
+      {
+        title: 'Knowledge Base',
+        markdown: `figure tree
+direction: LR
+palette: figma
+title: Knowledge Base Structure
+kb[Knowledge Base]
+kb --> product[Product]
+kb --> engineering[Engineering]
+kb --> sales[Sales]
+product --> specs[Specs]
+product --> roadmap[Roadmap]
+engineering --> runbooks[Runbooks]
+engineering --> adr[Architecture Decisions]
+engineering --> onboarding[Onboarding Guide]
+sales --> playbook[Sales Playbook]
+sales --> pricing[Pricing Guide]`,
+      },
+      {
+        title: 'Work Breakdown',
+        markdown: `figure tree
+direction: TB
+palette: mono-purple
+title: Project Work Breakdown
+project[SaaS Launch]
+project --> design[Design]
+project --> development[Development]
+project --> launch[Launch]
+design --> ux[UX Research]
+design --> ui[UI Mockups]
+development --> fe[Frontend]
+development --> be[Backend]
+development --> qa[QA & Testing]
+launch --> marketing[Marketing]
+launch --> support[Support Docs]`,
       },
     ],
   },
@@ -291,6 +404,69 @@ layer Serving
   endpoint[Inference API]
   monitor[Drift Monitor]`,
       },
+      {
+        title: 'Event-Driven',
+        markdown: `figure arch
+direction: TB
+palette: mono-orange
+title: Event-Driven Architecture
+layer Producers
+  web[Web App]
+  mobile[Mobile App]
+  iot[IoT Devices]
+layer Broker
+  kafka[Kafka Topics]
+  schema[Schema Registry]
+layer Consumers
+  order_svc[Order Service]
+  notify_svc[Notification Service]
+  analytics[Analytics Engine]
+layer Storage
+  events[Event Store]
+  reports[Report DB]`,
+      },
+      {
+        title: 'Mobile Backend',
+        markdown: `figure arch
+direction: TB
+palette: figma
+title: Mobile App Backend
+layer Mobile
+  ios[iOS App]
+  android[Android App]
+layer Edge
+  cdn[CDN]
+  apigw[API Gateway]
+layer Services
+  auth[Auth Service]
+  push[Push Notifications]
+  media[Media Service]
+layer Data
+  postgres[PostgreSQL]
+  redis[Redis]
+  s3[S3 Storage]`,
+      },
+      {
+        title: 'SaaS Platform',
+        markdown: `figure arch
+direction: LR
+palette: drawio
+title: SaaS Platform Layers
+layer Client
+  webapp[React App]
+  mobile[React Native]
+layer Platform
+  gateway[API Gateway]
+  auth[Auth & Billing]
+  core[Core Services]
+layer Data
+  pg[PostgreSQL]
+  elastic[Elasticsearch]
+  queue[SQS Queue]
+layer Ops
+  ci[CI/CD]
+  monitoring[Monitoring]`,
+      },
     ],
   },
   {
@@ -373,6 +549,49 @@ DB --> API: file_id=789
 API --> Browser: file_id + url
 Browser -> Storage: GET presigned URL
 Storage --> Browser: File bytes`,
+      },
+      {
+        title: 'Email Verification',
+        markdown: `figure sequence
+title: Email Verification Flow
+actors: User, App, EmailService, DB
+User -> App: POST /register
+App -> DB: INSERT user pending
+App -> EmailService: Send verify email
+EmailService --> User: Email with token link
+User -> App: GET /verify?token=abc
+App -> DB: SELECT token
+DB --> App: token valid
+App -> DB: UPDATE user verified=true
+App --> User: 200 Verified`,
+      },
+      {
+        title: 'Inventory Check',
+        markdown: `figure sequence
+title: Inventory Check at Checkout
+actors: Cart, OrderService, InventoryService, ReservationDB
+Cart -> OrderService: POST /checkout
+OrderService -> InventoryService: GET /stock?items=[...]
+InventoryService -> ReservationDB: Check quantities
+ReservationDB --> InventoryService: Stock available
+InventoryService --> OrderService: All items in stock
+OrderService -> ReservationDB: Reserve items
+ReservationDB --> OrderService: Reservation ID
+OrderService --> Cart: Proceed to payment`,
+      },
+      {
+        title: 'Scheduled Job',
+        markdown: `figure sequence
+title: Nightly Report Job
+actors: Scheduler, ReportWorker, DB, EmailService
+Scheduler -> ReportWorker: trigger nightly_report
+ReportWorker -> DB: SELECT metrics last 24h
+DB --> ReportWorker: metric rows
+ReportWorker -> DB: INSERT report snapshot
+DB --> ReportWorker: report_id
+ReportWorker -> EmailService: Send report PDF
+EmailService --> ReportWorker: delivered
+ReportWorker --> Scheduler: job complete`,
       },
     ],
   },
@@ -472,6 +691,62 @@ Budget: 0.3, 0.7
 Timeline: 0.65, 0.6
 Vendor Lock: 0.25, 0.45`,
       },
+      {
+        title: 'Product Backlog',
+        markdown: `figure quadrant
+palette: figma
+title: Product Backlog Prioritization
+x-axis Dev Effort: Low .. High
+y-axis Business Value: Low .. High
+quadrant-1: Do First
+quadrant-2: Plan
+quadrant-3: Reconsider
+quadrant-4: Deprioritize
+Onboarding Wizard: 0.2, 0.9
+API Webhooks: 0.5, 0.8
+Custom Reports: 0.75, 0.85
+Dark Mode: 0.15, 0.6
+Keyboard Shortcuts: 0.1, 0.45
+Data Export CSV: 0.2, 0.7
+Audit Logs: 0.4, 0.6
+SSO Integration: 0.55, 0.9`,
+      },
+      {
+        title: 'Vendor Evaluation',
+        markdown: `figure quadrant
+palette: antv
+title: Vendor Evaluation Matrix
+x-axis Total Cost: Low .. High
+y-axis Capability: Low .. High
+quadrant-1: Best Value
+quadrant-2: Premium Tier
+quadrant-3: Budget Options
+quadrant-4: Avoid
+VendorA: 0.2, 0.85
+VendorB: 0.6, 0.9
+VendorC: 0.45, 0.5
+VendorD: 0.8, 0.35
+VendorE: 0.3, 0.65
+VendorF: 0.75, 0.7`,
+      },
+      {
+        title: 'Team Skills Gap',
+        markdown: `figure quadrant
+palette: mono-purple
+title: Team Skills Assessment
+x-axis Current Proficiency: Low .. High
+y-axis Business Need: Low .. High
+quadrant-1: Train Now
+quadrant-2: Leverage
+quadrant-3: Deprioritize
+quadrant-4: Hire or Outsource
+Kubernetes: 0.3, 0.9
+React: 0.8, 0.85
+Data Engineering: 0.2, 0.7
+ML Ops: 0.15, 0.8
+GraphQL: 0.6, 0.5
+Security Hardening: 0.35, 0.75`,
+      },
     ],
   },
   {
@@ -562,6 +837,62 @@ section Cutover
   Maintenance Window: t7, 2025-03-24, 2025-03-24
   Go Live: t8, 2025-03-25, 2025-03-28
 milestone: Migration Complete, 2025-03-28`,
+      },
+      {
+        title: 'Product Launch',
+        markdown: `figure gantt
+title: New Feature Launch
+section Planning
+  Scope Definition: t1, 2025-01-06, 2025-01-17
+  OKR Alignment: t2, 2025-01-13, 2025-01-17
+section Build
+  Backend API: t3, 2025-01-20, 2025-02-14
+  Frontend UI: t4, 2025-01-27, 2025-02-21
+  Analytics Events: t5, 2025-02-10, 2025-02-21
+section Validation
+  Internal Beta: t6, 2025-02-24, 2025-03-07
+  Fix Feedback: t7, 2025-03-03, 2025-03-14
+section Launch
+  Rollout 10%: t8, 2025-03-17, 2025-03-21
+  Full Release: t9, 2025-03-24, 2025-03-28
+milestone: GA Launch, 2025-03-28`,
+      },
+      {
+        title: 'Security Audit',
+        markdown: `figure gantt
+title: Annual Security Audit
+section Pre-Audit
+  Asset Inventory: t1, 2025-01-06, 2025-01-17
+  Policy Review: t2, 2025-01-13, 2025-01-24
+section Assessment
+  Vulnerability Scan: t3, 2025-01-20, 2025-02-07
+  Pen Testing: t4, 2025-02-03, 2025-02-28
+section Remediation
+  Critical Fixes: t5, 2025-02-24, 2025-03-14
+  Medium Fixes: t6, 2025-03-03, 2025-03-21
+section Reporting
+  Draft Report: t7, 2025-03-17, 2025-03-28
+  Board Review: t8, 2025-03-25, 2025-03-28
+milestone: Audit Signed Off, 2025-03-28`,
+      },
+      {
+        title: 'Marketing Campaign',
+        markdown: `figure gantt
+title: Product Marketing Campaign
+section Strategy
+  Audience Research: t1, 2025-01-06, 2025-01-17
+  Messaging Workshop: t2, 2025-01-13, 2025-01-24
+section Creative
+  Copywriting: t3, 2025-01-20, 2025-02-07
+  Design Assets: t4, 2025-01-27, 2025-02-14
+section Channels
+  Email Sequences: t5, 2025-02-10, 2025-02-21
+  Social Posts: t6, 2025-02-10, 2025-02-28
+  Paid Ads: t7, 2025-02-17, 2025-03-07
+section Measurement
+  A/B Testing: t8, 2025-02-24, 2025-03-14
+  Performance Review: t9, 2025-03-17, 2025-03-28
+milestone: Campaign Wrap, 2025-03-28`,
       },
     ],
   },
@@ -656,6 +987,64 @@ pastdue --> cancelled: max retries exceeded
 active --> cancelled: user cancels
 trialing --> cancelled: no conversion
 cancelled --> active: resubscribe`,
+      },
+      {
+        title: 'Support Ticket',
+        markdown: `figure state
+title: Support Ticket Lifecycle
+open[Open]
+assigned[Assigned]
+inprogress[In Progress]
+pending[Pending Customer]
+accent: escalated
+escalated[Escalated]
+start --> open: ticket created
+open --> assigned: agent picks up
+assigned --> inprogress: work started
+inprogress --> pending: awaiting reply
+pending --> inprogress: customer replies
+inprogress --> escalated: complex issue
+escalated --> inprogress: senior assigned
+inprogress --> end: resolved
+pending --> end: auto-closed`,
+      },
+      {
+        title: 'Document Approval',
+        markdown: `figure state
+title: Document Approval Workflow
+draft[Draft]
+review[Under Review]
+revisions[Revisions Required]
+approved[Approved]
+accent: rejected
+rejected[Rejected]
+start --> draft: create document
+draft --> review: submit for review
+review --> revisions: changes needed
+revisions --> review: resubmit
+review --> approved: all reviewers sign off
+review --> rejected: rejected by committee
+approved --> end: published
+rejected --> draft: revise and restart`,
+      },
+      {
+        title: 'Package Delivery',
+        markdown: `figure state
+title: Package Delivery Tracking
+picked[Picked Up]
+transit[In Transit]
+hub[At Sorting Hub]
+outdelivery[Out for Delivery]
+accent: failed
+failed[Delivery Failed]
+start --> picked: carrier scans
+picked --> transit: departed facility
+transit --> hub: arrived at hub
+hub --> outdelivery: loaded on truck
+outdelivery --> end: delivered
+outdelivery --> failed: no one home
+failed --> outdelivery: retry next day
+failed --> end: returned to sender`,
       },
     ],
   },
@@ -799,6 +1188,97 @@ Department --> Employee: employs
 Employee --> Employee: manages
 Employee --> Review: receives`,
       },
+      {
+        title: 'Event Booking',
+        markdown: `figure er
+title: Event Booking Schema
+accent: Booking
+entity Event
+  id pk: uuid
+  name: text
+  venue: text
+  date: timestamp
+  capacity: integer
+entity Attendee
+  id pk: uuid
+  email: text
+  name: text
+entity Booking
+  id pk: uuid
+  event_id fk: uuid
+  attendee_id fk: uuid
+  seat: text
+  status: text
+entity Payment
+  id pk: uuid
+  booking_id fk: uuid
+  amount: numeric
+  paid_at: timestamp
+Event --> Booking: has
+Attendee --> Booking: makes
+Booking --> Payment: paid by`,
+      },
+      {
+        title: 'Inventory Mgmt',
+        markdown: `figure er
+title: Inventory Management
+accent: Product
+entity Warehouse
+  id pk: uuid
+  name: text
+  location: text
+entity Product
+  id pk: uuid
+  sku: text
+  name: text
+  unit_cost: numeric
+entity StockLevel
+  warehouse_id fk: uuid
+  product_id fk: uuid
+  quantity: integer
+  reorder_point: integer
+entity PurchaseOrder
+  id pk: uuid
+  product_id fk: uuid
+  quantity: integer
+  received_at: timestamp
+Warehouse --> StockLevel: tracks
+Product --> StockLevel: stored in
+Product --> PurchaseOrder: ordered via`,
+      },
+      {
+        title: 'LMS Schema',
+        markdown: `figure er
+title: Learning Management System
+accent: Enrollment
+entity Course
+  id pk: uuid
+  title: text
+  instructor_id fk: uuid
+entity Lesson
+  id pk: uuid
+  course_id fk: uuid
+  title: text
+  position: integer
+entity Student
+  id pk: uuid
+  email: text
+  name: text
+entity Enrollment
+  id pk: uuid
+  student_id fk: uuid
+  course_id fk: uuid
+  enrolled_at: timestamp
+  progress: integer
+entity Completion
+  enrollment_id fk: uuid
+  lesson_id fk: uuid
+  completed_at: timestamp
+Course --> Lesson: has
+Student --> Enrollment: joins
+Course --> Enrollment: has
+Enrollment --> Completion: tracks`,
+      },
     ],
   },
   {
@@ -868,6 +1348,45 @@ title: Compliance Roadmap
 2025-02-15: Remediation Sprint
 2025-03-15: External Audit milestone
 2025-04-01: Certification Granted milestone`,
+      },
+      {
+        title: 'Startup Funding',
+        markdown: `figure timeline
+palette: antv
+title: Startup Funding History
+2018-03-01: Founded & Bootstrapped milestone
+2018-11-01: First Paying Customer
+2019-06-15: Pre-Seed $750K milestone
+2020-09-01: Seed Round $4M milestone
+2021-08-01: Series A $18M milestone
+2022-07-01: Series B $50M milestone
+2023-05-01: Profitability milestone`,
+      },
+      {
+        title: 'Cloud Migration',
+        markdown: `figure timeline
+palette: figma
+title: Cloud Migration Journey
+2024-01-15: Migration Assessment milestone
+2024-03-01: Proof of Concept
+2024-05-01: Non-Prod Migration milestone
+2024-07-15: Data Migration Phase 1
+2024-09-01: Production Cutover milestone
+2024-11-01: Decommission On-Prem
+2025-01-01: Cloud-Native Complete milestone`,
+      },
+      {
+        title: 'Regulatory Changes',
+        markdown: `figure timeline
+palette: mono-orange
+title: Regulatory Impact Timeline
+2023-01-01: GDPR Fines Enforced milestone
+2023-07-01: CCPA Amendments Active milestone
+2024-01-01: EU AI Act Proposal
+2024-06-01: SOC 2 Type II Renewal milestone
+2024-09-01: PCI DSS v4 Deadline milestone
+2025-01-01: EU AI Act Compliance Due milestone
+2025-06-01: ISO 27001 Re-Certification`,
       },
     ],
   },
@@ -1003,6 +1522,82 @@ assess --> decision
 decision --> approve
 approve --> sign
 sign --> transfer`,
+      },
+      {
+        title: 'Feature Development',
+        markdown: `figure swimlane
+title: Feature Development Flow
+section Product
+  spec[Write Spec]
+  accept[Acceptance Test]
+  close[Close Feature]
+section Design
+  mockup[Create Mockup]
+  review[Design Review]
+section Engineering
+  implement[Implement Feature]
+  unittest[Unit Tests]
+section QA
+  qa[QA Testing]
+  regression[Regression Suite]
+spec --> mockup
+mockup --> review
+review --> implement
+implement --> unittest
+unittest --> qa
+qa --> regression
+regression --> accept
+accept --> close`,
+      },
+      {
+        title: 'Procurement',
+        markdown: `figure swimlane
+title: Procurement Process
+section Requester
+  request[Submit Purchase Request]
+  receive[Receive Goods]
+section Manager
+  approve[Approve Request]
+section Procurement
+  rfp[Issue RFP]
+  select[Select Vendor]
+  po[Create PO]
+section Finance
+  invoice[Process Invoice]
+  payment[Release Payment]
+request --> approve
+approve --> rfp
+rfp --> select
+select --> po
+po --> receive
+receive --> invoice
+invoice --> payment`,
+      },
+      {
+        title: 'Bug Fix Flow',
+        markdown: `figure swimlane
+title: Production Bug Fix Workflow
+section Reporter
+  report[File Bug Report]
+  verify[Verify Fix]
+section Triage
+  assess[Assess Severity]
+  assign[Assign Engineer]
+section Engineer
+  investigate[Investigate Root Cause]
+  fix[Implement Fix]
+  pr[Open Pull Request]
+section CI CD
+  test[Run Test Suite]
+  deploy[Deploy to Prod]
+report --> assess
+assess --> assign
+assign --> investigate
+investigate --> fix
+fix --> pr
+pr --> test
+test --> deploy
+deploy --> verify`,
       },
     ],
   },
