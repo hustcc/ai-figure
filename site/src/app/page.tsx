@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 const EXAMPLE_MD = `figure flow
-direction: TB
+direction: LR
 palette: antv
 title: CI Pipeline
 code[Push Code] --> lint{Lint?}
@@ -134,7 +134,7 @@ export default function HomePage() {
 
       {/* Install + Usage */}
       <section className="max-w-5xl mx-auto px-6 pb-20">
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="flex flex-col gap-6">
           <CodeBlock label="Install" language="bash">{INSTALL_CODE}</CodeBlock>
           <CodeBlock label="Usage" language="typescript">{USAGE_CODE}</CodeBlock>
         </div>
