@@ -4,15 +4,15 @@
 <text x="300" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#5c6370">Patient, doctor and appointment model</text>
 <g class="er-diagram" transform="translate(0,67)">
 <defs><marker id="er-1-arrow" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 6 2.5, 0 5" fill="#5c6370"/></marker></defs>
-<line x1="229.55801104972375" y1="234" x2="348.89502762430936" y2="162" stroke="#5c6370" stroke-width="1.5" marker-end="url(#er-1-arrow)"/>
+<path d="M229.55801104972375,234 L348.89502762430936,162" fill="none" stroke="#5c6370" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#er-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
 <text x="289.22651933701655" y="192" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" font-style="italic">employs</text>
 <text x="243.2577101561429" y="234.29682681397242" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd">1</text>
 <text x="335.1953285178902" y="178.82779706905154" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd">N</text>
-<line x1="238.40579710144925" y1="162" x2="342.7536231884058" y2="234" stroke="#5c6370" stroke-width="1.5" marker-end="url(#er-1-arrow)"/>
+<path d="M238.40579710144925,162 L342.7536231884058,234" fill="none" stroke="#5c6370" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#er-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
 <text x="290.5797101449275" y="192" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" font-style="italic">books</text>
 <text x="251.5750789504492" y="179.31760563143496" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd">1</text>
 <text x="329.58434133940585" y="233.14399667981502" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd">N</text>
-<line x1="450" y1="162" x2="450" y2="234" stroke="#5c6370" stroke-width="1.5" marker-end="url(#er-1-arrow)"/>
+<path d="M450,162 L450,234" fill="none" stroke="#5c6370" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#er-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
 <text x="450" y="192" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd" font-style="italic">attends</text>
 <text x="450" y="178" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd">1</text>
 <text x="450" y="218" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd">N</text>
