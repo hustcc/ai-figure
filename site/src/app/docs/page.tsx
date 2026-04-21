@@ -60,7 +60,7 @@ function DiagramPreview({ markdown }: { markdown: string }) {
   const svg = fig(markdown);
   return (
     <div
-      className="bg-white rounded-xl border border-slate-200 p-4 my-4 flex justify-center [&>svg]:max-w-full [&>svg]:h-auto"
+      className="bg-white rounded-xl border border-slate-200 p-4 my-4 overflow-x-auto [&>svg]:block [&>svg]:mx-auto [&>svg]:max-w-full [&>svg]:h-auto"
       dangerouslySetInnerHTML={{ __html: svg }}
     />
   );
@@ -243,7 +243,7 @@ export default function DocsPage() {
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 max-w-4xl mx-auto px-6 py-12">
+      <main className="flex-1 min-w-0 max-w-4xl mx-auto px-6 py-12">
         <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-3">Documentation</h1>
         <p className="text-lg text-slate-500 mb-12">Complete reference for ai-figure — installation, API, markdown syntax, diagram types, and framework integration.</p>
 
