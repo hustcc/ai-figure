@@ -22,24 +22,28 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
+      - name: Install library dependencies
         run: npm install
 
       - name: Build library
         run: npm run build
 
-      - name: Prepare site
-        run: |
-          mkdir -p _site
-          cp index.html _site/index.html
-          cp -r dist _site/dist
-          echo "ai-figure.hust.cc" > _site/CNAME
+      - name: Install site dependencies
+        working-directory: site
+        run: npm install
+
+      - name: Build site
+        working-directory: site
+        run: npm run build
+
+      - name: Write CNAME
+        run: echo "figure.ling.pub" > site/out/CNAME
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+          publish_dir: ./site/out
           publish_branch: gh-pages
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
