@@ -55,24 +55,24 @@ export default function SharedDiagramPage() {
           </Link>
         </div>
       ) : (
-        <div className="max-w-7xl mx-auto px-6 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
           <div className="grid lg:grid-cols-2 gap-6 items-start">
             {/* SVG preview */}
-            <div className="bg-white rounded-xl border border-slate-200 p-6">
+            <div className="bg-white rounded-xl border border-slate-200 p-4 sm:p-6">
               <p className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-4">Output</p>
               <div
-                className="[&>svg]:w-full [&>svg]:h-auto"
+                className="overflow-x-auto [&>svg]:block [&>svg]:mx-auto [&>svg]:max-w-full [&>svg]:h-auto"
                 dangerouslySetInnerHTML={{ __html: svg }}
               />
             </div>
 
             {/* Markdown source */}
-            <div>
+            <div className="min-w-0">
               <p className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-4">Markdown source</p>
-              <pre className="bg-slate-900 text-slate-100 rounded-xl p-5 text-sm leading-relaxed font-mono overflow-x-auto whitespace-pre">
+              <pre className="bg-slate-900 text-slate-100 rounded-xl p-4 sm:p-5 text-sm leading-relaxed font-mono overflow-x-auto whitespace-pre">
                 <code>{markdown}</code>
               </pre>
-              <div className="mt-4 flex items-center gap-3">
+              <div className="mt-4 flex flex-wrap items-center gap-3">
                 <Link
                   href="/"
                   className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded-lg transition-colors text-sm"
