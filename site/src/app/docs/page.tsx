@@ -60,7 +60,7 @@ function DiagramPreview({ markdown }: { markdown: string }) {
   const svg = fig(markdown);
   return (
     <div
-      className="bg-white rounded-xl border border-slate-200 p-4 my-4 [&>svg]:w-full [&>svg]:h-auto"
+      className="bg-white rounded-xl border border-slate-200 p-4 my-4 flex justify-center [&>svg]:max-w-full [&>svg]:h-auto"
       dangerouslySetInnerHTML={{ __html: svg }}
     />
   );
