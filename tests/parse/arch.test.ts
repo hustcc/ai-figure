@@ -4,10 +4,10 @@
  *   figure arch
  *   direction: TB
  *   title: Cloud Architecture
- *   section Frontend
+ *   layer Frontend
  *     web[Web App]
  *     mobile[Mobile]
- *   section Backend
+ *   layer Backend
  *     api[API Server]
  */
 import { describe, it, expect } from 'vitest';
@@ -18,10 +18,10 @@ describe('arch — markdown parse', () => {
     const svg = fig(`
       figure arch
       title: Cloud Architecture
-      section Frontend
+      layer Frontend
         web[Web App]
         mobile[Mobile]
-      section Backend
+      layer Backend
         api[API Server]
     `);
     expect(svg).toContain('<svg');
@@ -36,9 +36,9 @@ describe('arch — markdown parse', () => {
     const svg = fig(`
       figure arch
       direction: LR
-      section Layer A
+      layer Layer A
         n1[Node 1]
-      section Layer B
+      layer Layer B
         n2[Node 2]
     `);
     expect(svg).toContain('<svg');
@@ -51,7 +51,7 @@ describe('arch — markdown parse', () => {
       figure arch
       title: Microservices
       subtitle: Production topology
-      section Services
+      layer Services
         svc[Service]
     `);
     expect(svg).toContain('Microservices');
@@ -62,7 +62,7 @@ describe('arch — markdown parse', () => {
     const svg = fig(`
       figure arch
       palette: antv
-      section Frontend
+      layer Frontend
         web[Web]
     `);
     expect(svg).toContain('<svg');
@@ -72,7 +72,7 @@ describe('arch — markdown parse', () => {
     const svg = fig(`
       figure arch
       theme: dark
-      section Layer
+      layer Layer
         node[Node]
     `);
     expect(svg).toContain('#1a1b1e');
@@ -81,13 +81,13 @@ describe('arch — markdown parse', () => {
   it('multiple sections with multiple nodes each', () => {
     const svg = fig(`
       figure arch
-      section UI
+      layer UI
         react[React]
         vue[Vue]
-      section API
+      layer API
         rest[REST]
         graphql[GraphQL]
-      section DB
+      layer DB
         postgres[Postgres]
     `);
     expect(svg).toContain('React');
@@ -100,8 +100,8 @@ describe('arch — markdown parse', () => {
     expect(fig('figure arch')).toContain('<svg');
   });
 
-  it('streaming safety: section without nodes does not crash', () => {
-    const svg = fig('figure arch\nsection Frontend');
+  it('streaming safety: layer without nodes does not crash', () => {
+    const svg = fig('figure arch\nlayer Frontend');
     expect(svg).toContain('<svg');
   });
 
@@ -109,7 +109,7 @@ describe('arch — markdown parse', () => {
     const svg = fig(`
       figure arch
       %% This is a comment
-      section Layer
+      layer Layer
         node[Node]
     `);
     expect(svg).toContain('Node');

@@ -262,8 +262,8 @@ function parseArch(lines: string[]): FigOptions {
 
   for (const line of lines) {
     if (applyCommonConfig(line, cfg)) continue;
-    if (line.startsWith('section ')) {
-      const label = line.slice('section '.length).trim();
+    if (line.startsWith('layer ')) {
+      const label = line.slice('layer '.length).trim();
       cur = { id: label, label, nodes: [] };
       layers.push(cur);
       continue;
@@ -457,18 +457,18 @@ function parseEr(lines: string[]): FigOptions {
   const entities: ErEntity[] = [];
   const relations: ErRelation[] = [];
   let cur: ErEntity | null = null;
-  let seenSection = false;
+  let seenEntity = false;
 
   for (const line of lines) {
-    if (!seenSection && applyCommonConfig(line, cfg)) continue;
+    if (!seenEntity && applyCommonConfig(line, cfg)) continue;
     if (line.startsWith('accent:')) {
       const ent = entities.find((e) => e.id === line.slice('accent:'.length).trim());
       if (ent) ent.accent = true;
       continue;
     }
-    if (line.startsWith('section ')) {
-      seenSection = true;
-      const label = line.slice('section '.length).trim();
+    if (line.startsWith('entity ')) {
+      seenEntity = true;
+      const label = line.slice('entity '.length).trim();
       cur = { id: label, label, fields: [] };
       entities.push(cur);
       continue;

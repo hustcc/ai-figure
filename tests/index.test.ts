@@ -494,12 +494,12 @@ describe('fig(string) — markdown input', () => {
     const types = [
       `figure flow\na[A] --> b[B]`,
       `figure tree\nr[Root] --> c[Child]`,
-      `figure arch\nsection Layer\nn[Node]`,
+      `figure arch\nlayer Layer\nn[Node]`,
       `figure sequence\nA -> B: hello`,
       `figure quadrant\nx-axis: Low .. High\ny-axis: Low .. High\nquadrant-1: Q1\nquadrant-2: Q2\nquadrant-3: Q3\nquadrant-4: Q4`,
       `figure gantt\nTask: t1, 2025-01-01, 2025-01-15`,
       `figure state\nstart --> idle\nidle --> done: finish`,
-      `figure er\nsection User\n  id pk: uuid\nUser --> Post: writes`,
+      `figure er\nentity User\n  id pk: uuid\nUser --> Post: writes`,
       `figure timeline\n2025-01-01: v1.0`,
       `figure swimlane\nsection Lane\n  n[Node]`,
     ];

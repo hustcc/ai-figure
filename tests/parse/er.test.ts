@@ -1,15 +1,15 @@
 /**
  * Parse tests for the ER diagram markdown syntax.
  *
- * Entities are declared with `section EntityName`.  Fields follow as
+ * Entities are declared with `entity EntityName`.  Fields follow as
  * `name [pk|fk]: type` lines.  Relationships use the arrow syntax.
  *
  *   figure er
  *   title: Blog Schema
- *   section User
+ *   entity User
  *     id pk: uuid
  *     email: text
- *   section Post
+ *   entity Post
  *     id pk: uuid
  *     author_id fk: uuid
  *   User --> Post: writes
@@ -22,10 +22,10 @@ describe('er — markdown parse', () => {
     const svg = fig(`
       figure er
       title: Blog Schema
-      section User
+      entity User
         id pk: uuid
         email: text
-      section Post
+      entity Post
         id pk: uuid
         author_id fk: uuid
       User --> Post: writes
@@ -43,7 +43,7 @@ describe('er — markdown parse', () => {
       figure er
       title: E-Commerce
       subtitle: Core entities
-      section Product
+      entity Product
         id pk: uuid
     `);
     expect(svg).toContain('E-Commerce');
@@ -54,7 +54,7 @@ describe('er — markdown parse', () => {
     const svg = fig(`
       figure er
       theme: dark
-      section A
+      entity A
         id pk: uuid
     `);
     expect(svg).toContain('#1a1b1e');
@@ -64,7 +64,7 @@ describe('er — markdown parse', () => {
     const svg = fig(`
       figure er
       palette: antv
-      section Entity
+      entity Entity
         id pk: uuid
     `);
     expect(svg).toContain('<svg');
@@ -73,7 +73,7 @@ describe('er — markdown parse', () => {
   it('accent: id marks an entity as accented', () => {
     const svg = fig(`
       figure er
-      section User
+      entity User
         id pk: uuid
       accent: User
     `);
@@ -84,7 +84,7 @@ describe('er — markdown parse', () => {
   it('field with pk and fk designations', () => {
     const svg = fig(`
       figure er
-      section Order
+      entity Order
         id pk: uuid
         user_id fk: uuid
         total: decimal
@@ -94,12 +94,12 @@ describe('er — markdown parse', () => {
     expect(svg).toContain('total');
   });
 
-  it('title: inside a section is treated as a field, not meta', () => {
+  it('title: inside an entity is treated as a field, not meta', () => {
     // "title:" appears as a field type inside an entity — must not override diagram title
     const svg = fig(`
       figure er
       title: My Schema
-      section Document
+      entity Document
         name: text
         title: varchar
     `);
@@ -110,9 +110,9 @@ describe('er — markdown parse', () => {
   it('relation without label', () => {
     const svg = fig(`
       figure er
-      section A
+      entity A
         id pk: uuid
-      section B
+      entity B
         id pk: uuid
       A --> B
     `);
@@ -123,12 +123,12 @@ describe('er — markdown parse', () => {
   it('multiple entities and multiple relations', () => {
     const svg = fig(`
       figure er
-      section User
+      entity User
         id pk: uuid
-      section Order
+      entity Order
         id pk: uuid
         user_id fk: uuid
-      section Item
+      entity Item
         id pk: uuid
         order_id fk: uuid
       User --> Order: places
@@ -147,7 +147,7 @@ describe('er — markdown parse', () => {
     const svg = fig(`
       figure er
       %% user entity
-      section User
+      entity User
         id pk: uuid
     `);
     expect(svg).toContain('User');
