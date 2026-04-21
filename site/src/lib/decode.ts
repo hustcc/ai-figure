@@ -20,29 +20,15 @@ export async function decodeMarkdown(encoded: string): Promise<string> {
     bytes[i] = binaryStr.charCodeAt(i);
   }
 
-  // Decompress with gzip using DecompressionStream
-  const ds = new DecompressionStream('gzip');
-  const writer = ds.writable.getWriter();
-  const reader = ds.readable.getReader();
+  // Decompress: pipe a ReadableStream of the compressed bytes through DecompressionStream.
+  // Using pipeThrough (instead of manual write/read) avoids a deadlock where awaiting
+  // writer.write() blocks waiting for the reader to drain, while the reader hasn't started yet.
+  const compressedStream = new ReadableStream({
+    start(controller) {
+      controller.enqueue(bytes);
+      controller.close();
+    },
+  });
 
-  await writer.write(bytes);
-  await writer.close();
-
-  const chunks: Uint8Array[] = [];
-  let done = false;
-  while (!done) {
-    const { value, done: d } = await reader.read();
-    if (value) chunks.push(value);
-    done = d;
-  }
-
-  const totalLength = chunks.reduce((acc, c) => acc + c.length, 0);
-  const result = new Uint8Array(totalLength);
-  let offset = 0;
-  for (const chunk of chunks) {
-    result.set(chunk, offset);
-    offset += chunk.length;
-  }
-
-  return new TextDecoder().decode(result);
+  return new Response(compressedStream.pipeThrough(new DecompressionStream('gzip'))).text();
 }

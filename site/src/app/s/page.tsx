@@ -5,6 +5,8 @@ import { fig } from 'ai-figure';
 import { decodeMarkdown } from '@/lib/decode';
 import Link from 'next/link';
 
+const DECODE_TIMEOUT_MS = 10_000;
+
 export default function SharedDiagramPage() {
   const [svg, setSvg] = useState('');
   const [markdown, setMarkdown] = useState('');
@@ -18,7 +20,12 @@ export default function SharedDiagramPage() {
       setLoading(false);
       return;
     }
-    decodeMarkdown(encoded)
+    let rejectTimeout: (() => void) | null = null;
+    const timeoutId = setTimeout(() => rejectTimeout?.(), DECODE_TIMEOUT_MS);
+    const timeout = new Promise<never>((_, reject) => {
+      rejectTimeout = () => reject(new Error('Timed out decoding diagram.'));
+    });
+    Promise.race([decodeMarkdown(encoded), timeout])
       .then((md) => {
         setMarkdown(md);
         setSvg(fig(md));
@@ -27,25 +34,11 @@ export default function SharedDiagramPage() {
         setError(e instanceof Error ? e.message : 'Failed to render diagram');
       })
       .finally(() => setLoading(false));
+    return () => clearTimeout(timeoutId);
   }, []);
 
   return (
-    <main className="min-h-screen bg-slate-50">
-      {/* Top bar */}
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="font-mono font-bold text-slate-900 hover:text-orange-500 transition-colors">
-          ai-figure<span className="text-orange-500">.</span>
-        </Link>
-        <div className="flex items-center gap-4">
-          <Link href="/gallery" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">
-            Gallery
-          </Link>
-          <Link href="/docs" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">
-            Docs
-          </Link>
-        </div>
-      </div>
-
+    <main>
       {loading ? (
         <div className="max-w-2xl mx-auto px-6 py-20 text-center">
           <p className="text-slate-400 text-sm animate-pulse">Rendering diagram…</p>
