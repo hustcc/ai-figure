@@ -1,18 +1,4 @@
-import hljs from 'highlight.js/lib/core';
-import typescript from 'highlight.js/lib/languages/typescript';
-import javascript from 'highlight.js/lib/languages/javascript';
-import bash from 'highlight.js/lib/languages/bash';
-import xml from 'highlight.js/lib/languages/xml';
-import plaintext from 'highlight.js/lib/languages/plaintext';
-
-hljs.registerLanguage('typescript', typescript);
-hljs.registerLanguage('javascript', javascript);
-hljs.registerLanguage('bash', bash);
-hljs.registerLanguage('shell', bash);
-hljs.registerLanguage('xml', xml);
-hljs.registerLanguage('html', xml);
-hljs.registerLanguage('plaintext', plaintext);
-hljs.registerLanguage('text', plaintext);
+import { codeToHtml } from 'shiki';
 
 interface Props {
   children: string;
@@ -21,8 +7,12 @@ interface Props {
   className?: string;
 }
 
-export default function CodeBlock({ children, language = 'plaintext', label, className = '' }: Props) {
-  const highlighted = hljs.highlight(children.trim(), { language, ignoreIllegals: true });
+export default async function CodeBlock({ children, language = 'text', label, className = '' }: Props) {
+  const html = await codeToHtml(children.trim(), {
+    lang: language,
+    theme: 'one-dark-pro',
+    colorReplacements: { '#282c34': '#0f172a' },
+  });
   return (
     <div className={`rounded-xl overflow-hidden ${className}`}>
       {label && (
@@ -30,12 +20,10 @@ export default function CodeBlock({ children, language = 'plaintext', label, cla
           {label}
         </div>
       )}
-      <pre className="bg-slate-900 p-5 text-sm leading-relaxed overflow-x-auto font-mono m-0">
-        <code
-          className={`hljs language-${language}`}
-          dangerouslySetInnerHTML={{ __html: highlighted.value }}
-        />
-      </pre>
+      <div
+        className="[&>pre]:p-5 [&>pre]:m-0 [&>pre]:text-sm [&>pre]:leading-relaxed [&>pre]:overflow-x-auto [&>pre]:font-mono [&>pre]:rounded-none"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
     </div>
   );
 }
