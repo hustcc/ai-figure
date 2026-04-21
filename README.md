@@ -737,6 +737,121 @@ pack --> ship
 ```
 </details>
 
+## Syntax Comparison: Markdown vs JSON Config
+
+`fig()` accepts two input styles. The table below evaluates every relevant dimension so you can choose the right one — or decide whether to support both.
+
+### Same diagram, two styles
+
+The auth-flow example below produces **identical SVG output**. The character counts illustrate the verbosity difference.
+
+<table>
+<tr>
+<th>Markdown string&nbsp;&nbsp;(~170 chars)</th>
+<th>JSON config&nbsp;&nbsp;(~590 chars)</th>
+</tr>
+<tr>
+<td>
+
+```
+flow LR antv
+title: Auth Flow
+start((Start)) --> login[Enter Credentials]
+login --> validate{Valid?}
+validate -->|yes| dashboard((Dashboard))
+validate -->|no| error[Show Error]
+error --> login
+```
+
+</td>
+<td>
+
+```typescript
+fig({
+  figure: 'flow',
+  direction: 'LR',
+  palette: 'antv',
+  title: 'Auth Flow',
+  nodes: [
+    { id: 'start',     label: 'Start',             type: 'terminal' },
+    { id: 'login',     label: 'Enter Credentials', type: 'process'  },
+    { id: 'validate',  label: 'Valid?',             type: 'decision' },
+    { id: 'dashboard', label: 'Dashboard',          type: 'terminal' },
+    { id: 'error',     label: 'Show Error',         type: 'process'  },
+  ],
+  edges: [
+    { from: 'start',    to: 'login'               },
+    { from: 'login',    to: 'validate'             },
+    { from: 'validate', to: 'dashboard', label: 'yes' },
+    { from: 'validate', to: 'error',     label: 'no'  },
+    { from: 'error',    to: 'login'               },
+  ],
+});
+```
+
+</td>
+</tr>
+</table>
+
+### Overall feature comparison
+
+| Dimension | Markdown string | JSON config | Advantage |
+|-----------|----------------|-------------|-----------|
+| **Verbosity** | ~170 chars (5-node diagram) | ~590 chars (same diagram) | ✅ Markdown (~3–5× fewer chars) |
+| **AI streaming safety** | Never throws; partial input renders as empty SVG that fills in progressively | Must be a complete, valid object to render | ✅ Markdown (critical for AI chat UIs) |
+| **AI token cost** | Compact → fewer tokens consumed per diagram | Verbose → 3–5× more tokens per diagram | ✅ Markdown (matters for context windows) |
+| **Human readability** | High — Mermaid-like, visually obvious | Moderate — correct but verbose | ✅ Markdown |
+| **Learning curve** | Low — header + domain-specific lines, familiar to Mermaid users | Moderate — TypeScript interface knowledge required | ✅ Markdown |
+| **Error tolerance** | Forgiving — unknown tokens silently ignored; best-effort render | Strict — missing required fields throw at call site | ✅ Markdown |
+| **Mermaid familiarity** | Partial Mermaid syntax compatibility eases onboarding | N/A | ✅ Markdown |
+| **Type safety** | None — strings only, errors caught at render time | Full TypeScript types — errors caught at compile time | ✅ JSON |
+| **Programmatic generation** | String concatenation — fragile, no structure | Native object/array construction — loops, conditions, spread | ✅ JSON |
+| **IDE & editor support** | No IntelliSense, no autocomplete | Full autocomplete, hover types, rename refactoring | ✅ JSON |
+| **Compile-time validation** | ❌ All errors are runtime | ✅ TypeScript reports missing required fields | ✅ JSON |
+| **Feature completeness** | Subset — most options covered, a few advanced fields absent (see below) | Full API — every option accessible | ✅ JSON |
+| **Dynamic data integration** | Requires string templating — error-prone | Natural — pass computed arrays and objects directly | ✅ JSON |
+| **Parser maintenance burden** | High — ~1,500 LOC custom parser in `src/parse.ts` | None — TypeScript types are the contract | ✅ JSON |
+
+**Score: 7 dimensions favour Markdown · 6 dimensions favour JSON.**
+The markdown wins are concentrated in the dimensions that matter most for the library's primary AI-generation use case (streaming, token cost, safety). The JSON wins matter most for programmatic/TypeScript applications.
+
+### Per-diagram-type capability matrix
+
+All ten diagram types are available in both styles with near-identical coverage. The only gaps are two advanced JSON-only fields:
+
+| Diagram | Feature | Markdown | JSON config |
+|---------|---------|:--------:|:-----------:|
+| all | `title` and `subtitle` | ✅ | ✅ |
+| all | `theme` (`light`/`dark`) | ✅ | ✅ |
+| all | Named palette (`default`, `antv`, `drawio`, …) | ✅ | ✅ |
+| all | **Custom hex-array palette** (`string[]`) | ❌ | ✅ |
+| flow | nodes, edges, groups, direction | ✅ | ✅ |
+| tree | nodes with parent refs, direction | ✅ | ✅ |
+| arch | layers with nodes, direction | ✅ | ✅ |
+| sequence | actors (inferred if omitted), solid/dashed messages | ✅ | ✅ |
+| quadrant | axes, quadrant corner labels, data points | ✅ | ✅ |
+| gantt | sections/groups, tasks, milestones | ✅ | ✅ |
+| gantt | **Per-task custom bar color** (`GanttTask.color`) | ❌ | ✅ |
+| state | states, transitions, accent, start/end pseudo-states | ✅ | ✅ |
+| er | entities, fields (pk/fk), relations, cardinality, accent entity | ✅ | ✅ |
+| timeline | events, milestone markers | ✅ | ✅ |
+| swimlane | lanes, typed nodes, edges | ✅ | ✅ |
+
+Only **two JSON-only features** exist: custom hex-array palettes and per-task Gantt bar colours. Every structural diagram element is fully expressible in markdown.
+
+### Verdict
+
+| Use case | Recommended style |
+|----------|------------------|
+| AI assistant generating a diagram in a chat response | **Markdown** — streaming-safe, compact, forgiving |
+| LLM output passed directly to `fig()` during token streaming | **Markdown** — never throws on partial input |
+| TypeScript application building diagrams from runtime data | **JSON** — type-safe, IDE-supported, programmatic |
+| CI pipeline generating SVG reports from structured data | **JSON** — reliable, fully validated at compile time |
+| Human author writing a diagram in a config file or README | **Markdown** — readable, concise |
+| Diagram that requires a custom hex palette or per-task Gantt colour | **JSON** — only option |
+
+**Recommendation: keep both syntaxes.** They target different audiences and neither is redundant. Removing markdown would eliminate the streaming-safe property that is unique to this library and central to its AI-focused positioning. Removing JSON would make programmatic and TypeScript use cases painful. The ~1,500 LOC parser cost is justified by the gains in token efficiency and streaming safety for AI workflows.
+
 ## Using with AI
 
 This library ships a **[`SKILL.md`](https://github.com/hustcc/ai-figure/blob/main/SKILL.md)** — a machine-readable skill file that AI agents (Copilot, Cursor, Claude, etc.) can load as context.
