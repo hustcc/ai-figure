@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { fig } from 'ai-figure';
+import CodeBlock from '@/components/CodeBlock';
 
 export const metadata: Metadata = {
   title: 'ai-figure — SVG Diagram Generator',
@@ -8,15 +9,16 @@ export const metadata: Metadata = {
 };
 
 const EXAMPLE_MD = `figure flow
-direction: LR
+direction: TB
 palette: antv
 title: CI Pipeline
-code[Write Code] --> test{Tests Pass?}
-test --> build[Build Image]: yes
-test --> fix((Fix Issues)): no
+code[Push Code] --> lint{Lint?}
+lint --> test[Run Tests]: pass
+lint --> fix((Fix)): fail
 fix --> code
-build --> deploy[/Deploy/]
-group Pipeline: code, test, build`;
+test --> build[Build Image]
+build --> deploy[Deploy]
+group Pipeline: code, lint, test, build`;
 
 const FEATURES = [
   {
@@ -40,6 +42,23 @@ const FEATURES = [
     description: 'default, antv, drawio, figma, vega, mono-blue, mono-green, mono-purple, mono-orange.',
   },
 ];
+
+const INSTALL_CODE = `npm install ai-figure`;
+
+const USAGE_CODE = `import { fig } from 'ai-figure';
+
+const svg = fig(\`
+  figure flow
+  direction: LR
+  A[Start] --> B[End]
+\`);
+
+// Browser
+document.getElementById('chart').innerHTML = svg;
+
+// Node.js
+import { writeFileSync } from 'fs';
+writeFileSync('diagram.svg', svg);`;
 
 export default function HomePage() {
   const exampleSvg = fig(EXAMPLE_MD);
@@ -94,43 +113,33 @@ export default function HomePage() {
       </section>
 
       {/* Quick Example */}
-      <section className="max-w-5xl mx-auto px-6 pb-20">
+      <section className="max-w-5xl mx-auto px-6 pb-16">
         <div className="text-center mb-10">
           <h2 className="text-3xl font-bold tracking-tight text-slate-900 mb-3">See it in action</h2>
           <p className="text-slate-500">Write markdown on the left, get SVG on the right.</p>
         </div>
-        <div className="grid md:grid-cols-2 gap-6 items-start">
-          <div>
-            <p className="text-xs font-mono text-slate-400 mb-2 uppercase tracking-wider">Input</p>
-            <pre className="bg-slate-900 text-slate-100 rounded-xl p-6 text-sm leading-relaxed overflow-x-auto font-mono">
-              <code>{EXAMPLE_MD}</code>
-            </pre>
-          </div>
-          <div>
-            <p className="text-xs font-mono text-slate-400 mb-2 uppercase tracking-wider">Output</p>
+        <div className="grid md:grid-cols-2 gap-6 items-stretch">
+          <CodeBlock label="Input" language="plaintext">{EXAMPLE_MD}</CodeBlock>
+          <div className="flex flex-col">
+            <div className="bg-slate-800 rounded-t-xl px-4 py-1.5 text-xs font-mono text-slate-400 uppercase tracking-wider border-b border-slate-700">
+              Output
+            </div>
             <div
-              className="bg-white rounded-xl border border-slate-200 p-4 [&>svg]:w-full [&>svg]:h-auto"
+              className="flex-1 bg-white rounded-b-xl border-x border-b border-slate-200 p-4 [&>svg]:w-full [&>svg]:h-auto"
               dangerouslySetInnerHTML={{ __html: exampleSvg }}
             />
           </div>
         </div>
+      </section>
 
-        {/* Install snippet */}
-        <div className="mt-10 bg-slate-900 rounded-xl p-6">
-          <p className="text-xs font-mono text-slate-400 mb-2 uppercase tracking-wider">Install</p>
-          <pre className="text-slate-100 font-mono text-sm mb-5"><code>npm install ai-figure</code></pre>
-          <p className="text-xs font-mono text-slate-400 mb-2 uppercase tracking-wider">Usage</p>
-          <pre className="text-slate-100 font-mono text-sm leading-relaxed"><code>{`import { fig } from 'ai-figure';
-
-const svg = fig(\`
-  figure flow
-  direction: LR
-  A[Start] --> B[End]
-\`);
-
-document.getElementById('chart').innerHTML = svg;`}</code></pre>
+      {/* Install + Usage */}
+      <section className="max-w-5xl mx-auto px-6 pb-20">
+        <div className="grid md:grid-cols-2 gap-6">
+          <CodeBlock label="Install" language="bash">{INSTALL_CODE}</CodeBlock>
+          <CodeBlock label="Usage" language="typescript">{USAGE_CODE}</CodeBlock>
         </div>
       </section>
     </main>
   );
 }
+
