@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="338" viewBox="0 0 800 338">
+<text x="400" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Product History</text>
+<g class="timeline-diagram" transform="translate(0,48)">
+<defs/>
+<line x1="48" y1="160" x2="752" y2="160" stroke="#495057" stroke-width="1.5"/>
+<line x1="67.48971193415638" y1="153" x2="67.48971193415638" y2="167" stroke="#495057" stroke-width="1" opacity="0.5"/>
+<text x="67.48971193415638" y="181" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2020</text>
+<line x1="239.62375073486186" y1="153" x2="239.62375073486186" y2="167" stroke="#495057" stroke-width="1" opacity="0.5"/>
+<text x="239.62375073486186" y="181" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2021</text>
+<line x1="411.2874779541446" y1="153" x2="411.2874779541446" y2="167" stroke="#495057" stroke-width="1" opacity="0.5"/>
+<text x="411.2874779541446" y="181" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2022</text>
+<line x1="582.9512051734274" y1="153" x2="582.9512051734274" y2="167" stroke="#495057" stroke-width="1" opacity="0.5"/>
+<text x="582.9512051734274" y="181" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2023</text>
+<line x1="74.07407407407408" y1="150" x2="74.07407407407408" y2="141" stroke="#868e96" stroke-width="1"/>
+<circle cx="74.07407407407408" cy="160" r="9" fill="#fff4ef" stroke="#e8684a" stroke-width="1.5"/>
+<text x="74.07407407407408" y="124" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#e8684a">v1.0 Launch</text>
+<line x1="310.6407995296884" y1="167" x2="310.6407995296884" y2="193" stroke="#868e96" stroke-width="1"/>
+<circle cx="310.6407995296884" cy="160" r="6" fill="#5b8ff9" stroke="none" stroke-width="1.5"/>
+<text x="310.6407995296884" y="208" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="400" fill="#495057">v1.5 Improvements</text>
+<line x1="443.2686654908877" y1="150" x2="443.2686654908877" y2="141" stroke="#868e96" stroke-width="1"/>
+<circle cx="443.2686654908877" cy="160" r="9" fill="#fff4ef" stroke="#e8684a" stroke-width="1.5"/>
+<text x="443.2686654908877" y="124" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#e8684a">v2.0 Redesign</text>
+<line x1="725.9259259259259" y1="170" x2="725.9259259259259" y2="193" stroke="#868e96" stroke-width="1"/>
+<circle cx="725.9259259259259" cy="160" r="9" fill="#fff4ef" stroke="#e8684a" stroke-width="1.5"/>
+<text x="725.9259259259259" y="208" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#e8684a">v3.0 AI Features</text>
+</g>
+</svg>

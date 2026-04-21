@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="426" height="580" viewBox="0 0 426 580">
+<text x="213" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Order Status</text>
+<g class="state-diagram" transform="translate(0,48)">
+<defs><marker id="st-1-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/></marker><marker id="st-1-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#e8684a"/></marker></defs>
+<path d="M213,58 Q213,93 213,110.5 L213,128" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M178.64912280701753,172 Q124,207 124,224.5 L124,242" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<text x="124" y="200" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057" opacity="0.9">place order</text>
+<path d="M120.14035087719299,286 Q114,321 114,338.5 L114,356" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<text x="114" y="314" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057" opacity="0.9">confirmed</text>
+<path d="M162.21052631578948,286 Q223,321 250.32456140350877,338.5 L277.64912280701753,356" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<text x="223" y="314" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057" opacity="0.9">error</text>
+<path d="M315.859649122807,356 Q322,321 322,292.5 Q322,264 322,235.5 Q322,207 288.53508771929825,189.5 L255.0701754385965,172" fill="none" stroke="#e8684a" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow-accent)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<text x="322" y="257" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#bf3c22" opacity="0.9">retry</text>
+<path d="M114,400 Q114,435 114,452.5 L114,470" fill="none" stroke="#495057" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#st-1-arrow)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<circle cx="213" cy="49" r="7" fill="#495057" stroke="none"/>
+<rect x="139" y="128" width="148" height="44" rx="8" ry="8" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="213" y="150" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#1d5bc7">Idle</text>
+<rect x="50" y="242" width="148" height="44" rx="8" ry="8" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="124" y="264" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#1d5bc7">Processing</text>
+<rect x="40" y="356" width="148" height="44" rx="8" ry="8" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="114" y="378" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#1d5bc7">Shipped</text>
+<rect x="238" y="356" width="148" height="44" rx="8" ry="8" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="312" y="378" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#bf3c22">Failed</text>
+<circle cx="114" cy="481" r="9" fill="none" stroke="#495057" stroke-width="2"/>
+<circle cx="114" cy="481" r="5" fill="#495057" stroke="none"/>
+</g>
+</svg>

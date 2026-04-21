@@ -23,343 +23,210 @@ import type {
   NodeType,
 } from './types';
 
-// ---------------------------------------------------------------------------
-// Public API
-// ---------------------------------------------------------------------------
-
 /**
- * Parse a Mermaid-like markdown diagram definition and return a {@link FigOptions} object.
+ * Parse a `figure <type>` markdown diagram definition and return {@link FigOptions}.
  *
- * The first non-empty line is the **header**: `<type> [direction] [theme] [palette]`
+ * Header: `figure <type>` (required). Config: `key: value` lines.
+ * Data: `A --> B: label` arrows, `section Name`, `Label: x, y` points,
+ * `yyyy-mm-dd: label [milestone]` date events, `Label: id, start, end` Gantt tasks.
+ * Lines starting with `%%` are comments.
  *
- * - `type`      — one of `flow`, `tree`, `arch`, `sequence`, `quadrant`, `gantt`,
- *                 `state`, `er`, `timeline`, `swimlane`
- * - `direction` — `TB` (top→bottom) or `LR` (left→right); applies to flow / tree / arch
- * - `theme`     — `light` (default) or `dark`
- * - `palette`   — any named palette: `default`, `antv`, `drawio`, `figma`, `vega`,
- *                 `mono-blue`, `mono-green`, `mono-purple`, `mono-orange`
- *
- * Lines starting with `%%` are treated as comments and ignored.
- * `title:` and `subtitle:` meta-lines are supported in all diagram types.
- *
- * Throws if the input is empty or the figure type is not recognised.
- * For a fault-tolerant render path that never throws (useful with streaming AI output),
- * use `fig(markdown)` instead.
- *
- * @example
- * ```
- * parseFigmd(`
- *   flow LR antv
- *   title: CI Pipeline
- *   code[Write Code] --> test{Tests Pass?}
- *   test -->|yes| build[Build Image]
- *   test -->|no| fix((Fix Issues))
- *   build --> deploy[/Deploy/]
- *   group Pipeline: code, test, build, deploy
- * `);
- * ```
+ * Throws on empty input, missing `figure` header, or unknown type.
+ * For a never-throwing render path use `fig(markdown)` instead.
  */
 export function parseFigmd(markdown: string): FigOptions {
-  const lines = markdown.split('\n');
-
-  // Find the first non-empty line (the header)
-  let headerIdx = 0;
-  while (headerIdx < lines.length && lines[headerIdx].trim() === '') headerIdx++;
-  if (headerIdx >= lines.length) throw new Error('figmd: empty diagram definition');
-
-  // Parse header: "<type> [options...]"
-  const headerTokens = lines[headerIdx].trim().split(/\s+/);
-  const figureType = headerTokens[0].toLowerCase();
-
-  let direction: Direction | undefined;
-  let theme: ThemeType | undefined;
-  let palette: PaletteType | undefined;
-
-  for (let j = 1; j < headerTokens.length; j++) {
-    const t = headerTokens[j];
-    if (t === 'TB' || t === 'LR') {
-      direction = t as Direction;
-    } else if (t === 'light' || t === 'dark') {
-      theme = t as ThemeType;
-    } else {
-      palette = t;
-    }
+  const lines: string[] = [];
+  for (const raw of markdown.split('\n')) {
+    const line = raw.trim();
+    if (line && !line.startsWith('%%')) lines.push(line);
   }
+  if (lines.length === 0) throw new Error('figmd: empty diagram definition');
 
-  const bodyLines = lines.slice(headerIdx + 1);
+  const header = lines[0];
+  if (!header.startsWith('figure ')) {
+    throw new Error(`figmd: header must start with "figure <type>", got "${header}"`);
+  }
+  const figureType = header.slice('figure '.length).trim().toLowerCase();
+  const body = lines.slice(1);
 
   switch (figureType) {
-    case 'flow':
-      return parseFlow(bodyLines, direction, theme, palette);
-    case 'tree':
-      return parseTree(bodyLines, direction, theme, palette);
-    case 'arch':
-      return parseArch(bodyLines, direction, theme, palette);
-    case 'sequence':
-      return parseSequence(bodyLines, theme, palette);
-    case 'quadrant':
-      return parseQuadrant(bodyLines, theme, palette);
-    case 'gantt':
-      return parseGantt(bodyLines, theme, palette);
-    case 'state':
-      return parseState(bodyLines, theme, palette);
-    case 'er':
-      return parseEr(bodyLines, theme, palette);
-    case 'timeline':
-      return parseTimeline(bodyLines, theme, palette);
-    case 'swimlane':
-      return parseSwimlane(bodyLines, theme, palette);
+    case 'flow':      return parseFlow(body);
+    case 'tree':      return parseTree(body);
+    case 'arch':      return parseArch(body);
+    case 'sequence':  return parseSequence(body);
+    case 'quadrant':  return parseQuadrant(body);
+    case 'gantt':     return parseGantt(body);
+    case 'state':     return parseState(body);
+    case 'er':        return parseEr(body);
+    case 'timeline':  return parseTimeline(body);
+    case 'swimlane':  return parseSwimlane(body);
     default:
       throw new Error(
         `figmd: unknown figure type "${figureType}". ` +
-          `Expected one of: flow, tree, arch, sequence, quadrant, gantt, ` +
-          `state, er, timeline, swimlane`,
+          `Expected one of: flow, tree, arch, sequence, quadrant, gantt, state, er, timeline, swimlane`,
       );
   }
 }
 
-// ---------------------------------------------------------------------------
-// Shared utilities
-// ---------------------------------------------------------------------------
+// --- shared utilities ---
 
-interface Meta {
-  title?: string;
-  subtitle?: string;
-  /** Body lines with comments and blank lines stripped, and title/subtitle removed. */
-  rest: string[];
+interface CommonConfig {
+  title?:     string;
+  subtitle?:  string;
+  theme?:     ThemeType;
+  palette?:   PaletteType;
+  direction?: Direction;
 }
 
-/** Strip blank lines and comments; extract title/subtitle meta-lines. */
-function extractMeta(lines: string[]): Meta {
-  let title: string | undefined;
-  let subtitle: string | undefined;
-  const rest: string[] = [];
-
-  for (const rawLine of lines) {
-    const line = rawLine.trim();
-    if (!line || line.startsWith('%%')) continue;
-
-    // Use startsWith + slice to avoid regex backtracking on meta-lines
-    if (line.startsWith('title:')) {
-      title = line.slice('title:'.length).trim();
-      continue;
-    }
-
-    if (line.startsWith('subtitle:')) {
-      subtitle = line.slice('subtitle:'.length).trim();
-      continue;
-    }
-
-    rest.push(line);
+function applyCommonConfig(line: string, cfg: CommonConfig): boolean {
+  const ci = line.indexOf(':');
+  if (ci === -1) return false;
+  const key = line.slice(0, ci).trim();
+  const val = line.slice(ci + 1).trim();
+  switch (key) {
+    case 'title':     cfg.title     = val; return true;
+    case 'subtitle':  cfg.subtitle  = val; return true;
+    case 'theme':     cfg.theme     = val as ThemeType; return true;
+    case 'palette':   cfg.palette   = val; return true;
+    case 'direction': cfg.direction = val as Direction; return true;
+    default: return false;
   }
-
-  return { title, subtitle, rest };
 }
 
-/**
- * Split a line on the first occurrence of `arrow` and return `[left, right]` after
- * trimming, or `null` if the arrow is absent or either side is empty.
- *
- * Using indexOf instead of a regex avoids polynomial backtracking on long lines.
- */
+const cfgSpread = (c: CommonConfig) =>
+  Object.fromEntries(Object.entries(c).filter(([, v]) => v !== undefined)) as Partial<CommonConfig>;
+
+/** Split on the first `arrow`; returns `[left, right]` trimmed, or `null`. */
 function splitOnArrow(line: string, arrow: string): [string, string] | null {
   const idx = line.indexOf(arrow);
   if (idx === -1) return null;
-  const left = line.slice(0, idx).trim();
+  const left  = line.slice(0, idx).trim();
   const right = line.slice(idx + arrow.length).trim();
   if (!left || !right) return null;
   return [left, right];
 }
 
 /**
- * Parse a node expression such as `id[label]`, `id{label}`, `id((label))`, or `id[/label/]`.
- * Returns the node id, label, and shape type. A bare identifier (no brackets) defaults to
- * type `'process'` with the id used as the label.
- *
- * | Notation       | Shape      |
- * |----------------|------------|
- * | `id[label]`    | process    |
- * | `id{label}`    | decision   |
- * | `id((label))`  | terminal   |
- * | `id[/label/]`  | io         |
- * | `id`           | process    |
+ * Parse a node expression `id[label]`, `id{label}`, `id((label))`, `id[/label/]`,
+ * or a bare identifier. Uses indexOf/endsWith to avoid regex backtracking.
  */
 function parseNodeExpr(expr: string): { id: string; label: string; type: NodeType } {
-  expr = expr.trim();
+  const s = expr.trim();
 
-  // terminal: id((label))
-  const terminalMatch = expr.match(/^([\w-]+)\(\((.+)\)\)$/s);
-  if (terminalMatch) return { id: terminalMatch[1], label: terminalMatch[2], type: 'terminal' };
+  const dblOpen = s.indexOf('((');
+  if (dblOpen > 0 && s.endsWith('))')) {
+    const id = s.slice(0, dblOpen).trim();
+    if (id) return { id, label: s.slice(dblOpen + 2, s.length - 2).trim() || id, type: 'terminal' };
+  }
 
-  // io: id[/label/]
-  const ioMatch = expr.match(/^([\w-]+)\[\/(.+)\/\]$/s);
-  if (ioMatch) return { id: ioMatch[1], label: ioMatch[2], type: 'io' };
+  const ioOpen = s.indexOf('[/');
+  if (ioOpen > 0 && s.endsWith('/]')) {
+    const id = s.slice(0, ioOpen).trim();
+    if (id) return { id, label: s.slice(ioOpen + 2, s.length - 2).trim() || id, type: 'io' };
+  }
 
-  // process: id[label]
-  const processMatch = expr.match(/^([\w-]+)\[(.+)\]$/s);
-  if (processMatch) return { id: processMatch[1], label: processMatch[2], type: 'process' };
+  const sqOpen = s.indexOf('[');
+  if (sqOpen > 0 && s.endsWith(']') && s[sqOpen + 1] !== '/') {
+    const id = s.slice(0, sqOpen).trim();
+    if (id) return { id, label: s.slice(sqOpen + 1, s.length - 1).trim() || id, type: 'process' };
+  }
 
-  // decision: id{label}
-  const decisionMatch = expr.match(/^([\w-]+)\{(.+)\}$/s);
-  if (decisionMatch) return { id: decisionMatch[1], label: decisionMatch[2], type: 'decision' };
+  const curlOpen = s.indexOf('{');
+  if (curlOpen > 0 && s.endsWith('}')) {
+    const id = s.slice(0, curlOpen).trim();
+    if (id) return { id, label: s.slice(curlOpen + 1, s.length - 1).trim() || id, type: 'decision' };
+  }
 
-  // bare identifier — use as-is, default to process
-  return { id: expr, label: expr, type: 'process' };
+  return { id: s, label: s, type: 'process' };
 }
-
-/** Returns true when the expression carries explicit label/shape notation (e.g. `id[label]`). */
-function isExplicitNodeExpr(expr: string, id: string): boolean {
-  return expr.trim() !== id;
-}
-
-// ---------------------------------------------------------------------------
-// Flow parser
-// ---------------------------------------------------------------------------
 
 /**
- * Parse flow diagram body lines.
- *
- * **Node notation** (inline in edge statements or standalone):
- * - `id[label]`   — process (rectangle)
- * - `id{label}`   — decision (diamond)
- * - `id((label))` — terminal (pill)
- * - `id[/label/]` — io (parallelogram)
- *
- * **Edge statements:**
- * - `A --> B`           — simple edge
- * - `A -->|label| B`    — edge with label
- *
- * **Group statements:**
- * - `group GroupName: id1, id2, ...`
- *
- * @example
- * ```
- * flow LR antv
- * title: CI Pipeline
- * code[Write Code] --> test{Tests Pass?}
- * test -->|yes| build[Build Image]
- * test -->|no| fix((Fix Issues))
- * fix --> code
- * build --> deploy[/Deploy/]
- * group Pipeline: code, test, build
- * ```
+ * For flow right-hand sides: split `nodeExpr: edgeLabel` into node expression and
+ * optional edge label.  The separator `:` must appear *after* the closing bracket.
  */
-function parseFlow(
-  lines: string[],
-  direction?: Direction,
-  theme?: ThemeType,
-  palette?: PaletteType,
-): FigOptions {
-  const { title, subtitle, rest } = extractMeta(lines);
+function splitFlowRight(s: string): [string, string | undefined] {
+  const lastSq  = s.lastIndexOf(']');
+  const lastCu  = s.lastIndexOf('}');
+  const lastDbl = s.lastIndexOf('))');
+  const term    = Math.max(lastSq, lastCu, lastDbl !== -1 ? lastDbl + 1 : -1);
+
+  if (term > 0) {
+    const after = s.slice(term + 1).trimStart();
+    return after.startsWith(':')
+      ? [s.slice(0, term + 1).trim(), after.slice(1).trim()]
+      : [s, undefined];
+  }
+  const ci = s.indexOf(':');
+  return ci !== -1 ? [s.slice(0, ci).trim(), s.slice(ci + 1).trim()] : [s, undefined];
+}
+
+/**
+ * Parse `from --> to: label` (or with a custom arrow).
+ * Returns `{ from, to, label? }` or `null` if the line doesn't contain the arrow.
+ */
+function parseEdge(line: string, arrow = '-->'): { from: string; to: string; label?: string } | null {
+  if (!line.includes(arrow)) return null;
+  const p = splitOnArrow(line, arrow);
+  if (!p) return null;
+  const [from, r] = p;
+  const ci = r.indexOf(':');
+  return ci !== -1
+    ? { from, to: r.slice(0, ci).trim(), label: r.slice(ci + 1).trim() }
+    : { from, to: r };
+}
+
+// --- flow ---
+
+function parseFlow(lines: string[]): FigOptions {
+  const cfg: CommonConfig = {};
   const nodeMap = new Map<string, FlowNode>();
   const edges: FlowEdge[] = [];
   const groups: FlowGroup[] = [];
 
   const ensureNode = (expr: string): string => {
     const { id, label, type } = parseNodeExpr(expr);
-    const existing = nodeMap.get(id);
-    if (!existing) {
-      nodeMap.set(id, { id, label, type });
-    } else if (isExplicitNodeExpr(expr, id)) {
-      // Later explicit definitions (e.g. `b[Build]`) refine earlier bare-id references.
-      nodeMap.set(id, { id, label, type });
-    }
+    if (!nodeMap.has(id) || expr.trim() !== id) nodeMap.set(id, { id, label, type });
     return id;
   };
 
-  for (const line of rest) {
-    // group GroupLabel: id1, id2, ...
-    // Use startsWith + indexOf(':') to avoid backtracking
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
+
     if (line.startsWith('group ')) {
       const body = line.slice('group '.length);
-      const colonIdx = body.indexOf(':');
-      if (colonIdx !== -1) {
-        const label = body.slice(0, colonIdx).trim();
-        const nodeList = body.slice(colonIdx + 1).trim();
-        const nodes = nodeList
-          .split(',')
-          .map((n) => n.trim())
-          .filter((n) => n.length > 0);
-        if (nodes.length === 0) continue;
-        groups.push({
-          id: `grp-${groups.length}`,
-          label,
-          nodes,
-        });
+      const ci = body.indexOf(':');
+      if (ci !== -1) {
+        const label = body.slice(0, ci).trim();
+        const nodes = body.slice(ci + 1).split(',').map((n) => n.trim()).filter(Boolean);
+        if (nodes.length > 0) groups.push({ id: `grp-${groups.length}`, label, nodes });
       }
       continue;
     }
 
-    // Edges: use splitOnArrow to avoid backtracking regex
     if (line.includes('-->')) {
-      const parts = splitOnArrow(line, '-->');
-      if (parts) {
-        const [left, rightRaw] = parts;
-        let right = rightRaw;
-        let label: string | undefined;
-
-        // labeled edge: right starts with |label|
-        if (right.startsWith('|')) {
-          const closePipe = right.indexOf('|', 1);
-          if (closePipe !== -1) {
-            label = right.slice(1, closePipe).trim();
-            right = right.slice(closePipe + 1).trim();
-          }
+      const p = splitOnArrow(line, '-->');
+      if (p) {
+        const [left, rightRaw] = p;
+        const [to, label] = splitFlowRight(rightRaw);
+        if (to) {
+          const fromId = ensureNode(left);
+          const toId   = ensureNode(to);
+          edges.push(label ? { from: fromId, to: toId, label } : { from: fromId, to: toId });
         }
-
-        if (!right) continue;
-
-        const fromId = ensureNode(left);
-        const toId = ensureNode(right);
-        edges.push(label !== undefined ? { from: fromId, to: toId, label } : { from: fromId, to: toId });
         continue;
       }
     }
 
-    // standalone node definition
     ensureNode(line);
   }
 
-  return {
-    figure: 'flow',
-    nodes: [...nodeMap.values()],
-    edges,
-    ...(groups.length > 0 ? { groups } : {}),
-    ...(direction !== undefined ? { direction } : {}),
-    ...(theme !== undefined ? { theme } : {}),
-    ...(palette !== undefined ? { palette } : {}),
-    ...(title !== undefined ? { title } : {}),
-    ...(subtitle !== undefined ? { subtitle } : {}),
-  };
+  return { figure: 'flow', nodes: [...nodeMap.values()], edges, ...(groups.length ? { groups } : {}), ...cfgSpread(cfg) };
 }
 
-// ---------------------------------------------------------------------------
-// Tree parser
-// ---------------------------------------------------------------------------
+// --- tree ---
 
-/**
- * Parse tree diagram body lines.
- *
- * Same node notation as the flow parser. Parent→child relationships are expressed
- * with `-->` edges. Root nodes (no parent) can be declared as standalone lines.
- *
- * @example
- * ```
- * tree TB
- * title: Org Chart
- * ceo[CEO]
- * ceo --> cto[CTO]
- * ceo --> coo[COO]
- * cto --> dev[Developer]
- * ```
- */
-function parseTree(
-  lines: string[],
-  direction?: Direction,
-  theme?: ThemeType,
-  palette?: PaletteType,
-): FigOptions {
-  const { title, subtitle, rest } = extractMeta(lines);
+function parseTree(lines: string[]): FigOptions {
+  const cfg: CommonConfig = {};
   const nodeMap = new Map<string, TreeNode>();
 
   const ensureNode = (expr: string, parent?: string): string => {
@@ -367,914 +234,323 @@ function parseTree(
     const existing = nodeMap.get(id);
     if (!existing) {
       nodeMap.set(id, { id, label, ...(parent !== undefined ? { parent } : {}) });
-      return id;
-    }
-    // Later explicit labels refine earlier bare-id references.
-    if (isExplicitNodeExpr(expr, id) && existing.label === id) {
-      existing.label = label;
-    }
-    // Allow a later declaration to supply the parent if it was not yet known.
-    if (parent !== undefined) {
-      if (existing.parent === undefined) {
-        existing.parent = parent;
-      }
-      // Silently ignore conflicting parents (streaming fault-tolerance).
+    } else {
+      if (expr.trim() !== id && existing.label === id) existing.label = label;
+      if (parent !== undefined && existing.parent === undefined) existing.parent = parent;
     }
     return id;
   };
 
-  for (const line of rest) {
-    // parent --> child: use splitOnArrow to avoid backtracking regex
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
     if (line.includes('-->')) {
-      const parts = splitOnArrow(line, '-->');
-      if (parts) {
-        const [left, right] = parts;
-        const parentId = ensureNode(left);
-        ensureNode(right, parentId);
-        continue;
-      }
+      const p = splitOnArrow(line, '-->');
+      if (p) { ensureNode(p[1], ensureNode(p[0])); continue; }
     }
-
-    // standalone root node
     ensureNode(line);
   }
 
-  return {
-    figure: 'tree',
-    nodes: [...nodeMap.values()],
-    ...(direction !== undefined ? { direction } : {}),
-    ...(theme !== undefined ? { theme } : {}),
-    ...(palette !== undefined ? { palette } : {}),
-    ...(title !== undefined ? { title } : {}),
-    ...(subtitle !== undefined ? { subtitle } : {}),
-  };
+  return { figure: 'tree', nodes: [...nodeMap.values()], ...cfgSpread(cfg) };
 }
 
-// ---------------------------------------------------------------------------
-// Arch parser
-// ---------------------------------------------------------------------------
+// --- arch ---
 
-/**
- * Parse architecture diagram body lines.
- *
- * Layer declarations use `layer id[Label]`. Any non-`layer` line following a layer
- * declaration is treated as a node belonging to that layer, using the same node
- * notation as the flow parser (the shape type is ignored — all arch nodes render
- * as rectangles).
- *
- * @example
- * ```
- * arch TB antv
- * title: Cloud Architecture
- * layer frontend[Frontend]
- *   web[Web App]
- *   mobile[Mobile]
- * layer backend[Backend]
- *   api[API Server]
- *   auth[Auth Service]
- * ```
- */
-function parseArch(
-  lines: string[],
-  direction?: Direction,
-  theme?: ThemeType,
-  palette?: PaletteType,
-): FigOptions {
-  const { title, subtitle, rest } = extractMeta(lines);
+function parseArch(lines: string[]): FigOptions {
+  const cfg: CommonConfig = {};
   const layers: ArchLayer[] = [];
-  let currentLayer: ArchLayer | null = null;
+  let cur: ArchLayer | null = null;
 
-  for (const line of rest) {
-    // layer id[Label] — use startsWith + slice to avoid backtracking
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
     if (line.startsWith('layer ')) {
-      const layerExpr = line.slice('layer '.length).trim();
-      const { id, label } = parseNodeExpr(layerExpr);
-      currentLayer = { id, label, nodes: [] };
-      layers.push(currentLayer);
+      const label = line.slice('layer '.length).trim();
+      cur = { id: label, label, nodes: [] };
+      layers.push(cur);
       continue;
     }
-
-    // node inside the current layer
-    if (currentLayer) {
-      const { id, label } = parseNodeExpr(line);
-      currentLayer.nodes.push({ id, label });
-    }
+    if (cur) { const { id, label } = parseNodeExpr(line); cur.nodes.push({ id, label }); }
   }
 
-  return {
-    figure: 'arch',
-    layers,
-    ...(direction !== undefined ? { direction } : {}),
-    ...(theme !== undefined ? { theme } : {}),
-    ...(palette !== undefined ? { palette } : {}),
-    ...(title !== undefined ? { title } : {}),
-    ...(subtitle !== undefined ? { subtitle } : {}),
-  };
+  return { figure: 'arch', layers, ...cfgSpread(cfg) };
 }
 
-// ---------------------------------------------------------------------------
-// Sequence parser
-// ---------------------------------------------------------------------------
+// --- sequence ---
 
-/**
- * Parse sequence diagram body lines.
- *
- * - `actors: A, B, C` — declare participants in order (optional; inferred from messages)
- * - `A -> B: label`   — solid request arrow
- * - `A --> B: label`  — dashed return arrow
- * - Unlabelled arrows: `A -> B` / `A --> B`
- *
- * @example
- * ```
- * sequence dark
- * title: Login Flow
- * actors: User, API, DB
- * User -> API: POST /login
- * API -> DB: SELECT user
- * DB --> API: user row
- * API --> User: 200 OK
- * ```
- */
-function parseSequence(
-  lines: string[],
-  theme?: ThemeType,
-  palette?: PaletteType,
-): FigOptions {
-  const { title, subtitle, rest } = extractMeta(lines);
+function parseSequence(lines: string[]): FigOptions {
+  const cfg: CommonConfig = {};
   let actors: string[] = [];
   const messages: SeqMessage[] = [];
 
-  for (const line of rest) {
-    // actors: A, B, C — use startsWith + slice to avoid backtracking
+  const addMsg = (e: { from: string; to: string; label?: string } | null, style?: 'return') => {
+    if (!e) return;
+    messages.push({ from: e.from, to: e.to, ...(e.label ? { label: e.label } : {}), ...(style ? { style } : {}) });
+  };
+
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
     if (line.startsWith('actors:')) {
       actors = line.slice('actors:'.length).split(',').map((a) => a.trim()).filter(Boolean);
       continue;
     }
-
-    // Return/dashed: check for '-->' BEFORE '->' (since '-->' contains '->')
-    if (line.includes('-->')) {
-      const parts = splitOnArrow(line, '-->');
-      if (parts) {
-        const [from, rightRaw] = parts;
-        const colonIdx = rightRaw.indexOf(':');
-        if (colonIdx !== -1) {
-          messages.push({
-            from,
-            to: rightRaw.slice(0, colonIdx).trim(),
-            label: rightRaw.slice(colonIdx + 1).trim(),
-            style: 'return',
-          });
-        } else {
-          messages.push({ from, to: rightRaw, style: 'return' });
-        }
-        continue;
-      }
-    }
-
-    // Solid: '->'
-    if (line.includes('->')) {
-      const parts = splitOnArrow(line, '->');
-      if (parts) {
-        const [from, rightRaw] = parts;
-        const colonIdx = rightRaw.indexOf(':');
-        if (colonIdx !== -1) {
-          messages.push({
-            from,
-            to: rightRaw.slice(0, colonIdx).trim(),
-            label: rightRaw.slice(colonIdx + 1).trim(),
-          });
-        } else {
-          messages.push({ from, to: rightRaw });
-        }
-        continue;
-      }
-    }
+    if (line.includes('-->')) { addMsg(parseEdge(line, '-->'), 'return'); continue; }
+    if (line.includes('->'))  { addMsg(parseEdge(line, '->')); continue; }
   }
 
-  // Infer actors from message order if not explicitly declared
   if (actors.length === 0) {
     const seen = new Set<string>();
-    for (const msg of messages) {
-      if (!seen.has(msg.from)) { seen.add(msg.from); actors.push(msg.from); }
-      if (!seen.has(msg.to))   { seen.add(msg.to);   actors.push(msg.to);   }
+    for (const m of messages) {
+      if (!seen.has(m.from)) { seen.add(m.from); actors.push(m.from); }
+      if (!seen.has(m.to))   { seen.add(m.to);   actors.push(m.to);   }
     }
   }
 
-  return {
-    figure: 'sequence',
-    actors,
-    messages,
-    ...(theme !== undefined ? { theme } : {}),
-    ...(palette !== undefined ? { palette } : {}),
-    ...(title !== undefined ? { title } : {}),
-    ...(subtitle !== undefined ? { subtitle } : {}),
-  };
+  return { figure: 'sequence', actors, messages, ...cfgSpread(cfg) };
 }
 
-// ---------------------------------------------------------------------------
-// Quadrant parser
-// ---------------------------------------------------------------------------
+// --- quadrant ---
 
-/**
- * Parse axis configuration from a line like `x-axis: min .. max` or
- * `x-axis Label: min .. max`. Uses indexOf to avoid regex backtracking.
- */
 function parseAxisLine(line: string, prefix: string): { label: string; min: string; max: string } | null {
   if (!line.startsWith(prefix)) return null;
-  const content = line.slice(prefix.length); // e.g. ": Low .. High" or " Label: Low .. High"
-  const dotdotIdx = content.indexOf('..');
-  if (dotdotIdx === -1) return null;
-  const leftPart = content.slice(0, dotdotIdx).trim(); // e.g. ": Low" or "Label: Low"
-  const max = content.slice(dotdotIdx + 2).trim();
-  const colonIdx = leftPart.indexOf(':');
-  if (colonIdx !== -1) {
-    return {
-      label: leftPart.slice(0, colonIdx).trim(),
-      min: leftPart.slice(colonIdx + 1).trim(),
-      max,
-    };
-  }
-  return { label: '', min: leftPart, max };
+  const content = line.slice(prefix.length);
+  const dotdot  = content.indexOf('..');
+  if (dotdot === -1) return null;
+  const left = content.slice(0, dotdot).trim();
+  const max  = content.slice(dotdot + 2).trim();
+  const ci   = left.indexOf(':');
+  return ci !== -1
+    ? { label: left.slice(0, ci).trim(), min: left.slice(ci + 1).trim(), max }
+    : { label: '', min: left, max };
 }
 
-/**
- * Parse quadrant chart body lines.
- *
- * - `x-axis: min .. max`         — X-axis min/max labels (axis label defaults to `""`)
- * - `x-axis Label: min .. max`   — explicit axis label followed by min/max
- * - `y-axis: min .. max`         — Y-axis min/max labels
- * - `y-axis Label: min .. max`   — explicit axis label
- * - `quadrant-1: label`          — top-left quadrant name
- * - `quadrant-2: label`          — top-right quadrant name
- * - `quadrant-3: label`          — bottom-left quadrant name
- * - `quadrant-4: label`          — bottom-right quadrant name
- * - `Label: x, y`                — data point (x, y in the range [0, 1])
- *
- * @example
- * ```
- * quadrant dark figma
- * title: Feature Priority
- * x-axis Effort: Low .. High
- * y-axis Value: Low .. High
- * quadrant-1: Strategic
- * quadrant-2: Quick Wins
- * quadrant-3: Long Shots
- * quadrant-4: Low Priority
- * Feature A: 0.3, 0.7
- * Feature B: 0.8, 0.4
- * ```
- */
-function parseQuadrant(
-  lines: string[],
-  theme?: ThemeType,
-  palette?: PaletteType,
-): FigOptions {
-  const { title, subtitle, rest } = extractMeta(lines);
-
+function parseQuadrant(lines: string[]): FigOptions {
+  const cfg: CommonConfig = {};
   let xAxis = { label: '', min: '', max: '' };
   let yAxis = { label: '', min: '', max: '' };
   const quadrantLabels: [string, string, string, string] = ['', '', '', ''];
   const points: QuadrantPoint[] = [];
 
-  for (const line of rest) {
-    // x-axis [Label:] min .. max — use parseAxisLine to avoid backtracking
-    const xResult = parseAxisLine(line, 'x-axis');
-    if (xResult) { xAxis = xResult; continue; }
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
 
-    const yResult = parseAxisLine(line, 'y-axis');
-    if (yResult) { yAxis = yResult; continue; }
+    const xa = parseAxisLine(line, 'x-axis');
+    if (xa) { xAxis = xa; continue; }
+    const ya = parseAxisLine(line, 'y-axis');
+    if (ya) { yAxis = ya; continue; }
 
-    // quadrant-N: label (N ∈ {1,2,3,4}) — use startsWith + slice
     if (line.startsWith('quadrant-')) {
       const body = line.slice('quadrant-'.length);
-      const n = body.charCodeAt(0) - 48; // '1'=49 → 1, etc.
-      if (n >= 1 && n <= 4 && body.charAt(1) === ':') {
-        quadrantLabels[n - 1] = body.slice(2).trim();
-        continue;
-      }
+      const n = body.charCodeAt(0) - 48;
+      if (n >= 1 && n <= 4 && body.charAt(1) === ':') { quadrantLabels[n - 1] = body.slice(2).trim(); continue; }
     }
 
-    // data point: "Label: x, y"  — one colon separates label from x, one comma separates x from y
-    // Find the single comma (between x and y), then split label from x via the first colon
-    const lastComma = line.lastIndexOf(',');
-    if (lastComma !== -1) {
-      const yStr = line.slice(lastComma + 1).trim();
-      const y = Number(yStr);
+    const lc = line.lastIndexOf(',');
+    if (lc !== -1) {
+      const y = Number(line.slice(lc + 1).trim());
       if (Number.isFinite(y) && y >= 0 && y <= 1) {
-        const beforeComma = line.slice(0, lastComma);
-        const colonIdx = beforeComma.indexOf(':');
-        if (colonIdx !== -1) {
-          const label = beforeComma.slice(0, colonIdx).trim();
-          const xStr = beforeComma.slice(colonIdx + 1).trim();
-          const x = Number(xStr);
+        const before = line.slice(0, lc);
+        const ci = before.indexOf(':');
+        if (ci !== -1) {
+          const label = before.slice(0, ci).trim();
+          const x     = Number(before.slice(ci + 1).trim());
           if (label && Number.isFinite(x) && x >= 0 && x <= 1) {
-            points.push({
-              id: `p${points.length}`,
-              label,
-              x,
-              y,
-            });
-            continue;
+            points.push({ id: `p${points.length}`, label, x, y }); continue;
           }
         }
       }
     }
   }
 
-  return {
-    figure: 'quadrant',
-    xAxis,
-    yAxis,
-    quadrants: quadrantLabels,
-    points,
-    ...(theme !== undefined ? { theme } : {}),
-    ...(palette !== undefined ? { palette } : {}),
-    ...(title !== undefined ? { title } : {}),
-    ...(subtitle !== undefined ? { subtitle } : {}),
-  };
+  return { figure: 'quadrant', xAxis, yAxis, quadrants: quadrantLabels, points, ...cfgSpread(cfg) };
 }
 
-// ---------------------------------------------------------------------------
-// Gantt parser
-// ---------------------------------------------------------------------------
+// --- gantt ---
 
-/**
- * Parse Gantt chart body lines.
- *
- * - `section SectionName`               — group header (applied to subsequent tasks)
- * - `Task Label: id, start, end`         — task bar (`start`/`end` in `yyyy-mm-dd`)
- * - `milestone: Label, date`             — milestone diamond
- *
- * @example
- * ```
- * gantt light drawio
- * title: Q1 Roadmap
- * section Design
- *   Wireframes: t1, 2025-01-06, 2025-01-24
- *   Mockups: t2, 2025-01-25, 2025-02-07
- * section Dev
- *   Frontend: t3, 2025-02-03, 2025-02-28
- * milestone: Launch, 2025-03-01
- * ```
- */
-function parseGantt(
-  lines: string[],
-  theme?: ThemeType,
-  palette?: PaletteType,
-): FigOptions {
-  const { title, subtitle, rest } = extractMeta(lines);
+function parseGantt(lines: string[]): FigOptions {
+  const cfg: CommonConfig = {};
   const tasks: GanttTask[] = [];
   const milestones: GanttMilestone[] = [];
-  let currentSection: string | undefined;
+  let section: string | undefined;
+  const DATE = /^\d{4}-\d{2}-\d{2}$/;
 
-  // Matches a date value: yyyy-mm-dd
-  const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
 
-  for (const line of rest) {
-    // section SectionName — use startsWith + slice to avoid backtracking
-    if (line.startsWith('section ')) {
-      currentSection = line.slice('section '.length).trim();
-      continue;
-    }
+    if (line.startsWith('section ')) { section = line.slice('section '.length).trim(); continue; }
 
-    // milestone: Label, date — use startsWith + lastIndexOf
     if (line.startsWith('milestone:')) {
       const body = line.slice('milestone:'.length).trim();
-      const lastComma = body.lastIndexOf(',');
-      if (lastComma !== -1) {
-        const date = body.slice(lastComma + 1).trim();
-        if (DATE_RE.test(date)) {
-          milestones.push({ label: body.slice(0, lastComma).trim(), date });
-          continue;
-        }
+      const lc   = body.lastIndexOf(',');
+      if (lc !== -1) {
+        const date = body.slice(lc + 1).trim();
+        if (DATE.test(date)) milestones.push({ label: body.slice(0, lc).trim(), date });
       }
       continue;
     }
 
-    // Task Label: id, start, end
-    // Parse from the right: locate the two date fields anchored at the end
-    const lastComma = line.lastIndexOf(',');
-    if (lastComma === -1) continue;
-    const end = line.slice(lastComma + 1).trim();
-    if (!DATE_RE.test(end)) continue;
+    const lc = line.lastIndexOf(',');
+    if (lc === -1) continue;
+    const end = line.slice(lc + 1).trim();
+    if (!DATE.test(end)) continue;
 
-    const beforeEnd = line.slice(0, lastComma);
-    const prevComma = beforeEnd.lastIndexOf(',');
-    if (prevComma === -1) continue;
-    const start = beforeEnd.slice(prevComma + 1).trim();
-    if (!DATE_RE.test(start)) continue;
+    const before = line.slice(0, lc);
+    const pc     = before.lastIndexOf(',');
+    if (pc === -1) continue;
+    const start = before.slice(pc + 1).trim();
+    if (!DATE.test(start)) continue;
 
-    const labelAndId = beforeEnd.slice(0, prevComma);
-    const colonIdx = labelAndId.indexOf(':');
-    if (colonIdx === -1) continue;
-    const taskLabel = labelAndId.slice(0, colonIdx).trim();
-    const taskId = labelAndId.slice(colonIdx + 1).trim();
+    const rest = before.slice(0, pc);
+    const ci   = rest.indexOf(':');
+    if (ci === -1) continue;
+    const taskLabel = rest.slice(0, ci).trim();
+    const taskId    = rest.slice(ci + 1).trim();
     if (!taskLabel || !taskId) continue;
 
-    tasks.push({
-      id: taskId,
-      label: taskLabel,
-      start,
-      end,
-      ...(currentSection !== undefined ? { groupId: currentSection } : {}),
-    });
+    tasks.push({ id: taskId, label: taskLabel, start, end, ...(section !== undefined ? { groupId: section } : {}) });
   }
 
-  return {
-    figure: 'gantt',
-    tasks,
-    ...(milestones.length > 0 ? { milestones } : {}),
-    ...(theme !== undefined ? { theme } : {}),
-    ...(palette !== undefined ? { palette } : {}),
-    ...(title !== undefined ? { title } : {}),
-    ...(subtitle !== undefined ? { subtitle } : {}),
-  };
+  return { figure: 'gantt', tasks, ...(milestones.length ? { milestones } : {}), ...cfgSpread(cfg) };
 }
 
-// ---------------------------------------------------------------------------
-// State parser
-// ---------------------------------------------------------------------------
+// --- state ---
 
-/**
- * Parse state machine body lines.
- *
- * - `id[Label]`       — normal state (rounded rectangle)
- * - `id((Label))`     — terminal / end state (ringed circle)
- * - `[*]`             — start pseudo-state
- * - `id --> id2: label` — transition with optional label
- * - `accent: id`      — mark a state as the accent/focal state
- *
- * @example
- * ```
- * state
- * title: Order Status
- * idle[Idle]
- * processing[Processing]
- * done((Done))
- * error[Error] accent
- * [*] --> idle
- * idle --> processing: order placed
- * processing --> done: shipped
- * processing --> error: payment failed
- * error --> idle: retry
- * ```
- */
-function parseState(
-  lines: string[],
-  theme?: ThemeType,
-  palette?: PaletteType,
-): FigOptions {
-  const { title, subtitle, rest } = extractMeta(lines);
+function parseState(lines: string[]): FigOptions {
+  const cfg: CommonConfig = {};
   const nodeMap = new Map<string, StateNode>();
   const transitions: StateTransition[] = [];
-  // (counters reserved for future composite-state support)
-  let endCounter   = 0;
 
   const ensureState = (expr: string): string => {
-    let e = expr.trim();
-
-    // Strip inline accent suffix before any node parsing
-    let markAccent = false;
-    if (e.endsWith(' accent')) {
-      markAccent = true;
-      e = e.slice(0, -' accent'.length).trim();
-    }
-
-    // [*] — UML pseudo-state (start or end determined by usage, default start)
-    if (e === '[*]') {
-      const pid = '__start';
-      if (!nodeMap.has(pid)) {
-        nodeMap.set(pid, { id: pid, label: '', type: 'start' });
-      }
-      // [*] pseudo-states can't be accented
-      return pid;
-    }
-
-    // terminal: id((label)) — detect via indexOf to avoid regex backtracking
-    const dblOpenIdx = e.indexOf('((');
-    if (dblOpenIdx > 0 && e.endsWith('))')) {
-      const id    = e.slice(0, dblOpenIdx).trim();
-      const label = e.slice(dblOpenIdx + 2, e.length - 2).trim();
-      if (id && /^[\w-]+$/.test(id)) {
-        if (!nodeMap.has(id)) {
-          nodeMap.set(id, { id, label, type: 'end' });
-        }
-        if (markAccent) { const n = nodeMap.get(id); if (n) n.accent = true; }
-        return id;
-      }
-    }
-
-    // process: id[label] or bare id
-    const { id, label } = parseNodeExpr(e);
+    const { id, label } = parseNodeExpr(expr);
     if (!nodeMap.has(id)) {
-      nodeMap.set(id, { id, label, type: 'state' });
-    } else if (isExplicitNodeExpr(e, id)) {
-      const existing = nodeMap.get(id)!;
-      if (existing.label === id) existing.label = label;
+      const type = id === 'start' ? 'start' : id === 'end' ? 'end' : 'state';
+      nodeMap.set(id, { id, label: type === 'state' ? label : '', type });
+    } else if (expr.trim() !== id) {
+      const node = nodeMap.get(id)!;
+      if (node.type === 'state' && node.label === id) node.label = label;
     }
-    if (markAccent) { const n = nodeMap.get(id); if (n) n.accent = true; }
     return id;
   };
 
-  for (const line of rest) {
-    // accent: id  — mark node as accent
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
     if (line.startsWith('accent:')) {
-      const id = line.slice('accent:'.length).trim();
-      const node = nodeMap.get(id);
+      const node = nodeMap.get(line.slice('accent:'.length).trim());
       if (node) node.accent = true;
       continue;
     }
-
-    // Transition with or without label: A --> B[:label] or A --> B: label
-    if (line.includes('-->')) {
-      const parts = splitOnArrow(line, '-->');
-      if (parts) {
-        const [left, rightRaw] = parts;
-        const colonIdx = rightRaw.indexOf(':');
-        let to = rightRaw;
-        let label: string | undefined;
-        if (colonIdx !== -1) {
-          to    = rightRaw.slice(0, colonIdx).trim();
-          label = rightRaw.slice(colonIdx + 1).trim();
-        }
-        const fromId = ensureState(left);
-        const toId   = ensureState(to);
-        transitions.push(label !== undefined ? { from: fromId, to: toId, label } : { from: fromId, to: toId });
-        continue;
-      }
-    }
-
-    // Inline accent flag: id[Label] accent
-    if (line.endsWith(' accent')) {
-      const expr = line.slice(0, -' accent'.length).trim();
-      const id   = ensureState(expr);
-      const node = nodeMap.get(id);
-      if (node) node.accent = true;
+    const e = parseEdge(line);
+    if (e) {
+      const from = ensureState(e.from);
+      const to   = ensureState(e.to);
+      transitions.push(e.label !== undefined ? { from, to, label: e.label } : { from, to });
       continue;
     }
-
-    // Standalone node definition
     ensureState(line);
   }
 
-  return {
-    figure: 'state',
-    nodes: [...nodeMap.values()],
-    transitions,
-    ...(theme !== undefined ? { theme } : {}),
-    ...(palette !== undefined ? { palette } : {}),
-    ...(title !== undefined ? { title } : {}),
-    ...(subtitle !== undefined ? { subtitle } : {}),
-  };
+  return { figure: 'state', nodes: [...nodeMap.values()], transitions, ...cfgSpread(cfg) };
 }
 
-// ---------------------------------------------------------------------------
-// ER parser
-// ---------------------------------------------------------------------------
+// --- er ---
 
-/**
- * Parse ER diagram body lines.
- *
- * - `entity id[Label]`     — declare an entity
- * - `  name pk: type`      — field inside an entity, PK flag
- * - `  name fk: type`      — field, FK flag
- * - `  name: type`         — plain field with type
- * - `  name`               — field without type
- * - `A --> B: label`       — relationship (with optional label and cardinality)
- * - `A ||--o{ B: label`    — crow's foot notation for cardinality
- * - `accent: id`           — mark entity as accent
- *
- * @example
- * ```
- * er
- * title: Blog Schema
- * entity User[User]
- *   id pk: uuid
- *   email: text
- *   name: text
- * entity Post[Post]
- *   id pk: uuid
- *   author_id fk: uuid
- *   title: text
- * User --> Post: writes
- * ```
- */
-function parseEr(
-  lines: string[],
-  theme?: ThemeType,
-  palette?: PaletteType,
-): FigOptions {
-  // Do NOT use extractMeta here — entity fields can look like "title: text"
-  // and would be incorrectly grabbed as the diagram title. Instead, extract
-  // title/subtitle inline only when we are NOT inside an entity block.
-  let title: string | undefined;
-  let subtitle: string | undefined;
-  const cleanLines: string[] = [];
-  for (const rawLine of lines) {
-    const line = rawLine.trim();
-    if (!line || line.startsWith('%%')) continue;
-    cleanLines.push(line);
-  }
-
+function parseEr(lines: string[]): FigOptions {
+  const cfg: CommonConfig = {};
   const entities: ErEntity[] = [];
   const relations: ErRelation[] = [];
-  let currentEntity: ErEntity | null = null;
+  let cur: ErEntity | null = null;
+  let seenEntity = false;
 
-  // Parse cardinality from crow's foot shorthand like "||--o{" or "1..N"
-  function parseCard(s: string): string {
-    const trim = s.trim();
-    if (trim === '||' || trim === '1') return '1';
-    if (trim === 'o{' || trim === 'N' || trim === 'n') return 'N';
-    if (trim === 'o|' || trim === '0..1') return '0..1';
-    if (trim === '}|' || trim === '}o' || trim === '1..*') return '1..*';
-    return trim;
-  }
-
-  for (const line of cleanLines) {
-    // title/subtitle — only at top level (not inside an entity block)
-    if (currentEntity === null) {
-      if (line.startsWith('title:')) {
-        title = line.slice('title:'.length).trim();
-        continue;
-      }
-      if (line.startsWith('subtitle:')) {
-        subtitle = line.slice('subtitle:'.length).trim();
-        continue;
-      }
-    }
-
-    // accent: id — use startsWith + slice to avoid backtracking
+  for (const line of lines) {
+    if (!seenEntity && applyCommonConfig(line, cfg)) continue;
     if (line.startsWith('accent:')) {
-      const id = line.slice('accent:'.length).trim();
-      const entity = entities.find((e) => e.id === id);
-      if (entity) entity.accent = true;
+      const ent = entities.find((e) => e.id === line.slice('accent:'.length).trim());
+      if (ent) ent.accent = true;
       continue;
     }
-
-    // entity declaration: entity id[Label]  or  entity id
     if (line.startsWith('entity ')) {
-      const expr = line.slice('entity '.length).trim();
-      const { id, label } = parseNodeExpr(expr);
-      currentEntity = { id, label, fields: [] };
-      entities.push(currentEntity);
+      seenEntity = true;
+      const label = line.slice('entity '.length).trim();
+      cur = { id: label, label, fields: [] };
+      entities.push(cur);
       continue;
     }
-
-    // Relationship line using crow's foot: A ||--o{ B: label
-    // Detect by looking for -- between two non-space sequences.
-    // Guard: skip if the '--' is actually '-->' (handled below as a simple arrow).
-    const cfIdx = line.indexOf('--');
-    if (cfIdx !== -1 && (cfIdx + 2 >= line.length || line[cfIdx + 2] !== '>')) {
-      const beforeDash = line.slice(0, cfIdx).trim();
-      const afterDash  = line.slice(cfIdx + 2).trim();
-      // afterDash should start with cardinality then entity id
-      // Split on first whitespace to get cardinality token
-      const spIdx = afterDash.indexOf(' ');
-      if (spIdx !== -1 && beforeDash) {
-        const fromParts = beforeDash.split(/\s+/);
-        const fromId = fromParts[0];
-        const fromCard = fromParts.length > 1 ? parseCard(fromParts[fromParts.length - 1]) : undefined;
-        const toToken = afterDash.slice(0, spIdx);
-        const toCard = parseCard(toToken);
-        const rest2  = afterDash.slice(spIdx).trim();
-        const colonIdx2 = rest2.indexOf(':');
-        let toId: string;
-        let label: string | undefined;
-        if (colonIdx2 !== -1) {
-          toId  = rest2.slice(0, colonIdx2).trim();
-          label = rest2.slice(colonIdx2 + 1).trim();
-        } else {
-          toId = rest2;
-        }
-        if (fromId && toId) {
-          relations.push({
-            from: fromId,
-            to: toId,
-            ...(label ? { label } : {}),
-            ...(fromCard ? { fromCard } : {}),
-            ...(toCard  ? { toCard  } : {}),
-          });
-          currentEntity = null;
-          continue;
-        }
-      }
+    const e = parseEdge(line);
+    if (e) {
+      relations.push(e.label !== undefined ? { from: e.from, to: e.to, label: e.label } : { from: e.from, to: e.to });
+      cur = null;
+      continue;
     }
-
-    // Simple relationship: A --> B: label or A --> B
-    if (line.includes('-->')) {
-      const parts = splitOnArrow(line, '-->');
-      if (parts) {
-        const [from, rightRaw] = parts;
-        const colonIdx = rightRaw.indexOf(':');
-        if (colonIdx !== -1) {
-          relations.push({
-            from,
-            to: rightRaw.slice(0, colonIdx).trim(),
-            label: rightRaw.slice(colonIdx + 1).trim(),
-          });
-        } else {
-          relations.push({ from, to: rightRaw });
-        }
-        currentEntity = null;
-        continue;
-      }
-    }
-
-    // Field inside the current entity
-    if (currentEntity) {
-      // name [pk|fk] [: type]
-      // Use startsWith-based parsing
-      let rest3 = line;
+    if (cur) {
+      let rest = line;
       let key: ErField['key'];
       let type: string | undefined;
-
-      // Extract type after ':'
-      const colonIdx = rest3.indexOf(':');
-      if (colonIdx !== -1) {
-        type  = rest3.slice(colonIdx + 1).trim();
-        rest3 = rest3.slice(0, colonIdx).trim();
-      }
-
-      // Check for key markers
-      const tokens = rest3.split(/\s+/);
+      const ci = rest.indexOf(':');
+      if (ci !== -1) { type = rest.slice(ci + 1).trim(); rest = rest.slice(0, ci).trim(); }
+      const tokens = rest.split(/\s+/);
       const name   = tokens[0];
-      for (let ti = 1; ti < tokens.length; ti++) {
-        const tok = tokens[ti].toLowerCase();
-        if (tok === 'pk') { key = 'pk'; break; }
-        if (tok === 'fk') { key = 'fk'; break; }
+      for (let i = 1; i < tokens.length; i++) {
+        const t = tokens[i].toLowerCase();
+        if (t === 'pk' || t === 'fk') { key = t as ErField['key']; break; }
       }
-
-      if (name) {
-        currentEntity.fields.push({
-          name,
-          ...(type ? { type } : {}),
-          ...(key  ? { key  } : {}),
-        });
-      }
+      if (name) cur.fields.push({ name, ...(type ? { type } : {}), ...(key ? { key } : {}) });
     }
   }
 
-  return {
-    figure: 'er',
-    entities,
-    relations,
-    ...(theme !== undefined ? { theme } : {}),
-    ...(palette !== undefined ? { palette } : {}),
-    ...(title !== undefined ? { title } : {}),
-    ...(subtitle !== undefined ? { subtitle } : {}),
-  };
+  return { figure: 'er', entities, relations, ...cfgSpread(cfg) };
 }
 
-// ---------------------------------------------------------------------------
-// Timeline parser
-// ---------------------------------------------------------------------------
+// --- timeline ---
 
-/**
- * Parse timeline body lines.
- *
- * Each line is either:
- * - `yyyy-mm-dd: label`              — regular event
- * - `yyyy-mm-dd: label milestone`    — major milestone (larger accent dot)
- *
- * @example
- * ```
- * timeline
- * title: Product History
- * 2020-01-01: v1.0 Launch milestone
- * 2021-06-15: v2.0 Redesign
- * 2022-11-01: v3.0 Mobile milestone
- * 2023-09-20: v4.0 AI Features
- * ```
- */
-function parseTimeline(
-  lines: string[],
-  theme?: ThemeType,
-  palette?: PaletteType,
-): FigOptions {
-  const { title, subtitle, rest } = extractMeta(lines);
+function parseTimeline(lines: string[]): FigOptions {
+  const cfg: CommonConfig = {};
   const events: TimelineEvent[] = [];
-  const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+  const DATE = /^\d{4}-\d{2}-\d{2}$/;
 
-  for (const line of rest) {
-    // date: label [milestone]
-    const colonIdx = line.indexOf(':');
-    if (colonIdx === -1) continue;
-    const date = line.slice(0, colonIdx).trim();
-    if (!DATE_RE.test(date)) continue;
-    let label = line.slice(colonIdx + 1).trim();
-
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
+    const ci = line.indexOf(':');
+    if (ci === -1) continue;
+    const date = line.slice(0, ci).trim();
+    if (!DATE.test(date)) continue;
+    let label = line.slice(ci + 1).trim();
     let milestone = false;
-    if (label.endsWith(' milestone')) {
-      milestone = true;
-      label = label.slice(0, -' milestone'.length).trim();
-    }
-
-    events.push({
-      id: `ev${events.length}`,
-      label,
-      date,
-      ...(milestone ? { milestone: true } : {}),
-    });
+    if (label.endsWith(' milestone')) { milestone = true; label = label.slice(0, -' milestone'.length).trim(); }
+    events.push({ id: `ev${events.length}`, label, date, ...(milestone ? { milestone: true } : {}) });
   }
 
-  return {
-    figure: 'timeline',
-    events,
-    ...(theme !== undefined ? { theme } : {}),
-    ...(palette !== undefined ? { palette } : {}),
-    ...(title !== undefined ? { title } : {}),
-    ...(subtitle !== undefined ? { subtitle } : {}),
-  };
+  return { figure: 'timeline', events, ...cfgSpread(cfg) };
 }
 
-// ---------------------------------------------------------------------------
-// Swimlane parser
-// ---------------------------------------------------------------------------
+// --- swimlane ---
 
-/**
- * Parse swimlane body lines.
- *
- * - `lanes: Lane A, Lane B, Lane C`        — declare lane labels (required)
- * - `LaneLabel: id[Node Label]`             — declare a node inside a lane
- * - `A --> B: label`                        — edge between nodes
- *
- * @example
- * ```
- * swimlane
- * title: Order Flow
- * lanes: Customer, Warehouse, Shipping
- * Customer: order[Place Order]
- * Customer: pay[Confirm Payment]
- * Warehouse: receive[Receive Order]
- * Warehouse: pack[Pack Items]
- * Shipping: ship[Ship Package]
- * order --> pay
- * pay --> receive
- * receive --> pack
- * pack --> ship
- * ```
- */
-function parseSwimlane(
-  lines: string[],
-  theme?: ThemeType,
-  palette?: PaletteType,
-): FigOptions {
-  const { title, subtitle, rest } = extractMeta(lines);
+function parseSwimlane(lines: string[]): FigOptions {
+  const cfg: CommonConfig = {};
   const lanesList: string[] = [];
   const nodes: SwimlaneNode[] = [];
   const edges: SwimlaneEdge[] = [];
   const nodeMap = new Map<string, SwimlaneNode>();
+  let lane: string | null = null;
 
-  for (const line of rest) {
-    // lanes: Lane A, Lane B — use startsWith + slice
-    if (line.startsWith('lanes:')) {
-      const raw = line.slice('lanes:'.length).split(',').map((l) => l.trim()).filter(Boolean);
-      lanesList.push(...raw);
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
+    if (line.startsWith('section ')) {
+      lane = line.slice('section '.length).trim();
+      if (!lanesList.includes(lane)) lanesList.push(lane);
       continue;
     }
-
-    // Edge: A --> B[:label]
-    if (line.includes('-->')) {
-      const parts = splitOnArrow(line, '-->');
-      if (parts) {
-        const [from, rightRaw] = parts;
-        const colonIdx = rightRaw.indexOf(':');
-        let to = rightRaw;
-        let label: string | undefined;
-        if (colonIdx !== -1) {
-          to    = rightRaw.slice(0, colonIdx).trim();
-          label = rightRaw.slice(colonIdx + 1).trim();
-        }
-        edges.push(label !== undefined ? { from, to, label } : { from, to });
-        continue;
-      }
+    const e = parseEdge(line);
+    if (e) {
+      edges.push(e.label !== undefined ? { from: e.from, to: e.to, label: e.label } : { from: e.from, to: e.to });
+      continue;
     }
-
-    // Node: LaneLabel: id[Node Label]
-    // Find the FIRST colon to split lane from node expression
-    const colonIdx = line.indexOf(':');
-    if (colonIdx !== -1) {
-      const laneLabel = line.slice(0, colonIdx).trim();
-      const nodeExpr  = line.slice(colonIdx + 1).trim();
-      if (nodeExpr) {
-        const { id, label, type } = parseNodeExpr(nodeExpr);
-        const snode: SwimlaneNode = { id, label, lane: laneLabel, type };
-        if (!nodeMap.has(id)) {
-          nodeMap.set(id, snode);
-          nodes.push(snode);
-        }
+    if (lane) {
+      const { id, label, type } = parseNodeExpr(line);
+      if (!nodeMap.has(id)) {
+        const snode: SwimlaneNode = { id, label, lane, type };
+        nodeMap.set(id, snode);
+        nodes.push(snode);
       }
     }
   }
 
-  return {
-    figure: 'swimlane',
-    lanes: lanesList,
-    nodes,
-    edges,
-    ...(theme !== undefined ? { theme } : {}),
-    ...(palette !== undefined ? { palette } : {}),
-    ...(title !== undefined ? { title } : {}),
-    ...(subtitle !== undefined ? { subtitle } : {}),
-  };
+  return { figure: 'swimlane', lanes: lanesList, nodes, edges, ...cfgSpread(cfg) };
 }

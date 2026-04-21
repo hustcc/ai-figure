@@ -18,11 +18,13 @@ import { fig } from 'ai-figure';
 
 // Markdown string (preferred — compact, streaming-safe)
 const svg = fig(`
-  flow LR antv
+  figure flow
+  direction: LR
+  palette: antv
   title: CI Pipeline
   code[Write Code] --> test{Tests Pass?}
-  test -->|yes| build[Build Image]
-  test -->|no| fix((Fix Issues))
+  test --> build[Build Image]: yes
+  test --> fix((Fix Issues)): no
   fix --> code
   build --> deploy[/Deploy/]
   group Pipeline: code, test, build
@@ -39,14 +41,12 @@ const svg2 = fig({ figure: 'flow', nodes: [...], edges: [...] });
 
 ## Markdown syntax
 
-**First non-empty line is the header:**
+**First line must be:** `figure <type>`
 
-```figure
-<type> [direction] [theme] [palette]
-```
+Config lines use `key: value` syntax. Data lines use diagram-specific patterns.
 
-| Token | Values | Default |
-|-------|--------|---------|
+| Key | Values | Default |
+|-----|--------|---------|
 | `type` | `flow` `tree` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` | required |
 | `direction` | `TB` `LR` | `TB` |
 | `theme` | `light` `dark` | `light` |
@@ -66,18 +66,21 @@ Lines starting with `%%` are comments. `title:` and `subtitle:` work in all type
 
 ### flow
 
-```figure
-flow [LR|TB] [theme] [palette]
+```
+figure flow
+direction: LR
+palette: antv
 title: My Flow
 A[Source] --> B[Target]          %% simple edge
-A -->|label| B                   %% labeled edge
+A --> B[Target]: label           %% labeled edge
 group Name: id1, id2, id3        %% logical group (dashed border)
 ```
 
 ### tree
 
-```figure
-tree [LR|TB] [theme] [palette]
+```
+figure tree
+direction: LR
 title: Org Chart
 root[Root]
 root --> child[Child]
@@ -86,23 +89,25 @@ child --> leaf[Leaf]
 
 ### arch
 
-```figure
-arch TB antv
+```
+figure arch
+direction: TB
+palette: antv
 title: Web Stack
-layer frontend[Frontend]
+layer Frontend
   ui[React App]
   assets[Static Assets]
-layer backend[Backend]
+layer Backend
   api[REST API]
   auth[Auth Service]
-layer data[Data]
+layer Data
   db[PostgreSQL]
 ```
 
 ### sequence
 
-```figure
-sequence [theme] [palette]
+```
+figure sequence
 title: Login
 actors: Browser, API, DB         %% optional; inferred from messages if omitted
 Browser -> API: POST /login      %% solid arrow
@@ -111,8 +116,8 @@ API --> Browser: 200 OK          %% dashed return arrow
 
 ### quadrant
 
-```figure
-quadrant [theme] [palette]
+```
+figure quadrant
 title: Priority
 x-axis Effort: Low .. High
 y-axis Value: Low .. High
@@ -125,8 +130,8 @@ Feature A: 0.2, 0.9       %% label: x, y  (x/y in [0,1])
 
 ### gantt
 
-```figure
-gantt [theme] [palette]
+```
+figure gantt
 title: Q1 Roadmap
 section Design
   Wireframes: t1, 2025-01-06, 2025-01-24    %% label: id, start, end
@@ -141,51 +146,48 @@ milestone: Launch, 2025-03-01
 
 ### state
 
-```figure
-state [theme] [palette]
+```
+figure state
 title: Order Status
 idle[Idle]
 processing[Processing]
-failed[Failed] accent        %% mark as accent/focal state
-done((Done))                 %% end state (ringed circle)
-[*] --> idle                 %% start pseudo-state
+accent: failed                   %% mark as accent/focal state
+start --> idle                   %% start pseudo-state
 idle --> processing: order placed
-processing --> done: shipped
+processing --> end: shipped
 processing --> failed: error
 failed --> idle: retry
 ```
 
 - `id[label]` — normal state (rounded rectangle)
-- `id((label))` — end/terminal state (ringed circle)
-- `[*]` — start pseudo-state (filled circle)
+- `start` / `end` — reserved pseudo-state ids (filled circle / ringed circle)
 - `id --> id2: event` — transition with optional label
-- Append ` accent` to mark a state as the focal/error state (max 1–2)
+- `accent: id` — mark a state as the focal/error state (max 1–2)
 
 ### er
 
-```figure
-er [theme] [palette]
+```
+figure er
 title: Blog Schema
-entity User[User]
+entity User
   id pk: uuid
   email: text
-entity Post[Post]
+entity Post
   id pk: uuid
   author_id fk: uuid
   title: text
 User --> Post: writes
 ```
 
-- `entity id[Label]` — declare an entity box
+- `entity Name` — declare an entity box (name used as id and label)
 - Fields: `name pk: type` (primary key), `name fk: type` (foreign key), `name: type`, or bare `name`
 - `A --> B: label` — relationship line with optional label
-- `A ||--o{ B: label` — crow's foot cardinality notation
-- Append `accent: id` to mark the aggregate root entity
+- `accent: EntityName` to mark the aggregate root entity
 
 ### timeline
 
-```figure
-timeline [theme] [palette]
+```
+figure timeline
 title: Product History
 2020-01-15: v1.0 Launch milestone   %% major milestone (larger accent dot)
 2021-06-01: v1.5 Improvements
@@ -199,23 +201,25 @@ title: Product History
 
 ### swimlane
 
-```figure
-swimlane [theme] [palette]
+```
+figure swimlane
 title: Order Flow
-lanes: Customer, Warehouse, Shipping
-Customer: order[Place Order]
-Customer: pay[Confirm Payment]
-Warehouse: receive[Receive Order]
-Warehouse: pack[Pack Items]
-Shipping: ship[Ship Package]
+section Customer
+  order[Place Order]
+  pay[Confirm Payment]
+section Warehouse
+  receive[Receive Order]
+  pack[Pack Items]
+section Shipping
+  ship[Ship Package]
 order --> pay
 pay --> receive
 receive --> pack
 pack --> ship
 ```
 
-- `lanes: Lane A, Lane B, ...` — declare lane labels in display order
-- `LaneName: id[Node Label]` — node declaration inside a lane
+- `section LaneName` — declares a new lane; subsequent node lines belong to it
+- `id[Node Label]` — node declaration inside the current lane
 - `A --> B` or `A --> B: label` — directed edges (may cross lanes)
 
 ## JSON config (fig(options))

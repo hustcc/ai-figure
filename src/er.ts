@@ -155,8 +155,11 @@ export function createErDiagram(options: ErDiagramOptions): string {
     const lineColor = theme.groupColor;
 
     parts.push(
-      `<line x1="${fromPt.x}" y1="${fromPt.y}" x2="${toPt.x}" y2="${toPt.y}" ` +
-        `stroke="${escapeXml(lineColor)}" stroke-width="1.5" marker-end="url(#${uid}-arrow)"/>`,
+      `<path d="M${fromPt.x},${fromPt.y} L${toPt.x},${toPt.y}" fill="none" ` +
+        `stroke="${escapeXml(lineColor)}" stroke-width="1.5" stroke-dasharray="6,4" ` +
+        `marker-end="url(#${uid}-arrow)">` +
+        `<animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/>` +
+      `</path>`,
     );
 
     // Relationship label (centered on line)

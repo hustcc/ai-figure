@@ -49,12 +49,14 @@ const svg = fig({
 
 // ── Markdown string (compact, AI-friendly) ──────────────────────────────────
 const svg2 = fig(`
-  flow LR default
+  figure flow
+  direction: LR
+  palette: default
   title: Auth Flow
   start((Start)) --> login[Enter Credentials]
   login --> validate{Valid?}
-  validate -->|yes| dashboard((Dashboard))
-  validate -->|no| error[Show Error]
+  validate --> dashboard((Dashboard)): yes
+  validate --> error[Show Error]: no
   error --> login
 `);
 
@@ -93,7 +95,7 @@ fig({ figure: 'timeline', ...timelineOptions }); // timeline
 fig({ figure: 'swimlane', ...swimlaneOptions }); // swimlane flow
 
 // markdown string
-fig(`flow LR\na[A] --> b[B]`);
+fig(`figure flow\na[A] --> b[B]`);
 ```
 
 ### `figure: 'flow'` — Flowchart
@@ -340,6 +342,8 @@ fig({
 
 Renders a UML state machine with dagre layout. Supports start (●) and end (◎) pseudo-states, accent states, self-loops, and labeled transitions.
 
+![State Machine](https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/state.svg)
+
 | Field         | Type                  | Default      | Description                                  |
 |---------------|-----------------------|--------------|----------------------------------------------|
 | `figure`      | `'state'`             | **required** | Selects the state machine renderer           |
@@ -393,6 +397,8 @@ fig({
 ### `figure: 'er'` — Entity-Relationship Diagram
 
 Renders a database schema with entity boxes (header + field list) and relationship lines with optional cardinality annotations.
+
+![ER Diagram](https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/er.svg)
 
 | Field      | Type           | Default      | Description                                  |
 |------------|----------------|--------------|----------------------------------------------|
@@ -451,6 +457,8 @@ fig({
 
 Renders a horizontal date axis with events spaced proportionally. Labels alternate above and below the axis to reduce collision. Major milestones are rendered with a larger accent dot.
 
+![Timeline](https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/timeline.svg)
+
 | Field      | Type              | Default      | Description                                  |
 |------------|-------------------|--------------|----------------------------------------------|
 | `figure`   | `'timeline'`      | **required** | Selects the timeline renderer                |
@@ -485,6 +493,8 @@ fig({
 ### `figure: 'swimlane'` — Swimlane Flow
 
 Renders a cross-functional flowchart with horizontal lane bands. Nodes are placed in their declared lane; cross-lane edges use S-curve routing.
+
+![Swimlane](https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/swimlane.svg)
 
 | Field      | Type              | Default      | Description                                  |
 |------------|-------------------|--------------|----------------------------------------------|
@@ -578,16 +588,16 @@ fig({ figure: 'flow', nodes, edges, palette: ['#e64980', '#ae3ec9', '#7048e8', '
 
 ### Markdown syntax
 
-`fig()` also accepts a plain **markdown string** as input. The first non-empty line is the header: `<type> [direction] [theme] [palette]`
+`fig()` also accepts a plain **markdown string** as input. The first non-empty line must be `figure <type>`. Config, data, and comment lines follow.
 
-| Token | Values | Default |
-|-------|--------|---------|
-| `type` | `flow` \| `tree` \| `arch` \| `sequence` \| `quadrant` \| `gantt` \| `state` \| `er` \| `timeline` \| `swimlane` | **required** |
-| `direction` | `TB` \| `LR` | `TB` |
-| `theme` | `light` \| `dark` | `light` |
-| `palette` | any named palette (see [Palette API](#palette-api)) | `default` |
+| Line type | Syntax | Example |
+|-----------|--------|---------|
+| Header | `figure <type>` | `figure flow` |
+| Config | `key: value` | `direction: LR` · `palette: antv` · `title: My Chart` |
+| Comment | `%% text` | `%% ignored` |
+| Data | diagram-specific | see per-diagram syntax below |
 
-Lines starting with `%%` are comments. `title:` and `subtitle:` are supported in all diagram types.
+Config keys available in all diagram types: `title`, `subtitle`, `theme` (`light`\|`dark`), `palette`, `direction` (`TB`\|`LR`).
 
 #### Node notation (flow / tree / arch)
 
@@ -605,12 +615,13 @@ Lines starting with `%%` are comments. `title:` and `subtitle:` are supported in
 <summary><strong>flow</strong></summary>
 
 ```
-flow [LR|TB] [light|dark] [palette]
+figure flow
+direction: LR
 title: Optional Title
 subtitle: Optional Subtitle
 id[Label]                          %% standalone node definition
 A[Source] --> B[Target]            %% edge
-A -->|label| B                     %% labeled edge
+A --> B[Target]: label             %% labeled edge
 group GroupName: id1, id2, id3     %% logical group
 ```
 </details>
@@ -619,7 +630,8 @@ group GroupName: id1, id2, id3     %% logical group
 <summary><strong>tree</strong></summary>
 
 ```
-tree [LR|TB] [light|dark] [palette]
+figure tree
+direction: LR
 title: Optional Title
 root[Root]                   %% root node (no parent)
 root --> child[Child]        %% parent → child relationship
@@ -630,9 +642,10 @@ root --> child[Child]        %% parent → child relationship
 <summary><strong>arch</strong></summary>
 
 ```
-arch [LR|TB] [light|dark] [palette]
+figure arch
+direction: TB
 title: Optional Title
-layer layerId[Layer Label]   %% layer declaration
+layer Layer Label            %% layer declaration (label serves as id)
   nodeId[Node Label]         %% node in current layer (indentation optional)
 ```
 </details>
@@ -641,7 +654,7 @@ layer layerId[Layer Label]   %% layer declaration
 <summary><strong>sequence</strong></summary>
 
 ```
-sequence [light|dark] [palette]
+figure sequence
 title: Optional Title
 actors: Actor1, Actor2, Actor3     %% optional; inferred from messages if omitted
 Actor1 -> Actor2: message          %% solid arrow
@@ -654,7 +667,7 @@ Actor1 -> Actor2                   %% arrow without label
 <summary><strong>quadrant</strong></summary>
 
 ```
-quadrant [light|dark] [palette]
+figure quadrant
 title: Optional Title
 x-axis: min .. max                 %% axis range (label defaults to "")
 x-axis Label: min .. max           %% axis range with explicit axis label
@@ -671,7 +684,7 @@ Point Label: 0.3, 0.7             %% data point (x, y in [0, 1])
 <summary><strong>gantt</strong></summary>
 
 ```
-gantt [light|dark] [palette]
+figure gantt
 title: Optional Title
 section Section Name               %% group header (applied to subsequent tasks)
   Task Label: id, start, end       %% task bar (dates: yyyy-mm-dd)
@@ -683,13 +696,13 @@ milestone: Label, date             %% milestone diamond
 <summary><strong>state</strong></summary>
 
 ```
-state [light|dark] [palette]
+figure state
 title: Optional Title
 idle[Idle]                         %% normal state (rounded rectangle)
-done((Done))                       %% end state (ringed circle)
-failed[Failed] accent              %% highlight as focal/error state
-[*] --> idle                       %% start pseudo-state → first state
+accent: failed                     %% highlight as focal/error state
+start --> idle                     %% start pseudo-state → first state
 idle --> processing: order placed  %% transition with optional label
+processing --> end: shipped        %% end pseudo-state
 ```
 </details>
 
@@ -697,16 +710,17 @@ idle --> processing: order placed  %% transition with optional label
 <summary><strong>er</strong></summary>
 
 ```
-er [light|dark] [palette]
+figure er
 title: Optional Title
-entity User[User]                  %% entity declaration
+entity User                        %% entity declaration (name = id = label)
   id pk: uuid                      %% field: name [pk|fk]: type
   email: text
   name                             %% bare field (no type)
-entity Post[Post]
+entity Post
   id pk: uuid
   author_id fk: uuid
 User --> Post: writes              %% relationship line
+accent: User                       %% mark as aggregate root
 ```
 </details>
 
@@ -714,7 +728,7 @@ User --> Post: writes              %% relationship line
 <summary><strong>timeline</strong></summary>
 
 ```
-timeline [light|dark] [palette]
+figure timeline
 title: Optional Title
 2020-01-15: v1.0 Launch milestone  %% major milestone (larger accent dot)
 2021-06-01: v1.5 Patch
@@ -726,12 +740,15 @@ title: Optional Title
 <summary><strong>swimlane</strong></summary>
 
 ```
-swimlane [light|dark] [palette]
+figure swimlane
 title: Optional Title
-lanes: Customer, Warehouse, Shipping      %% declare lane labels
-Customer: order[Place Order]              %% LaneName: id[Node Label]
-Warehouse: pack[Pack Items]
-Shipping: ship[Ship Package]
+section Customer                          %% declare lane (subsequent nodes belong here)
+  order[Place Order]                      %% node in current lane
+  pay[Confirm Payment]
+section Warehouse
+  pack[Pack Items]
+section Shipping
+  ship[Ship Package]
 order --> pack                            %% edges between nodes
 pack --> ship
 ```
