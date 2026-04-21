@@ -1,8 +1,15 @@
 /**
  * Decodes a base64url+gzip-compressed markdown string in the browser.
- * Uses the Web Streams `DecompressionStream` API (gzip is universally supported).
+ * Uses the Web Streams `DecompressionStream` API (supported in all modern browsers).
+ * Throws a descriptive error if the API is unavailable.
  */
 export async function decodeMarkdown(encoded: string): Promise<string> {
+  if (typeof DecompressionStream === 'undefined') {
+    throw new Error(
+      'DecompressionStream is not supported in this browser. Please use a modern browser (Chrome 80+, Firefox 113+, Safari 16.4+).'
+    );
+  }
+
   // Reverse base64url → standard base64 → binary
   const base64 = encoded.replace(/-/g, '+').replace(/_/g, '/');
   const padded = base64 + '='.repeat((4 - (base64.length % 4)) % 4);
@@ -18,8 +25,8 @@ export async function decodeMarkdown(encoded: string): Promise<string> {
   const writer = ds.writable.getWriter();
   const reader = ds.readable.getReader();
 
-  writer.write(bytes);
-  writer.close();
+  await writer.write(bytes);
+  await writer.close();
 
   const chunks: Uint8Array[] = [];
   let done = false;

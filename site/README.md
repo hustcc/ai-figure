@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ai-figure site
 
-## Getting Started
+Documentation and gallery site for [ai-figure](https://github.com/hustcc/ai-figure), deployed to [figure.ling.pub](https://figure.ling.pub).
 
-First, run the development server:
+Built with **Next.js App Router** + **Tailwind CSS 4**, statically exported and published to GitHub Pages via GitHub Actions.
+
+## Pages
+
+- **`/`** — Homepage: hero, feature overview, live diagram example, install + usage
+- **`/docs`** — Full documentation: Getting Started, Markdown Syntax, all 10 diagram types (with live SVG previews), Framework Integration (HTML, React, Vue, Node.js), AI Skill
+- **`/gallery`** — 80 diagram examples (10 types × 8 each), copy-link per card
+- **`/s`** — Hash-based shareable diagram preview page
+
+## Development
 
 ```bash
+# Install library first (site imports from the package)
+cd ..
+npm install
+npm run build
+
+# Run the dev server
+cd site
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build & Export
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build   # outputs static files to site/out/
+```
 
-## Learn More
+The `next.config.ts` sets `output: 'export'` so `npm run build` produces a fully static site under `site/out/`.
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Deployment is handled automatically by `.github/workflows/deploy.yml` on every push to `main`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Builds the library (`npm run build` in repo root)
+2. Builds and exports the site (`npm run build` in `site/`)
+3. Writes `figure.ling.pub` as the CNAME
+4. Publishes `site/out/` to the `gh-pages` branch

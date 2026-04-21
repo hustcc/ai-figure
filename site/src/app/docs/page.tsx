@@ -248,7 +248,7 @@ export default function DocsPage() {
         <p className="text-lg text-slate-500 mb-12">Complete reference for ai-figure — installation, API, markdown syntax, diagram types, and framework integration.</p>
 
         {/* ═══════════════ 1. GETTING STARTED ═══════════════════════ */}
-        <section id="getting-started">
+        <section aria-labelledby="getting-started">
           <H2 id="getting-started">Getting Started</H2>
 
           <H3>Install</H3>
@@ -326,7 +326,7 @@ const svg2 = fig({
         </section>
 
         {/* ═══════════════ 2. MARKDOWN SYNTAX ══════════════════════════ */}
-        <section id="markdown-syntax">
+        <section aria-labelledby="markdown-syntax">
           <H2 id="markdown-syntax">Markdown Syntax</H2>
           <P>
             The first non-empty line must be <Mono>{'figure <type>'}</Mono>. Config lines follow, then diagram-specific data. Lines starting with <Mono>%%</Mono> are comments.
@@ -549,7 +549,7 @@ const svg2 = fig({
         </DiagramSection>
 
         {/* ═══════════════ 4. FRAMEWORKS ═══════════════════════════════ */}
-        <section id="frameworks">
+        <section aria-labelledby="frameworks">
           <H2 id="frameworks">Framework Integration</H2>
           <P>ai-figure generates a plain SVG string — there is no special adapter needed. Below are minimal integration examples for common environments.</P>
 
@@ -656,7 +656,7 @@ app.get('/diagram', (req, res) => {
         </section>
 
         {/* ═══════════════ 5. AI SKILL ══════════════════════════════════ */}
-        <section id="skill">
+        <section aria-labelledby="skill">
           <H2 id="skill">AI Agent Skill</H2>
           <P>
             ai-figure ships a <Mono>SKILL.md</Mono> file that AI agents (GitHub Copilot, Cursor, Claude, etc.) can load as context to generate diagrams autonomously — no additional prompting required.

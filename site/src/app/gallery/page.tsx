@@ -6,7 +6,7 @@ import DiagramCard from '@/components/DiagramCard';
 
 export const metadata: Metadata = {
   title: 'Gallery',
-  description: 'Browse 50 diagram examples across all 10 types: flow, tree, architecture, sequence, quadrant, gantt, state, ER, timeline, and swimlane.',
+  description: 'Browse 80 diagram examples across all 10 types: flow, tree, architecture, sequence, quadrant, gantt, state, ER, timeline, and swimlane.',
 };
 
 export default function GalleryPage() {
