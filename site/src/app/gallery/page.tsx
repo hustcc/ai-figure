@@ -27,6 +27,12 @@ export default function GalleryPage() {
     })
   );
 
+  // Shuffle cards so diagrams of the same type are not clustered together
+  for (let i = cards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cards[i], cards[j]] = [cards[j], cards[i]];
+  }
+
   return (
     <main className="max-w-7xl mx-auto px-6 py-12">
       <div className="mb-8">
