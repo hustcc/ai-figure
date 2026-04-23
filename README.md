@@ -1,4 +1,4 @@
-# ai-figure
+# [ai-figure](https://figure.ling.pub/gallery)
 
 > Clean SVG diagram renderer — define config, get beautiful diagrams. Works in browser **and** Node.js.
 
