@@ -5,7 +5,7 @@ import CodeBlock from '@/components/CodeBlock';
 
 export const metadata: Metadata = {
   title: 'ai-figure — SVG Diagram Generator',
-  description: 'Generate clean, self-contained SVG diagrams from a markdown string. 10 diagram types, zero coordinates, AI-friendly.',
+  description: 'Generate clean, self-contained SVG diagrams from a markdown string. 11 diagram types, zero coordinates, AI-friendly.',
 };
 
 const EXAMPLE_MD = `figure flow
@@ -28,8 +28,8 @@ const FEATURES = [
   },
   {
     icon: '📐',
-    title: '10 diagram types',
-    description: 'Flow, tree, arch, sequence, quadrant, gantt, state, ER, timeline, swimlane.',
+    title: '11 diagram types',
+    description: 'Flow, tree, arch, sequence, quadrant, gantt, state, ER, timeline, swimlane, and bubble chart.',
   },
   {
     icon: '✍️',
@@ -69,7 +69,7 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto px-6 py-20 md:py-28 text-center">
           <div className="inline-flex items-center gap-2 bg-orange-50 text-orange-600 text-sm font-medium px-3 py-1 rounded-full border border-orange-100 mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-orange-500 inline-block"></span>
-            v0.3 &mdash; 10 diagram types
+            v0.3 &mdash; 11 diagram types
           </div>
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-slate-900 mb-5">
             SVG diagrams from<br />
