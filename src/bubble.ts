@@ -146,7 +146,8 @@ function packCircles(radii: number[]): Array<[number, number]> {
  * Each bubble is sized so that its **area is proportional to its value**.
  * Positions are determined by a greedy circle-packing algorithm — the caller
  * only provides labels and values.  Bubbles are rendered as solid filled
- * circles with a drop-shadow and a specular-highlight overlay for depth.
+ * circles with a subtle drop-shadow and a light specular-highlight overlay for
+ * gentle depth, keeping the visual style consistent with the rest of the library.
  * A SMIL animation gently pulses each bubble radius with staggered delays so
  * the bubbles breathe independently without ever touching their neighbours.
  */
@@ -205,13 +206,13 @@ export function createBubbleChart(options: BubbleChartOptions): string {
   // ── Defs: drop-shadow filter + specular-highlight gradient ───────────────
   parts.push(
     `<defs>` +
-      // Deep shadow gives the illusion of elevation
+      // Soft shadow gives a gentle sense of elevation without heaviness
       `<filter id="${uid}-sh" x="-50%" y="-50%" width="200%" height="200%">` +
-      `<feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgba(0,0,0,0.28)"/>` +
+      `<feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.18)"/>` +
       `</filter>` +
-      // Off-center radial gradient simulates a light source at top-left
+      // Off-center radial gradient simulates a light source at top-left (subtle)
       `<radialGradient id="${uid}-hl" cx="35%" cy="28%" r="65%" fx="35%" fy="28%">` +
-      `<stop offset="0%" stop-color="rgba(255,255,255,0.48)"/>` +
+      `<stop offset="0%" stop-color="rgba(255,255,255,0.25)"/>` +
       `<stop offset="100%" stop-color="rgba(255,255,255,0)"/>` +
       `</radialGradient>` +
       `</defs>`,
