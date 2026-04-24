@@ -227,16 +227,13 @@ pack --> ship
 ```
 figure bubble
 title: Market Analysis
-x-axis Revenue: Low .. High        %% axis range (label optional)
-y-axis Growth Rate: Low .. High
-Product A: 0.2, 0.8, 0.75         %% label: x, y, size  (all in [0, 1])
-Product B: 0.55, 0.6, 0.50
-Product C: 0.8, 0.3, 0.85
+Product A: 75                      %% label: value (positive number)
+Product B: 50
+Product C: 85
 ```
 
-- Data lines: `Label: x, y, size` — all three numbers in `[0, 1]`
-- `x` / `y`: position (0 = left/bottom, 1 = right/top)
-- `size`: controls bubble radius (0 = smallest ~8 px, 1 = largest ~48 px)
+- Data lines: `Label: value` — any positive number; bubble **area is proportional to value**
+- Positions computed automatically by a circle-packing algorithm — no coordinates needed
 - Bubbles cycle through `process`/`decision`/`terminal`/`io` palette colors by index
 - Each bubble pulses with a staggered SMIL animation (breathing effect)
 
@@ -329,13 +326,11 @@ interface SwimlaneDiagramOptions {
 
 interface BubbleChartOptions {
   figure: 'bubble';
-  xAxis: { label: string; min: string; max: string };
-  yAxis: { label: string; min: string; max: string };
-  points: BubblePoint[];    // { id, label, x, y, size }  all in [0,1]
+  items: BubbleItem[];      // { label, value }  — value is a positive number
   title?: string; subtitle?: string;
   theme?: 'light'|'dark'; palette?: string|string[];
 }
-// BubblePoint: { id, label, x, y, size }  — x/y position and size all in [0, 1]
+// BubbleItem: { id?, label, value }  — bubble area is proportional to value; positions auto-packed
 ```
 
 **quadrants order:** `[top-left, top-right, bottom-left, bottom-right]` · `x=0` left, `x=1` right; `y=0` bottom, `y=1` top.

@@ -130,6 +130,6 @@ export type {
   SwimlaneNode,
   SwimlaneEdge,
   SwimlaneDiagramOptions,
-  BubblePoint,
+  BubbleItem,
   BubbleChartOptions,
 } from './types';

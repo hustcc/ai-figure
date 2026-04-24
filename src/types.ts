@@ -452,28 +452,20 @@ export interface SwimlaneDiagramOptions {
 // BubbleChart types
 // ---------------------------------------------------------------------------
 
-/** A single bubble in a bubble chart. */
-export interface BubblePoint {
-  /** Unique identifier. */
-  id: string;
-  /** Text label displayed next to the bubble. */
+/** A single item in a packed bubble chart. */
+export interface BubbleItem {
+  /** Optional unique identifier (auto-generated if omitted). */
+  id?: string;
+  /** Text label displayed inside or below the bubble. */
   label: string;
-  /** Horizontal position, 0 = left edge, 1 = right edge. */
-  x: number;
-  /** Vertical position, 0 = bottom, 1 = top (internally flipped for SVG). */
-  y: number;
-  /** Bubble size, 0 = smallest, 1 = largest. */
-  size: number;
+  /** Numeric value — bubble area is proportional to this value. */
+  value: number;
 }
 
 /** Options passed to {@link createBubbleChart}. */
 export interface BubbleChartOptions {
-  /** X-axis configuration. */
-  xAxis: { label: string; min: string; max: string };
-  /** Y-axis configuration. */
-  yAxis: { label: string; min: string; max: string };
-  /** Bubble data points. */
-  points: BubblePoint[];
+  /** Bubble data items. */
+  items: BubbleItem[];
   /** Light or dark rendering mode (default: 'light'). */
   theme?: ThemeType;
   /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'figma'`, `'vega'`, `'mono-blue'`, `'mono-green'`, `'mono-purple'`, `'mono-orange'`, or custom hex array (default: `'default'`). */

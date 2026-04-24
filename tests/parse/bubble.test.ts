@@ -4,9 +4,9 @@
  *   figure bubble
  *   title: Market Analysis
  *   subtitle: Q1 2025
- *   x-axis Revenue: Low .. High
- *   y-axis Growth: Low .. High
- *   Product A: 0.3, 0.7, 0.8
+ *   Product A: 75
+ *   Product B: 50
+ *   Product C: 30
  */
 import { describe, it, expect } from 'vitest';
 import { fig } from '../../src/index';
@@ -16,14 +16,12 @@ describe('bubble — markdown parse', () => {
     const svg = fig(`
       figure bubble
       title: Market Analysis
-      x-axis Revenue: Low .. High
-      y-axis Growth: Low .. High
-      Product A: 0.3, 0.7, 0.8
-      Product B: 0.6, 0.4, 0.5
+      Product A: 75
+      Product B: 50
+      Product C: 30
     `);
     expect(svg).toContain('<svg');
     expect(svg).toContain('Market Analysis');
-    expect(svg).toContain('Revenue');
     expect(svg).toContain('Product A');
     expect(svg).toContain('Product B');
   });
@@ -33,9 +31,8 @@ describe('bubble — markdown parse', () => {
       figure bubble
       title: Bubble Chart
       subtitle: Q1 2025
-      x-axis: Low .. High
-      y-axis: Low .. High
-      A: 0.5, 0.5, 0.5
+      Alpha: 80
+      Beta: 40
     `);
     expect(svg).toContain('Bubble Chart');
     expect(svg).toContain('Q1 2025');
@@ -45,9 +42,7 @@ describe('bubble — markdown parse', () => {
     const svg = fig(`
       figure bubble
       theme: dark
-      x-axis: Low .. High
-      y-axis: Low .. High
-      A: 0.5, 0.5, 0.5
+      Category A: 60
     `);
     expect(svg).toContain('#1a1b1e');
   });
@@ -56,9 +51,7 @@ describe('bubble — markdown parse', () => {
     const svg = fig(`
       figure bubble
       palette: antv
-      x-axis: Low .. High
-      y-axis: Low .. High
-      Point X: 0.5, 0.5, 0.5
+      Point X: 50
     `);
     expect(svg).toContain('<svg');
     expect(svg).toContain('Point X');
@@ -67,32 +60,38 @@ describe('bubble — markdown parse', () => {
   it('bubbles include SMIL animate pulse element', () => {
     const svg = fig(`
       figure bubble
-      x-axis: Low .. High
-      y-axis: Low .. High
-      Alpha: 0.3, 0.6, 0.7
+      Alpha: 70
     `);
     expect(svg).toContain('<animate');
     expect(svg).toContain('repeatCount="indefinite"');
   });
 
-  it('x-axis without explicit label', () => {
-    const svg = fig(`
-      figure bubble
-      x-axis: Low .. High
-      y-axis: Low .. High
-      A: 0.5, 0.5, 0.5
-    `);
-    expect(svg).toContain('Low');
-    expect(svg).toContain('High');
-  });
-
-  it('out-of-range data points are silently ignored', () => {
+  it('items with zero or negative values are ignored', () => {
     expect(() =>
       fig(`
         figure bubble
-        x-axis: Low .. High
-        y-axis: Low .. High
-        Bad Point: 1.5, 0.5, 0.5
+        Valid: 50
+        Zero: 0
+        Negative: -10
+      `),
+    ).not.toThrow();
+    const svg = fig(`
+      figure bubble
+      Valid: 50
+      Zero: 0
+      Negative: -10
+    `);
+    expect(svg).toContain('Valid');
+    expect(svg).not.toContain('>Zero<');
+    expect(svg).not.toContain('>Negative<');
+  });
+
+  it('items with non-numeric values are ignored', () => {
+    expect(() =>
+      fig(`
+        figure bubble
+        Good: 40
+        Bad: abc
       `),
     ).not.toThrow();
   });

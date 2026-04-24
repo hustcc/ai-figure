@@ -1,34 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="688" height="755" viewBox="0 0 688 755">
-<text x="344" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Market Analysis</text>
-<text x="344" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">Revenue vs Growth Rate</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="511" viewBox="0 0 480 511">
+<text x="240" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Market Analysis</text>
+<text x="240" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">Revenue by Product</text>
 <g class="bubble-chart" transform="translate(0,67)">
-<defs><filter id="bc-1-shadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="rgba(0,0,0,0.14)"/></filter><marker id="bc-1-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#868e96"/></marker></defs>
-<rect x="56" y="32" width="608" height="604" fill="none" stroke="#868e96" stroke-width="1"/>
-<line x1="208" y1="32" x2="208" y2="636" stroke="#868e96" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
-<line x1="360" y1="32" x2="360" y2="636" stroke="#868e96" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
-<line x1="512" y1="32" x2="512" y2="636" stroke="#868e96" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
-<line x1="56" y1="183" x2="664" y2="183" stroke="#868e96" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
-<line x1="56" y1="334" x2="664" y2="334" stroke="#868e96" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
-<line x1="56" y1="485" x2="664" y2="485" stroke="#868e96" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
-<line x1="56" y1="334" x2="664" y2="334" stroke="#868e96" stroke-width="2" marker-end="url(#bc-1-arrow)"/>
-<line x1="360" y1="636" x2="360" y2="32" stroke="#868e96" stroke-width="2" marker-end="url(#bc-1-arrow)"/>
-<text x="60" y="350" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" opacity="0.6">Low</text>
-<text x="634" y="350" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" opacity="0.6">High</text>
-<text x="360" y="676" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#495057">Revenue</text>
-<text x="352" y="632" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" opacity="0.6">Low</text>
-<text x="352" y="46" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057" opacity="0.6">High</text>
-<text x="28" y="334" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#495057" transform="rotate(-90, 28, 334)">Growth Rate</text>
-<circle cx="177.60000000000002" cy="152.79999999999995" r="38" fill="#e7f5ff" stroke="#339af0" stroke-width="2" filter="url(#bc-1-shadow)"><animate attributeName="r" values="38;41;38" dur="2s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/></circle>
-<text x="224.60000000000002" y="157.73999999999995" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#1971c2">Product A</text>
-<circle cx="390.40000000000003" cy="273.6" r="28" fill="#fff7e6" stroke="#f59f00" stroke-width="2" filter="url(#bc-1-shadow)"><animate attributeName="r" values="28;30;28" dur="2s" begin="0.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/></circle>
-<text x="426.40000000000003" y="278.54" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">Product B</text>
-<circle cx="542.4000000000001" cy="454.79999999999995" r="42" fill="#ebfbee" stroke="#51cf66" stroke-width="2" filter="url(#bc-1-shadow)"><animate attributeName="r" values="42;45;42" dur="2s" begin="1s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/></circle>
-<text x="491.4000000000001" y="459.73999999999995" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#2f9e44">Product C</text>
-<circle cx="268.79999999999995" cy="485" r="20" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" filter="url(#bc-1-shadow)"><animate attributeName="r" values="20;22;20" dur="2s" begin="1.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/></circle>
-<text x="296.79999999999995" y="489.94" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#862e9c">Product D</text>
-<circle cx="451.2" cy="183" r="32" fill="#e7f5ff" stroke="#339af0" stroke-width="2" filter="url(#bc-1-shadow)"><animate attributeName="r" values="32;35;32" dur="2s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/></circle>
-<text x="492.2" y="187.94" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#1971c2">Product E</text>
-<circle cx="116.80000000000001" cy="364.20000000000005" r="16" fill="#fff7e6" stroke="#f59f00" stroke-width="2" filter="url(#bc-1-shadow)"><animate attributeName="r" values="16;17;16" dur="2s" begin="0.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/></circle>
-<text x="139.8" y="369.14000000000004" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">Product F</text>
+<defs><filter id="bub-1-sh" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.18)"/></filter></defs>
+<circle cx="172" cy="218" r="80" fill="#ebfbee" stroke="#51cf66" stroke-width="2" filter="url(#bub-1-sh)"><animate attributeName="r" values="80;86;80" dur="2s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/></circle>
+<text x="172" y="218" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#2f9e44" pointer-events="none">Product C</text>
+<circle cx="331" cy="218" r="76" fill="#e7f5ff" stroke="#339af0" stroke-width="2" filter="url(#bub-1-sh)"><animate attributeName="r" values="76;82;76" dur="2s" begin="0.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/></circle>
+<text x="331" y="218" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#1971c2" pointer-events="none">Product A</text>
+<circle cx="256" cy="346" r="70" fill="#e7f5ff" stroke="#339af0" stroke-width="2" filter="url(#bub-1-sh)"><animate attributeName="r" values="70;76;70" dur="2s" begin="1s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/></circle>
+<text x="256" y="346" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#1971c2" pointer-events="none">Product E</text>
+<circle cx="256" cy="94" r="66" fill="#fff7e6" stroke="#f59f00" stroke-width="2" filter="url(#bub-1-sh)"><animate attributeName="r" values="66;71;66" dur="2s" begin="1.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/></circle>
+<text x="256" y="94" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700" pointer-events="none">Product B</text>
+<circle cx="128" cy="348" r="55" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" filter="url(#bub-1-sh)"><animate attributeName="r" values="55;59;55" dur="2s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/></circle>
+<text x="128" y="348" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#862e9c" pointer-events="none">Product D</text>
+<circle cx="139" cy="91" r="48" fill="#fff7e6" stroke="#f59f00" stroke-width="2" filter="url(#bub-1-sh)"><animate attributeName="r" values="48;52;48" dur="2s" begin="0.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/></circle>
+<text x="139" y="91" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700" pointer-events="none">Product F</text>
 </g>
 </svg>

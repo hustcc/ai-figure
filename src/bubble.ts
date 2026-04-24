@@ -2,43 +2,130 @@ import { resolveTheme } from './theme';
 import { escapeXml, titleBlockHeight, renderTitleBlock } from './utils';
 import type { BubbleChartOptions, NodeType } from './types';
 
-// Canvas size
-const BASE_SIZE  = 640;
-const MAX_SIZE   = 1024;
-const PAD_LEFT   = 56;   // room for rotated Y-axis label
-const PAD_RIGHT  = 24;
-const PAD_TOP    = 32;
-const PAD_BOTTOM = 52;   // room for X-axis label
-
 /** Minimum bubble radius in SVG user units. */
-const MIN_R = 8;
+const MIN_R = 18;
 /** Maximum bubble radius in SVG user units. */
-const MAX_R = 48;
-
+const MAX_R = 80;
+/** Gap between adjacent bubbles in px. */
+const GAP = 3;
+/** Padding around the entire packed cluster. */
+const PAD = 28;
+/** Radius (px) at which labels move outside the bubble instead of inside. */
+const INSIDE_R = 24;
 /** Fraction by which the radius grows at the peak of the pulse animation. */
 const PULSE_GROW = 0.08;
-
-/** Node types cycled by bubble index for color variation. */
-const BUBBLE_NODE_TYPES: NodeType[] = ['process', 'decision', 'terminal', 'io'];
-
-/** X-coordinate threshold above which the bubble label is placed to the left. */
-const LABEL_FLIP_THRESHOLD = 0.78;
+/** Node types cycled by item index for color variation. */
+const BUBBLE_TYPES: NodeType[] = ['process', 'decision', 'terminal', 'io'];
 
 /** Incrementing counter for unique per-diagram SVG IDs. */
 let _bubbleCount = 0;
 
+// ---------------------------------------------------------------------------
+// Circle-packing helpers
+// ---------------------------------------------------------------------------
+
 /**
- * Generate an SVG bubble chart.
+ * Return the (up to 2) centers of a circle with radius `r` that is externally
+ * tangent to both circle A (ax, ay, ar) and circle B (bx, by, br).
+ * Uses the law of cosines on the triangle formed by the three centers.
+ */
+function apolloniusCandidates(
+  ax: number, ay: number, ar: number,
+  bx: number, by: number, br: number,
+  r: number,
+): Array<[number, number]> {
+  const da = ar + r + GAP;
+  const db = br + r + GAP;
+  const dx = bx - ax;
+  const dy = by - ay;
+  const d  = Math.hypot(dx, dy);
+  if (d < 1e-9 || d > da + db + 0.5 || d < Math.abs(da - db) - 0.5) return [];
+  const cosA = Math.max(-1, Math.min(1, (da * da + d * d - db * db) / (2 * da * d)));
+  const alpha = Math.acos(cosA);
+  const base  = Math.atan2(dy, dx);
+  return [
+    [ax + da * Math.cos(base + alpha), ay + da * Math.sin(base + alpha)],
+    [ax + da * Math.cos(base - alpha), ay + da * Math.sin(base - alpha)],
+  ];
+}
+
+/**
+ * Pack `n` circles with the given radii into a tight cluster centered near
+ * the origin.  Returns `[cx, cy]` for each circle in input order.
  *
- * Each bubble is positioned at (x, y) — both normalised to [0,1] — and sized
- * by a normalised `size` value.  A SMIL animation gently pulses each bubble
- * radius, with staggered start times so bubbles breathe independently.
+ * Strategy:
+ *  1. Sort by radius (largest first) for best density.
+ *  2. Place the first circle at the origin.
+ *  3. For each subsequent circle try every Apollonius position relative to all
+ *     already-placed pairs, keep the one with the smallest distance to origin.
+ *  4. Fall back to an angular sweep around each placed circle if no pair
+ *     position is collision-free.
+ */
+function packCircles(radii: number[]): Array<[number, number]> {
+  const n = radii.length;
+  if (n === 0) return [];
+  const pos: Array<[number, number]> = new Array(n);
+  pos[0] = [0, 0];
+  if (n === 1) return pos;
+
+  pos[1] = [radii[0] + radii[1] + GAP, 0];
+
+  for (let i = 2; i < n; i++) {
+    const r = radii[i];
+    let bestX = 0, bestY = 0, bestD = Infinity;
+
+    /** Check candidate (cx, cy) — no overlap with circles 0..i-1 */
+    const tryCandidate = (cx: number, cy: number): void => {
+      for (let k = 0; k < i; k++) {
+        if (Math.hypot(pos[k][0] - cx, pos[k][1] - cy) < radii[k] + r + GAP - 0.5) return;
+      }
+      const d = Math.hypot(cx, cy);
+      if (d < bestD) { bestD = d; bestX = cx; bestY = cy; }
+    };
+
+    // Apollonius positions for all placed pairs
+    for (let a = 0; a < i; a++) {
+      for (let b = a + 1; b < i; b++) {
+        for (const [cx, cy] of apolloniusCandidates(
+          pos[a][0], pos[a][1], radii[a],
+          pos[b][0], pos[b][1], radii[b],
+          r,
+        )) tryCandidate(cx, cy);
+      }
+    }
+
+    // Fallback: angular sweep around each placed circle
+    if (!isFinite(bestD)) {
+      const STEPS = 72;
+      for (let a = 0; a < i; a++) {
+        const dist = radii[a] + r + GAP;
+        for (let s = 0; s < STEPS; s++) {
+          const angle = (s / STEPS) * 2 * Math.PI;
+          tryCandidate(pos[a][0] + dist * Math.cos(angle), pos[a][1] + dist * Math.sin(angle));
+        }
+      }
+    }
+
+    pos[i] = [bestX, bestY];
+  }
+  return pos;
+}
+
+// ---------------------------------------------------------------------------
+// Renderer
+// ---------------------------------------------------------------------------
+
+/**
+ * Generate an SVG packed-bubble chart.
+ *
+ * Each bubble is sized so that its **area is proportional to its value**.
+ * Positions are determined by a greedy circle-packing algorithm — the caller
+ * only provides labels and values.  A SMIL animation gently pulses each
+ * bubble radius with staggered delays so the bubbles breathe independently.
  */
 export function createBubbleChart(options: BubbleChartOptions): string {
   const {
-    xAxis,
-    yAxis,
-    points,
+    items: rawItems = [],
     theme: mode = 'light',
     palette,
     title,
@@ -47,155 +134,96 @@ export function createBubbleChart(options: BubbleChartOptions): string {
 
   const theme  = resolveTheme(palette, mode);
   const titleH = titleBlockHeight(title, subtitle, theme.fontSize);
+  const labelFs = theme.fontSize - 1;
+  const uid    = `bub-${++_bubbleCount}`;
 
-  // Canvas auto-scales with bubble count
-  const SIZE   = Math.min(MAX_SIZE, Math.max(BASE_SIZE, BASE_SIZE + (points.length - 4) * 24));
-  const WIDTH  = SIZE;
-  const HEIGHT = SIZE;
-  const PLOT_W = WIDTH  - PAD_LEFT - PAD_RIGHT;
-  const PLOT_H = HEIGHT - PAD_TOP  - PAD_BOTTOM;
+  // ── Compute radii (area ∝ value) ─────────────────────────────────────────
+  const maxVal = rawItems.reduce((m, it) => Math.max(m, Math.abs(it.value ?? 0)), 0);
+  const items  = rawItems.map((it, origIdx) => ({
+    ...it,
+    origIdx,
+    r: maxVal > 0
+      ? Math.round(MIN_R + Math.sqrt(Math.abs(it.value ?? 0) / maxVal) * (MAX_R - MIN_R))
+      : MIN_R,
+  }));
 
-  const sw         = theme.strokeWidth;
-  const axisColor  = theme.groupColor;
-  const groupColor = theme.groupColor;
-  const textColor  = theme.edgeColor;
-  const labelFs    = theme.fontSize - 1;
+  // Sort largest first for better packing, remember original order for colors
+  const sorted = [...items].sort((a, b) => b.r - a.r);
+  const radii  = sorted.map(it => it.r);
+  const rawPos = packCircles(radii);
 
-  const plotX = PAD_LEFT;
-  const plotY = PAD_TOP;
-  const midX  = plotX + PLOT_W / 2;
-  const midY  = plotY + PLOT_H / 2;
+  // ── Bounding box (account for external labels below small bubbles) ───────
+  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+  for (let i = 0; i < sorted.length; i++) {
+    const r  = sorted[i].r;
+    const extraY = r < INSIDE_R ? labelFs + 4 : 0;
+    minX = Math.min(minX, rawPos[i][0] - r);
+    maxX = Math.max(maxX, rawPos[i][0] + r);
+    minY = Math.min(minY, rawPos[i][1] - r);
+    maxY = Math.max(maxY, rawPos[i][1] + r + extraY);
+  }
+  if (!isFinite(minX)) { minX = 0; maxX = 0; minY = 0; maxY = 0; }
 
-  const uid = `bc-${++_bubbleCount}`;
+  const contentW = maxX - minX + PAD * 2;
+  const contentH = maxY - minY + PAD * 2;
+  const WIDTH    = Math.max(480, Math.round(contentW));
+  const HEIGHT   = Math.max(360, Math.round(contentH));
+
+  // Offset so the packed cluster is centered in the canvas
+  const offX = -minX + PAD + (WIDTH  - contentW) / 2;
+  const offY = -minY + PAD + (HEIGHT - contentH) / 2;
+
   const parts: string[] = [];
 
-  // ── Defs: drop-shadow filter + arrowhead marker ───────────────────────
+  // ── Defs: drop-shadow ────────────────────────────────────────────────────
   parts.push(
     `<defs>` +
-      `<filter id="${uid}-shadow" x="-50%" y="-50%" width="200%" height="200%">` +
-      `<feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="rgba(0,0,0,0.14)"/>` +
+      `<filter id="${uid}-sh" x="-40%" y="-40%" width="180%" height="180%">` +
+      `<feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.18)"/>` +
       `</filter>` +
-      `<marker id="${uid}-arrow" markerWidth="8" markerHeight="6" ` +
-      `refX="7" refY="3" orient="auto" markerUnits="strokeWidth">` +
-      `<polygon points="0 0, 8 3, 0 6, 1.5 3" ` +
-      `fill="${escapeXml(axisColor)}"/>` +
-      `</marker>` +
       `</defs>`,
   );
 
-  // ── Outer plot border ─────────────────────────────────────────────────
-  parts.push(
-    `<rect x="${plotX}" y="${plotY}" width="${PLOT_W}" height="${PLOT_H}" ` +
-      `fill="none" stroke="${escapeXml(groupColor)}" stroke-width="1"/>`,
-  );
+  // ── Bubbles ───────────────────────────────────────────────────────────────
+  for (let si = 0; si < sorted.length; si++) {
+    const item = sorted[si];
+    const cx  = Math.round(rawPos[si][0] + offX);
+    const cy  = Math.round(rawPos[si][1] + offY);
+    const r   = item.r;
+    const r2  = Math.round(r * (1 + PULSE_GROW));
+    const delay = (si % 4) * 0.5;
 
-  // ── Subtle dashed grid lines at 25 %, 50 %, and 75 % ──────────────────
-  for (const frac of [0.25, 0.5, 0.75]) {
-    const gx = Math.round(plotX + PLOT_W * frac);
-    parts.push(
-      `<line x1="${gx}" y1="${plotY}" x2="${gx}" y2="${plotY + PLOT_H}" ` +
-        `stroke="${escapeXml(axisColor)}" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>`,
-    );
-  }
-  for (const frac of [0.25, 0.5, 0.75]) {
-    const gy = Math.round(plotY + PLOT_H * frac);
-    parts.push(
-      `<line x1="${plotX}" y1="${gy}" x2="${plotX + PLOT_W}" y2="${gy}" ` +
-        `stroke="${escapeXml(axisColor)}" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>`,
-    );
-  }
-
-  // ── Horizontal X-axis center line (arrow at right end) ───────────────
-  parts.push(
-    `<line x1="${plotX}" y1="${midY}" x2="${plotX + PLOT_W}" y2="${midY}" ` +
-      `stroke="${escapeXml(axisColor)}" stroke-width="${sw}" ` +
-      `marker-end="url(#${uid}-arrow)"/>`,
-  );
-  // ── Vertical Y-axis center line (arrow at top end) ───────────────────
-  parts.push(
-    `<line x1="${midX}" y1="${plotY + PLOT_H}" x2="${midX}" y2="${plotY}" ` +
-      `stroke="${escapeXml(axisColor)}" stroke-width="${sw}" ` +
-      `marker-end="url(#${uid}-arrow)"/>`,
-  );
-
-  // ── Axis min/max tick labels ──────────────────────────────────────────
-  // X axis
-  parts.push(
-    `<text x="${plotX + 4}" y="${midY + 16}" text-anchor="start" ` +
-      `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
-      `fill="${escapeXml(textColor)}" opacity="0.6">${escapeXml(xAxis.min)}</text>`,
-    `<text x="${plotX + PLOT_W - 30}" y="${midY + 16}" text-anchor="end" ` +
-      `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
-      `fill="${escapeXml(textColor)}" opacity="0.6">${escapeXml(xAxis.max)}</text>`,
-  );
-  // X axis name
-  parts.push(
-    `<text x="${midX}" y="${HEIGHT - 12}" text-anchor="middle" ` +
-      `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
-      `font-weight="600" fill="${escapeXml(textColor)}">${escapeXml(xAxis.label)}</text>`,
-  );
-  // Y axis min/max
-  parts.push(
-    `<text x="${midX - 8}" y="${plotY + PLOT_H - 4}" text-anchor="end" ` +
-      `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
-      `fill="${escapeXml(textColor)}" opacity="0.6">${escapeXml(yAxis.min)}</text>`,
-    `<text x="${midX - 8}" y="${plotY + 14}" text-anchor="end" ` +
-      `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
-      `fill="${escapeXml(textColor)}" opacity="0.6">${escapeXml(yAxis.max)}</text>`,
-  );
-  // Y axis name
-  const yLabelX = Math.round(PAD_LEFT / 2);
-  const yLabelY = plotY + PLOT_H / 2;
-  parts.push(
-    `<text x="${yLabelX}" y="${yLabelY}" text-anchor="middle" dominant-baseline="middle" ` +
-      `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
-      `font-weight="600" fill="${escapeXml(textColor)}" ` +
-      `transform="rotate(-90, ${yLabelX}, ${yLabelY})">${escapeXml(yAxis.label)}</text>`,
-  );
-
-  // ── Bubbles ───────────────────────────────────────────────────────────
-  for (let i = 0; i < points.length; i++) {
-    const pt = points[i];
-    const cx = plotX + pt.x * PLOT_W;
-    const cy = plotY + (1 - pt.y) * PLOT_H;
-
-    // Clamp size to [0,1] before mapping to radius
-    const s  = Math.max(0, Math.min(1, pt.size));
-    const r  = Math.round(MIN_R + s * (MAX_R - MIN_R));
-    const r2 = Math.round(r * (1 + PULSE_GROW));
-
-    const nt        = BUBBLE_NODE_TYPES[i % BUBBLE_NODE_TYPES.length];
+    // Color determined by original insertion order so re-sorting doesn't change colors
+    const nt        = BUBBLE_TYPES[item.origIdx % BUBBLE_TYPES.length];
     const fillColor = theme.nodeFills[nt];
     const strkColor = theme.nodeStrokes[nt];
     const txtColor  = theme.textColors[nt];
 
-    // Stagger the animation start so each bubble pulses independently.
-    // Delay cycles through 0, 0.5, 1.0, 1.5 s for the first 4 bubbles;
-    // thereafter it repeats the cycle.
-    const delay = (i % 4) * 0.5;
-
     parts.push(
       `<circle cx="${cx}" cy="${cy}" r="${r}" ` +
-        `fill="${escapeXml(fillColor)}" stroke="${escapeXml(strkColor)}" stroke-width="${sw}" ` +
-        `filter="url(#${uid}-shadow)">` +
+        `fill="${escapeXml(fillColor)}" stroke="${escapeXml(strkColor)}" stroke-width="${theme.strokeWidth}" ` +
+        `filter="url(#${uid}-sh)">` +
         `<animate attributeName="r" ` +
-        `values="${r};${r2};${r}" ` +
-        `dur="2s" begin="${delay}s" repeatCount="indefinite" calcMode="spline" ` +
-        `keySplines="0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/>` +
+        `values="${r};${r2};${r}" dur="2s" begin="${delay}s" repeatCount="indefinite" ` +
+        `calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/>` +
         `</circle>`,
     );
 
-    // Label: to the right; near right edge → flip to the left
-    const nearRight  = pt.x > LABEL_FLIP_THRESHOLD;
-    const labelOffX  = nearRight ? -(r2 + 6) : (r2 + 6);
-    const labelX     = cx + labelOffX;
-    const anchor     = nearRight ? 'end' : 'start';
-    const labelYOff  = labelFs * 0.38;
-    parts.push(
-      `<text x="${labelX}" y="${cy + labelYOff}" text-anchor="${anchor}" ` +
-        `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
-        `fill="${escapeXml(txtColor)}">${escapeXml(pt.label)}</text>`,
-    );
+    if (r >= INSIDE_R) {
+      // Label inside the bubble, vertically centered
+      parts.push(
+        `<text x="${cx}" y="${cy}" text-anchor="middle" dominant-baseline="middle" ` +
+          `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
+          `fill="${escapeXml(txtColor)}" pointer-events="none">${escapeXml(item.label)}</text>`,
+      );
+    } else {
+      // Small bubble: label below
+      parts.push(
+        `<text x="${cx}" y="${cy + r + labelFs + 2}" text-anchor="middle" ` +
+          `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
+          `fill="${escapeXml(theme.edgeColor)}" pointer-events="none">${escapeXml(item.label)}</text>`,
+      );
+    }
   }
 
   const bgParts: string[] = theme.background
