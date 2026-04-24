@@ -1601,4 +1601,234 @@ deploy --> verify`,
       },
     ],
   },
+  {
+    type: 'bubble',
+    label: 'Bubble Chart',
+    examples: [
+      {
+        title: 'Market Share',
+        markdown: `figure bubble
+title: Market Share
+subtitle: Revenue by product line
+palette: default
+Product A: 75
+Product B: 50
+Product C: 85
+Product D: 30
+Product E: 60
+Product F: 20`,
+      },
+      {
+        title: 'Tech Languages',
+        markdown: `figure bubble
+title: Tech Stack Adoption
+subtitle: Community size by language
+palette: antv
+theme: dark
+Python: 90
+Java: 85
+Go: 65
+Node.js: 80
+Rust: 45
+C++: 40
+Kotlin: 50`,
+      },
+      {
+        title: 'Budget Allocation',
+        markdown: `figure bubble
+title: Budget Allocation
+subtitle: Q1 2025
+palette: figma
+Engineering: 420
+Marketing: 250
+R&D: 380
+Sales: 300
+Support: 120
+HR: 80`,
+      },
+      {
+        title: 'Server Requests',
+        markdown: `figure bubble
+title: Server Request Volume
+subtitle: Last 24 hours
+palette: mono-blue
+theme: dark
+web-01: 8200
+api-01: 6500
+api-02: 5800
+worker-01: 4400
+worker-02: 3700
+db-01: 3200
+cache-01: 2100
+cron-01: 1100`,
+      },
+      {
+        title: 'Energy Mix',
+        markdown: `figure bubble
+title: Global Energy Mix
+subtitle: Production by source (TWh)
+palette: vega
+Coal: 9400
+Gas: 6700
+Hydro: 4300
+Nuclear: 2800
+Wind: 2100
+Solar: 1300
+Oil: 900`,
+      },
+      {
+        title: 'Social Media',
+        markdown: `figure bubble
+title: Social Media Reach
+subtitle: Monthly active users (M)
+palette: default
+Facebook: 2900
+YouTube: 2700
+Instagram: 2000
+TikTok: 1500
+X: 550
+LinkedIn: 950
+Snapchat: 750`,
+      },
+      {
+        title: 'Cloud Services',
+        markdown: `figure bubble
+title: Cloud Spend by Service
+subtitle: Monthly cost breakdown
+palette: mono-green
+theme: dark
+Compute: 12400
+Storage: 4300
+Database: 6800
+Networking: 2900
+ML: 5100
+Security: 1800`,
+      },
+      {
+        title: 'App Downloads',
+        markdown: `figure bubble
+title: App Downloads by Platform
+subtitle: Q4 2024 (millions)
+palette: antv
+iOS: 820
+Android: 1540
+Web: 340
+Desktop: 210`,
+      },
+      {
+        title: 'Movie Box Office',
+        markdown: `figure bubble
+title: Box Office Revenue
+subtitle: Worldwide gross (M USD)
+palette: drawio
+Action: 4200
+Adventure: 3800
+Animation: 2900
+Drama: 1500
+Comedy: 2100
+Horror: 1200
+Sci-Fi: 3100`,
+      },
+      {
+        title: 'Portfolio',
+        markdown: `figure bubble
+title: Investment Portfolio
+subtitle: Allocation by asset class
+palette: mono-orange
+Stocks: 4500
+Bonds: 1200
+Real Estate: 2800
+Crypto: 600
+Commodities: 900
+Cash: 400`,
+      },
+      {
+        title: 'Microservices',
+        markdown: `figure bubble
+title: Microservice Call Volume
+subtitle: Requests per minute
+palette: drawio
+theme: dark
+auth-svc: 3200
+user-svc: 2800
+order-svc: 4100
+payment-svc: 1900
+notify-svc: 1400
+search-svc: 2300`,
+      },
+      {
+        title: 'Country GDP',
+        markdown: `figure bubble
+title: Top Economies by GDP
+subtitle: Trillion USD (2024)
+palette: mono-purple
+USA: 27400
+China: 18500
+Germany: 4400
+Japan: 4300
+India: 3700
+UK: 3100
+France: 3000`,
+      },
+      {
+        title: 'Startup Funding',
+        markdown: `figure bubble
+title: Startup Funding Rounds
+subtitle: Total raised (M USD)
+palette: antv
+theme: dark
+Series A: 800
+Series B: 2400
+Series C: 5200
+Series D: 8100
+Seed: 250
+Pre-Seed: 80`,
+      },
+      {
+        title: 'Game Genres',
+        markdown: `figure bubble
+title: Game Sales by Genre
+subtitle: Units sold (millions)
+palette: figma
+theme: dark
+Action: 310
+RPG: 240
+Sports: 290
+Strategy: 160
+Simulation: 200
+Shooter: 270
+Puzzle: 130`,
+      },
+      {
+        title: 'Company Headcount',
+        markdown: `figure bubble
+title: Headcount by Department
+subtitle: Full-time employees
+palette: default
+Engineering: 480
+Sales: 210
+Marketing: 150
+Operations: 320
+Support: 190
+Finance: 90
+HR: 70`,
+      },
+      {
+        title: 'Language Popularity',
+        markdown: `figure bubble
+title: Language Popularity Index
+subtitle: Developer survey score
+palette: vega
+theme: dark
+JavaScript: 95
+Python: 92
+TypeScript: 78
+Java: 72
+Rust: 45
+Go: 62
+Ruby: 38
+Swift: 44`,
+      },
+    ],
+  },
 ];

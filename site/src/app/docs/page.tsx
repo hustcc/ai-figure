@@ -4,7 +4,7 @@ import CodeBlock from '@/components/CodeBlock';
 
 export const metadata: Metadata = {
   title: 'Docs',
-  description: 'ai-figure documentation: installation, usage, markdown syntax for all 10 diagram types, framework integration (React, Vue, HTML, Node.js), and AI agent Skill.',
+  description: 'ai-figure documentation: installation, usage, markdown syntax for all 11 diagram types, framework integration (React, Vue, HTML, Node.js), and AI agent Skill.',
 };
 
 /* ── small prose helpers ───────────────────────────────────────── */
@@ -210,6 +210,16 @@ pay --> receive
 receive --> pack
 pack --> ship`;
 
+const BUBBLE_MD = `figure bubble
+title: Market Analysis
+subtitle: Revenue by Product
+Product A: 75
+Product B: 50
+Product C: 85
+Product D: 30
+Product E: 60
+Product F: 20`;
+
 /* ══════════════════════════════════════════════════════════════════ */
 
 export default function DocsPage() {
@@ -232,6 +242,7 @@ export default function DocsPage() {
             ['#diagram-er', '→ ER'],
             ['#diagram-timeline', '→ Timeline'],
             ['#diagram-swimlane', '→ Swimlane'],
+            ['#diagram-bubble', '→ Bubble'],
             ['#frameworks', 'Framework Integration'],
             ['#skill', 'AI Skill'],
           ].map(([href, label]) => (
@@ -546,6 +557,19 @@ const svg2 = fig({
           markdownExample={SWIMLANE_MD}
         >
           <P>Lanes are declared with <Mono>section Name</Mono>. Nodes within a section use the same node notation as <Mono>flow</Mono>. Cross-lane edges are automatically detected and routed.</P>
+        </DiagramSection>
+
+        {/* bubble */}
+        <DiagramSection
+          id="diagram-bubble"
+          title="bubble — Bubble Chart"
+          description="Packed-bubble chart where each item's area is proportional to its value. Positions are computed automatically by a greedy circle-packing algorithm — no coordinates needed. Each bubble pulses with a staggered SMIL animation."
+          configRows={[
+            ...COMMON_CONFIG,
+          ]}
+          markdownExample={BUBBLE_MD}
+        >
+          <P>Data lines use the format <Mono>Label: value</Mono> (positive numbers only). Bubble area is proportional to value; the largest item always fills the maximum radius. Labels and formatted values are rendered inside each bubble with automatic contrast (white or dark text).</P>
         </DiagramSection>
 
         {/* ═══════════════ 4. FRAMEWORKS ═══════════════════════════════ */}

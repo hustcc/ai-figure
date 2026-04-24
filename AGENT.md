@@ -230,6 +230,7 @@ Never expose `width`/`height` to callers:
 | Arch | TB: `clamp(480, 48 + 28 + maxCols×140 + (maxCols−1)×10, 1600)` px wide; LR: `clamp(480, 48 + layers×168 + (layers−1)×14, 1600)` px wide; height always auto from layer/node count |
 | Sequence | Auto-sized from actor count × `ACTOR_SPACING` and message count × `MSG_SPACING` |
 | Quadrant | `clamp(640, 640 + (n−4)×24, 1024)` px square, where n = point count |
+| Bubble | Canvas sized from bounding box of packed cluster + `PAD=28` px; `MIN_R=18`, `MAX_R=80` px; pulse grow `+4%` |
 
 ### Padding constants
 

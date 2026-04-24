@@ -1,12 +1,12 @@
 ---
 name: ai-figure
 version: "0.2.0"
-description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence, quadrant, gantt, state machine, ER, timeline, swimlane) from a markdown string or a JSON config via fig(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
+description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence, quadrant, gantt, state machine, ER, timeline, swimlane, bubble chart) from a markdown string or a JSON config via fig(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
 author: hustcc
 license: MIT
 package: ai-figure
 api: fig(markdown|options) → string (SVG)
-tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, state-machine, er-diagram, timeline, swimlane, svg, layout, visualization, markdown]
+tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, state-machine, er-diagram, timeline, swimlane, bubble-chart, svg, layout, visualization, markdown]
 ---
 
 # ai-figure Skill
@@ -47,7 +47,7 @@ Config lines use `key: value` syntax. Data lines use diagram-specific patterns.
 
 | Key | Values | Default |
 |-----|--------|---------|
-| `type` | `flow` `tree` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` | required |
+| `type` | `flow` `tree` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` `bubble` | required |
 | `direction` | `TB` `LR` | `TB` |
 | `theme` | `light` `dark` | `light` |
 | `palette` | `default` `antv` `drawio` `figma` `vega` `mono-blue` `mono-green` `mono-purple` `mono-orange` | `default` |
@@ -222,6 +222,22 @@ pack --> ship
 - `id[Node Label]` — node declaration inside the current lane
 - `A --> B` or `A --> B: label` — directed edges (may cross lanes)
 
+### bubble
+
+```
+figure bubble
+title: Market Analysis
+%% label: value (positive number)
+Product A: 75
+Product B: 50
+Product C: 85
+```
+
+- Data lines: `Label: value` — any positive number; bubble **area is proportional to value**
+- Positions computed automatically by a circle-packing algorithm — no coordinates needed
+- Bubbles cycle through `process`/`decision`/`terminal`/`io` palette colors by index
+- Each bubble pulses with a staggered SMIL animation (breathing effect)
+
 ## JSON config (fig(options))
 
 Same result as markdown but typed. Use when building diagrams programmatically.
@@ -308,6 +324,14 @@ interface SwimlaneDiagramOptions {
   title?: string; subtitle?: string;
   theme?: 'light'|'dark'; palette?: string|string[];
 }
+
+interface BubbleChartOptions {
+  figure: 'bubble';
+  items: BubbleItem[];      // { label, value }  — value is a positive number
+  title?: string; subtitle?: string;
+  theme?: 'light'|'dark'; palette?: string|string[];
+}
+// BubbleItem: { id?, label, value }  — bubble area is proportional to value; positions auto-packed
 ```
 
 **quadrants order:** `[top-left, top-right, bottom-left, bottom-right]` · `x=0` left, `x=1` right; `y=0` bottom, `y=1` top.

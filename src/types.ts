@@ -449,6 +449,34 @@ export interface SwimlaneDiagramOptions {
 }
 
 // ---------------------------------------------------------------------------
+// BubbleChart types
+// ---------------------------------------------------------------------------
+
+/** A single item in a packed bubble chart. */
+export interface BubbleItem {
+  /** Optional unique identifier (auto-generated if omitted). */
+  id?: string;
+  /** Text label displayed inside or below the bubble. */
+  label: string;
+  /** Numeric value — bubble area is proportional to this value. */
+  value: number;
+}
+
+/** Options passed to {@link createBubbleChart}. */
+export interface BubbleChartOptions {
+  /** Bubble data items. */
+  items: BubbleItem[];
+  /** Light or dark rendering mode (default: 'light'). */
+  theme?: ThemeType;
+  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'figma'`, `'vega'`, `'mono-blue'`, `'mono-green'`, `'mono-purple'`, `'mono-orange'`, or custom hex array (default: `'default'`). */
+  palette?: PaletteType;
+  /** Optional chart title displayed above the diagram. */
+  title?: string;
+  /** Optional subtitle displayed beneath the title. */
+  subtitle?: string;
+}
+
+// ---------------------------------------------------------------------------
 // Unified fig() API
 // ---------------------------------------------------------------------------
 
@@ -463,4 +491,5 @@ export type FigOptions =
   | ({ figure: 'state' } & StateDiagramOptions)
   | ({ figure: 'er' } & ErDiagramOptions)
   | ({ figure: 'timeline' } & TimelineDiagramOptions)
-  | ({ figure: 'swimlane' } & SwimlaneDiagramOptions);
+  | ({ figure: 'swimlane' } & SwimlaneDiagramOptions)
+  | ({ figure: 'bubble' } & BubbleChartOptions);

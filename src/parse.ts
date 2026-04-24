@@ -17,6 +17,7 @@ import type {
   TimelineEvent,
   SwimlaneNode,
   SwimlaneEdge,
+  BubbleItem,
   Direction,
   ThemeType,
   PaletteType,
@@ -60,10 +61,11 @@ export function parseFigmd(markdown: string): FigOptions {
     case 'er':        return parseEr(body);
     case 'timeline':  return parseTimeline(body);
     case 'swimlane':  return parseSwimlane(body);
+    case 'bubble':    return parseBubble(body);
     default:
       throw new Error(
         `figmd: unknown figure type "${figureType}". ` +
-          `Expected one of: flow, tree, arch, sequence, quadrant, gantt, state, er, timeline, swimlane`,
+          `Expected one of: flow, tree, arch, sequence, quadrant, gantt, state, er, timeline, swimlane, bubble`,
       );
   }
 }
@@ -553,4 +555,28 @@ function parseSwimlane(lines: string[]): FigOptions {
   }
 
   return { figure: 'swimlane', lanes: lanesList, nodes, edges, ...cfgSpread(cfg) };
+}
+
+// --- bubble ---
+
+function parseBubble(lines: string[]): FigOptions {
+  const cfg: CommonConfig = {};
+  const items: BubbleItem[] = [];
+
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
+
+    // Bubble data line: `Label: value`
+    const ci = line.indexOf(':');
+    if (ci === -1) continue;
+    const label    = line.slice(0, ci).trim();
+    const valueStr = line.slice(ci + 1).trim();
+    if (!label) continue;
+    const value = Number(valueStr);
+    if (!Number.isFinite(value) || value <= 0) continue;
+
+    items.push({ label, value });
+  }
+
+  return { figure: 'bubble', items, ...cfgSpread(cfg) };
 }

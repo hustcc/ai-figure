@@ -8,6 +8,7 @@ import { createStateDiagram } from './state';
 import { createErDiagram } from './er';
 import { createTimelineDiagram } from './timeline';
 import { createSwimlaneDiagram } from './swimlane';
+import { createBubbleChart } from './bubble';
 import { parseFigmd } from './parse';
 import type { FigOptions } from './types';
 
@@ -85,6 +86,8 @@ function figDispatch(options: FigOptions): string {
       return createTimelineDiagram(options);
     case 'swimlane':
       return createSwimlaneDiagram(options);
+    case 'bubble':
+      return createBubbleChart(options);
     default: {
       const _exhaustive: never = options;
       throw new Error(`Unknown figure type: ${(_exhaustive as FigOptions).figure}`);
@@ -127,4 +130,6 @@ export type {
   SwimlaneNode,
   SwimlaneEdge,
   SwimlaneDiagramOptions,
+  BubbleItem,
+  BubbleChartOptions,
 } from './types';

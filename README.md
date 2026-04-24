@@ -11,7 +11,7 @@
 - 🎨 **Rich visual styles** — light/dark mode, nine built-in palettes (`default`, `antv`, `drawio`, `figma`, `vega`, `mono-blue`, `mono-green`, `mono-purple`, `mono-orange`) plus custom hex arrays; every diagram supports optional title & subtitle, node groups, and color-coded layers
 - 📐 **Auto layout** — just describe the graph; x/y coordinates are computed automatically, and diagram dimensions scale to fit the content
 - 🤖 **AI-friendly** — single `fig()` entry point accepts a markdown string **or** a JSON config; streaming-safe (partial input never throws); ships a [`SKILL.md`](https://github.com/hustcc/ai-figure/blob/main/SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
-- 📊 **10 diagram types** — flowchart, tree, architecture, sequence, quadrant, Gantt, state machine, ER data model, timeline, and swimlane; pure SVG output with zero DOM dependency, works in browser and Node.js
+- 📊 **11 diagram types** — flowchart, tree, architecture, sequence, quadrant, Gantt, state machine, ER data model, timeline, swimlane, and bubble chart; pure SVG output with zero DOM dependency, works in browser and Node.js
 
 ## Quick Start
 
@@ -93,6 +93,7 @@ fig({ figure: 'state',    ...stateOptions    }); // state machine
 fig({ figure: 'er',       ...erOptions       }); // ER data model
 fig({ figure: 'timeline', ...timelineOptions }); // timeline
 fig({ figure: 'swimlane', ...swimlaneOptions }); // swimlane flow
+fig({ figure: 'bubble',   ...bubbleOptions   }); // bubble chart
 
 // markdown string
 fig(`figure flow\na[A] --> b[B]`);
@@ -545,9 +546,45 @@ fig({
 });
 ```
 
+### `figure: 'bubble'` — Bubble Chart
+
+Renders a packed-bubble chart where each item's area is proportional to its value. Positions are computed automatically by a greedy circle-packing algorithm — no coordinates needed. Bubbles pulse with a subtle SMIL animation for a lively visual effect.
+
+![Bubble](https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/bubble.svg)
+
+| Field      | Type            | Default      | Description                                   |
+|------------|-----------------|--------------|-----------------------------------------------|
+| `figure`   | `'bubble'`      | **required** | Selects the bubble chart renderer             |
+| `items`    | `BubbleItem[]`  | **required** | Bubble data items                             |
+| `title`    | `string`        | `undefined`  | Optional centered title above the diagram    |
+| `subtitle` | `string`        | `undefined`  | Optional centered subtitle below the title   |
+| `theme`    | `ThemeType`     | `'light'`    | Light or dark rendering mode                  |
+| `palette`  | `PaletteType`   | `'default'`  | Color palette — see [Palette API](#palette-api) below |
+
+#### `BubbleItem`
+
+| Field   | Type     | Default      | Description                                            |
+|---------|----------|--------------|--------------------------------------------------------|
+| `id`    | `string` | `undefined`  | Optional unique identifier                             |
+| `label` | `string` | **required** | Text label displayed inside or below the bubble        |
+| `value` | `number` | **required** | Positive number — bubble area is proportional to value |
+
+```typescript
+fig({
+  figure: 'bubble',
+  title: 'Market Analysis',
+  items: [
+    { label: 'Product A', value: 75 },
+    { label: 'Product B', value: 50 },
+    { label: 'Product C', value: 85 },
+  ],
+  palette: 'default',
+});
+```
+
 ### Palette API
 
-All ten diagram types accept two independent styling parameters:
+All eleven diagram types accept two independent styling parameters:
 
 | Field     | Type                   | Default       | Description                          |
 |-----------|------------------------|---------------|--------------------------------------|
@@ -751,6 +788,17 @@ section Shipping
   ship[Ship Package]
 order --> pack                            %% edges between nodes
 pack --> ship
+```
+</details>
+
+<details>
+<summary><strong>bubble</strong></summary>
+
+```
+figure bubble
+title: Optional Title
+%% e.g. "Product A: 75"
+Label: value
 ```
 </details>
 
