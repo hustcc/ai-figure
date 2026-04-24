@@ -6,8 +6,12 @@ import type { BubbleChartOptions, NodeType } from './types';
 const MIN_R = 18;
 /** Maximum bubble radius in SVG user units. */
 const MAX_R = 80;
-/** Gap between adjacent bubbles in px. */
-const GAP = 3;
+/**
+ * Gap between adjacent bubble edges at rest.
+ * Must be ≥ 2 × MAX_R × PULSE_GROW (= 12.8 px) so animated bubbles never
+ * overlap even when two neighbours reach their peak simultaneously.
+ */
+const GAP = 18;
 /** Padding around the entire packed cluster. */
 const PAD = 28;
 /** Radius (px) at which labels move outside the bubble instead of inside. */
@@ -19,6 +23,27 @@ const BUBBLE_TYPES: NodeType[] = ['process', 'decision', 'terminal', 'io'];
 
 /** Incrementing counter for unique per-diagram SVG IDs. */
 let _bubbleCount = 0;
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+/**
+ * Choose between white and near-black text based on the perceived brightness
+ * of `hexColor` (ITU-R BT.601 luma coefficients).
+ * Supports both 6-character (#rrggbb) and 3-character (#rgb) hex codes.
+ */
+function textColorOnFill(hexColor: string): string {
+  let h = hexColor.replace('#', '');
+  // Expand 3-character shorthand to 6 characters
+  if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+  if (h.length < 6) return '#ffffff';
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  const luma = (r * 299 + g * 587 + b * 114) / 1000;
+  return luma > 155 ? 'rgba(0,0,0,0.72)' : '#ffffff';
+}
 
 // ---------------------------------------------------------------------------
 // Circle-packing helpers
@@ -120,8 +145,10 @@ function packCircles(radii: number[]): Array<[number, number]> {
  *
  * Each bubble is sized so that its **area is proportional to its value**.
  * Positions are determined by a greedy circle-packing algorithm — the caller
- * only provides labels and values.  A SMIL animation gently pulses each
- * bubble radius with staggered delays so the bubbles breathe independently.
+ * only provides labels and values.  Bubbles are rendered as solid filled
+ * circles with a drop-shadow and a specular-highlight overlay for depth.
+ * A SMIL animation gently pulses each bubble radius with staggered delays so
+ * the bubbles breathe independently without ever touching their neighbours.
  */
 export function createBubbleChart(options: BubbleChartOptions): string {
   const {
@@ -175,37 +202,53 @@ export function createBubbleChart(options: BubbleChartOptions): string {
 
   const parts: string[] = [];
 
-  // ── Defs: drop-shadow ────────────────────────────────────────────────────
+  // ── Defs: drop-shadow filter + specular-highlight gradient ───────────────
   parts.push(
     `<defs>` +
-      `<filter id="${uid}-sh" x="-40%" y="-40%" width="180%" height="180%">` +
-      `<feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.18)"/>` +
+      // Deep shadow gives the illusion of elevation
+      `<filter id="${uid}-sh" x="-50%" y="-50%" width="200%" height="200%">` +
+      `<feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgba(0,0,0,0.28)"/>` +
       `</filter>` +
+      // Off-center radial gradient simulates a light source at top-left
+      `<radialGradient id="${uid}-hl" cx="35%" cy="28%" r="65%" fx="35%" fy="28%">` +
+      `<stop offset="0%" stop-color="rgba(255,255,255,0.48)"/>` +
+      `<stop offset="100%" stop-color="rgba(255,255,255,0)"/>` +
+      `</radialGradient>` +
       `</defs>`,
   );
 
   // ── Bubbles ───────────────────────────────────────────────────────────────
   for (let si = 0; si < sorted.length; si++) {
-    const item = sorted[si];
-    const cx  = Math.round(rawPos[si][0] + offX);
-    const cy  = Math.round(rawPos[si][1] + offY);
-    const r   = item.r;
-    const r2  = Math.round(r * (1 + PULSE_GROW));
+    const item  = sorted[si];
+    const cx    = Math.round(rawPos[si][0] + offX);
+    const cy    = Math.round(rawPos[si][1] + offY);
+    const r     = item.r;
+    const r2    = Math.round(r * (1 + PULSE_GROW));
     const delay = (si % 4) * 0.5;
 
     // Color determined by original insertion order so re-sorting doesn't change colors
     const nt        = BUBBLE_TYPES[item.origIdx % BUBBLE_TYPES.length];
-    const fillColor = theme.nodeFills[nt];
-    const strkColor = theme.nodeStrokes[nt];
-    const txtColor  = theme.textColors[nt];
+    const fillColor = theme.nodeStrokes[nt];   // vibrant solid fill, no stroke
+    const txtColor  = textColorOnFill(fillColor);
 
+    // Shared SMIL animate string (reused for main circle and highlight overlay)
+    const animateAttr =
+      `attributeName="r" values="${r};${r2};${r}" dur="2s" begin="${delay}s" ` +
+      `repeatCount="indefinite" calcMode="spline" ` +
+      `keySplines="0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"`;
+
+    // Main solid circle — no stroke, drop shadow
     parts.push(
       `<circle cx="${cx}" cy="${cy}" r="${r}" ` +
-        `fill="${escapeXml(fillColor)}" stroke="${escapeXml(strkColor)}" stroke-width="${theme.strokeWidth}" ` +
-        `filter="url(#${uid}-sh)">` +
-        `<animate attributeName="r" ` +
-        `values="${r};${r2};${r}" dur="2s" begin="${delay}s" repeatCount="indefinite" ` +
-        `calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/>` +
+        `fill="${escapeXml(fillColor)}" filter="url(#${uid}-sh)">` +
+        `<animate ${animateAttr}/>` +
+        `</circle>`,
+    );
+    // Highlight overlay — synced pulse, no pointer events
+    parts.push(
+      `<circle cx="${cx}" cy="${cy}" r="${r}" ` +
+        `fill="url(#${uid}-hl)" pointer-events="none">` +
+        `<animate ${animateAttr}/>` +
         `</circle>`,
     );
 
@@ -217,7 +260,7 @@ export function createBubbleChart(options: BubbleChartOptions): string {
           `fill="${escapeXml(txtColor)}" pointer-events="none">${escapeXml(item.label)}</text>`,
       );
     } else {
-      // Small bubble: label below
+      // Small bubble: label below in theme text color
       parts.push(
         `<text x="${cx}" y="${cy + r + labelFs + 2}" text-anchor="middle" ` +
           `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
