@@ -227,7 +227,8 @@ pack --> ship
 ```
 figure bubble
 title: Market Analysis
-Product A: 75                      %% label: value (positive number)
+%% label: value (positive number)
+Product A: 75
 Product B: 50
 Product C: 85
 ```

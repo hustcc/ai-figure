@@ -166,17 +166,25 @@ export function createBubbleChart(options: BubbleChartOptions): string {
   const uid    = `bub-${++_bubbleCount}`;
 
   // ── Compute radii (area ∝ value) ─────────────────────────────────────────
-  const maxVal = rawItems.reduce((m, it) => Math.max(m, Math.abs(it.value ?? 0)), 0);
-  const items  = rawItems.map((it, origIdx) => ({
+  // Filter to finite, positive values — consistent with the markdown parser
+  const items = rawItems
+    .map((it, origIdx) => ({ ...it, origIdx }))
+    .filter(it => typeof it.value === 'number' && Number.isFinite(it.value) && it.value > 0);
+
+  const maxVal = items.reduce((m, it) => Math.max(m, it.value), 0);
+  // True area-proportional mapping: interpolate between A_min and A_max so
+  // that A ∝ value, then derive r = sqrt(A/π).
+  const sizedItems = items.map(it => ({
     ...it,
-    origIdx,
     r: maxVal > 0
-      ? Math.round(MIN_R + Math.sqrt(Math.abs(it.value ?? 0) / maxVal) * (MAX_R - MIN_R))
+      ? Math.round(
+          Math.sqrt(MIN_R * MIN_R + (it.value / maxVal) * (MAX_R * MAX_R - MIN_R * MIN_R)),
+        )
       : MIN_R,
   }));
 
   // Sort largest first for better packing, remember original order for colors
-  const sorted = [...items].sort((a, b) => b.r - a.r);
+  const sorted = [...sizedItems].sort((a, b) => b.r - a.r);
   const radii  = sorted.map(it => it.r);
   const rawPos = packCircles(radii);
 

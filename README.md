@@ -797,7 +797,8 @@ pack --> ship
 ```
 figure bubble
 title: Optional Title
-Label: value                       %% e.g. "Product A: 75"
+%% e.g. "Product A: 75"
+Label: value
 ```
 </details>
 
