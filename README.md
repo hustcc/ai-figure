@@ -11,7 +11,7 @@
 - 🎨 **Rich visual styles** — light/dark mode, nine built-in palettes (`default`, `antv`, `drawio`, `figma`, `vega`, `mono-blue`, `mono-green`, `mono-purple`, `mono-orange`) plus custom hex arrays; every diagram supports optional title & subtitle, node groups, and color-coded layers
 - 📐 **Auto layout** — just describe the graph; x/y coordinates are computed automatically, and diagram dimensions scale to fit the content
 - 🤖 **AI-friendly** — single `fig()` entry point accepts a markdown string **or** a JSON config; streaming-safe (partial input never throws); ships a [`SKILL.md`](https://github.com/hustcc/ai-figure/blob/main/SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
-- 📊 **10 diagram types** — flowchart, tree, architecture, sequence, quadrant, Gantt, state machine, ER data model, timeline, and swimlane; pure SVG output with zero DOM dependency, works in browser and Node.js
+- 📊 **11 diagram types** — flowchart, tree, architecture, sequence, quadrant, Gantt, state machine, ER data model, timeline, swimlane, and bubble chart; pure SVG output with zero DOM dependency, works in browser and Node.js
 
 ## Quick Start
 
@@ -93,6 +93,7 @@ fig({ figure: 'state',    ...stateOptions    }); // state machine
 fig({ figure: 'er',       ...erOptions       }); // ER data model
 fig({ figure: 'timeline', ...timelineOptions }); // timeline
 fig({ figure: 'swimlane', ...swimlaneOptions }); // swimlane flow
+fig({ figure: 'bubble',   ...bubbleOptions   }); // bubble chart
 
 // markdown string
 fig(`figure flow\na[A] --> b[B]`);
@@ -545,9 +546,51 @@ fig({
 });
 ```
 
+### `figure: 'bubble'` — Bubble Chart
+
+Renders a scatter plot where each data point is a circle whose radius encodes a third numeric dimension. Bubbles pulse with a subtle SMIL animation for a lively visual effect.
+
+![Bubble](https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/bubble.svg)
+
+| Field      | Type              | Default        | Description                                   |
+|------------|-------------------|----------------|-----------------------------------------------|
+| `figure`   | `'bubble'`        | **required**   | Selects the bubble chart renderer             |
+| `xAxis`    | `{ label, min, max }` | **required** | X-axis label and range strings              |
+| `yAxis`    | `{ label, min, max }` | **required** | Y-axis label and range strings              |
+| `points`   | `BubblePoint[]`   | **required**   | Bubble data points                            |
+| `title`    | `string`          | `undefined`    | Optional centered title above the diagram    |
+| `subtitle` | `string`          | `undefined`    | Optional centered subtitle below the title   |
+| `theme`    | `ThemeType`       | `'light'`      | Light or dark rendering mode                  |
+| `palette`  | `PaletteType`     | `'default'`    | Color palette — see [Palette API](#palette-api) below |
+
+#### `BubblePoint`
+
+| Field   | Type     | Default      | Description                                                       |
+|---------|----------|--------------|-------------------------------------------------------------------|
+| `id`    | `string` | **required** | Unique identifier                                                 |
+| `label` | `string` | **required** | Text label displayed next to the bubble                           |
+| `x`     | `number` | **required** | Horizontal position in `[0, 1]` (0 = left, 1 = right)            |
+| `y`     | `number` | **required** | Vertical position in `[0, 1]` (0 = bottom, 1 = top)              |
+| `size`  | `number` | **required** | Bubble size in `[0, 1]` (0 = smallest radius, 1 = largest radius) |
+
+```typescript
+fig({
+  figure: 'bubble',
+  title: 'Market Analysis',
+  xAxis: { label: 'Revenue', min: 'Low', max: 'High' },
+  yAxis: { label: 'Growth Rate', min: 'Low', max: 'High' },
+  points: [
+    { id: 'a', label: 'Product A', x: 0.20, y: 0.80, size: 0.75 },
+    { id: 'b', label: 'Product B', x: 0.55, y: 0.60, size: 0.50 },
+    { id: 'c', label: 'Product C', x: 0.80, y: 0.30, size: 0.85 },
+  ],
+  palette: 'default',
+});
+```
+
 ### Palette API
 
-All ten diagram types accept two independent styling parameters:
+All eleven diagram types accept two independent styling parameters:
 
 | Field     | Type                   | Default       | Description                          |
 |-----------|------------------------|---------------|--------------------------------------|
@@ -751,6 +794,19 @@ section Shipping
   ship[Ship Package]
 order --> pack                            %% edges between nodes
 pack --> ship
+```
+</details>
+
+<details>
+<summary><strong>bubble</strong></summary>
+
+```
+figure bubble
+title: Optional Title
+x-axis: min .. max                 %% axis range (label defaults to "")
+x-axis Label: min .. max           %% axis range with explicit axis label
+y-axis: min .. max
+Bubble Label: 0.3, 0.7, 0.5       %% data point (x, y, size — all in [0, 1])
 ```
 </details>
 

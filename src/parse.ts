@@ -17,6 +17,7 @@ import type {
   TimelineEvent,
   SwimlaneNode,
   SwimlaneEdge,
+  BubblePoint,
   Direction,
   ThemeType,
   PaletteType,
@@ -60,10 +61,11 @@ export function parseFigmd(markdown: string): FigOptions {
     case 'er':        return parseEr(body);
     case 'timeline':  return parseTimeline(body);
     case 'swimlane':  return parseSwimlane(body);
+    case 'bubble':    return parseBubble(body);
     default:
       throw new Error(
         `figmd: unknown figure type "${figureType}". ` +
-          `Expected one of: flow, tree, arch, sequence, quadrant, gantt, state, er, timeline, swimlane`,
+          `Expected one of: flow, tree, arch, sequence, quadrant, gantt, state, er, timeline, swimlane, bubble`,
       );
   }
 }
@@ -553,4 +555,48 @@ function parseSwimlane(lines: string[]): FigOptions {
   }
 
   return { figure: 'swimlane', lanes: lanesList, nodes, edges, ...cfgSpread(cfg) };
+}
+
+// --- bubble ---
+
+function parseBubble(lines: string[]): FigOptions {
+  const cfg: CommonConfig = {};
+  let xAxis = { label: '', min: '', max: '' };
+  let yAxis = { label: '', min: '', max: '' };
+  const points: BubblePoint[] = [];
+
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
+
+    const xa = parseAxisLine(line, 'x-axis');
+    if (xa) { xAxis = xa; continue; }
+    const ya = parseAxisLine(line, 'y-axis');
+    if (ya) { yAxis = ya; continue; }
+
+    // Bubble data line: `Label: x, y, size`
+    // Parse the last comma-separated numeric token as `size`.
+    const lc1 = line.lastIndexOf(',');
+    if (lc1 === -1) continue;
+    const sizeStr = line.slice(lc1 + 1).trim();
+    const size    = Number(sizeStr);
+    if (!Number.isFinite(size) || size < 0 || size > 1) continue;
+
+    const before1 = line.slice(0, lc1);
+    const lc2 = before1.lastIndexOf(',');
+    if (lc2 === -1) continue;
+    const yStr = before1.slice(lc2 + 1).trim();
+    const y    = Number(yStr);
+    if (!Number.isFinite(y) || y < 0 || y > 1) continue;
+
+    const before2 = before1.slice(0, lc2);
+    const ci = before2.indexOf(':');
+    if (ci === -1) continue;
+    const label = before2.slice(0, ci).trim();
+    const x     = Number(before2.slice(ci + 1).trim());
+    if (!label || !Number.isFinite(x) || x < 0 || x > 1) continue;
+
+    points.push({ id: `b${points.length}`, label, x, y, size });
+  }
+
+  return { figure: 'bubble', xAxis, yAxis, points, ...cfgSpread(cfg) };
 }
