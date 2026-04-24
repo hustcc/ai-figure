@@ -8,7 +8,7 @@ const MIN_R = 18;
 const MAX_R = 80;
 /**
  * Gap between adjacent bubble edges at rest.
- * Must be ≥ 2 × MAX_R × PULSE_GROW (= 12.8 px) so animated bubbles never
+ * Must be ≥ 2 × MAX_R × PULSE_GROW (= 6.4 px) so animated bubbles never
  * overlap even when two neighbours reach their peak simultaneously.
  */
 const GAP = 18;
@@ -17,7 +17,7 @@ const PAD = 28;
 /** Radius (px) at which labels move outside the bubble instead of inside. */
 const INSIDE_R = 24;
 /** Fraction by which the radius grows at the peak of the pulse animation. */
-const PULSE_GROW = 0.08;
+const PULSE_GROW = 0.04;
 /** Node types cycled by item index for color variation. */
 const BUBBLE_TYPES: NodeType[] = ['process', 'decision', 'terminal', 'io'];
 
@@ -233,7 +233,7 @@ export function createBubbleChart(options: BubbleChartOptions): string {
 
     // Shared SMIL animate string (reused for main circle and highlight overlay)
     const animateAttr =
-      `attributeName="r" values="${r};${r2};${r}" dur="2s" begin="${delay}s" ` +
+      `attributeName="r" values="${r};${r2};${r}" dur="3s" begin="${delay}s" ` +
       `repeatCount="indefinite" calcMode="spline" ` +
       `keySplines="0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"`;
 
@@ -253,18 +253,24 @@ export function createBubbleChart(options: BubbleChartOptions): string {
     );
 
     if (r >= INSIDE_R) {
-      // Label inside the bubble, vertically centered
+      // Label + value inside the bubble on two lines, vertically centered
+      const valueStr = String(item.value ?? '');
+      const lineH    = labelFs + 2;
       parts.push(
-        `<text x="${cx}" y="${cy}" text-anchor="middle" dominant-baseline="middle" ` +
-          `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
+        `<text x="${cx}" y="${cy - lineH / 2}" text-anchor="middle" dominant-baseline="middle" ` +
+          `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" font-weight="600" ` +
           `fill="${escapeXml(txtColor)}" pointer-events="none">${escapeXml(item.label)}</text>`,
+        `<text x="${cx}" y="${cy + lineH / 2 + 2}" text-anchor="middle" dominant-baseline="middle" ` +
+          `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs - 2}" ` +
+          `fill="${escapeXml(txtColor)}" opacity="0.82" pointer-events="none">${escapeXml(valueStr)}</text>`,
       );
     } else {
-      // Small bubble: label below in theme text color
+      // Small bubble: label and value below, combined
+      const valueStr = String(item.value ?? '');
       parts.push(
         `<text x="${cx}" y="${cy + r + labelFs + 2}" text-anchor="middle" ` +
           `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
-          `fill="${escapeXml(theme.edgeColor)}" pointer-events="none">${escapeXml(item.label)}</text>`,
+          `fill="${escapeXml(theme.edgeColor)}" pointer-events="none">${escapeXml(item.label)} (${escapeXml(valueStr)})</text>`,
       );
     }
   }
