@@ -42,11 +42,13 @@ const EMPTY_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1">
  * ```ts
  * // Markdown string (AI-friendly, streaming-safe)
  * fig(`
- *   flow LR antv
+ *   figure flow
+ *   direction: LR
+ *   palette: antv
  *   title: CI Pipeline
  *   code[Write Code] --> test{Tests Pass?}
- *   test -->|yes| build[Build Image]
- *   test -->|no| fix((Fix Issues))
+ *   test --> build[Build Image]: yes
+ *   test --> fix((Fix Issues)): no
  * `);
  *
  * // JSON config object (typed, programmatic)

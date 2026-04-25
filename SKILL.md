@@ -54,7 +54,9 @@ Config lines use `key: value` syntax. Data lines use diagram-specific patterns.
 
 Lines starting with `%%` are comments. `title:` and `subtitle:` work in all types.
 
-### Node notation (flow / tree / arch)
+### Node notation (flow / tree / arch / swimlane)
+
+These bracket suffixes are **syntax sugar** — a compact way to declare a node's visual shape inline, without a separate node definition line.
 
 | Notation | Shape |
 |----------|-------|

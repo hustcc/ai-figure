@@ -636,7 +636,9 @@ fig({ figure: 'flow', nodes, edges, palette: ['#e64980', '#ae3ec9', '#7048e8', '
 
 Config keys available in all diagram types: `title`, `subtitle`, `theme` (`light`\|`dark`), `palette`, `direction` (`TB`\|`LR`).
 
-#### Node notation (flow / tree / arch)
+#### Node notation (flow / tree / arch / swimlane)
+
+These bracket suffixes are **syntax sugar** — a compact way to declare a node's visual shape inline:
 
 | Notation | Shape |
 |----------|-------|
@@ -823,12 +825,14 @@ This library ships a **[`SKILL.md`](https://github.com/hustcc/ai-figure/blob/mai
 import { fig } from 'ai-figure';
 
 const svg = fig(`
-  flow TB default
+  figure flow
+  direction: TB
+  palette: default
   title: User Login
   start((Start)) --> creds[Enter Credentials]
   creds --> validate{Valid?}
-  validate -->|yes| dashboard((Dashboard))
-  validate -->|no| error[Show Error]
+  validate --> dashboard((Dashboard)): yes
+  validate --> error[Show Error]: no
   error --> creds
   dashboard --> done((End))
 `);
