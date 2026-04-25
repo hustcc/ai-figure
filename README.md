@@ -53,10 +53,15 @@ const svg2 = fig(`
   direction: LR
   palette: default
   title: Auth Flow
-  start((Start)) --> login[Enter Credentials]
-  login --> validate{Valid?}
-  validate --> dashboard((Dashboard)): yes
-  validate --> error[Show Error]: no
+  start: Start, terminal
+  login: Enter Credentials
+  validate: Valid?, decision
+  dashboard: Dashboard, terminal
+  error: Show Error
+  start --> login
+  login --> validate
+  validate --> dashboard: yes
+  validate --> error: no
   error --> login
 `);
 
@@ -96,7 +101,7 @@ fig({ figure: 'swimlane', ...swimlaneOptions }); // swimlane flow
 fig({ figure: 'bubble',   ...bubbleOptions   }); // bubble chart
 
 // markdown string
-fig(`figure flow\na[A] --> b[B]`);
+fig(`figure flow\na: A\nb: B\na --> b`);
 ```
 
 ### `figure: 'flow'` — Flowchart
@@ -832,12 +837,18 @@ const svg = fig(`
   direction: TB
   palette: default
   title: User Login
-  start((Start)) --> creds[Enter Credentials]
-  creds --> validate{Valid?}
-  validate --> dashboard((Dashboard)): yes
-  validate --> error[Show Error]: no
+  start: Start, terminal
+  creds: Enter Credentials
+  validate: Valid?, decision
+  dashboard: Dashboard, terminal
+  error: Show Error
+  done: End, terminal
+  start --> creds
+  creds --> validate
+  validate --> dashboard: yes
+  validate --> error: no
   error --> creds
-  dashboard --> done((End))
+  dashboard --> done
 `);
 ```
 

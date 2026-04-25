@@ -9,7 +9,7 @@ api: fig(markdown|options) → string (SVG)
 tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, state-machine, er-diagram, timeline, swimlane, bubble-chart, svg, layout, visualization, markdown]
 ---
 
-# ai-figure Skill
+# ai-figure — Complete Syntax Quick-Start Guide
 
 Generates self-contained SVG diagrams. No coordinates needed — layout is computed automatically.
 
@@ -43,140 +43,257 @@ const svg2 = fig({ figure: 'flow', nodes: [...], edges: [...] });
 
 `fig()` accepts either a **markdown string** or a **JSON config**. When given a string it never throws — partial or empty input (e.g. during AI streaming) returns a valid empty SVG that fills in progressively.
 
-## Markdown syntax
+---
 
-**First line must be:** `figure <type>`
+## Markdown syntax reference
 
-Config lines use `key: value` syntax. Data lines use diagram-specific patterns.
+### Structure rules
 
-| Key | Values | Default |
-|-----|--------|---------|
-| `type` | `flow` `tree` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` `bubble` | required |
-| `direction` | `TB` `LR` | `TB` |
-| `theme` | `light` `dark` | `light` |
-| `palette` | `default` `antv` `drawio` `figma` `vega` `mono-blue` `mono-green` `mono-purple` `mono-orange` | `default` |
+Every markdown diagram follows three rules:
 
-Lines starting with `%%` are comments. `title:` and `subtitle:` work in all types.
+1. **First non-comment line must be** `figure <type>` (e.g. `figure flow`)
+2. **Config lines** come next — `key: value` pairs (see universal config below)
+3. **Data lines** are diagram-specific (nodes, edges, sections, etc.)
+4. Lines starting with `%%` are **comments** — ignored by the parser
 
-### Node declaration (flow / tree / arch / swimlane / state)
+```
+figure flow          ← header (required, must be first)
+title: My Flow       ← config
+direction: LR        ← config
+%% this is a comment ← ignored
+A: Source            ← data (node declaration)
+A --> B: step        ← data (edge)
+```
 
-Nodes are declared with `id: label` or `id: label, type` on their own line:
+### Universal config keys
 
-| Syntax | Shape |
-|--------|-------|
-| `id: label` | process (rectangle, default) |
-| `id: label, decision` | decision (diamond) |
-| `id: label, terminal` | terminal (pill) |
-| `id: label, io` | io (parallelogram) |
-| `id` | process, id used as label |
+These keys work in **all** diagram types:
 
-### flow
+| Key | Values | Default | Description |
+|-----|--------|---------|-------------|
+| `title` | any string | — | Centered title above the diagram |
+| `subtitle` | any string | — | Centered subtitle below the title |
+| `theme` | `light` · `dark` | `light` | Background and text color mode |
+| `palette` | see below | `default` | Color palette for nodes |
+| `direction` | `TB` · `LR` | `TB` | Layout direction (top-to-bottom or left-to-right) |
+
+**`palette` values:** `default` · `antv` · `drawio` · `figma` · `vega` · `mono-blue` · `mono-green` · `mono-purple` · `mono-orange` · or a 4-element hex array `['#e64980','#ae3ec9','#7048e8','#1098ad']`
+
+> ⚠️ **Reserved config keys** — do not use `title`, `subtitle`, `theme`, `palette`, or `direction` as node IDs; they are consumed by the config parser.
+
+---
+
+## Node declaration (flow / tree / arch / swimlane / state)
+
+Five diagrams share the same node declaration syntax. All shapes use the same `id: label [, type]` format — no bracket or symbol sugar:
+
+| Syntax | Shape | Use |
+|--------|-------|-----|
+| `id: label` | Rectangle | Default step / process |
+| `id: label, decision` | Diamond | Conditional / branch |
+| `id: label, terminal` | Pill | Start / End node |
+| `id: label, io` | Parallelogram | Input / Output |
+| `id` | Rectangle | Process; id is used as label |
+
+**Node IDs** should be short ASCII identifiers (letters, digits, underscores). Avoid spaces and reserved config keys.
+
+Nodes are implicitly created when referenced in an edge (`A --> B`) — you only need a standalone declaration to set a label or type different from the ID:
+
+```
+%% inline: node id is used as label (type = process)
+A --> B
+
+%% explicit: give a label and/or type
+A: Source Node
+B: Is Valid?, decision
+A --> B
+```
+
+---
+
+## Per-diagram syntax
+
+### flow — Flowchart
 
 ```
 figure flow
 direction: LR
 palette: antv
-title: My Flow
-A: Source
-B: Target
-C: Decision, decision
-A --> B          %% simple edge
-B --> C: label   %% labeled edge
-group Name: A, B %% logical group (dashed border)
+title: Auth Flow
+%% node declarations
+start: Start, terminal
+login: Enter Credentials
+validate: Valid?, decision
+ok: Success, terminal
+err: Show Error
+%% edges
+start --> login
+login --> validate
+validate --> ok: yes
+validate --> err: no
+err --> login
+%% optional logical group (dashed border, label above)
+group Auth: login, validate
 ```
 
-### tree
+**Rules:**
+- `id: label [, type]` — standalone node declaration (any order relative to edges)
+- `A --> B` — directed edge
+- `A --> B: label` — labeled edge (colon separates target id from edge label)
+- `group Label: id1, id2, …` — group nodes visually; label is the group title
+
+---
+
+### tree — Tree / Hierarchy
 
 ```
 figure tree
-direction: LR
+direction: TB
 title: Org Chart
-root: Root
-child: Child
-leaf: Leaf
-root --> child
-child --> leaf
+%% node declarations (optional; id = label if omitted)
+ceo: CEO
+cto: CTO
+eng1: Alice
+eng2: Bob
+%% parent → child edges define the hierarchy
+ceo --> cto
+cto --> eng1
+cto --> eng2
 ```
 
-### arch
+**Rules:**
+- Same node declaration syntax as flow
+- Edges define parent → child relationships; cycles are not supported
+- Root nodes (no incoming edges) are placed at the top (TB) or left (LR)
+
+---
+
+### arch — Architecture Diagram
 
 ```
 figure arch
 direction: TB
-palette: antv
+palette: figma
 title: Web Stack
 layer Frontend
   ui: React App
-  assets: Static Assets
+  cdn: CDN
 layer Backend
   api: REST API
   auth: Auth Service
 layer Data
   db: PostgreSQL
+  cache: Redis
 ```
 
-### sequence
+**Rules:**
+- `layer Label` — declares a new layer; label serves as both id and display name
+- `id: label` — node within the current layer (indentation is optional but recommended)
+- No edges — arch is a layered grid, not a graph
+- `direction: TB` stacks layers top-to-bottom; `LR` places them left-to-right
+
+---
+
+### sequence — Sequence Diagram
 
 ```
 figure sequence
-title: Login
-actors: Browser, API, DB         %% optional; inferred from messages if omitted
-Browser -> API: POST /login      %% solid arrow
-API --> Browser: 200 OK          %% dashed return arrow
+title: Login Flow
+actors: Browser, API, DB    %% optional; inferred from messages if omitted
+Browser -> API: POST /login  %% solid arrow (request)
+API -> DB: SELECT user       %% solid arrow
+DB --> API: user row         %% dashed arrow (response / return)
+API --> Browser: 200 OK      %% dashed arrow
 ```
 
-### quadrant
+**Rules:**
+- `actors: A, B, C` — explicit actor order (inferred from message order if omitted)
+- `A -> B: label` — solid arrow (request / call)
+- `A --> B: label` — dashed arrow (response / return); label is optional on both
+- Actor names can contain spaces; they are used verbatim as both id and display name
+
+---
+
+### quadrant — Quadrant Chart
 
 ```
 figure quadrant
-title: Priority
+title: Feature Priority
 x-axis Effort: Low .. High
 y-axis Value: Low .. High
-quadrant-1: Quick Wins    %% top-left
-quadrant-2: Strategic     %% top-right
-quadrant-3: Low Prio      %% bottom-left
-quadrant-4: Long Shots    %% bottom-right
-Feature A: 0.2, 0.9       %% label: x, y  (x/y in [0,1])
+quadrant-1: Quick Wins       %% top-left
+quadrant-2: Major Projects   %% top-right
+quadrant-3: Fill-ins         %% bottom-left
+quadrant-4: Thankless Tasks  %% bottom-right
+%% data points: Label: x, y  (x/y in [0,1]; 0=min, 1=max)
+Feature A: 0.2, 0.85
+Feature B: 0.75, 0.80
+Feature C: 0.5, 0.6
 ```
 
-### gantt
+**Rules:**
+- `x-axis Label: min .. max` or `x-axis: min .. max` (label optional)
+- `y-axis Label: min .. max` (same)
+- `quadrant-1` = top-left, `quadrant-2` = top-right, `quadrant-3` = bottom-left, `quadrant-4` = bottom-right
+- Data points: `Label: x, y` where x/y are decimals in `[0, 1]`
+- Points are auto-colored by which quadrant they fall in
+
+---
+
+### gantt — Gantt Chart
 
 ```
 figure gantt
 title: Q1 Roadmap
 section Design
-  Wireframes: t1, 2025-01-06, 2025-01-24    %% label: id, start, end
+  Wireframes: t1, 2025-01-06, 2025-01-24
   Mockups: t2, 2025-01-25, 2025-02-07
-section Dev
+section Development
   Frontend: t3, 2025-02-03, 2025-02-28
-milestone: Launch, 2025-03-01
+  Backend: t4, 2025-01-20, 2025-03-07
+milestone: Design Freeze, 2025-02-07
+milestone: Launch, 2025-03-28
 ```
 
-- Task format: `<label>: <id>, <yyyy-mm-dd>, <yyyy-mm-dd>` — **id is required**, even if you don't reference it
-- `end` ≥ `start`; `section` groups tasks under a bold header; `milestone: <label>, <date>` marks a point in time
+**Rules:**
+- `section Label` — groups subsequent tasks under a bold header
+- Task: `Label: id, yyyy-mm-dd, yyyy-mm-dd` — label (display), id (unique), start, end
+  - **id is required** even if not referenced elsewhere
+  - `end` date must be ≥ `start` date
+- `milestone: Label, yyyy-mm-dd` — vertical diamond marker on the time axis
 
-### state
+---
+
+### state — State Machine
 
 ```
 figure state
 title: Order Status
+%% state declarations
 idle: Idle
 processing: Processing
+shipped: Shipped
 failed: Failed
-accent: failed                   %% mark as accent/focal state
-start --> idle                   %% start pseudo-state
-idle --> processing: order placed
-processing --> end: shipped
+accent: failed             %% highlight as focal/error state (max 1–2)
+%% transitions
+start --> idle             %% start = reserved pseudo-state (filled circle ●)
+idle --> processing: place order
+processing --> shipped: confirmed
 processing --> failed: error
 failed --> idle: retry
+shipped --> end            %% end = reserved pseudo-state (ringed circle ◎)
 ```
 
+**Rules:**
 - `id: label` — normal state (rounded rectangle)
-- `start` / `end` — reserved pseudo-state ids (filled circle / ringed circle)
-- `id --> id2: event` — transition with optional label
-- `accent: id` — mark a state as the focal/error state (max 1–2)
+- `start` and `end` are **reserved** pseudo-state ids; do not use them as regular state ids
+- `id --> id2` or `id --> id2: event` — transition with optional event label
+- `accent: id` — marks a state with the accent color (typically the error/focal state)
+- State declarations are optional: unreferenced ids are auto-created with id as label
 
-### er
+---
+
+### er — Entity-Relationship Diagram
 
 ```
 figure er
@@ -184,71 +301,135 @@ title: Blog Schema
 entity User
   id pk: uuid
   email: text
+  name: text
 entity Post
   id pk: uuid
   author_id fk: uuid
   title: text
+  body: text
+entity Comment
+  id pk: uuid
+  post_id fk: uuid
 User --> Post: writes
+Post --> Comment: has
+accent: User               %% mark aggregate root
 ```
 
-- `entity Name` — declare an entity box (name used as id and label)
-- Fields: `name pk: type` (primary key), `name fk: type` (foreign key), `name: type`, or bare `name`
-- `A --> B: label` — relationship line with optional label
-- `accent: EntityName` to mark the aggregate root entity
+**Rules:**
+- `entity Name` — declares an entity box; Name is used as both id and display label
+- Fields inside an entity (indentation optional):
+  - `name pk: type` — primary key field
+  - `name fk: type` — foreign key field
+  - `name: type` — regular typed field
+  - `name` — bare field (no type)
+- `A --> B: label` — relationship line (label optional); appears after entity blocks
+- `accent: EntityName` — marks the aggregate root entity (max 1)
+- Config lines (`title`, `theme`, etc.) must come **before** the first `entity` line
 
-### timeline
+---
+
+### timeline — Timeline
 
 ```
 figure timeline
 title: Product History
-2020-01-15: v1.0 Launch milestone   %% major milestone (larger accent dot)
+2020-01-15: v1.0 Launch milestone
 2021-06-01: v1.5 Improvements
 2022-03-10: v2.0 Redesign milestone
 2023-11-01: v3.0 AI Features
+2024-06-15: v4.0 Performance milestone
 ```
 
-- Lines: `yyyy-mm-dd: label` or `yyyy-mm-dd: label milestone`
-- Events are sorted chronologically and spaced proportionally on a horizontal axis
-- Labels alternate above and below the baseline to reduce collision
+**Rules:**
+- Lines: `yyyy-mm-dd: label` — regular event (small dot)
+- Lines: `yyyy-mm-dd: label milestone` — major milestone (larger accent-color dot); append the literal word `milestone` after the label
+- Events are auto-sorted by date and spaced proportionally on a horizontal axis
+- Labels alternate above/below the baseline to reduce collision
 
-### swimlane
+---
+
+### swimlane — Swimlane Flow
 
 ```
 figure swimlane
-title: Order Flow
+title: Order Processing
 section Customer
   order: Place Order
   pay: Confirm Payment
 section Warehouse
   receive: Receive Order
-  pack: Pack Items
+  pack: Pack Items, decision
 section Shipping
-  ship: Ship Package
+  ship: Ship Package, io
+%% edges (can cross lanes)
 order --> pay
 pay --> receive
 receive --> pack
-pack --> ship
+pack --> ship: dispatched
 ```
 
-- `section LaneName` — declares a new lane; subsequent node lines belong to it
-- `id: label` or `id: label, type` — node declaration inside the current lane
-- `A --> B` or `A --> B: label` — directed edges (may cross lanes)
+**Rules:**
+- `section LaneName` — declares a lane; all following node lines belong to it
+- Node declarations inside a lane: `id: label [, type]` (same as flow)
+- `A --> B` or `A --> B: label` — directed edges; cross-lane edges use S-curve routing
+- Lanes appear in declaration order (top-to-bottom in the SVG)
 
-### bubble
+---
+
+### bubble — Bubble Chart
 
 ```
 figure bubble
 title: Market Analysis
-%% label: value (positive number)
+palette: vega
 Product A: 75
 Product B: 50
 Product C: 85
+Product D: 30
+Product E: 110
 ```
 
-- Data lines: `Label: value` — any positive number; bubble **area is proportional to value**
-- Positions computed automatically by a circle-packing algorithm — no coordinates needed
-- Bubbles cycle through `process`/`decision`/`terminal`/`io` palette colors by index
-- Each bubble pulses with a staggered SMIL animation (breathing effect)
+**Rules:**
+- Data lines: `Label: value` where value is a **positive number**
+- Bubble **area** is proportional to value (not radius)
+- Positions are computed automatically by a circle-packing algorithm
+- Bubbles cycle through palette colors by index and pulse with SMIL animation
+
+---
+
+## Syntax cheat sheet
+
+```
+%% ── Universal structure ──────────────────────────────────────
+figure <type>              %% required first line
+title: My Diagram          %% optional title
+subtitle: Details          %% optional subtitle
+theme: dark                %% light (default) | dark
+palette: antv              %% see palette list
+direction: LR              %% TB (default) | LR
+%% ── Node declaration (flow / tree / arch / swimlane / state) ─
+id                         %% process; id = label
+id: label                  %% process (rectangle)
+id: label, decision        %% decision (diamond)
+id: label, terminal        %% terminal (pill)
+id: label, io              %% io (parallelogram)
+%% ── Edges ───────────────────────────────────────────────────
+A --> B                    %% directed edge (flow / tree / state / er / swimlane)
+A --> B: label             %% labeled edge
+A -> B: label              %% solid arrow (sequence only)
+A --> B: response          %% dashed return arrow (sequence only)
+%% ── Grouping / sections ──────────────────────────────────────
+group Name: id1, id2       %% logical group in flow
+section Name               %% layer in gantt / lane in swimlane
+layer Name                 %% layer in arch
+entity Name                %% entity in er
+%% ── Special per-type ─────────────────────────────────────────
+accent: id                 %% highlight state/entity (state / er)
+milestone: Label, date     %% gantt milestone
+yyyy-mm-dd: label milestone %% timeline major event
+```
+
+---
 
 ## JSON config (fig(options))
 
