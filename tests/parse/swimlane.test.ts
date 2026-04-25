@@ -7,10 +7,10 @@
  *   figure swimlane
  *   title: Order Flow
  *   section Customer
- *     order[Place Order]
- *     pay[Confirm Payment]
+ *     order: Place Order
+ *     pay: Confirm Payment
  *   section Warehouse
- *     receive[Receive Order]
+ *     receive: Receive Order
  *   order --> pay
  *   pay --> receive
  */
@@ -23,10 +23,10 @@ describe('swimlane — markdown parse', () => {
       figure swimlane
       title: Order Flow
       section Customer
-        order[Place Order]
-        pay[Confirm Payment]
+        order: Place Order
+        pay: Confirm Payment
       section Warehouse
-        receive[Receive Order]
+        receive: Receive Order
       order --> pay
       pay --> receive
     `);
@@ -44,9 +44,9 @@ describe('swimlane — markdown parse', () => {
       title: Hiring Process
       subtitle: Recruitment pipeline
       section HR
-        screen[Screen]
+        screen: Screen
       section Engineering
-        interview[Interview]
+        interview: Interview
       screen --> interview
     `);
     expect(svg).toContain('Hiring Process');
@@ -58,7 +58,7 @@ describe('swimlane — markdown parse', () => {
       figure swimlane
       theme: dark
       section Lane A
-        n[Node]
+        n: Node
     `);
     expect(svg).toContain('#1a1b1e');
   });
@@ -68,7 +68,7 @@ describe('swimlane — markdown parse', () => {
       figure swimlane
       palette: antv
       section Lane
-        n[Node]
+        n: Node
     `);
     expect(svg).toContain('<svg');
   });
@@ -77,9 +77,9 @@ describe('swimlane — markdown parse', () => {
     const svg = fig(`
       figure swimlane
       section A
-        n1[Node 1]
+        n1: Node 1
       section B
-        n2[Node 2]
+        n2: Node 2
       n1 --> n2: approved
     `);
     expect(svg).toContain('approved');
@@ -89,10 +89,10 @@ describe('swimlane — markdown parse', () => {
     const svg = fig(`
       figure swimlane
       section Sales
-        lead[Lead]
-        deal[Deal]
+        lead: Lead
+        deal: Deal
       section Ops
-        fulfill[Fulfill]
+        fulfill: Fulfill
       lead --> deal
       deal --> fulfill
     `);
@@ -105,9 +105,9 @@ describe('swimlane — markdown parse', () => {
     const svg = fig(`
       figure swimlane
       section Lane
-        p[Process]
-        d{Decision}
-        t((Terminal))
+        p: Process
+        d: Decision, decision
+        t: Terminal, terminal
     `);
     expect(svg).toContain('Process');
     expect(svg).toContain('Decision');
@@ -118,9 +118,9 @@ describe('swimlane — markdown parse', () => {
     const svg = fig(`
       figure swimlane
       section A
-        n[First]
+        n: First
       section B
-        n[Second]
+        n: Second
     `);
     // Should not crash; first occurrence wins
     expect(svg).toContain('<svg');
@@ -137,7 +137,7 @@ describe('swimlane — markdown parse', () => {
       figure swimlane
       %% process flow
       section HR
-        start[Start]
+        start: Start
     `);
     expect(svg).toContain('Start');
   });
@@ -146,13 +146,13 @@ describe('swimlane — markdown parse', () => {
     const svg = fig(`
       figure swimlane
       section Customer
-        order[Place Order]
-        pay[Pay]
+        order: Place Order
+        pay: Pay
       section Finance
-        invoice[Issue Invoice]
-        receipt[Send Receipt]
+        invoice: Issue Invoice
+        receipt: Send Receipt
       section Fulfillment
-        ship[Ship]
+        ship: Ship
       order --> pay
       pay --> invoice
       invoice --> receipt

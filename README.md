@@ -636,17 +636,17 @@ fig({ figure: 'flow', nodes, edges, palette: ['#e64980', '#ae3ec9', '#7048e8', '
 
 Config keys available in all diagram types: `title`, `subtitle`, `theme` (`light`\|`dark`), `palette`, `direction` (`TB`\|`LR`).
 
-#### Node notation (flow / tree / arch / swimlane)
+#### Node declaration (flow / tree / arch / swimlane / state)
 
-These bracket suffixes are **syntax sugar** — a compact way to declare a node's visual shape inline:
+Nodes are declared with `id: label` or `id: label, type` on their own line:
 
-| Notation | Shape |
-|----------|-------|
-| `id[label]` | process (rectangle) |
-| `id{label}` | decision (diamond) |
-| `id((label))` | terminal (pill) |
-| `id[/label/]` | io (parallelogram) |
-| `id` | process (bare id used as label) |
+| Syntax | Shape |
+|--------|-------|
+| `id: label` | process (rectangle, default) |
+| `id: label, decision` | decision (diamond) |
+| `id: label, terminal` | terminal (pill) |
+| `id: label, io` | io (parallelogram) |
+| `id` | process, id used as label |
 
 #### Per-diagram syntax
 
@@ -658,9 +658,10 @@ figure flow
 direction: LR
 title: Optional Title
 subtitle: Optional Subtitle
-id[Label]                          %% standalone node definition
-A[Source] --> B[Target]            %% edge
-A --> B[Target]: label             %% labeled edge
+id: Label                          %% standalone node declaration
+id: Label, decision                %% typed node declaration
+A --> B                            %% edge
+A --> B: label                     %% labeled edge
 group GroupName: id1, id2, id3     %% logical group
 ```
 </details>
@@ -672,8 +673,9 @@ group GroupName: id1, id2, id3     %% logical group
 figure tree
 direction: LR
 title: Optional Title
-root[Root]                   %% root node (no parent)
-root --> child[Child]        %% parent → child relationship
+root: Root                   %% root node (no parent)
+child: Child
+root --> child               %% parent → child relationship
 ```
 </details>
 
@@ -685,7 +687,7 @@ figure arch
 direction: TB
 title: Optional Title
 layer Layer Label            %% layer declaration (label serves as id)
-  nodeId[Node Label]         %% node in current layer (indentation optional)
+  nodeId: Node Label         %% node in current layer (indentation optional)
 ```
 </details>
 
@@ -737,7 +739,8 @@ milestone: Label, date             %% milestone diamond
 ```
 figure state
 title: Optional Title
-idle[Idle]                         %% normal state (rounded rectangle)
+idle: Idle                         %% normal state (rounded rectangle)
+failed: Failed
 accent: failed                     %% highlight as focal/error state
 start --> idle                     %% start pseudo-state → first state
 idle --> processing: order placed  %% transition with optional label
@@ -782,12 +785,12 @@ title: Optional Title
 figure swimlane
 title: Optional Title
 section Customer                          %% declare lane (subsequent nodes belong here)
-  order[Place Order]                      %% node in current lane
-  pay[Confirm Payment]
+  order: Place Order                      %% node in current lane
+  pay: Confirm Payment
 section Warehouse
-  pack[Pack Items]
+  pack: Pack Items
 section Shipping
-  ship[Ship Package]
+  ship: Ship Package
 order --> pack                            %% edges between nodes
 pack --> ship
 ```

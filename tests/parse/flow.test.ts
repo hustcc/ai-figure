@@ -6,8 +6,9 @@
  *   direction: LR
  *   palette: antv
  *   title: My Flow
- *   a[Node A] --> b{Decision}: yes
- *   b --> c[Node C]: no
+ *   a: Node A
+ *   b: Decision, decision
+ *   a --> b: yes
  *   group Group: a, b
  */
 import { describe, it, expect } from 'vitest';
@@ -18,8 +19,11 @@ describe('flow — markdown parse', () => {
     const svg = fig(`
       figure flow
       title: Auth Flow
-      start[Start] --> login[Login]
-      login --> done[Done]
+      start: Start
+      login: Login
+      done: Done
+      start --> login
+      login --> done
     `);
     expect(svg).toContain('<svg');
     expect(svg).toContain('Auth Flow');
@@ -28,20 +32,20 @@ describe('flow — markdown parse', () => {
   });
 
   it('config: direction LR is respected', () => {
-    const svgTB = fig('figure flow\ndirection: TB\na[A] --> b[B]');
-    const svgLR = fig('figure flow\ndirection: LR\na[A] --> b[B]');
+    const svgTB = fig('figure flow\ndirection: TB\na --> b');
+    const svgLR = fig('figure flow\ndirection: LR\na --> b');
     // Both render; LR diagram should typically be wider than tall
     expect(svgTB).toContain('<svg');
     expect(svgLR).toContain('<svg');
   });
 
   it('config: palette antv is applied', () => {
-    const svg = fig('figure flow\npalette: antv\na[A] --> b[B]');
+    const svg = fig('figure flow\npalette: antv\na --> b');
     expect(svg).toContain('#5b8ff9'); // antv process stroke
   });
 
   it('config: dark theme renders dark background', () => {
-    const svg = fig('figure flow\ntheme: dark\na[A] --> b[B]');
+    const svg = fig('figure flow\ntheme: dark\na --> b');
     expect(svg).toContain('#1a1b1e');
   });
 
@@ -50,17 +54,21 @@ describe('flow — markdown parse', () => {
       figure flow
       title: CI Pipeline
       subtitle: automated build
-      a[Build] --> b[Test]
+      a: Build
+      b: Test
+      a --> b
     `);
     expect(svg).toContain('CI Pipeline');
     expect(svg).toContain('automated build');
   });
 
-  it('edge label syntax: A --> B[Label]: edgeLabel', () => {
+  it('edge label syntax: A --> B: edgeLabel', () => {
     const svg = fig(`
       figure flow
-      a --> b[Build]: yes
-      a --> c[Fix]: no
+      a --> b: yes
+      a --> c: no
+      b: Build
+      c: Fix
     `);
     expect(svg).toContain('yes');
     expect(svg).toContain('no');
@@ -71,10 +79,10 @@ describe('flow — markdown parse', () => {
   it('all four node types: process, decision, terminal, io', () => {
     const svg = fig(`
       figure flow
-      p[Process]
-      d{Decision}
-      t((Terminal))
-      io[/IO/]
+      p: Process
+      d: Decision, decision
+      t: Terminal, terminal
+      io: IO, io
     `);
     expect(svg).toContain('node-process');
     expect(svg).toContain('node-decision');
@@ -85,7 +93,7 @@ describe('flow — markdown parse', () => {
   it('group syntax creates a group border', () => {
     const svg = fig(`
       figure flow
-      a[A] --> b[B]
+      a --> b
       group MyGroup: a, b
     `);
     expect(svg).toContain('MyGroup');
@@ -96,7 +104,9 @@ describe('flow — markdown parse', () => {
     const svg = fig(`
       figure flow
       %% this is a comment
-      a[Alpha] --> b[Beta]
+      a: Alpha
+      b: Beta
+      a --> b
     `);
     expect(svg).toContain('Alpha');
     expect(svg).toContain('Beta');
@@ -109,15 +119,16 @@ describe('flow — markdown parse', () => {
   });
 
   it('streaming safety: incomplete edge line does not crash', () => {
-    const svg = fig('figure flow\na[Write Code] -->');
+    const svg = fig('figure flow\na -->');
     expect(svg).toContain('<svg');
   });
 
-  it('inline node definitions refine earlier bare-id references', () => {
+  it('node declarations refine earlier bare-id references', () => {
     const svg = fig(`
       figure flow
       a --> b
-      b[Named Node] --> c
+      b: Named Node
+      b --> c
     `);
     expect(svg).toContain('Named Node');
   });
@@ -129,7 +140,7 @@ describe('flow — markdown parse', () => {
       direction: LR
       theme: dark
       title: Multi-Config Test
-      a[A] --> b[B]
+      a --> b
     `);
     expect(svg).toContain('Multi-Config Test');
     expect(svg).toContain('#1a1b1e'); // dark background

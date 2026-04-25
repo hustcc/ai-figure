@@ -22,11 +22,15 @@ const svg = fig(`
   direction: LR
   palette: antv
   title: CI Pipeline
-  code[Write Code] --> test{Tests Pass?}
-  test --> build[Build Image]: yes
-  test --> fix((Fix Issues)): no
+  code: Write Code
+  test: Tests Pass?, decision
+  build: Build Image
+  fix: Fix Issues, terminal
+  deploy: Deploy, io
+  code --> test
+  test --> build: yes
+  test --> fix: no
   fix --> code
-  build --> deploy[/Deploy/]
   group Pipeline: code, test, build
 `);
 
@@ -54,16 +58,16 @@ Config lines use `key: value` syntax. Data lines use diagram-specific patterns.
 
 Lines starting with `%%` are comments. `title:` and `subtitle:` work in all types.
 
-### Node notation (flow / tree / arch / swimlane)
+### Node declaration (flow / tree / arch / swimlane / state)
 
-These bracket suffixes are **syntax sugar** — a compact way to declare a node's visual shape inline, without a separate node definition line.
+Nodes are declared with `id: label` or `id: label, type` on their own line:
 
-| Notation | Shape |
-|----------|-------|
-| `id[label]` | process (rectangle) |
-| `id{label}` | decision (diamond) |
-| `id((label))` | terminal (pill) |
-| `id[/label/]` | io (parallelogram) |
+| Syntax | Shape |
+|--------|-------|
+| `id: label` | process (rectangle, default) |
+| `id: label, decision` | decision (diamond) |
+| `id: label, terminal` | terminal (pill) |
+| `id: label, io` | io (parallelogram) |
 | `id` | process, id used as label |
 
 ### flow
@@ -73,9 +77,12 @@ figure flow
 direction: LR
 palette: antv
 title: My Flow
-A[Source] --> B[Target]          %% simple edge
-A --> B[Target]: label           %% labeled edge
-group Name: id1, id2, id3        %% logical group (dashed border)
+A: Source
+B: Target
+C: Decision, decision
+A --> B          %% simple edge
+B --> C: label   %% labeled edge
+group Name: A, B %% logical group (dashed border)
 ```
 
 ### tree
@@ -84,9 +91,11 @@ group Name: id1, id2, id3        %% logical group (dashed border)
 figure tree
 direction: LR
 title: Org Chart
-root[Root]
-root --> child[Child]
-child --> leaf[Leaf]
+root: Root
+child: Child
+leaf: Leaf
+root --> child
+child --> leaf
 ```
 
 ### arch
@@ -97,13 +106,13 @@ direction: TB
 palette: antv
 title: Web Stack
 layer Frontend
-  ui[React App]
-  assets[Static Assets]
+  ui: React App
+  assets: Static Assets
 layer Backend
-  api[REST API]
-  auth[Auth Service]
+  api: REST API
+  auth: Auth Service
 layer Data
-  db[PostgreSQL]
+  db: PostgreSQL
 ```
 
 ### sequence
@@ -151,8 +160,9 @@ milestone: Launch, 2025-03-01
 ```
 figure state
 title: Order Status
-idle[Idle]
-processing[Processing]
+idle: Idle
+processing: Processing
+failed: Failed
 accent: failed                   %% mark as accent/focal state
 start --> idle                   %% start pseudo-state
 idle --> processing: order placed
@@ -161,7 +171,7 @@ processing --> failed: error
 failed --> idle: retry
 ```
 
-- `id[label]` — normal state (rounded rectangle)
+- `id: label` — normal state (rounded rectangle)
 - `start` / `end` — reserved pseudo-state ids (filled circle / ringed circle)
 - `id --> id2: event` — transition with optional label
 - `accent: id` — mark a state as the focal/error state (max 1–2)
@@ -207,13 +217,13 @@ title: Product History
 figure swimlane
 title: Order Flow
 section Customer
-  order[Place Order]
-  pay[Confirm Payment]
+  order: Place Order
+  pay: Confirm Payment
 section Warehouse
-  receive[Receive Order]
-  pack[Pack Items]
+  receive: Receive Order
+  pack: Pack Items
 section Shipping
-  ship[Ship Package]
+  ship: Ship Package
 order --> pay
 pay --> receive
 receive --> pack
@@ -221,7 +231,7 @@ pack --> ship
 ```
 
 - `section LaneName` — declares a new lane; subsequent node lines belong to it
-- `id[Node Label]` — node declaration inside the current lane
+- `id: label` or `id: label, type` — node declaration inside the current lane
 - `A --> B` or `A --> B: label` — directed edges (may cross lanes)
 
 ### bubble

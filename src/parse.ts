@@ -109,55 +109,36 @@ function splitOnArrow(line: string, arrow: string): [string, string] | null {
 }
 
 /**
- * Parse a node expression `id[label]`, `id{label}`, `id((label))`, `id[/label/]`,
- * or a bare identifier. Uses indexOf/endsWith to avoid regex backtracking.
+ * Parse a node declaration line.
+ * Formats:
+ *   `id: label`           → process (default)
+ *   `id: label, decision` → decision
+ *   `id: label, terminal` → terminal
+ *   `id: label, io`       → io
+ *   `id`                  → process, id used as label
  */
 function parseNodeExpr(expr: string): { id: string; label: string; type: NodeType } {
   const s = expr.trim();
-
-  const dblOpen = s.indexOf('((');
-  if (dblOpen > 0 && s.endsWith('))')) {
-    const id = s.slice(0, dblOpen).trim();
-    if (id) return { id, label: s.slice(dblOpen + 2, s.length - 2).trim() || id, type: 'terminal' };
+  const ci = s.indexOf(':');
+  if (ci === -1) return { id: s, label: s, type: 'process' };
+  const id = s.slice(0, ci).trim();
+  if (!id) return { id: s, label: s, type: 'process' };
+  const rest = s.slice(ci + 1).trim();
+  const comma = rest.lastIndexOf(',');
+  if (comma !== -1) {
+    const maybeType = rest.slice(comma + 1).trim().toLowerCase();
+    if (maybeType === 'process' || maybeType === 'decision' || maybeType === 'terminal' || maybeType === 'io') {
+      return { id, label: rest.slice(0, comma).trim() || id, type: maybeType as NodeType };
+    }
   }
-
-  const ioOpen = s.indexOf('[/');
-  if (ioOpen > 0 && s.endsWith('/]')) {
-    const id = s.slice(0, ioOpen).trim();
-    if (id) return { id, label: s.slice(ioOpen + 2, s.length - 2).trim() || id, type: 'io' };
-  }
-
-  const sqOpen = s.indexOf('[');
-  if (sqOpen > 0 && s.endsWith(']') && s[sqOpen + 1] !== '/') {
-    const id = s.slice(0, sqOpen).trim();
-    if (id) return { id, label: s.slice(sqOpen + 1, s.length - 1).trim() || id, type: 'process' };
-  }
-
-  const curlOpen = s.indexOf('{');
-  if (curlOpen > 0 && s.endsWith('}')) {
-    const id = s.slice(0, curlOpen).trim();
-    if (id) return { id, label: s.slice(curlOpen + 1, s.length - 1).trim() || id, type: 'decision' };
-  }
-
-  return { id: s, label: s, type: 'process' };
+  return { id, label: rest || id, type: 'process' };
 }
 
 /**
- * For flow right-hand sides: split `nodeExpr: edgeLabel` into node expression and
- * optional edge label.  The separator `:` must appear *after* the closing bracket.
+ * For flow right-hand sides: split `nodeId: edgeLabel` into node id and
+ * optional edge label.
  */
 function splitFlowRight(s: string): [string, string | undefined] {
-  const lastSq  = s.lastIndexOf(']');
-  const lastCu  = s.lastIndexOf('}');
-  const lastDbl = s.lastIndexOf('))');
-  const term    = Math.max(lastSq, lastCu, lastDbl !== -1 ? lastDbl + 1 : -1);
-
-  if (term > 0) {
-    const after = s.slice(term + 1).trimStart();
-    return after.startsWith(':')
-      ? [s.slice(0, term + 1).trim(), after.slice(1).trim()]
-      : [s, undefined];
-  }
   const ci = s.indexOf(':');
   return ci !== -1 ? [s.slice(0, ci).trim(), s.slice(ci + 1).trim()] : [s, undefined];
 }

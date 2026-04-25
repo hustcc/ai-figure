@@ -46,9 +46,13 @@ const EMPTY_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1">
  *   direction: LR
  *   palette: antv
  *   title: CI Pipeline
- *   code[Write Code] --> test{Tests Pass?}
- *   test --> build[Build Image]: yes
- *   test --> fix((Fix Issues)): no
+ *   code: Write Code
+ *   test: Tests Pass?, decision
+ *   build: Build Image
+ *   fix: Fix Issues, terminal
+ *   code --> test
+ *   test --> build: yes
+ *   test --> fix: no
  * `);
  *
  * // JSON config object (typed, programmatic)

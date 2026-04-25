@@ -5,10 +5,10 @@
  *   direction: TB
  *   title: Cloud Architecture
  *   layer Frontend
- *     web[Web App]
- *     mobile[Mobile]
+ *     web: Web App
+ *     mobile: Mobile
  *   layer Backend
- *     api[API Server]
+ *     api: API Server
  */
 import { describe, it, expect } from 'vitest';
 import { fig } from '../../src/index';
@@ -19,10 +19,10 @@ describe('arch — markdown parse', () => {
       figure arch
       title: Cloud Architecture
       layer Frontend
-        web[Web App]
-        mobile[Mobile]
+        web: Web App
+        mobile: Mobile
       layer Backend
-        api[API Server]
+        api: API Server
     `);
     expect(svg).toContain('<svg');
     expect(svg).toContain('Cloud Architecture');
@@ -37,9 +37,9 @@ describe('arch — markdown parse', () => {
       figure arch
       direction: LR
       layer Layer A
-        n1[Node 1]
+        n1: Node 1
       layer Layer B
-        n2[Node 2]
+        n2: Node 2
     `);
     expect(svg).toContain('<svg');
     expect(svg).toContain('Layer A');
@@ -52,7 +52,7 @@ describe('arch — markdown parse', () => {
       title: Microservices
       subtitle: Production topology
       layer Services
-        svc[Service]
+        svc: Service
     `);
     expect(svg).toContain('Microservices');
     expect(svg).toContain('Production topology');
@@ -63,7 +63,7 @@ describe('arch — markdown parse', () => {
       figure arch
       palette: antv
       layer Frontend
-        web[Web]
+        web: Web
     `);
     expect(svg).toContain('<svg');
   });
@@ -73,7 +73,7 @@ describe('arch — markdown parse', () => {
       figure arch
       theme: dark
       layer Layer
-        node[Node]
+        node: Node
     `);
     expect(svg).toContain('#1a1b1e');
   });
@@ -82,13 +82,13 @@ describe('arch — markdown parse', () => {
     const svg = fig(`
       figure arch
       layer UI
-        react[React]
-        vue[Vue]
+        react: React
+        vue: Vue
       layer API
-        rest[REST]
-        graphql[GraphQL]
+        rest: REST
+        graphql: GraphQL
       layer DB
-        postgres[Postgres]
+        postgres: Postgres
     `);
     expect(svg).toContain('React');
     expect(svg).toContain('GraphQL');
@@ -110,7 +110,7 @@ describe('arch — markdown parse', () => {
       figure arch
       %% This is a comment
       layer Layer
-        node[Node]
+        node: Node
     `);
     expect(svg).toContain('Node');
   });

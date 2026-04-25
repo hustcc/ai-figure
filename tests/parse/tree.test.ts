@@ -4,8 +4,11 @@
  *   figure tree
  *   direction: TB
  *   title: Org Chart
- *   ceo[CEO] --> cto[CTO]
- *   ceo --> coo[COO]
+ *   ceo: CEO
+ *   cto: CTO
+ *   coo: COO
+ *   ceo --> cto
+ *   ceo --> coo
  */
 import { describe, it, expect } from 'vitest';
 import { fig } from '../../src/index';
@@ -15,8 +18,11 @@ describe('tree — markdown parse', () => {
     const svg = fig(`
       figure tree
       title: Org Chart
-      ceo[CEO] --> cto[CTO]
-      ceo --> coo[COO]
+      ceo: CEO
+      cto: CTO
+      coo: COO
+      ceo --> cto
+      ceo --> coo
     `);
     expect(svg).toContain('<svg');
     expect(svg).toContain('Org Chart');
@@ -29,7 +35,9 @@ describe('tree — markdown parse', () => {
     const svg = fig(`
       figure tree
       direction: LR
-      root[Root] --> child[Child]
+      root: Root
+      child: Child
+      root --> child
     `);
     expect(svg).toContain('<svg');
     expect(svg).toContain('Root');
@@ -40,7 +48,9 @@ describe('tree — markdown parse', () => {
       figure tree
       title: Project Layout
       subtitle: Source tree overview
-      root[src] --> lib[lib]
+      root: src
+      lib: lib
+      root --> lib
     `);
     expect(svg).toContain('Project Layout');
     expect(svg).toContain('Source tree overview');
@@ -51,7 +61,9 @@ describe('tree — markdown parse', () => {
       figure tree
       palette: vega
       theme: dark
-      root[Root] --> child[Child]
+      root: Root
+      child: Child
+      root --> child
     `);
     expect(svg).toContain('#1a1b1e'); // dark background
   });
@@ -59,9 +71,13 @@ describe('tree — markdown parse', () => {
   it('multi-level hierarchy', () => {
     const svg = fig(`
       figure tree
-      ceo[CEO] --> vp[VP Eng]
-      vp --> dev[Developer]
-      vp --> qa[QA]
+      ceo: CEO
+      vp: VP Eng
+      dev: Developer
+      qa: QA
+      ceo --> vp
+      vp --> dev
+      vp --> qa
     `);
     expect(svg).toContain('VP Eng');
     expect(svg).toContain('Developer');
@@ -71,8 +87,9 @@ describe('tree — markdown parse', () => {
   it('standalone root node declaration', () => {
     const svg = fig(`
       figure tree
-      root[Application Root]
-      root --> ui[UI]
+      root: Application Root
+      ui: UI
+      root --> ui
     `);
     expect(svg).toContain('Application Root');
     expect(svg).toContain('UI');
@@ -82,7 +99,8 @@ describe('tree — markdown parse', () => {
     const svg = fig(`
       figure tree
       root --> child
-      child[Explicit Label] --> leaf
+      child: Explicit Label
+      child --> leaf
     `);
     expect(svg).toContain('Explicit Label');
   });
@@ -97,7 +115,9 @@ describe('tree — markdown parse', () => {
     const svg = fig(`
       figure tree
       %% root node
-      root[Root] --> child[Child]
+      root: Root
+      child: Child
+      root --> child
     `);
     expect(svg).toContain('Root');
     expect(svg).toContain('Child');
