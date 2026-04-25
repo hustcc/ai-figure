@@ -29,7 +29,7 @@ import type {
  *
  * Header: `figure <type>` (required). Config: `key: value` lines.
  * Data: `A --> B: label` arrows, `section Name`, `Label: x, y` points,
- * `yyyy-mm-dd: label [milestone]` date events, `Label: id, start, end` Gantt tasks.
+ * `yyyy-mm-dd: label [milestone]` date events, `id: label, start, end` Gantt tasks.
  * Lines starting with `%%` are comments.
  *
  * Throws on empty input, missing `figure` header, or unknown type.
@@ -384,9 +384,9 @@ function parseGantt(lines: string[]): FigOptions {
     const rest = before.slice(0, pc);
     const ci   = rest.indexOf(':');
     if (ci === -1) continue;
-    const taskLabel = rest.slice(0, ci).trim();
-    const taskId    = rest.slice(ci + 1).trim();
-    if (!taskLabel || !taskId) continue;
+    const taskId    = rest.slice(0, ci).trim();
+    const taskLabel = rest.slice(ci + 1).trim();
+    if (!taskId || !taskLabel) continue;
 
     tasks.push({ id: taskId, label: taskLabel, start, end, ...(section !== undefined ? { groupId: section } : {}) });
   }

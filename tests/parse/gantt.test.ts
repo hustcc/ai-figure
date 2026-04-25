@@ -4,9 +4,9 @@
  *   figure gantt
  *   title: Q1 Roadmap
  *   section Design
- *     Wireframes: t1, 2025-01-06, 2025-01-24
+ *     t1: Wireframes, 2025-01-06, 2025-01-24
  *   section Dev
- *     Frontend: t2, 2025-01-20, 2025-02-28
+ *     t2: Frontend, 2025-01-20, 2025-02-28
  *   milestone: Launch, 2025-03-01
  */
 import { describe, it, expect } from 'vitest';
@@ -18,9 +18,9 @@ describe('gantt — markdown parse', () => {
       figure gantt
       title: Q1 Roadmap
       section Design
-        Wireframes: t1, 2025-01-06, 2025-01-24
+        t1: Wireframes, 2025-01-06, 2025-01-24
       section Dev
-        Frontend: t2, 2025-01-20, 2025-02-28
+        t2: Frontend, 2025-01-20, 2025-02-28
     `);
     expect(svg).toContain('<svg');
     expect(svg).toContain('Q1 Roadmap');
@@ -33,7 +33,7 @@ describe('gantt — markdown parse', () => {
       figure gantt
       title: Project Timeline
       subtitle: Jan–Mar 2025
-      Task A: a1, 2025-01-01, 2025-01-15
+      a1: Task A, 2025-01-01, 2025-01-15
     `);
     expect(svg).toContain('Project Timeline');
     expect(svg).toContain('Jan–Mar 2025');
@@ -43,7 +43,7 @@ describe('gantt — markdown parse', () => {
     const svg = fig(`
       figure gantt
       theme: dark
-      Task: t1, 2025-01-01, 2025-01-15
+      t1: Task, 2025-01-01, 2025-01-15
     `);
     expect(svg).toContain('#1a1b1e');
   });
@@ -52,7 +52,7 @@ describe('gantt — markdown parse', () => {
     const svg = fig(`
       figure gantt
       palette: drawio
-      Task: t1, 2025-01-01, 2025-01-15
+      t1: Task, 2025-01-01, 2025-01-15
     `);
     expect(svg).toContain('<svg');
   });
@@ -60,7 +60,7 @@ describe('gantt — markdown parse', () => {
   it('milestone: lines create milestone markers', () => {
     const svg = fig(`
       figure gantt
-      Task A: a1, 2025-01-01, 2025-01-15
+      a1: Task A, 2025-01-01, 2025-01-15
       milestone: Release v1, 2025-01-20
     `);
     expect(svg).toContain('Release v1');
@@ -70,9 +70,9 @@ describe('gantt — markdown parse', () => {
     const svg = fig(`
       figure gantt
       section Phase 1
-        Design: d1, 2025-01-01, 2025-01-15
+        d1: Design, 2025-01-01, 2025-01-15
       section Phase 2
-        Dev: d2, 2025-01-16, 2025-02-15
+        d2: Dev, 2025-01-16, 2025-02-15
     `);
     expect(svg).toContain('Phase 1');
     expect(svg).toContain('Phase 2');
@@ -83,7 +83,7 @@ describe('gantt — markdown parse', () => {
   it('tasks without a section are also rendered', () => {
     const svg = fig(`
       figure gantt
-      Ungrouped: u1, 2025-01-01, 2025-01-31
+      u1: Ungrouped, 2025-01-01, 2025-01-31
     `);
     expect(svg).toContain('Ungrouped');
   });
@@ -93,7 +93,7 @@ describe('gantt — markdown parse', () => {
       fig(`
         figure gantt
         Bad line without dates
-        Good Task: g1, 2025-01-01, 2025-01-15
+        g1: Good Task, 2025-01-01, 2025-01-15
       `),
     ).not.toThrow();
   });
@@ -107,7 +107,7 @@ describe('gantt — markdown parse', () => {
     const svg = fig(`
       figure gantt
       %% project tasks
-      Sprint 1: s1, 2025-01-06, 2025-01-17
+      s1: Sprint 1, 2025-01-06, 2025-01-17
     `);
     expect(svg).toContain('Sprint 1');
   });

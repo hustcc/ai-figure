@@ -733,7 +733,7 @@ Point Label: 0.3, 0.7             %% data point (x, y in [0, 1])
 figure gantt
 title: Optional Title
 section Section Name               %% group header (applied to subsequent tasks)
-  Task Label: id, start, end       %% task bar (dates: yyyy-mm-dd)
+  id: Task Label, start, end       %% task bar (dates: yyyy-mm-dd)
 milestone: Label, date             %% milestone diamond
 ```
 </details>

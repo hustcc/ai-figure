@@ -246,18 +246,18 @@ Feature C: 0.5, 0.6
 figure gantt
 title: Q1 Roadmap
 section Design
-  Wireframes: t1, 2025-01-06, 2025-01-24
-  Mockups: t2, 2025-01-25, 2025-02-07
+  t1: Wireframes, 2025-01-06, 2025-01-24
+  t2: Mockups, 2025-01-25, 2025-02-07
 section Development
-  Frontend: t3, 2025-02-03, 2025-02-28
-  Backend: t4, 2025-01-20, 2025-03-07
+  t3: Frontend, 2025-02-03, 2025-02-28
+  t4: Backend, 2025-01-20, 2025-03-07
 milestone: Design Freeze, 2025-02-07
 milestone: Launch, 2025-03-28
 ```
 
 **Rules:**
 - `section Label` — groups subsequent tasks under a bold header
-- Task: `Label: id, yyyy-mm-dd, yyyy-mm-dd` — label (display), id (unique), start, end
+- Task: `id: label, yyyy-mm-dd, yyyy-mm-dd` — id (unique), label (display), start, end
   - **id is required** even if not referenced elsewhere
   - `end` date must be ≥ `start` date
 - `milestone: Label, yyyy-mm-dd` — vertical diamond marker on the time axis
