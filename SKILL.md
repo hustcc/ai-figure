@@ -49,7 +49,7 @@ const svg2 = fig({ figure: 'flow', nodes: [...], edges: [...] });
 
 ### Structure rules
 
-Every markdown diagram follows three rules:
+Every markdown diagram follows four rules:
 
 1. **First non-comment line must be** `figure <type>` (e.g. `figure flow`)
 2. **Config lines** come next — `key: value` pairs (see universal config below)
