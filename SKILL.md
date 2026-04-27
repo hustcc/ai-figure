@@ -234,104 +234,64 @@ Product C: 85
 ```
 
 - Data lines: `Label: value` — any positive number; bubble **area is proportional to value**
-- Positions computed automatically by a circle-packing algorithm — no coordinates needed
-- Bubbles cycle through `process`/`decision`/`terminal`/`io` palette colors by index
-- Each bubble pulses with a staggered SMIL animation (breathing effect)
+- Positions computed automatically; no coordinates needed
 
 ## JSON config (fig(options))
 
 Same result as markdown but typed. Use when building diagrams programmatically.
 
+All options share: `title?`, `subtitle?`, `theme?: 'light'|'dark'`, `palette?: string|string[]`, and (where applicable) `direction?: 'TB'|'LR'`.
+
 ```typescript
-interface FlowChartOptions {
-  figure: 'flow';
-  nodes: FlowNode[];        // { id, label, type?: 'process'|'decision'|'terminal'|'io' }
-  edges: FlowEdge[];        // { from, to, label? }
-  groups?: FlowGroup[];     // { id, label, nodes: string[] }
-  direction?: 'TB'|'LR'; title?: string; subtitle?: string;
-  theme?: 'light'|'dark'; palette?: string|string[];
-}
+// flow
+{ figure: 'flow', nodes: FlowNode[], edges: FlowEdge[], groups?: FlowGroup[] }
+// FlowNode:  { id, label, type?: 'process'|'decision'|'terminal'|'io' }
+// FlowEdge:  { from, to, label? }
+// FlowGroup: { id, label, nodes: string[] }
 
-interface TreeDiagramOptions {
-  figure: 'tree';
-  nodes: TreeNode[];        // { id, label, parent? }
-  direction?: 'TB'|'LR'; title?: string; subtitle?: string;
-  theme?: 'light'|'dark'; palette?: string|string[];
-}
+// tree
+{ figure: 'tree', nodes: TreeNode[] }
+// TreeNode: { id, label, parent? }
 
-interface ArchDiagramOptions {
-  figure: 'arch';
-  layers: ArchLayer[];      // { id, label, nodes: { id, label }[] }
-  direction?: 'TB'|'LR'; title?: string; subtitle?: string;
-  theme?: 'light'|'dark'; palette?: string|string[];
-}
+// arch
+{ figure: 'arch', layers: ArchLayer[] }
+// ArchLayer: { id, label, nodes: { id, label }[] }
 
-interface SequenceDiagramOptions {
-  figure: 'sequence';
-  actors: string[];
-  messages: SeqMessage[];   // { from, to, label?, style?: 'solid'|'return' }
-  title?: string; subtitle?: string;
-  theme?: 'light'|'dark'; palette?: string|string[];
-}
+// sequence
+{ figure: 'sequence', actors: string[], messages: SeqMessage[] }
+// SeqMessage: { from, to, label?, style?: 'solid'|'return' }
 
-interface QuadrantChartOptions {
-  figure: 'quadrant';
-  xAxis: { label: string; min: string; max: string };
-  yAxis: { label: string; min: string; max: string };
-  quadrants: [string, string, string, string]; // [TL, TR, BL, BR]
-  points: QuadrantPoint[];  // { id, label, x, y }  x/y in [0,1]
-  title?: string; subtitle?: string;
-  theme?: 'light'|'dark'; palette?: string|string[];
-}
+// quadrant — quadrants: [top-left, top-right, bottom-left, bottom-right]; x=0 left, y=0 bottom
+{ figure: 'quadrant', xAxis: { label, min, max }, yAxis: { label, min, max },
+  quadrants: [string, string, string, string], points: QuadrantPoint[] }
+// QuadrantPoint: { id, label, x, y }  x/y in [0,1]
 
-interface GanttChartOptions {
-  figure: 'gantt';
-  tasks: GanttTask[];       // { id, label, start, end, groupId?, color? }
-  milestones?: GanttMilestone[]; // { date, label }
-  title?: string; subtitle?: string;
-  theme?: 'light'|'dark'; palette?: string|string[];
-}
+// gantt
+{ figure: 'gantt', tasks: GanttTask[], milestones?: GanttMilestone[] }
+// GanttTask:      { id, label, start, end, groupId? }  start/end: 'yyyy-mm-dd'
+// GanttMilestone: { date, label }
 
-interface StateDiagramOptions {
-  figure: 'state';
-  nodes: StateNode[];       // { id, label, type?: 'state'|'start'|'end', accent?: boolean }
-  transitions: StateTransition[]; // { from, to, label? }
-  title?: string; subtitle?: string;
-  theme?: 'light'|'dark'; palette?: string|string[];
-}
+// state
+{ figure: 'state', nodes: StateNode[], transitions: StateTransition[] }
+// StateNode:       { id, label, type?: 'state'|'start'|'end', accent?: boolean }
+// StateTransition: { from, to, label? }
 
-interface ErDiagramOptions {
-  figure: 'er';
-  entities: ErEntity[];     // { id, label, fields: ErField[], accent?: boolean }
-  relations: ErRelation[];  // { from, to, label?, fromCard?, toCard? }
-  title?: string; subtitle?: string;
-  theme?: 'light'|'dark'; palette?: string|string[];
-}
-// ErField: { name, type?, key?: 'pk'|'fk' }
+// er
+{ figure: 'er', entities: ErEntity[], relations: ErRelation[] }
+// ErEntity:  { id, label, fields: ErField[], accent?: boolean }
+// ErField:   { name, type?, key?: 'pk'|'fk' }
+// ErRelation: { from, to, label? }
 
-interface TimelineDiagramOptions {
-  figure: 'timeline';
-  events: TimelineEvent[];  // { id, label, date, milestone? }  date: 'yyyy-mm-dd'
-  title?: string; subtitle?: string;
-  theme?: 'light'|'dark'; palette?: string|string[];
-}
+// timeline
+{ figure: 'timeline', events: TimelineEvent[] }
+// TimelineEvent: { id, label, date, milestone? }  date: 'yyyy-mm-dd'
 
-interface SwimlaneDiagramOptions {
-  figure: 'swimlane';
-  lanes: string[];          // lane labels in display order
-  nodes: SwimlaneNode[];    // { id, label, lane, type? }  lane = one of lanes[]
-  edges: SwimlaneEdge[];    // { from, to, label? }
-  title?: string; subtitle?: string;
-  theme?: 'light'|'dark'; palette?: string|string[];
-}
+// swimlane
+{ figure: 'swimlane', lanes: string[], nodes: SwimlaneNode[], edges: SwimlaneEdge[] }
+// SwimlaneNode: { id, label, lane, type? }  lane = one of lanes[]
+// SwimlaneEdge: { from, to, label? }
 
-interface BubbleChartOptions {
-  figure: 'bubble';
-  items: BubbleItem[];      // { label, value }  — value is a positive number
-  title?: string; subtitle?: string;
-  theme?: 'light'|'dark'; palette?: string|string[];
-}
-// BubbleItem: { id?, label, value }  — bubble area is proportional to value; positions auto-packed
+// bubble
+{ figure: 'bubble', items: BubbleItem[] }
+// BubbleItem: { label, value }  — value is a positive number; area proportional to value
 ```
-
-**quadrants order:** `[top-left, top-right, bottom-left, bottom-right]` · `x=0` left, `x=1` right; `y=0` bottom, `y=1` top.

@@ -53,6 +53,7 @@ const EMPTY_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1">
  * fig({ figure: 'flow', nodes: [...], edges: [...] });
  * ```
  */
+export { parseFigmd };
 export function fig(input: string | FigOptions): string {
   if (typeof input === 'string') {
     try {

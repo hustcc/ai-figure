@@ -419,6 +419,7 @@ function parseState(lines: string[]): FigOptions {
   const cfg: CommonConfig = {};
   const nodeMap = new Map<string, StateNode>();
   const transitions: StateTransition[] = [];
+  const accentIds = new Set<string>();
 
   const ensureState = (expr: string): string => {
     const { id, label } = parseNodeExpr(expr);
@@ -435,8 +436,7 @@ function parseState(lines: string[]): FigOptions {
   for (const line of lines) {
     if (applyCommonConfig(line, cfg)) continue;
     if (line.startsWith('accent:')) {
-      const node = nodeMap.get(line.slice('accent:'.length).trim());
-      if (node) node.accent = true;
+      accentIds.add(line.slice('accent:'.length).trim());
       continue;
     }
     const e = parseEdge(line);
@@ -447,6 +447,11 @@ function parseState(lines: string[]): FigOptions {
       continue;
     }
     ensureState(line);
+  }
+
+  for (const id of accentIds) {
+    const node = nodeMap.get(id);
+    if (node) node.accent = true;
   }
 
   return { figure: 'state', nodes: [...nodeMap.values()], transitions, ...cfgSpread(cfg) };
