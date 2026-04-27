@@ -14,7 +14,7 @@ tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant
 Generates self-contained SVG diagrams. No coordinates needed — layout is computed automatically.
 
 ```typescript
-import { fig, parseFigmd } from 'ai-figure';
+import { fig } from 'ai-figure';
 
 // Markdown string (preferred — compact, streaming-safe)
 const svg = fig(`
@@ -33,15 +33,11 @@ const svg = fig(`
 // JSON config object (programmatic / strongly-typed)
 const svg2 = fig({ figure: 'flow', nodes: [...], edges: [...] });
 
-// Parse markdown → JSON config (useful for editing or serialising)
-const opts = parseFigmd(`figure flow\nA --> B`);
-
 // DOM: document.getElementById('chart').innerHTML = svg;
 // Node.js: fs.writeFileSync('chart.svg', svg);
 ```
 
-`fig()` accepts either a **markdown string** or a **JSON config**. When given a string it never throws — partial or empty input (e.g. during AI streaming) returns a valid empty SVG that fills in progressively.  
-`parseFigmd(markdown)` parses a markdown string and returns the equivalent JSON config object.
+`fig()` accepts either a **markdown string** or a **JSON config**. When given a string it never throws — partial or empty input (e.g. during AI streaming) returns a valid empty SVG that fills in progressively.
 
 ## Markdown syntax
 
