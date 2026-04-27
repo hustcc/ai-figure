@@ -12,7 +12,7 @@ export default function DiagramCard({ title, svg, encoded }: DiagramCardProps) {
     <article className="bg-white rounded-xl border border-slate-200 overflow-hidden">
       <Link href={`/s#${encoded}`} className="block hover:bg-slate-50 transition-colors">
         <div
-          className="p-4 h-48 overflow-hidden [&>svg]:w-full [&>svg]:h-full"
+          className="p-4 [&>svg]:w-full [&>svg]:h-auto [&>svg]:block"
           dangerouslySetInnerHTML={{ __html: svg }}
         />
       </Link>
