@@ -80,6 +80,18 @@ interface CommonConfig {
   direction?: Direction;
 }
 
+/** Returns true if `s` is a valid CSS hex color token (#RGB, #RRGGBB, etc.). */
+function isHexColor(s: string): boolean {
+  if (!s.startsWith('#')) return false;
+  const len = s.length;
+  if (len !== 4 && len !== 5 && len !== 7 && len !== 9) return false;
+  for (let i = 1; i < len; i++) {
+    const c = s.charCodeAt(i);
+    if (!((c >= 48 && c <= 57) || (c >= 65 && c <= 70) || (c >= 97 && c <= 102))) return false;
+  }
+  return true;
+}
+
 function applyCommonConfig(line: string, cfg: CommonConfig): boolean {
   const ci = line.indexOf(':');
   if (ci === -1) return false;
@@ -89,7 +101,19 @@ function applyCommonConfig(line: string, cfg: CommonConfig): boolean {
     case 'title':     cfg.title     = val; return true;
     case 'subtitle':  cfg.subtitle  = val; return true;
     case 'theme':     cfg.theme     = val as ThemeType; return true;
-    case 'palette':   cfg.palette   = val; return true;
+    case 'palette': {
+      // Detect a custom hex-array serialized as comma-separated values, e.g.
+      // `palette: #aabbcc,#ddeeff,#112233,#445566`  (produced by figToMarkdown).
+      if (val.includes(',')) {
+        const parts = val.split(',').map(t => t.trim());
+        if (parts.length >= 2 && parts.every(isHexColor)) {
+          cfg.palette = parts;
+          return true;
+        }
+      }
+      cfg.palette = val;
+      return true;
+    }
     case 'direction': cfg.direction = val as Direction; return true;
     default: return false;
   }
