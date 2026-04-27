@@ -4,28 +4,31 @@ import { useEffect, useState } from 'react';
 import { fig } from 'ai-figure';
 import { decodeMarkdown } from '@/lib/decode';
 import Link from 'next/link';
+import CopyButton from '@/components/CopyButton';
 
 const DECODE_TIMEOUT_MS = 10_000;
 
 export default function SharedDiagramPage() {
   const [svg, setSvg] = useState('');
   const [markdown, setMarkdown] = useState('');
+  const [encoded, setEncoded] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const encoded = window.location.hash.replace(/^#/, '');
-    if (!encoded) {
+    const hash = window.location.hash.replace(/^#/, '');
+    if (!hash) {
       setError('No diagram encoded in the URL hash.');
       setLoading(false);
       return;
     }
+    setEncoded(hash);
     let rejectTimeout: (() => void) | null = null;
     const timeoutId = setTimeout(() => rejectTimeout?.(), DECODE_TIMEOUT_MS);
     const timeout = new Promise<never>((_, reject) => {
       rejectTimeout = () => reject(new Error('Timed out decoding diagram.'));
     });
-    Promise.race([decodeMarkdown(encoded), timeout])
+    Promise.race([decodeMarkdown(hash), timeout])
       .then((md) => {
         setMarkdown(md);
         setSvg(fig(md));
@@ -85,6 +88,7 @@ export default function SharedDiagramPage() {
                 >
                   View Docs
                 </Link>
+                {encoded && <CopyButton encoded={encoded} />}
               </div>
             </div>
           </div>
