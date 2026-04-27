@@ -10,7 +10,6 @@ import { createTimelineDiagram } from './timeline';
 import { createSwimlaneDiagram } from './swimlane';
 import { createBubbleChart } from './bubble';
 import { parseFigmd } from './parse';
-import { figToMarkdown } from './serialize';
 import type { FigOptions } from './types';
 
 /** Minimal valid SVG returned when a string input cannot be rendered yet (e.g. during streaming). */
@@ -54,7 +53,7 @@ const EMPTY_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1">
  * fig({ figure: 'flow', nodes: [...], edges: [...] });
  * ```
  */
-export { figToMarkdown, parseFigmd };
+export { parseFigmd };
 export function fig(input: string | FigOptions): string {
   if (typeof input === 'string') {
     try {
