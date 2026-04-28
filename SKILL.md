@@ -253,13 +253,12 @@ Product C: 85
 
 ## Common pitfalls
 
-These mistakes produce empty or broken diagrams:
+These mistakes may produce unexpected or broken diagrams:
 
 | ❌ Wrong | ✅ Correct | Note |
 |----------|-----------|------|
 | `type: flow` | `figure flow` (first line) | `figure <type>` is the header, not a config key |
 | `A -->|label| B` | `A --> B: label` | Mermaid pipe-label syntax is not supported |
-| `A --> B: label1: label2` | `A --> B: label1 label2` | Only one `:` separator after the arrow |
 | `[*] --> idle` | `start --> idle` | Use `start` / `end` pseudo-ids, not `[*]` |
 | `Task: start, end` (gantt) | `Task: id, start, end` | Task **id** is always required in gantt |
 | `direction: LR` in gantt/sequence | (omit it) | `direction` is only meaningful for flow, tree, arch |
