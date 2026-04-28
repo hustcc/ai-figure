@@ -119,7 +119,7 @@ export default function HomePage() {
           <p className="text-slate-500">Write markdown on the left, get SVG on the right.</p>
         </div>
         <div className="grid md:grid-cols-2 gap-6 items-stretch">
-          <CodeBlock label="Input" language="plaintext">{EXAMPLE_MD}</CodeBlock>
+          <CodeBlock label="Input" language="figmd">{EXAMPLE_MD}</CodeBlock>
           <div className="flex flex-col">
             <div className="bg-slate-800 rounded-t-xl px-4 py-1.5 text-xs font-mono text-slate-400 uppercase tracking-wider border-b border-slate-700">
               Output
