@@ -103,6 +103,7 @@ const FLOW_MD = `figure flow
 direction: TB
 palette: antv
 title: Auth Flow
+subtitle: credential validation steps
 start((Start)) --> login[Enter Credentials]
 login --> validate{Valid?}
 validate --> dashboard((Dashboard)): yes
@@ -114,6 +115,7 @@ const TREE_MD = `figure tree
 direction: TB
 palette: default
 title: Org Chart
+subtitle: engineering & operations
 ceo[CEO]
 ceo --> cto[CTO]
 ceo --> coo[COO]
@@ -125,6 +127,7 @@ const ARCH_MD = `figure arch
 direction: TB
 palette: figma
 title: Web Stack
+subtitle: three-tier architecture
 layer Frontend
   ui[React App]
   cdn[CDN Assets]
@@ -137,6 +140,7 @@ layer Data
 
 const SEQ_MD = `figure sequence
 title: Login Flow
+subtitle: token-based authentication
 actors: Browser, API, DB
 Browser -> API: POST /login
 API -> DB: SELECT user
@@ -145,6 +149,7 @@ API --> Browser: 200 OK + token`;
 
 const QUADRANT_MD = `figure quadrant
 title: Feature Priority
+subtitle: effort vs value
 x-axis Effort: Low .. High
 y-axis Value: Low .. High
 quadrant-1: Quick Wins
@@ -158,6 +163,7 @@ Export: 0.8, 0.35`;
 
 const GANTT_MD = `figure gantt
 title: Q1 Roadmap
+subtitle: Jan – Mar 2025
 section Design
   Wireframes: t1, 2025-01-06, 2025-01-24
   Mockups: t2, 2025-01-25, 2025-02-07
@@ -168,6 +174,7 @@ milestone: Launch, 2025-03-14`;
 
 const STATE_MD = `figure state
 title: Order Status
+subtitle: e-commerce order lifecycle
 accent: failed
 start --> idle[Idle]
 idle --> processing[Processing]: place order
@@ -178,6 +185,7 @@ shipped --> end`;
 
 const ER_MD = `figure er
 title: Blog Schema
+subtitle: users and posts
 entity User
   id pk: uuid
   email: text
@@ -190,6 +198,7 @@ User --> Post: writes`;
 
 const TIMELINE_MD = `figure timeline
 title: Product History
+subtitle: major releases
 2020-01-15: v1.0 Launch milestone
 2021-06-01: v1.5 Improvements
 2022-03-10: v2.0 Redesign milestone
@@ -197,6 +206,7 @@ title: Product History
 
 const SWIMLANE_MD = `figure swimlane
 title: Order Processing
+subtitle: cross-team workflow
 section Customer
   order[Place Order]
   pay[Confirm Payment]

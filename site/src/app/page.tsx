@@ -69,7 +69,7 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto px-6 py-20 md:py-28 text-center">
           <div className="inline-flex items-center gap-2 bg-orange-50 text-orange-600 text-sm font-medium px-3 py-1 rounded-full border border-orange-100 mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-orange-500 inline-block"></span>
-            v0.3 &mdash; 11 diagram types
+            v0.4 &mdash; 11 diagram types
           </div>
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-slate-900 mb-5">
             SVG diagrams from<br />
