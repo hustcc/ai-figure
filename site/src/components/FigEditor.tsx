@@ -93,9 +93,10 @@ function highlight(code: string): string {
 interface FigEditorProps {
   value: string;
   onChange: (value: string) => void;
+  className?: string;
 }
 
-export default function FigEditor({ value, onChange }: FigEditorProps) {
+export default function FigEditor({ value, onChange, className = '' }: FigEditorProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const preRef      = useRef<HTMLPreElement>(null);
 
@@ -121,8 +122,8 @@ export default function FigEditor({ value, onChange }: FigEditorProps) {
 
   return (
     <div
-      className="relative rounded-xl overflow-hidden bg-slate-900"
-      style={{ minHeight: '12rem' }}
+      className={`relative rounded-xl overflow-hidden bg-slate-900 ${className}`}
+      style={{ minHeight: '300px' }}
     >
       {/* syntax-highlighted read-only layer */}
       <pre
@@ -143,14 +144,14 @@ export default function FigEditor({ value, onChange }: FigEditorProps) {
         autoComplete="off"
         autoCorrect="off"
         autoCapitalize="off"
-        className="relative block w-full min-h-[inherit] resize-none border-0 outline-none"
+        className="relative block w-full h-full min-h-[inherit] resize-none border-0 outline-none"
         style={{
           ...sharedStyle,
           background: 'transparent',
           color: 'transparent',
           caretColor: '#e2e8f0',
           WebkitTextFillColor: 'transparent',
-          minHeight: '12rem',
+          minHeight: '300px',
         }}
       />
     </div>

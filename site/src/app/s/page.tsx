@@ -91,20 +91,20 @@ export default function SharedDiagramPage() {
         </div>
       ) : (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-          <div className="grid lg:grid-cols-2 gap-6 items-start">
+          <div className="grid lg:grid-cols-2 gap-6 items-stretch">
             {/* SVG preview */}
-            <div className="bg-white rounded-xl border border-slate-200 p-4 sm:p-6">
+            <div className="bg-white rounded-xl border border-slate-200 p-4 sm:p-6 flex flex-col">
               <p className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-4">Output</p>
               <div
-                className="overflow-x-auto [&>svg]:block [&>svg]:mx-auto [&>svg]:max-w-full [&>svg]:h-auto"
+                className="flex-1 overflow-x-auto [&>svg]:block [&>svg]:mx-auto [&>svg]:max-w-full [&>svg]:h-auto"
                 dangerouslySetInnerHTML={{ __html: svg }}
               />
             </div>
 
             {/* Editable markdown source */}
-            <div className="min-w-0">
+            <div className="min-w-0 flex flex-col h-full">
               <p className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-4">Markdown source</p>
-              <FigEditor value={markdown} onChange={handleCodeChange} />
+              <FigEditor value={markdown} onChange={handleCodeChange} className="flex-1" />
               <div className="mt-4 flex flex-wrap items-center gap-3">
                 <Link
                   href="/"
