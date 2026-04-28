@@ -41,18 +41,21 @@ const svg2 = fig({ figure: 'flow', nodes: [...], edges: [...] });
 
 ## Markdown syntax
 
-**First line must be:** `figure <type>`
+**First line must be:** `figure <type>` — this is the required header, **not** a `key: value` config line.
+
+Valid types: `flow` `tree` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` `bubble`
 
 Config lines use `key: value` syntax. Data lines use diagram-specific patterns.
 
-| Key | Values | Default |
-|-----|--------|---------|
-| `type` | `flow` `tree` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` `bubble` | required |
-| `direction` | `TB` `LR` | `TB` |
-| `theme` | `light` `dark` | `light` |
-| `palette` | `default` `antv` `drawio` `figma` `vega` `mono-blue` `mono-green` `mono-purple` `mono-orange` | `default` |
+| Key | Values | Default | Applies to |
+|-----|--------|---------|------------|
+| `title` | any string | — | all types |
+| `subtitle` | any string | — | all types |
+| `theme` | `light` `dark` | `light` | all types |
+| `palette` | `default` `antv` `drawio` `figma` `vega` `mono-blue` `mono-green` `mono-purple` `mono-orange` | `default` | all types |
+| `direction` | `TB` `LR` | `TB` | flow, tree, arch only |
 
-Lines starting with `%%` are comments. `title:` and `subtitle:` work in all types.
+Lines starting with `%%` are comments.
 
 ### Node notation (flow / tree / arch)
 
@@ -235,6 +238,19 @@ Product C: 85
 
 - Data lines: `Label: value` — any positive number; bubble **area is proportional to value**
 - Positions computed automatically; no coordinates needed
+
+## Common pitfalls
+
+These mistakes produce empty or broken diagrams:
+
+| ❌ Wrong | ✅ Correct | Note |
+|----------|-----------|------|
+| `type: flow` | `figure flow` (first line) | `figure <type>` is the header, not a config key |
+| `A -->|label| B` | `A --> B: label` | Mermaid pipe-label syntax is not supported |
+| `A --> B: label1: label2` | `A --> B: label1 label2` | Only one `:` separator after the arrow |
+| `[*] --> idle` | `start --> idle` | Use `start` / `end` pseudo-ids, not `[*]` |
+| `Task: start, end` (gantt) | `Task: id, start, end` | Task **id** is always required in gantt |
+| `direction: LR` in gantt/sequence | (omit it) | `direction` is only meaningful for flow, tree, arch |
 
 ## JSON config (fig(options))
 

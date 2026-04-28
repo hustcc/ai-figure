@@ -823,12 +823,14 @@ This library ships a **[`SKILL.md`](https://github.com/hustcc/ai-figure/blob/mai
 import { fig } from 'ai-figure';
 
 const svg = fig(`
-  flow TB default
+  figure flow
+  direction: TB
+  palette: default
   title: User Login
   start((Start)) --> creds[Enter Credentials]
   creds --> validate{Valid?}
-  validate -->|yes| dashboard((Dashboard))
-  validate -->|no| error[Show Error]
+  validate --> dashboard((Dashboard)): yes
+  validate --> error[Show Error]: no
   error --> creds
   dashboard --> done((End))
 `);
