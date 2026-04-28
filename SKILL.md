@@ -22,6 +22,7 @@ const svg = fig(`
   direction: LR
   palette: antv
   title: CI Pipeline
+  subtitle: automated build and deploy
   code[Write Code] --> test{Tests Pass?}
   test --> build[Build Image]: yes
   test --> fix((Fix Issues)): no
@@ -74,6 +75,7 @@ figure flow
 direction: LR
 palette: antv
 title: My Flow
+subtitle: data pipeline example
 A[Source] --> B[Target]          %% simple edge
 A --> B[Target]: label           %% labeled edge
 group Name: id1, id2, id3        %% logical group (dashed border)
@@ -85,6 +87,7 @@ group Name: id1, id2, id3        %% logical group (dashed border)
 figure tree
 direction: LR
 title: Org Chart
+subtitle: company structure
 root[Root]
 root --> child[Child]
 child --> leaf[Leaf]
@@ -97,6 +100,7 @@ figure arch
 direction: TB
 palette: antv
 title: Web Stack
+subtitle: three-tier architecture
 layer Frontend
   ui[React App]
   assets[Static Assets]
@@ -112,6 +116,7 @@ layer Data
 ```
 figure sequence
 title: Login
+subtitle: OAuth2 password flow
 actors: Browser, API, DB         %% optional; inferred from messages if omitted
 Browser -> API: POST /login      %% solid arrow
 API --> Browser: 200 OK          %% dashed return arrow
@@ -122,6 +127,7 @@ API --> Browser: 200 OK          %% dashed return arrow
 ```
 figure quadrant
 title: Priority
+subtitle: effort vs value
 x-axis Effort: Low .. High
 y-axis Value: Low .. High
 quadrant-1: Quick Wins    %% top-left
@@ -136,6 +142,7 @@ Feature A: 0.2, 0.9       %% label: x, y  (x/y in [0,1])
 ```
 figure gantt
 title: Q1 Roadmap
+subtitle: Jan – Mar 2025
 section Design
   Wireframes: t1, 2025-01-06, 2025-01-24    %% label: id, start, end
   Mockups: t2, 2025-01-25, 2025-02-07
@@ -152,6 +159,7 @@ milestone: Launch, 2025-03-01
 ```
 figure state
 title: Order Status
+subtitle: e-commerce order lifecycle
 idle[Idle]
 processing[Processing]
 accent: failed                   %% mark as accent/focal state
@@ -172,6 +180,7 @@ failed --> idle: retry
 ```
 figure er
 title: Blog Schema
+subtitle: users and posts
 entity User
   id pk: uuid
   email: text
@@ -192,6 +201,7 @@ User --> Post: writes
 ```
 figure timeline
 title: Product History
+subtitle: major releases
 2020-01-15: v1.0 Launch milestone   %% major milestone (larger accent dot)
 2021-06-01: v1.5 Improvements
 2022-03-10: v2.0 Redesign milestone
@@ -207,6 +217,7 @@ title: Product History
 ```
 figure swimlane
 title: Order Flow
+subtitle: cross-team process
 section Customer
   order[Place Order]
   pay[Confirm Payment]
@@ -230,6 +241,7 @@ pack --> ship
 ```
 figure bubble
 title: Market Analysis
+subtitle: by product segment
 %% label: value (positive number)
 Product A: 75
 Product B: 50
