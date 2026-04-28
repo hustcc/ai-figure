@@ -1,12 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { fig } from 'ai-figure';
 import { decodeMarkdown } from '@/lib/decode';
+import { encodeMarkdownBrowser } from '@/lib/encode-browser';
 import Link from 'next/link';
 import CopyButton from '@/components/CopyButton';
+import FigEditor from '@/components/FigEditor';
 
 const DECODE_TIMEOUT_MS = 10_000;
+const ENCODE_DEBOUNCE_MS = 400;
 
 export default function SharedDiagramPage() {
   const [svg, setSvg] = useState('');
@@ -14,6 +17,14 @@ export default function SharedDiagramPage() {
   const [encoded, setEncoded] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const encodeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Clear any pending encode timer on unmount to avoid state updates on an unmounted component.
+  useEffect(() => {
+    return () => {
+      if (encodeTimerRef.current) clearTimeout(encodeTimerRef.current);
+    };
+  }, []);
 
   useEffect(() => {
     const hash = window.location.hash.replace(/^#/, '');
@@ -38,6 +49,28 @@ export default function SharedDiagramPage() {
       })
       .finally(() => setLoading(false));
     return () => clearTimeout(timeoutId);
+  }, []);
+
+  const handleCodeChange = useCallback((newMarkdown: string) => {
+    setMarkdown(newMarkdown);
+
+    // Re-render the SVG immediately
+    try {
+      setSvg(fig(newMarkdown));
+    } catch {
+      // keep the previous SVG while the markdown is invalid
+    }
+
+    // Debounce URL hash + copy-link update so it doesn't thrash on every keystroke
+    if (encodeTimerRef.current) clearTimeout(encodeTimerRef.current);
+    encodeTimerRef.current = setTimeout(() => {
+      encodeMarkdownBrowser(newMarkdown)
+        .then((hash) => {
+          setEncoded(hash);
+          window.location.hash = hash;
+        })
+        .catch(() => {/* ignore */});
+    }, ENCODE_DEBOUNCE_MS);
   }, []);
 
   return (
@@ -69,12 +102,10 @@ export default function SharedDiagramPage() {
               />
             </div>
 
-            {/* Markdown source */}
+            {/* Editable markdown source */}
             <div className="min-w-0">
               <p className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-4">Markdown source</p>
-              <pre className="bg-slate-900 text-slate-100 rounded-xl p-4 sm:p-5 text-sm leading-relaxed font-mono overflow-x-auto whitespace-pre">
-                <code>{markdown}</code>
-              </pre>
+              <FigEditor value={markdown} onChange={handleCodeChange} />
               <div className="mt-4 flex flex-wrap items-center gap-3">
                 <Link
                   href="/"
