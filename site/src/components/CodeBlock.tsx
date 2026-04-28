@@ -1,4 +1,5 @@
 import { codeToHtml } from 'shiki';
+import { highlight } from '@/lib/figHighlight';
 
 interface Props {
   children: string;
@@ -8,11 +9,17 @@ interface Props {
 }
 
 export default async function CodeBlock({ children, language = 'text', label, className = '' }: Props) {
-  const html = await codeToHtml(children.trim(), {
-    lang: language,
-    theme: 'one-dark-pro',
-    colorReplacements: { '#282c34': '#0f172a' },
-  });
+  let html: string;
+  if (language === 'figmd') {
+    const highlighted = highlight(children.trim());
+    html = `<pre style="background:#0f172a" class="text-slate-100"><code>${highlighted}</code></pre>`;
+  } else {
+    html = await codeToHtml(children.trim(), {
+      lang: language,
+      theme: 'one-dark-pro',
+      colorReplacements: { '#282c34': '#0f172a' },
+    });
+  }
   return (
     <div className={`rounded-xl overflow-hidden ${className}`}>
       {label && (

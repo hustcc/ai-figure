@@ -86,7 +86,7 @@ function DiagramSection({
       <H3>Config</H3>
       <ConfigTable rows={configRows} />
       <H3>Markdown syntax</H3>
-      <CodeBlock language="plaintext">{markdownExample}</CodeBlock>
+      <CodeBlock language="figmd">{markdownExample}</CodeBlock>
     </section>
   );
 }
