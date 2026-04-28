@@ -12,7 +12,7 @@ export default async function CodeBlock({ children, language = 'text', label, cl
   let html: string;
   if (language === 'figmd') {
     const highlighted = highlight(children.trim());
-    html = `<pre style="background:#0f172a" class="p-5 m-0 text-sm leading-relaxed overflow-x-auto font-mono rounded-none text-slate-100"><code>${highlighted}</code></pre>`;
+    html = `<pre style="background:#0f172a" class="text-slate-100"><code>${highlighted}</code></pre>`;
   } else {
     html = await codeToHtml(children.trim(), {
       lang: language,
