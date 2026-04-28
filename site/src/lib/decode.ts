@@ -32,3 +32,24 @@ export async function decodeMarkdown(encoded: string): Promise<string> {
 
   return new Response(compressedStream.pipeThrough(new DecompressionStream('gzip'))).text();
 }
+
+/**
+ * Encodes a markdown string as a base64url+gzip-compressed hash in the browser.
+ * Uses the Web Streams `CompressionStream` API (supported in all modern browsers).
+ * Produces output compatible with the server-side `encodeMarkdown` from encode.ts.
+ */
+export async function encodeMarkdownBrowser(text: string): Promise<string> {
+  const bytes = new TextEncoder().encode(text);
+  const compressed = await new Response(
+    new ReadableStream({
+      start(controller) {
+        controller.enqueue(bytes);
+        controller.close();
+      },
+    }).pipeThrough(new CompressionStream('gzip'))
+  ).arrayBuffer();
+
+  const ui8 = new Uint8Array(compressed);
+  const binary = Array.from(ui8, (b) => String.fromCharCode(b)).join('');
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}

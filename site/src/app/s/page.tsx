@@ -2,8 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { fig } from 'ai-figure';
-import { decodeMarkdown } from '@/lib/decode';
-import { encodeMarkdownBrowser } from '@/lib/encode-browser';
+import { decodeMarkdown, encodeMarkdownBrowser } from '@/lib/decode';
 import Link from 'next/link';
 import CopyButton from '@/components/CopyButton';
 import FigEditor from '@/components/FigEditor';
