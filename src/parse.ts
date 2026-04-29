@@ -18,6 +18,7 @@ import type {
   SwimlaneNode,
   SwimlaneEdge,
   BubbleItem,
+  RadarSeries,
   Direction,
   ThemeType,
   PaletteType,
@@ -62,10 +63,11 @@ export function parseFigmd(markdown: string): FigOptions {
     case 'timeline':  return parseTimeline(body);
     case 'swimlane':  return parseSwimlane(body);
     case 'bubble':    return parseBubble(body);
+    case 'radar':     return parseRadar(body);
     default:
       throw new Error(
         `figmd: unknown figure type "${figureType}". ` +
-          `Expected one of: flow, tree, arch, sequence, quadrant, gantt, state, er, timeline, swimlane, bubble`,
+          `Expected one of: flow, tree, arch, sequence, quadrant, gantt, state, er, timeline, swimlane, bubble, radar`,
       );
   }
 }
@@ -584,4 +586,38 @@ function parseBubble(lines: string[]): FigOptions {
   }
 
   return { figure: 'bubble', items, ...cfgSpread(cfg) };
+}
+
+// --- radar ---
+
+function parseRadar(lines: string[]): FigOptions {
+  const cfg: CommonConfig = {};
+  let axes: string[] = [];
+  const series: RadarSeries[] = [];
+
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
+
+    // `axes: Label1, Label2, Label3, ...`
+    if (line.startsWith('axes:')) {
+      axes = line.slice('axes:'.length).split(',').map((a) => a.trim()).filter(Boolean);
+      continue;
+    }
+
+    // Series data line: `Series Name: v1, v2, v3, ...`
+    const ci = line.indexOf(':');
+    if (ci === -1) continue;
+    const label     = line.slice(0, ci).trim();
+    const valuesPart = line.slice(ci + 1).trim();
+    if (!label || !valuesPart) continue;
+    // Must contain at least one comma to be a series line (avoids matching plain key:value)
+    if (!valuesPart.includes(',') && Number.isNaN(Number(valuesPart))) continue;
+    const values = valuesPart.split(',').map((v) => {
+      const n = Number(v.trim());
+      return Number.isFinite(n) ? n : 0;
+    });
+    if (values.length > 0) series.push({ label, values });
+  }
+
+  return { figure: 'radar', axes, series, ...cfgSpread(cfg) };
 }

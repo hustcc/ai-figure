@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="597" viewBox="0 0 560 597">
+<text x="280" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Framework Comparison</text>
+<text x="280" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">2025 technical evaluation</text>
+<g class="radar-chart" transform="translate(0,67)">
+<path d="M280.0,208.0 L314.2,232.9 L301.2,273.1 L258.8,273.1 L245.8,232.9 Z" fill="none" stroke="#868e96" stroke-width="1" stroke-dasharray="4 4" opacity="0.35"/>
+<text x="285.0" y="212.0" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057" opacity="0.6">20%</text>
+<path d="M280.0,172.0 L348.5,221.8 L322.3,302.2 L237.7,302.2 L211.5,221.8 Z" fill="none" stroke="#868e96" stroke-width="1" stroke-dasharray="4 4" opacity="0.35"/>
+<text x="285.0" y="176.0" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057" opacity="0.6">40%</text>
+<path d="M280.0,136.0 L382.7,210.6 L343.5,331.4 L216.5,331.4 L177.3,210.6 Z" fill="none" stroke="#868e96" stroke-width="1" stroke-dasharray="4 4" opacity="0.35"/>
+<text x="285.0" y="140.0" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057" opacity="0.6">60%</text>
+<path d="M280.0,100.0 L417.0,199.5 L364.6,360.5 L195.4,360.5 L143.0,199.5 Z" fill="none" stroke="#868e96" stroke-width="1" stroke-dasharray="4 4" opacity="0.35"/>
+<text x="285.0" y="104.0" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057" opacity="0.6">80%</text>
+<path d="M280.0,64.0 L451.2,188.4 L385.8,389.6 L174.2,389.6 L108.8,188.4 Z" fill="none" stroke="#868e96" stroke-width="1.5"/>
+<line x1="280" y1="244" x2="280.0" y2="64.0" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+<line x1="280" y1="244" x2="451.2" y2="188.4" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+<line x1="280" y1="244" x2="385.8" y2="389.6" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+<line x1="280" y1="244" x2="174.2" y2="389.6" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+<line x1="280" y1="244" x2="108.8" y2="188.4" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+<path d="M280.0,109.0 L417.0,199.5 L375.2,375.1 L179.5,382.3 L129.4,195.1 Z" fill="#5b8ff9" fill-opacity="0.15" stroke="#5b8ff9" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="280.0" cy="109.0" r="4" fill="#5b8ff9" stroke="white" stroke-width="1.5"/>
+<circle cx="417.0" cy="199.5" r="4" fill="#5b8ff9" stroke="white" stroke-width="1.5"/>
+<circle cx="375.2" cy="375.1" r="4" fill="#5b8ff9" stroke="white" stroke-width="1.5"/>
+<circle cx="179.5" cy="382.3" r="4" fill="#5b8ff9" stroke="white" stroke-width="1.5"/>
+<circle cx="129.4" cy="195.1" r="4" fill="#5b8ff9" stroke="white" stroke-width="1.5"/>
+<path d="M280.0,96.4 L403.3,204.0 L375.2,375.1 L193.2,363.4 L143.0,199.5 Z" fill="#e8684a" fill-opacity="0.15" stroke="#e8684a" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="280.0" cy="96.4" r="4" fill="#e8684a" stroke="white" stroke-width="1.5"/>
+<circle cx="403.3" cy="204.0" r="4" fill="#e8684a" stroke="white" stroke-width="1.5"/>
+<circle cx="375.2" cy="375.1" r="4" fill="#e8684a" stroke="white" stroke-width="1.5"/>
+<circle cx="193.2" cy="363.4" r="4" fill="#e8684a" stroke="white" stroke-width="1.5"/>
+<circle cx="143.0" cy="199.5" r="4" fill="#e8684a" stroke="white" stroke-width="1.5"/>
+<path d="M280.0,127.0 L437.5,192.8 L356.2,348.8 L184.8,375.1 L132.8,196.2 Z" fill="#5ad8a6" fill-opacity="0.15" stroke="#5ad8a6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="280.0" cy="127.0" r="4" fill="#5ad8a6" stroke="white" stroke-width="1.5"/>
+<circle cx="437.5" cy="192.8" r="4" fill="#5ad8a6" stroke="white" stroke-width="1.5"/>
+<circle cx="356.2" cy="348.8" r="4" fill="#5ad8a6" stroke="white" stroke-width="1.5"/>
+<circle cx="184.8" cy="375.1" r="4" fill="#5ad8a6" stroke="white" stroke-width="1.5"/>
+<circle cx="132.8" cy="196.2" r="4" fill="#5ad8a6" stroke="white" stroke-width="1.5"/>
+<text x="280.0" y="20.0" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#495057">Performance</text>
+<text x="487.3" y="170.6" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#495057">Scalability</text>
+<text x="408.1" y="434.4" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#495057">DX</text>
+<text x="151.9" y="434.4" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#495057">Ecosystem</text>
+<text x="72.7" y="170.6" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#495057">Tooling</text>
+<circle cx="26" cy="496" r="5" fill="#5b8ff9"/>
+<text x="35" y="501" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057">React</text>
+<circle cx="199" cy="496" r="5" fill="#e8684a"/>
+<text x="208" y="501" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057">Vue</text>
+<circle cx="372" cy="496" r="5" fill="#5ad8a6"/>
+<text x="381" y="501" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057">Angular</text>
+</g>
+</svg>

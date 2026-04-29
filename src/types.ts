@@ -449,6 +449,42 @@ export interface SwimlaneDiagramOptions {
 }
 
 // ---------------------------------------------------------------------------
+// RadarChart types
+// ---------------------------------------------------------------------------
+
+/** A single data series in a radar / spider chart. */
+export interface RadarSeries {
+  /** Series label shown in the chart legend. */
+  label: string;
+  /**
+   * One value per axis, in the same order as `axes`.
+   * Values should be in the range 0–100 (treated as percentage of the axis maximum).
+   * Values outside this range are clamped.
+   */
+  values: number[];
+}
+
+/** Options passed to {@link createRadarChart}. */
+export interface RadarChartOptions {
+  /**
+   * Ordered list of axis labels.  Each label becomes a spoke of the web,
+   * starting from the top and progressing clockwise.
+   * At least 3 axes are recommended.
+   */
+  axes: string[];
+  /** One or more data series to overlay on the chart. */
+  series: RadarSeries[];
+  /** Light or dark rendering mode (default: 'light'). */
+  theme?: ThemeType;
+  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'figma'`, `'vega'`, `'mono-blue'`, `'mono-green'`, `'mono-purple'`, `'mono-orange'`, or custom hex array (default: `'default'`). */
+  palette?: PaletteType;
+  /** Optional chart title displayed above the diagram. */
+  title?: string;
+  /** Optional subtitle displayed beneath the title. */
+  subtitle?: string;
+}
+
+// ---------------------------------------------------------------------------
 // BubbleChart types
 // ---------------------------------------------------------------------------
 
@@ -492,4 +528,5 @@ export type FigOptions =
   | ({ figure: 'er' } & ErDiagramOptions)
   | ({ figure: 'timeline' } & TimelineDiagramOptions)
   | ({ figure: 'swimlane' } & SwimlaneDiagramOptions)
-  | ({ figure: 'bubble' } & BubbleChartOptions);
+  | ({ figure: 'bubble' } & BubbleChartOptions)
+  | ({ figure: 'radar' } & RadarChartOptions);
