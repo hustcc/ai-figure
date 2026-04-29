@@ -12,7 +12,7 @@ const LEVELS    = 5;      // concentric grid rings (20 / 40 / 60 / 80 / 100 %)
 /** Legend row height and padding. */
 const LEGEND_ITEM_H   = 22;
 const LEGEND_PAD_TOP  = 18;
-const LEGEND_PAD_BTOM = 14;
+const LEGEND_PAD_BOTTOM = 14;
 
 /** Node types cycled per series index for color variation. */
 const SERIES_TYPES: NodeType[] = ['process', 'decision', 'terminal', 'io'];
@@ -76,8 +76,8 @@ export function createRadarChart(options: RadarChartOptions): string {
   // ── Legend height ─────────────────────────────────────────────────────────
   const legendRows  = series.length > 0 ? Math.ceil(series.length / 4) : 0;
   const legendH     = legendRows > 0
-    ? LEGEND_PAD_TOP + legendRows * LEGEND_ITEM_H + LEGEND_PAD_BTOM
-    : LEGEND_PAD_BTOM;
+    ? LEGEND_PAD_TOP + legendRows * LEGEND_ITEM_H + LEGEND_PAD_BOTTOM
+    : LEGEND_PAD_BOTTOM;
 
   // ── Vertical center of the web ───────────────────────────────────────────
   // Leave LABEL_PAD + a bit above the web for top-axis labels.
@@ -139,30 +139,32 @@ export function createRadarChart(options: RadarChartOptions): string {
   }
 
   // ── Series polygons ───────────────────────────────────────────────────────
-  for (let si = 0; si < series.length; si++) {
-    const s     = series[si];
-    const nt    = SERIES_TYPES[si % SERIES_TYPES.length];
-    const color = theme.nodeStrokes[nt];
-    const bg    = theme.background || 'white';
+  if (n > 0) {
+    for (let si = 0; si < series.length; si++) {
+      const s     = series[si];
+      const nt    = SERIES_TYPES[si % SERIES_TYPES.length];
+      const color = theme.nodeStrokes[nt];
+      const bg    = theme.background || 'white';
 
-    const pts: Array<[number, number]> = Array.from({ length: n }, (_, i) => {
-      const raw  = s.values[i] ?? 0;
-      const norm = Math.max(0, Math.min(100, raw)) / 100;
-      return axisPoint(i, n, CY, norm);
-    });
+      const pts: Array<[number, number]> = Array.from({ length: n }, (_, i) => {
+        const raw  = s.values[i] ?? 0;
+        const norm = Math.max(0, Math.min(100, raw)) / 100;
+        return axisPoint(i, n, CY, norm);
+      });
 
-    // Filled area
-    parts.push(
-      `<path d="${polygon(pts)}" fill="${escapeXml(color)}" fill-opacity="0.15" ` +
-        `stroke="${escapeXml(color)}" stroke-width="2" stroke-linejoin="round"/>`,
-    );
-
-    // Data point dots
-    for (const [px, py] of pts) {
+      // Filled area
       parts.push(
-        `<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="4" ` +
-          `fill="${escapeXml(color)}" stroke="${escapeXml(bg)}" stroke-width="1.5"/>`,
+        `<path d="${polygon(pts)}" fill="${escapeXml(color)}" fill-opacity="0.15" ` +
+          `stroke="${escapeXml(color)}" stroke-width="2" stroke-linejoin="round"/>`,
       );
+
+      // Data point dots
+      for (const [px, py] of pts) {
+        parts.push(
+          `<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="4" ` +
+            `fill="${escapeXml(color)}" stroke="${escapeXml(bg)}" stroke-width="1.5"/>`,
+        );
+      }
     }
   }
 

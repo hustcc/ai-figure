@@ -846,8 +846,10 @@ Label: value
 ```
 figure radar
 title: Optional Title
-axes: Axis1, Axis2, Axis3, ...    %% comma-separated axis labels
-Series A: 80, 70, 90, ...         %% one value (0-100) per axis
+%% axes: comma-separated axis labels
+axes: Axis1, Axis2, Axis3, ...
+%% one value (0-100) per axis
+Series A: 80, 70, 90, ...
 Series B: 60, 85, 75, ...
 ```
 </details>
