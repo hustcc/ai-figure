@@ -4,7 +4,7 @@ import CodeBlock from '@/components/CodeBlock';
 
 export const metadata: Metadata = {
   title: 'Docs',
-  description: 'ai-figure documentation: installation, usage, markdown syntax for all 11 diagram types, framework integration (React, Vue, HTML, Node.js), and AI agent Skill.',
+  description: 'ai-figure documentation: installation, usage, markdown syntax for all 12 diagram types, framework integration (React, Vue, HTML, Node.js), and AI agent Skill.',
 };
 
 /* ── small prose helpers ───────────────────────────────────────── */
@@ -230,6 +230,15 @@ Product D: 30
 Product E: 60
 Product F: 20`;
 
+const RADAR_MD = `figure radar
+title: Framework Comparison
+subtitle: 2025 technical evaluation
+palette: antv
+axes: Performance, Scalability, DX, Ecosystem, Tooling
+React: 75, 80, 90, 95, 88
+Vue: 82, 72, 90, 82, 80
+Angular: 65, 92, 72, 90, 86`;
+
 /* ══════════════════════════════════════════════════════════════════ */
 
 export default function DocsPage() {
@@ -253,6 +262,7 @@ export default function DocsPage() {
             ['#diagram-timeline', '→ Timeline'],
             ['#diagram-swimlane', '→ Swimlane'],
             ['#diagram-bubble', '→ Bubble'],
+            ['#diagram-radar', '→ Radar'],
             ['#frameworks', 'Framework Integration'],
             ['#skill', 'AI Skill'],
           ].map(([href, label]) => (
@@ -580,6 +590,21 @@ const svg2 = fig({
           markdownExample={BUBBLE_MD}
         >
           <P>Data lines use the format <Mono>Label: value</Mono> (positive numbers only). Bubble area is proportional to value; the largest item always fills the maximum radius. Labels and formatted values are rendered inside each bubble with automatic contrast (white or dark text).</P>
+        </DiagramSection>
+
+        {/* radar */}
+        <DiagramSection
+          id="diagram-radar"
+          title="radar — Radar / Spider Chart"
+          description="Multi-axis polygon chart (spider / web) for comparing multiple series across the same dimensions. Five concentric rings at 20–100%, axis spokes, and a legend below the chart."
+          configRows={[
+            ...COMMON_CONFIG,
+            ['axes', 'string[]', 'required'],
+            ['series', 'RadarSeries[]', 'required'],
+          ]}
+          markdownExample={RADAR_MD}
+        >
+          <P>Declare axes with <Mono>axes: Axis1, Axis2, Axis3, ...</Mono>. Each series line uses the format <Mono>Series Name: v1, v2, v3, ...</Mono> where values are 0–100 (one per axis, clamped). Multiple series overlay with translucent fills; each picks a palette color automatically.</P>
         </DiagramSection>
 
         {/* ═══════════════ 4. FRAMEWORKS ═══════════════════════════════ */}

@@ -1831,4 +1831,98 @@ Swift: 44`,
       },
     ],
   },
+  {
+    type: 'radar',
+    label: 'Radar Chart',
+    examples: [
+      {
+        title: 'Framework Comparison',
+        markdown: `figure radar
+title: Framework Comparison
+subtitle: 2025 technical evaluation
+palette: antv
+axes: Performance, Scalability, DX, Ecosystem, Tooling
+React: 75, 80, 90, 95, 88
+Vue: 82, 72, 90, 82, 80
+Angular: 65, 92, 72, 90, 86`,
+      },
+      {
+        title: 'Skills Matrix',
+        markdown: `figure radar
+title: Engineering Skills Matrix
+subtitle: Senior vs Mid-level
+palette: default
+axes: System Design, Coding, Testing, Communication, Leadership, Ownership
+Senior: 92, 88, 85, 90, 88, 95
+Mid: 70, 80, 75, 72, 60, 70`,
+      },
+      {
+        title: 'Cloud Providers',
+        markdown: `figure radar
+title: Cloud Provider Comparison
+subtitle: AWS vs Azure vs GCP
+palette: figma
+theme: dark
+axes: Compute, Storage, Networking, ML/AI, Pricing, Support
+AWS: 95, 90, 88, 85, 65, 80
+Azure: 85, 85, 80, 88, 70, 85
+GCP: 80, 82, 78, 95, 72, 75`,
+      },
+      {
+        title: 'Product Quality',
+        markdown: `figure radar
+title: Product Quality Dimensions
+palette: mono-blue
+axes: Reliability, Performance, Security, Usability, Maintainability
+v1.0: 60, 55, 70, 72, 58
+v2.0: 88, 76, 92, 80, 70`,
+      },
+      {
+        title: 'Team Velocity',
+        markdown: `figure radar
+title: Team Velocity
+subtitle: Q1 – Q4 comparison
+palette: vega
+theme: dark
+axes: Backend, Frontend, QA, DevOps
+Q1: 70, 65, 80, 60
+Q2: 75, 72, 82, 68
+Q3: 80, 78, 85, 75
+Q4: 88, 85, 90, 82`,
+      },
+      {
+        title: 'Security Assessment',
+        markdown: `figure radar
+title: Security Posture
+subtitle: Quarterly assessment
+palette: mono-green
+axes: Authentication, Authorization, Encryption, Monitoring, Patching, Audit
+Before: 55, 60, 70, 45, 50, 40
+After: 90, 88, 95, 82, 85, 78`,
+      },
+      {
+        title: 'Tech Debt',
+        markdown: `figure radar
+title: Technical Debt Heatmap
+subtitle: by engineering area
+palette: drawio
+theme: dark
+axes: Architecture, Test Coverage, Documentation, Dependencies, Code Style
+Frontend: 35, 55, 60, 70, 80
+Backend: 60, 40, 45, 55, 72
+Platform: 70, 75, 50, 60, 65`,
+      },
+      {
+        title: 'Candidate Evaluation',
+        markdown: `figure radar
+title: Candidate Evaluation
+subtitle: Senior SWE interview
+palette: antv
+theme: dark
+axes: Algorithm, System Design, Communication, Culture Fit, Past Experience
+Alice: 90, 85, 88, 82, 92
+Bob: 78, 92, 72, 88, 80`,
+      },
+    ],
+  },
 ];

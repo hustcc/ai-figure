@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="578" viewBox="0 0 560 578">
+<text x="280" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Product Quality</text>
+<g class="radar-chart" transform="translate(0,48)">
+<path d="M280.0,208.0 L314.2,232.9 L301.2,273.1 L258.8,273.1 L245.8,232.9 Z" fill="none" stroke="#868e96" stroke-width="1" stroke-dasharray="4 4" opacity="0.35"/>
+<text x="285.0" y="212.0" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057" opacity="0.6">20%</text>
+<path d="M280.0,172.0 L348.5,221.8 L322.3,302.2 L237.7,302.2 L211.5,221.8 Z" fill="none" stroke="#868e96" stroke-width="1" stroke-dasharray="4 4" opacity="0.35"/>
+<text x="285.0" y="176.0" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057" opacity="0.6">40%</text>
+<path d="M280.0,136.0 L382.7,210.6 L343.5,331.4 L216.5,331.4 L177.3,210.6 Z" fill="none" stroke="#868e96" stroke-width="1" stroke-dasharray="4 4" opacity="0.35"/>
+<text x="285.0" y="140.0" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057" opacity="0.6">60%</text>
+<path d="M280.0,100.0 L417.0,199.5 L364.6,360.5 L195.4,360.5 L143.0,199.5 Z" fill="none" stroke="#868e96" stroke-width="1" stroke-dasharray="4 4" opacity="0.35"/>
+<text x="285.0" y="104.0" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#495057" opacity="0.6">80%</text>
+<path d="M280.0,64.0 L451.2,188.4 L385.8,389.6 L174.2,389.6 L108.8,188.4 Z" fill="none" stroke="#868e96" stroke-width="1.5"/>
+<line x1="280" y1="244" x2="280.0" y2="64.0" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+<line x1="280" y1="244" x2="451.2" y2="188.4" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+<line x1="280" y1="244" x2="385.8" y2="389.6" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+<line x1="280" y1="244" x2="174.2" y2="389.6" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+<line x1="280" y1="244" x2="108.8" y2="188.4" stroke="#868e96" stroke-width="1" opacity="0.4"/>
+<path d="M280.0,85.6 L410.1,201.7 L377.3,378.0 L195.4,360.5 L160.2,205.1 Z" fill="#2563eb" fill-opacity="0.15" stroke="#2563eb" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="280.0" cy="85.6" r="4" fill="#2563eb" stroke="white" stroke-width="1.5"/>
+<circle cx="410.1" cy="201.7" r="4" fill="#2563eb" stroke="white" stroke-width="1.5"/>
+<circle cx="377.3" cy="378.0" r="4" fill="#2563eb" stroke="white" stroke-width="1.5"/>
+<circle cx="195.4" cy="360.5" r="4" fill="#2563eb" stroke="white" stroke-width="1.5"/>
+<circle cx="160.2" cy="205.1" r="4" fill="#2563eb" stroke="white" stroke-width="1.5"/>
+<text x="280.0" y="20.0" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#495057">Reliability</text>
+<text x="487.3" y="170.6" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#495057">Performance</text>
+<text x="408.1" y="434.4" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#495057">Security</text>
+<text x="151.9" y="434.4" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#495057">Usability</text>
+<text x="72.7" y="170.6" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#495057">Maintainability</text>
+<circle cx="26" cy="496" r="5" fill="#2563eb"/>
+<text x="35" y="501" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#495057">v2.0</text>
+</g>
+</svg>

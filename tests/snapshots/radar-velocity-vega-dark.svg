@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="597" viewBox="0 0 560 597">
+<rect width="100%" height="100%" fill="#1a1b1e"/>
+<text x="280" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#adb5bd">Team Velocity</text>
+<text x="280" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#5c6370">Q1 – Q4</text>
+<g class="radar-chart" transform="translate(0,67)">
+<path d="M280.0,208.0 L316.0,244.0 L280.0,280.0 L244.0,244.0 Z" fill="none" stroke="#5c6370" stroke-width="1" stroke-dasharray="4 4" opacity="0.35"/>
+<text x="285.0" y="212.0" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd" opacity="0.6">20%</text>
+<path d="M280.0,172.0 L352.0,244.0 L280.0,316.0 L208.0,244.0 Z" fill="none" stroke="#5c6370" stroke-width="1" stroke-dasharray="4 4" opacity="0.35"/>
+<text x="285.0" y="176.0" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd" opacity="0.6">40%</text>
+<path d="M280.0,136.0 L388.0,244.0 L280.0,352.0 L172.0,244.0 Z" fill="none" stroke="#5c6370" stroke-width="1" stroke-dasharray="4 4" opacity="0.35"/>
+<text x="285.0" y="140.0" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd" opacity="0.6">60%</text>
+<path d="M280.0,100.0 L424.0,244.0 L280.0,388.0 L136.0,244.0 Z" fill="none" stroke="#5c6370" stroke-width="1" stroke-dasharray="4 4" opacity="0.35"/>
+<text x="285.0" y="104.0" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#adb5bd" opacity="0.6">80%</text>
+<path d="M280.0,64.0 L460.0,244.0 L280.0,424.0 L100.0,244.0 Z" fill="none" stroke="#5c6370" stroke-width="1.5"/>
+<line x1="280" y1="244" x2="280.0" y2="64.0" stroke="#5c6370" stroke-width="1" opacity="0.4"/>
+<line x1="280" y1="244" x2="460.0" y2="244.0" stroke="#5c6370" stroke-width="1" opacity="0.4"/>
+<line x1="280" y1="244" x2="280.0" y2="424.0" stroke="#5c6370" stroke-width="1" opacity="0.4"/>
+<line x1="280" y1="244" x2="100.0" y2="244.0" stroke="#5c6370" stroke-width="1" opacity="0.4"/>
+<path d="M280.0,118.0 L397.0,244.0 L280.0,388.0 L172.0,244.0 Z" fill="#7aadce" fill-opacity="0.15" stroke="#7aadce" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="280.0" cy="118.0" r="4" fill="#7aadce" stroke="#1a1b1e" stroke-width="1.5"/>
+<circle cx="397.0" cy="244.0" r="4" fill="#7aadce" stroke="#1a1b1e" stroke-width="1.5"/>
+<circle cx="280.0" cy="388.0" r="4" fill="#7aadce" stroke="#1a1b1e" stroke-width="1.5"/>
+<circle cx="172.0" cy="244.0" r="4" fill="#7aadce" stroke="#1a1b1e" stroke-width="1.5"/>
+<path d="M280.0,109.0 L409.6,244.0 L280.0,391.6 L157.6,244.0 Z" fill="#f5a54e" fill-opacity="0.15" stroke="#f5a54e" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="280.0" cy="109.0" r="4" fill="#f5a54e" stroke="#1a1b1e" stroke-width="1.5"/>
+<circle cx="409.6" cy="244.0" r="4" fill="#f5a54e" stroke="#1a1b1e" stroke-width="1.5"/>
+<circle cx="280.0" cy="391.6" r="4" fill="#f5a54e" stroke="#1a1b1e" stroke-width="1.5"/>
+<circle cx="157.6" cy="244.0" r="4" fill="#f5a54e" stroke="#1a1b1e" stroke-width="1.5"/>
+<path d="M280.0,100.0 L420.4,244.0 L280.0,397.0 L145.0,244.0 Z" fill="#90ccc9" fill-opacity="0.15" stroke="#90ccc9" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="280.0" cy="100.0" r="4" fill="#90ccc9" stroke="#1a1b1e" stroke-width="1.5"/>
+<circle cx="420.4" cy="244.0" r="4" fill="#90ccc9" stroke="#1a1b1e" stroke-width="1.5"/>
+<circle cx="280.0" cy="397.0" r="4" fill="#90ccc9" stroke="#1a1b1e" stroke-width="1.5"/>
+<circle cx="145.0" cy="244.0" r="4" fill="#90ccc9" stroke="#1a1b1e" stroke-width="1.5"/>
+<path d="M280.0,85.6 L433.0,244.0 L280.0,406.0 L132.4,244.0 Z" fill="#eb8080" fill-opacity="0.15" stroke="#eb8080" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="280.0" cy="85.6" r="4" fill="#eb8080" stroke="#1a1b1e" stroke-width="1.5"/>
+<circle cx="433.0" cy="244.0" r="4" fill="#eb8080" stroke="#1a1b1e" stroke-width="1.5"/>
+<circle cx="280.0" cy="406.0" r="4" fill="#eb8080" stroke="#1a1b1e" stroke-width="1.5"/>
+<circle cx="132.4" cy="244.0" r="4" fill="#eb8080" stroke="#1a1b1e" stroke-width="1.5"/>
+<text x="280.0" y="20.0" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#adb5bd">Backend</text>
+<text x="498.0" y="248.0" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#adb5bd">Frontend</text>
+<text x="280.0" y="476.0" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#adb5bd">QA</text>
+<text x="62.0" y="248.0" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#adb5bd">DevOps</text>
+<circle cx="26" cy="496" r="5" fill="#7aadce"/>
+<text x="35" y="501" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd">Q1</text>
+<circle cx="156" cy="496" r="5" fill="#f5a54e"/>
+<text x="165" y="501" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd">Q2</text>
+<circle cx="286" cy="496" r="5" fill="#90ccc9"/>
+<text x="295" y="501" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd">Q3</text>
+<circle cx="416" cy="496" r="5" fill="#eb8080"/>
+<text x="425" y="501" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#adb5bd">Q4</text>
+</g>
+</svg>

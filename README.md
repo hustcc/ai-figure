@@ -11,7 +11,7 @@
 - 🎨 **Rich visual styles** — light/dark mode, nine built-in palettes (`default`, `antv`, `drawio`, `figma`, `vega`, `mono-blue`, `mono-green`, `mono-purple`, `mono-orange`) plus custom hex arrays; every diagram supports optional title & subtitle, node groups, and color-coded layers
 - 📐 **Auto layout** — just describe the graph; x/y coordinates are computed automatically, and diagram dimensions scale to fit the content
 - 🤖 **AI-friendly** — single `fig()` entry point accepts a markdown string **or** a JSON config; streaming-safe (partial input never throws); ships a [`SKILL.md`](https://github.com/hustcc/ai-figure/blob/main/SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
-- 📊 **11 diagram types** — flowchart, tree, architecture, sequence, quadrant, Gantt, state machine, ER data model, timeline, swimlane, and bubble chart; pure SVG output with zero DOM dependency, works in browser and Node.js
+- 📊 **12 diagram types** — flowchart, tree, architecture, sequence, quadrant, Gantt, state machine, ER data model, timeline, swimlane, bubble chart, and radar chart; pure SVG output with zero DOM dependency, works in browser and Node.js
 
 ## Quick Start
 
@@ -94,6 +94,7 @@ fig({ figure: 'er',       ...erOptions       }); // ER data model
 fig({ figure: 'timeline', ...timelineOptions }); // timeline
 fig({ figure: 'swimlane', ...swimlaneOptions }); // swimlane flow
 fig({ figure: 'bubble',   ...bubbleOptions   }); // bubble chart
+fig({ figure: 'radar',    ...radarOptions    }); // radar / spider chart
 
 // markdown string
 fig(`figure flow\na[A] --> b[B]`);
@@ -582,9 +583,46 @@ fig({
 });
 ```
 
+### `figure: 'radar'` — Radar / Spider Chart
+
+Renders a radar (spider / web) chart with multiple overlaid polygon series. Each axis is a spoke radiating from the centre; values 0–100 map to 0–100% of the axis radius. Multiple series are overlaid with translucent fills so they remain readable when they overlap. A legend below the chart labels each series.
+
+![Radar](https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/radar.svg)
+
+| Field      | Type            | Default      | Description                                   |
+|------------|-----------------|--------------|-----------------------------------------------|
+| `figure`   | `'radar'`       | **required** | Selects the radar chart renderer              |
+| `axes`     | `string[]`      | **required** | Ordered list of axis labels (3 or more recommended) |
+| `series`   | `RadarSeries[]` | **required** | One or more data series to overlay            |
+| `title`    | `string`        | `undefined`  | Optional centered title above the diagram    |
+| `subtitle` | `string`        | `undefined`  | Optional centered subtitle below the title   |
+| `theme`    | `ThemeType`     | `'light'`    | Light or dark rendering mode                  |
+| `palette`  | `PaletteType`   | `'default'`  | Color palette — see [Palette API](#palette-api) below |
+
+#### `RadarSeries`
+
+| Field    | Type       | Default      | Description                                                   |
+|----------|------------|--------------|---------------------------------------------------------------|
+| `label`  | `string`   | **required** | Series name shown in the legend                               |
+| `values` | `number[]` | **required** | One value per axis in the same order as `axes` (range 0–100) |
+
+```typescript
+fig({
+  figure: 'radar',
+  title: 'Framework Comparison',
+  axes: ['Performance', 'Scalability', 'DX', 'Ecosystem', 'Tooling'],
+  series: [
+    { label: 'React',   values: [75, 80, 90, 95, 88] },
+    { label: 'Vue',     values: [82, 72, 90, 82, 80] },
+    { label: 'Angular', values: [65, 92, 72, 90, 86] },
+  ],
+  palette: 'antv',
+});
+```
+
 ### Palette API
 
-All eleven diagram types accept two independent styling parameters:
+All twelve diagram types accept two independent styling parameters:
 
 | Field     | Type                   | Default       | Description                          |
 |-----------|------------------------|---------------|--------------------------------------|
@@ -799,6 +837,20 @@ figure bubble
 title: Optional Title
 %% e.g. "Product A: 75"
 Label: value
+```
+</details>
+
+<details>
+<summary><strong>radar</strong></summary>
+
+```
+figure radar
+title: Optional Title
+%% axes: comma-separated axis labels
+axes: Axis1, Axis2, Axis3, ...
+%% one value (0-100) per axis
+Series A: 80, 70, 90, ...
+Series B: 60, 85, 75, ...
 ```
 </details>
 

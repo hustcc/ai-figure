@@ -1,12 +1,12 @@
 ---
 name: ai-figure
 version: "0.4.0"
-description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence, quadrant, gantt, state machine, ER, timeline, swimlane, bubble chart) from a markdown string or a JSON config via fig(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
+description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence, quadrant, gantt, state machine, ER, timeline, swimlane, bubble chart, radar chart) from a markdown string or a JSON config via fig(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
 author: hustcc
 license: MIT
 package: ai-figure
 api: fig(markdown|options) → string (SVG)
-tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, state-machine, er-diagram, timeline, swimlane, bubble-chart, svg, layout, visualization, markdown]
+tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, state-machine, er-diagram, timeline, swimlane, bubble-chart, radar-chart, svg, layout, visualization, markdown]
 ---
 
 # ai-figure Skill
@@ -44,7 +44,7 @@ const svg2 = fig({ figure: 'flow', nodes: [...], edges: [...] });
 
 **First line must be:** `figure <type>` — this is the required header, **not** a `key: value` config line.
 
-Valid types: `flow` `tree` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` `bubble`
+Valid types: `flow` `tree` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` `bubble` `radar`
 
 Config lines use `key: value` syntax. Data lines use diagram-specific patterns.
 
@@ -251,6 +251,23 @@ Product C: 85
 - Data lines: `Label: value` — any positive number; bubble **area is proportional to value**
 - Positions computed automatically; no coordinates needed
 
+### radar
+
+```
+figure radar
+title: Framework Comparison
+subtitle: 2025 technical evaluation
+axes: Performance, Scalability, DX, Ecosystem, Tooling
+React: 75, 80, 90, 95, 88
+Vue: 82, 72, 90, 82, 80
+Angular: 65, 92, 72, 90, 86
+```
+
+- `axes:` — comma-separated list of axis labels (3 or more recommended); each becomes a spoke of the web
+- Series lines: `Series Name: v1, v2, v3, ...` — one numeric value per axis, range **0–100** (treated as a percentage of the axis maximum; values are clamped)
+- Multiple series can be overlaid; each is assigned a different palette color
+- A legend with colored dots and series names appears below the chart
+
 ## Common pitfalls
 
 These mistakes may produce unexpected or broken diagrams:
@@ -321,4 +338,8 @@ All options share: `title?`, `subtitle?`, `theme?: 'light'|'dark'`, `palette?: s
 // bubble
 { figure: 'bubble', items: BubbleItem[] }
 // BubbleItem: { label, value }  — value is a positive number; area proportional to value
+
+// radar
+{ figure: 'radar', axes: string[], series: RadarSeries[] }
+// RadarSeries: { label, values }  — values are 0-100 (one per axis); clamped to [0,100]
 ```
