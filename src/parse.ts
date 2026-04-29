@@ -607,11 +607,12 @@ function parseRadar(lines: string[]): FigOptions {
     // Series data line: `Series Name: v1, v2, v3, ...`
     const ci = line.indexOf(':');
     if (ci === -1) continue;
-    const label     = line.slice(0, ci).trim();
+    const label      = line.slice(0, ci).trim();
     const valuesPart = line.slice(ci + 1).trim();
     if (!label || !valuesPart) continue;
-    // Must contain at least one comma to be a series line (avoids matching plain key:value)
-    if (!valuesPart.includes(',') && Number.isNaN(Number(valuesPart))) continue;
+    // Require comma-separated numbers OR a single finite number
+    const hasComma = valuesPart.includes(',');
+    if (!hasComma && !Number.isFinite(Number(valuesPart))) continue;
     const values = valuesPart.split(',').map((v) => {
       const n = Number(v.trim());
       return Number.isFinite(n) ? n : 0;

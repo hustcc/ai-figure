@@ -17,9 +17,6 @@ const LEGEND_PAD_BTOM = 14;
 /** Node types cycled per series index for color variation. */
 const SERIES_TYPES: NodeType[] = ['process', 'decision', 'terminal', 'io'];
 
-/** Incrementing counter for unique per-diagram SVG IDs (marker, etc.). */
-let _radarCount = 0;
-
 // ---------------------------------------------------------------------------
 // Geometry helpers
 // ---------------------------------------------------------------------------
@@ -72,8 +69,6 @@ export function createRadarChart(options: RadarChartOptions): string {
 
   const theme  = resolveTheme(palette, mode);
   const titleH = titleBlockHeight(title, subtitle, theme.fontSize);
-
-  _radarCount += 1;
 
   const n      = axisLabels.length;
   const series = rawSeries.filter(s => Array.isArray(s.values) && s.values.length > 0);
