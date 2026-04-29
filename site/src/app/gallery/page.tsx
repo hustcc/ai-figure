@@ -6,7 +6,7 @@ import DiagramCard from '@/components/DiagramCard';
 
 export const metadata: Metadata = {
   title: 'Gallery',
-  description: 'Browse diagram examples across all 11 types: flow, tree, architecture, sequence, quadrant, gantt, state, ER, timeline, swimlane, and bubble chart.',
+  description: 'Browse diagram examples across all 12 types: flow, tree, architecture, sequence, quadrant, gantt, state, ER, timeline, swimlane, bubble chart, and radar chart.',
 };
 
 export default function GalleryPage() {
@@ -38,7 +38,7 @@ export default function GalleryPage() {
       <div className="mb-8">
         <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-2">Gallery</h1>
         <p className="text-lg text-slate-500">
-          {cards.length} examples across 11 diagram types. Click <strong className="text-slate-700">Copy link</strong> to get a shareable URL.
+          {cards.length} examples across {DIAGRAMS.length} diagram types. Click <strong className="text-slate-700">Copy link</strong> to get a shareable URL.
         </p>
       </div>
 
