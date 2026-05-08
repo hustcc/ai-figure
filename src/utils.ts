@@ -20,7 +20,7 @@ export function estimateTextWidth(
 
 /** Naive text-wrapping based on estimated character width. */
 export function wrapText(text: string, maxWidth: number, fontSize: number): string[] {
-  const avgCharWidth = estimateTextWidth('M', fontSize);
+  const avgCharWidth = fontSize * 0.58;
   const maxChars = Math.max(1, Math.floor(maxWidth / avgCharWidth));
   if (text.length <= maxChars) return [text];
 

@@ -160,6 +160,8 @@ export function createTimelineDiagram(options: TimelineDiagramOptions): string {
     const preferredLane = findLane(preferredLanes, span.labelStart);
     const alternateLane = findLane(alternateLanes, span.labelStart);
 
+    // On ties, keep the original alternating side preference so stable inputs
+    // produce stable output unless one side clearly offers a lower lane.
     const usePreferred = preferredLane < alternateLane
       || (preferredLane === alternateLane && preferredLanes.length <= alternateLanes.length);
     const above = usePreferred ? preferredAbove : !preferredAbove;
