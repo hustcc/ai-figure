@@ -35,6 +35,7 @@ Edges: A --> B   or   A --> B: label
 ## Examples
 
 ### flow
+\`\`\`
 figure flow
 direction: LR
 palette: antv
@@ -46,8 +47,10 @@ test --> fix((Fix Issues)): no
 fix --> code
 build --> deploy[/Deploy/]
 group Pipeline: code, test, build
+\`\`\`
 
 ### tree
+\`\`\`
 figure tree
 direction: LR
 title: Org Chart
@@ -56,8 +59,10 @@ ceo --> eng[Engineering]
 ceo --> mkt[Marketing]
 eng --> fe[Frontend]
 eng --> be[Backend]
+\`\`\`
 
 ### arch
+\`\`\`
 figure arch
 direction: TB
 palette: antv
@@ -75,18 +80,22 @@ layer Data
 ui --> api
 api --> db
 api --> cache
+\`\`\`
 
 ### sequence
+\`\`\`
 figure sequence
 title: OAuth Login
 subtitle: password flow
 actors: Browser, API, DB
-Browser -> API: POST /login        %% solid arrow  →
+Browser -> API: POST /login
 API -> DB: query user
-DB --> API: user row               %% dashed return arrow  ⇢
+DB --> API: user row
 API --> Browser: JWT token
+\`\`\`
 
 ### quadrant
+\`\`\`
 figure quadrant
 title: Feature Priority
 subtitle: effort vs value
@@ -99,8 +108,10 @@ quadrant-4: Long Shots
 Auth: 0.3, 0.9
 Search: 0.7, 0.8
 Analytics: 0.8, 0.4
+\`\`\`
 
 ### gantt
+\`\`\`
 figure gantt
 title: Q1 Roadmap
 subtitle: Jan – Mar 2025
@@ -111,8 +122,10 @@ section Dev
   Frontend: t3, 2025-02-03, 2025-02-28
   Backend: t4, 2025-02-10, 2025-03-07
 milestone: Launch, 2025-03-14
+\`\`\`
 
 ### state
+\`\`\`
 figure state
 title: Order Status
 idle[Idle]
@@ -124,8 +137,10 @@ idle --> processing: order placed
 processing --> failed: error
 processing --> end: shipped
 failed --> idle: retry
+\`\`\`
 
 ### er
+\`\`\`
 figure er
 title: Blog Schema
 subtitle: users, posts, comments
@@ -146,8 +161,10 @@ entity Comment
 User --> Post: writes
 Post --> Comment: has
 User --> Comment: writes
+\`\`\`
 
 ### timeline
+\`\`\`
 figure timeline
 title: Product History
 subtitle: major releases
@@ -155,8 +172,10 @@ subtitle: major releases
 2021-06-01: v1.5 Improvements
 2022-03-10: v2.0 Redesign milestone
 2023-11-01: v3.0 AI Features
+\`\`\`
 
 ### swimlane
+\`\`\`
 figure swimlane
 title: Order Flow
 subtitle: cross-team process
@@ -172,8 +191,10 @@ order --> pay
 pay --> receive
 receive --> pack
 pack --> ship
+\`\`\`
 
 ### bubble
+\`\`\`
 figure bubble
 title: Market Share
 subtitle: by product segment
@@ -181,8 +202,10 @@ Product A: 75
 Product B: 50
 Product C: 85
 Product D: 30
+\`\`\`
 
 ### radar
+\`\`\`
 figure radar
 title: Framework Comparison
 subtitle: 2025 technical evaluation
@@ -190,6 +213,7 @@ axes: Performance, Scalability, DX, Ecosystem, Tooling
 React: 75, 80, 90, 95, 88
 Vue: 82, 72, 90, 82, 80
 Angular: 65, 92, 72, 90, 86
+\`\`\`
 
 ## Common pitfalls
 
