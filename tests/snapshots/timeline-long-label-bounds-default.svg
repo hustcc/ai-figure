@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="338" viewBox="0 0 800 338">
+<text x="400" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Long Label Bounds</text>
+<g class="timeline-diagram" transform="translate(0,48)">
+<defs><clipPath id="timeline-label-clip"><rect x="48" y="0" width="704" height="290"/></clipPath></defs>
+<line x1="48" y1="160" x2="752" y2="160" stroke="#495057" stroke-width="1.5"/>
+<line x1="74.07407407407408" y1="153" x2="74.07407407407408" y2="167" stroke="#495057" stroke-width="1" opacity="0.5"/>
+<text x="74.07407407407408" y="181" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2020</text>
+<line x1="410.86419753086415" y1="153" x2="410.86419753086415" y2="167" stroke="#495057" stroke-width="1" opacity="0.5"/>
+<text x="410.86419753086415" y="181" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Feb 2020</text>
+<line x1="725.9259259259259" y1="153" x2="725.9259259259259" y2="167" stroke="#495057" stroke-width="1" opacity="0.5"/>
+<text x="725.9259259259259" y="181" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Mar 2020</text>
+<line x1="74.07407407407408" y1="150" x2="74.07407407407408" y2="141" stroke="#868e96" stroke-width="1"/>
+<circle cx="74.07407407407408" cy="160" r="9" fill="#fff7e6" stroke="#f59f00" stroke-width="1.5"/>
+<text x="48" y="124" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#f59f00" clip-path="url(#timeline-label-clip)">This is an intentionally oversized timeline label that should stay inside the visible timeline plot even when it is much wider than the available chart area</text>
+<line x1="410.86419753086415" y1="167" x2="410.86419753086415" y2="193" stroke="#868e96" stroke-width="1"/>
+<circle cx="410.86419753086415" cy="160" r="6" fill="#339af0" stroke="none" stroke-width="1.5"/>
+<text x="410.86419753086415" y="208" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="400" fill="#495057">Middle</text>
+<line x1="725.9259259259259" y1="150" x2="725.9259259259259" y2="113" stroke="#868e96" stroke-width="1"/>
+<circle cx="725.9259259259259" cy="160" r="9" fill="#fff7e6" stroke="#f59f00" stroke-width="1.5"/>
+<text x="48" y="96" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#f59f00" clip-path="url(#timeline-label-clip)">Another intentionally oversized timeline label near the right edge that should also remain clipped to the visible timeline plot area</text>
+</g>
+</svg>

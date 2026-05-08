@@ -115,4 +115,14 @@ describe('timeline — markdown parse', () => {
     expect(svg).toContain('RC');
     expect(svg).toContain('GA');
   });
+
+  it('clips oversized edge labels to the plot bounds', () => {
+    const svg = fig(`
+      figure timeline
+      2020-01-01: This is an intentionally oversized timeline label that should be clipped at the plot edge because it is much wider than the chart area milestone
+      2020-02-01: Short label
+    `);
+    expect(svg).toContain('clipPath');
+    expect(svg).toContain('clip-path="url(#');
+  });
 });

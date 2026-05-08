@@ -13,7 +13,18 @@ export function estimateTextWidth(
   fontSize: number,
   fontWeight: number | string = 400,
 ): number {
-  const weight = typeof fontWeight === 'string' ? Number(fontWeight) || 400 : fontWeight;
+  let weight: number;
+  if (typeof fontWeight === 'string') {
+    const keywordWeights: Record<string, number> = {
+      normal: 400,
+      bold: 700,
+      bolder: 700,
+      lighter: 300,
+    };
+    weight = keywordWeights[fontWeight] ?? (Number(fontWeight) || 400);
+  } else {
+    weight = fontWeight;
+  }
   const avgCharWidth = fontSize * (weight >= 600 ? 0.61 : 0.58);
   return text.length * avgCharWidth;
 }
