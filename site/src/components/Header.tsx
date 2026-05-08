@@ -14,6 +14,15 @@ export default function Header() {
           <Link href="/gallery" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
             Gallery
           </Link>
+          <Link
+            href="/ai"
+            className="text-sm font-semibold text-orange-600 hover:text-orange-700 transition-colors flex items-center gap-1"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            AI
+          </Link>
           <a
             href="https://github.com/hustcc/ai-figure"
             target="_blank"
