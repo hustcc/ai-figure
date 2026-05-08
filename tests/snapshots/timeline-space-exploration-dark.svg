@@ -27,7 +27,7 @@
 <text x="687.1447970001619" y="181" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#5c6370">Jan 2019</text>
 <line x1="74.07407407407408" y1="150" x2="74.07407407407408" y2="141" stroke="#5c6370" stroke-width="1"/>
 <circle cx="74.07407407407408" cy="160" r="9" fill="#071128" stroke="#93c5fd" stroke-width="1.5"/>
-<text x="74.07407407407408" y="124" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#93c5fd">Sputnik 1</text>
+<text x="48" y="124" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#93c5fd">Sputnik 1</text>
 <line x1="192.11670466295425" y1="170" x2="192.11670466295425" y2="193" stroke="#5c6370" stroke-width="1"/>
 <circle cx="192.11670466295425" cy="160" r="9" fill="#071128" stroke="#93c5fd" stroke-width="1.5"/>
 <text x="192.11670466295425" y="208" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#93c5fd">Moon Landing</text>
@@ -42,6 +42,6 @@
 <text x="623.0394538500829" y="124" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#93c5fd">Mars Curiosity</text>
 <line x1="725.9259259259259" y1="170" x2="725.9259259259259" y2="193" stroke="#5c6370" stroke-width="1"/>
 <circle cx="725.9259259259259" cy="160" r="9" fill="#071128" stroke="#93c5fd" stroke-width="1.5"/>
-<text x="725.9259259259259" y="208" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#93c5fd">Artemis I</text>
+<text x="752" y="208" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#93c5fd">Artemis I</text>
 </g>
 </svg>

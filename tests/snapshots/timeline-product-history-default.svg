@@ -13,7 +13,7 @@
 <text x="582.9512051734274" y="181" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2023</text>
 <line x1="74.07407407407408" y1="150" x2="74.07407407407408" y2="141" stroke="#868e96" stroke-width="1"/>
 <circle cx="74.07407407407408" cy="160" r="9" fill="#fff7e6" stroke="#f59f00" stroke-width="1.5"/>
-<text x="74.07407407407408" y="124" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#f59f00">v1.0 Launch</text>
+<text x="48" y="124" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#f59f00">v1.0 Launch</text>
 <line x1="147.9129923574368" y1="167" x2="147.9129923574368" y2="193" stroke="#868e96" stroke-width="1"/>
 <circle cx="147.9129923574368" cy="160" r="6" fill="#339af0" stroke="none" stroke-width="1.5"/>
 <text x="147.9129923574368" y="208" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="400" fill="#495057">v1.1 Bug fixes</text>
@@ -28,6 +28,6 @@
 <text x="475.7201646090535" y="124" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#f59f00">v3.0 Mobile</text>
 <line x1="725.9259259259259" y1="170" x2="725.9259259259259" y2="193" stroke="#868e96" stroke-width="1"/>
 <circle cx="725.9259259259259" cy="160" r="9" fill="#fff7e6" stroke="#f59f00" stroke-width="1.5"/>
-<text x="725.9259259259259" y="208" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#f59f00">v4.0 AI Features</text>
+<text x="752" y="208" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#f59f00">v4.0 AI Features</text>
 </g>
 </svg>

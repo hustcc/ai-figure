@@ -12,7 +12,7 @@
 <text x="593.1959108429696" y="181" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jul 2025</text>
 <line x1="74.07407407407408" y1="150" x2="74.07407407407408" y2="141" stroke="#868e96" stroke-width="1"/>
 <circle cx="74.07407407407408" cy="160" r="9" fill="#ecfeff" stroke="#06b6d4" stroke-width="1.5"/>
-<text x="74.07407407407408" y="124" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#06b6d4">Kickoff</text>
+<text x="48" y="124" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#06b6d4">Kickoff</text>
 <line x1="189.10675381263616" y1="167" x2="189.10675381263616" y2="193" stroke="#868e96" stroke-width="1"/>
 <circle cx="189.10675381263616" cy="160" r="6" fill="#6366f1" stroke="none" stroke-width="1.5"/>
 <text x="189.10675381263616" y="208" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="400" fill="#495057">Design Complete</text>
@@ -27,6 +27,6 @@
 <text x="590.2463549522373" y="124" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#06b6d4">Release Candidate</text>
 <line x1="725.9259259259259" y1="170" x2="725.9259259259259" y2="193" stroke="#868e96" stroke-width="1"/>
 <circle cx="725.9259259259259" cy="160" r="9" fill="#ecfeff" stroke="#06b6d4" stroke-width="1.5"/>
-<text x="725.9259259259259" y="208" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#06b6d4">GA Release</text>
+<text x="752" y="208" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#06b6d4">GA Release</text>
 </g>
 </svg>

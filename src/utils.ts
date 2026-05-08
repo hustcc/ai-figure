@@ -7,9 +7,20 @@ export function escapeXml(str: string): string {
     .replace(/'/g, '&apos;');
 }
 
+/** Estimate rendered text width in px for the default sans-serif chart font. */
+export function estimateTextWidth(
+  text: string,
+  fontSize: number,
+  fontWeight: number | string = 400,
+): number {
+  const weight = typeof fontWeight === 'string' ? Number(fontWeight) || 400 : fontWeight;
+  const avgCharWidth = fontSize * (weight >= 600 ? 0.61 : 0.58);
+  return text.length * avgCharWidth;
+}
+
 /** Naive text-wrapping based on estimated character width. */
 export function wrapText(text: string, maxWidth: number, fontSize: number): string[] {
-  const avgCharWidth = fontSize * 0.58;
+  const avgCharWidth = estimateTextWidth('M', fontSize);
   const maxChars = Math.max(1, Math.floor(maxWidth / avgCharWidth));
   if (text.length <= maxChars) return [text];
 

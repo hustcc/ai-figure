@@ -24,7 +24,7 @@
 <text x="750.7516221335591" y="181" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2020</text>
 <line x1="74.07407407407408" y1="150" x2="74.07407407407408" y2="141" stroke="#868e96" stroke-width="1"/>
 <circle cx="74.07407407407408" cy="160" r="9" fill="#fff4ef" stroke="#e8684a" stroke-width="1.5"/>
-<text x="74.07407407407408" y="124" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#e8684a">Founded</text>
+<text x="48" y="124" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#e8684a">Founded</text>
 <line x1="192.52811026478054" y1="167" x2="192.52811026478054" y2="193" stroke="#868e96" stroke-width="1"/>
 <circle cx="192.52811026478054" cy="160" r="6" fill="#5b8ff9" stroke="none" stroke-width="1.5"/>
 <text x="192.52811026478054" y="208" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="400" fill="#495057">Seed Round</text>
