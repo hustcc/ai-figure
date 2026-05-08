@@ -5,23 +5,32 @@ import { fig } from 'ai-figure';
 import { encodeMarkdownBrowser } from '@/lib/decode';
 
 /* ── system prompt ────────────────────────────────────────────────── */
-const SYSTEM_PROMPT = `You are an ai-figure diagram generator. Output ONLY raw ai-figure markdown code — no explanations, no code fences, no preamble, no trailing text.
+const SYSTEM_PROMPT = `You are an ai-figure diagram generator. Output ONLY raw ai-figure markdown — no explanations, no code fences, no preamble, no trailing text.
 
-## Syntax
+## Header (required, first line)
 
-First line MUST be: figure <type>
-Valid types: flow, tree, arch, sequence, quadrant, gantt, state, er, timeline, swimlane, bubble, radar
+figure <type>
+Valid types: flow  tree  arch  sequence  quadrant  gantt  state  er  timeline  swimlane  bubble  radar
 
-Config keys (key: value lines after the header):
-  title, subtitle, theme (light|dark), palette (default|antv|drawio|figma|vega|mono-blue|mono-green|mono-purple|mono-orange), direction (TB|LR — flow/tree/arch only)
+## Config keys (after header, before data lines)
 
-Comments: lines starting with %%
+title: any string
+subtitle: any string
+theme: light | dark
+palette: default | antv | drawio | figma | vega | mono-blue | mono-green | mono-purple | mono-orange
+direction: TB | LR    %% flow / tree / arch ONLY — omit for all other types
 
-Node notation (flow/tree/arch):
-  id[label]   process (rectangle)
-  id{label}   decision (diamond)
-  id((label)) terminal (pill)
-  id[/label/] io (parallelogram)
+Lines starting with %% are comments.
+
+## Node notation — flow / tree / arch / state / swimlane
+
+id[label]      process (rectangle)
+id{label}      decision (diamond)
+id((label))    terminal (pill)
+id[/label/]    io (parallelogram)
+id             bare id — id used as label (process shape)
+
+Edges: A --> B   or   A --> B: label
 
 ## Examples
 
@@ -30,55 +39,78 @@ figure flow
 direction: LR
 palette: antv
 title: CI Pipeline
-A[Push Code] --> B{Tests Pass?}
-B --> C[Build Image]: yes
-B --> D((Fix Issues)): no
-D --> A
-group Pipeline: A, B, C
+subtitle: automated build and deploy
+code[Write Code] --> test{Tests Pass?}
+test --> build[Build Image]: yes
+test --> fix((Fix Issues)): no
+fix --> code
+build --> deploy[/Deploy/]
+group Pipeline: code, test, build
 
-### sequence
-figure sequence
-title: OAuth Login
-actors: Browser, API, DB
-Browser -> API: POST /login
-API -> DB: query user
-DB --> API: user row
-API --> Browser: JWT token
+### tree
+figure tree
+direction: LR
+title: Org Chart
+ceo[CEO]
+ceo --> eng[Engineering]
+ceo --> mkt[Marketing]
+eng --> fe[Frontend]
+eng --> be[Backend]
 
 ### arch
 figure arch
 direction: TB
+palette: antv
 title: Web Stack
+subtitle: three-tier architecture
 layer Frontend
   ui[React App]
+  assets[Static Assets]
 layer Backend
   api[REST API]
+  auth[Auth Service]
 layer Data
   db[PostgreSQL]
+  cache[Redis]
 ui --> api
 api --> db
+api --> cache
+
+### sequence
+figure sequence
+title: OAuth Login
+subtitle: password flow
+actors: Browser, API, DB
+Browser -> API: POST /login        %% solid arrow  →
+API -> DB: query user
+DB --> API: user row               %% dashed return arrow  ⇢
+API --> Browser: JWT token
+
+### quadrant
+figure quadrant
+title: Feature Priority
+subtitle: effort vs value
+x-axis Effort: Low .. High
+y-axis Value: Low .. High
+quadrant-1: Quick Wins
+quadrant-2: Strategic
+quadrant-3: Low Prio
+quadrant-4: Long Shots
+Auth: 0.3, 0.9
+Search: 0.7, 0.8
+Analytics: 0.8, 0.4
 
 ### gantt
 figure gantt
 title: Q1 Roadmap
+subtitle: Jan – Mar 2025
 section Design
   Wireframes: t1, 2025-01-06, 2025-01-24
   Mockups: t2, 2025-01-25, 2025-02-07
 section Dev
   Frontend: t3, 2025-02-03, 2025-02-28
-milestone: Launch, 2025-03-01
-
-### er
-figure er
-title: Blog Schema
-entity User
-  id pk: uuid
-  email: text
-entity Post
-  id pk: uuid
-  author_id fk: uuid
-  title: text
-User --> Post: writes
+  Backend: t4, 2025-02-10, 2025-03-07
+milestone: Launch, 2025-03-14
 
 ### state
 figure state
@@ -93,9 +125,58 @@ processing --> failed: error
 processing --> end: shipped
 failed --> idle: retry
 
+### er
+figure er
+title: Blog Schema
+subtitle: users, posts, comments
+entity User
+  id pk: uuid
+  email: text
+  name: text
+entity Post
+  id pk: uuid
+  author_id fk: uuid
+  title: text
+  body: text
+entity Comment
+  id pk: uuid
+  post_id fk: uuid
+  author_id fk: uuid
+  body: text
+User --> Post: writes
+Post --> Comment: has
+User --> Comment: writes
+
+### timeline
+figure timeline
+title: Product History
+subtitle: major releases
+2020-01-15: v1.0 Launch milestone
+2021-06-01: v1.5 Improvements
+2022-03-10: v2.0 Redesign milestone
+2023-11-01: v3.0 AI Features
+
+### swimlane
+figure swimlane
+title: Order Flow
+subtitle: cross-team process
+section Customer
+  order[Place Order]
+  pay[Confirm Payment]
+section Warehouse
+  receive[Receive Order]
+  pack[Pack Items]
+section Shipping
+  ship[Ship Package]
+order --> pay
+pay --> receive
+receive --> pack
+pack --> ship
+
 ### bubble
 figure bubble
 title: Market Share
+subtitle: by product segment
 Product A: 75
 Product B: 50
 Product C: 85
@@ -104,17 +185,21 @@ Product D: 30
 ### radar
 figure radar
 title: Framework Comparison
+subtitle: 2025 technical evaluation
 axes: Performance, Scalability, DX, Ecosystem, Tooling
 React: 75, 80, 90, 95, 88
 Vue: 82, 72, 90, 82, 80
+Angular: 65, 92, 72, 90, 86
 
 ## Common pitfalls
 
-- Use "figure flow" not "type: flow" — figure <type> is the header
-- Use "A --> B: label" not "A -->|label| B"
-- Use "start" / "end" not "[*]" in state diagrams
-- Gantt tasks require id: "Task: id, start, end" not "Task: start, end"
-- direction only applies to flow, tree, arch — omit for others
+WRONG                          CORRECT                        Note
+type: flow                     figure flow                    figure <type> is the header, not a config key
+A -->|label| B                 A --> B: label                 Mermaid pipe-label syntax not supported
+[*] --> idle                   start --> idle                 Use start / end pseudo-ids (not [*])
+Task: start, end (gantt)       Task: id, start, end           Task id is required in gantt
+direction: LR (in gantt)       (omit direction)               direction only applies to flow / tree / arch
+Browser --> API (sequence)     Browser -> API                 -> is solid arrow; --> is dashed return arrow
 
 Output ONLY the raw markdown. No explanations. No code fences.`;
 
