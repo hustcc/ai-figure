@@ -2,6 +2,9 @@ import { resolveTheme } from './theme';
 import { escapeXml, estimateTextWidth, titleBlockHeight, renderTitleBlock } from './utils';
 import type { TimelineDiagramOptions, TimelineEvent } from './types';
 
+/** Incrementing counter for unique per-diagram SVG IDs. */
+let _timelineCount = 0;
+
 // ── Layout constants ────────────────────────────────────────────────────────
 const SVG_W       = 800;
 const PAD_LEFT    = 48;
@@ -22,7 +25,6 @@ const BASE_BOTTOM_PAD = 130; // default room for tick labels + bottom label lane
 // Gap constants for label drop-line endpoints (space between text baseline/cap and line end)
 const LABEL_LINE_GAP_ABOVE = 4;  // pixels below label baseline to end of drop-line (above axis)
 const LABEL_LINE_GAP_BELOW = 2;  // pixels above label cap-height to end of drop-line (below axis)
-const LABEL_CLIP_ID = 'timeline-label-clip';
 
 type LabelAnchor = 'start' | 'middle' | 'end';
 
@@ -117,6 +119,7 @@ export function createTimelineDiagram(options: TimelineDiagramOptions): string {
 
   const theme  = resolveTheme(palette, mode);
   const titleH = titleBlockHeight(title, subtitle, theme.fontSize);
+  const uid = `tl-${++_timelineCount}`;
   // ── Sort events by date ──────────────────────────────────────────────────
   const events: (TimelineEvent & { ts: number })[] = rawEvents
     .map((e) => ({ ...e, ts: parseEventDate(e.date) }))
@@ -149,6 +152,8 @@ export function createTimelineDiagram(options: TimelineDiagramOptions): string {
   const accentFill   = theme.nodeFills['decision'];
   const plotLeft = PAD_LEFT;
   const plotRight = PAD_LEFT + PLOT_W;
+  const plotWidth = plotRight - plotLeft;
+  const labelClipId = `${uid}-label-clip`;
 
   const aboveLanes: number[] = [];
   const belowLanes: number[] = [];
@@ -185,7 +190,7 @@ export function createTimelineDiagram(options: TimelineDiagramOptions): string {
       above,
       lane,
       fontWeight,
-      clip: labelWidth >= plotRight - plotLeft,
+      clip: labelWidth >= plotWidth,
     });
   }
 
@@ -201,7 +206,7 @@ export function createTimelineDiagram(options: TimelineDiagramOptions): string {
 
   // ── Defs ─────────────────────────────────────────────────────────────────
   parts.push(
-    `<defs><clipPath id="${LABEL_CLIP_ID}"><rect x="${plotLeft}" y="0" width="${PLOT_W}" height="${SVG_H}"/></clipPath></defs>`,
+    `<defs><clipPath id="${labelClipId}"><rect x="${plotLeft}" y="0" width="${plotWidth}" height="${SVG_H}"/></clipPath></defs>`,
   );
 
   // ── Baseline ─────────────────────────────────────────────────────────────
@@ -294,7 +299,7 @@ export function createTimelineDiagram(options: TimelineDiagramOptions): string {
       `<text x="${labelX}" y="${labelY}" text-anchor="${anchor}" ` +
         `font-family="${escapeXml(theme.fontFamily)}" font-size="${LABEL_FS}" ` +
         `font-weight="${fontWeight}" fill="${escapeXml(textFill)}"` +
-        `${clip ? ` clip-path="url(#${LABEL_CLIP_ID})"` : ''}>${escapeXml(ev.label)}</text>`,
+        `${clip ? ` clip-path="url(#${labelClipId})"` : ''}>${escapeXml(ev.label)}</text>`,
     );
   }
 
