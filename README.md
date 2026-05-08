@@ -6,6 +6,63 @@
 [![Build](https://github.com/hustcc/ai-figure/actions/workflows/build.yml/badge.svg)](https://github.com/hustcc/ai-figure/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+<table>
+  <tr>
+    <td align="center" width="25%">
+      <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/flow.svg" width="100%" alt="Flowchart"/>
+      <br/><small>Flowchart</small>
+    </td>
+    <td align="center" width="25%">
+      <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/tree.svg" width="100%" alt="Tree"/>
+      <br/><small>Tree</small>
+    </td>
+    <td align="center" width="25%">
+      <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/arch.svg" width="100%" alt="Architecture"/>
+      <br/><small>Architecture</small>
+    </td>
+    <td align="center" width="25%">
+      <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/sequence.svg" width="100%" alt="Sequence"/>
+      <br/><small>Sequence</small>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="25%">
+      <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/quadrant.svg" width="100%" alt="Quadrant"/>
+      <br/><small>Quadrant</small>
+    </td>
+    <td align="center" width="25%">
+      <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/gantt.svg" width="100%" alt="Gantt"/>
+      <br/><small>Gantt</small>
+    </td>
+    <td align="center" width="25%">
+      <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/state.svg" width="100%" alt="State Machine"/>
+      <br/><small>State Machine</small>
+    </td>
+    <td align="center" width="25%">
+      <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/er.svg" width="100%" alt="ER Diagram"/>
+      <br/><small>ER Diagram</small>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="25%">
+      <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/timeline.svg" width="100%" alt="Timeline"/>
+      <br/><small>Timeline</small>
+    </td>
+    <td align="center" width="25%">
+      <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/swimlane.svg" width="100%" alt="Swimlane"/>
+      <br/><small>Swimlane</small>
+    </td>
+    <td align="center" width="25%">
+      <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/bubble.svg" width="100%" alt="Bubble Chart"/>
+      <br/><small>Bubble Chart</small>
+    </td>
+    <td align="center" width="25%">
+      <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/radar.svg" width="100%" alt="Radar Chart"/>
+      <br/><small>Radar Chart</small>
+    </td>
+  </tr>
+</table>
+
 ## Features ✨
 
 - 🎨 **Rich visual styles** — light/dark mode, nine built-in palettes (`default`, `antv`, `drawio`, `figma`, `vega`, `mono-blue`, `mono-green`, `mono-purple`, `mono-orange`) plus custom hex arrays; every diagram supports optional title & subtitle, node groups, and color-coded layers
