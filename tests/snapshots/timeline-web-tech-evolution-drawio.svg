@@ -2,7 +2,7 @@
 <text x="400" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Web Tech Evolution</text>
 <text x="400" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">From static HTML to modern AI-driven apps</text>
 <g class="timeline-diagram" transform="translate(0,67)">
-<defs/>
+<defs><clipPath id="tl-1-label-clip"><rect x="48" y="0" width="704" height="290"/></clipPath></defs>
 <line x1="48" y1="160" x2="752" y2="160" stroke="#495057" stroke-width="1.5"/>
 <line x1="61.70832078691157" y1="153" x2="61.70832078691157" y2="167" stroke="#495057" stroke-width="1" opacity="0.5"/>
 <text x="61.70832078691157" y="181" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 1991</text>
@@ -24,7 +24,7 @@
 <text x="727.749447147996" y="181" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#868e96">Jan 2023</text>
 <line x1="74.07407407407408" y1="150" x2="74.07407407407408" y2="141" stroke="#868e96" stroke-width="1"/>
 <circle cx="74.07407407407408" cy="160" r="9" fill="#fff2cc" stroke="#d6b656" stroke-width="1.5"/>
-<text x="74.07407407407408" y="124" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#d6b656">HTML / HTTP</text>
+<text x="48" y="124" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#d6b656">HTML / HTTP</text>
 <line x1="185.7647489258644" y1="167" x2="185.7647489258644" y2="193" stroke="#868e96" stroke-width="1"/>
 <circle cx="185.7647489258644" cy="160" r="6" fill="#6c8ebf" stroke="none" stroke-width="1.5"/>
 <text x="185.7647489258644" y="208" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="400" fill="#495057">CSS Stylesheets</text>
@@ -39,6 +39,6 @@
 <text x="528.0738733313259" y="124" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#d6b656">React Released</text>
 <line x1="725.9259259259259" y1="170" x2="725.9259259259259" y2="193" stroke="#868e96" stroke-width="1"/>
 <circle cx="725.9259259259259" cy="160" r="9" fill="#fff2cc" stroke="#d6b656" stroke-width="1.5"/>
-<text x="725.9259259259259" y="208" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#d6b656">LLM Boom</text>
+<text x="752" y="208" text-anchor="end" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#d6b656">LLM Boom</text>
 </g>
 </svg>

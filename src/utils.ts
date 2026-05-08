@@ -7,6 +7,28 @@ export function escapeXml(str: string): string {
     .replace(/'/g, '&apos;');
 }
 
+/** Estimate rendered text width in px for the default sans-serif chart font. */
+export function estimateTextWidth(
+  text: string,
+  fontSize: number,
+  fontWeight: number | string = 400,
+): number {
+  let weight: number;
+  if (typeof fontWeight === 'string') {
+    const keywordWeights: Record<string, number> = {
+      normal: 400,
+      bold: 700,
+      bolder: 700,
+      lighter: 300,
+    };
+    weight = keywordWeights[fontWeight] ?? (Number(fontWeight) || 400);
+  } else {
+    weight = fontWeight;
+  }
+  const avgCharWidth = fontSize * (weight >= 600 ? 0.61 : 0.58);
+  return text.length * avgCharWidth;
+}
+
 /** Naive text-wrapping based on estimated character width. */
 export function wrapText(text: string, maxWidth: number, fontSize: number): string[] {
   const avgCharWidth = fontSize * 0.58;
