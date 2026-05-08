@@ -142,6 +142,7 @@ export default function AIPlaygroundPage() {
   const [showSource, setShowSource] = useState(false);
   const [copied,     setCopied]     = useState(false);
   const [downloaded, setDownloaded] = useState(false);
+  const [infoMsg,    setInfoMsg]    = useState('');
 
   const abortRef = useRef<AbortController | null>(null);
 
@@ -270,11 +271,11 @@ export default function AIPlaygroundPage() {
       setTimeout(() => setCopied(false), 2000);
     } catch {
       // Clipboard write can fail if permission is denied or API is unavailable.
-      // Fall back to showing the URL in the error area so the user can copy it manually.
+      // Fall back to showing the URL in an info message so the user can copy it manually.
       try {
         const hash = await encodeMarkdownBrowser(markdown);
-        setError(`Share link (copy manually): ${window.location.origin}/s#${hash}`);
-        setTimeout(() => setError(''), 8000);
+        setInfoMsg(`Share link (copy manually): ${window.location.origin}/s#${hash}`);
+        setTimeout(() => setInfoMsg(''), 10000);
       } catch { /* encoding failed — nothing to show */ }
     }
   };
@@ -412,6 +413,14 @@ export default function AIPlaygroundPage() {
         <div className="rounded-xl border border-red-200 bg-red-50 px-5 py-4 mb-5">
           <p className="text-sm font-medium text-red-700 mb-0.5">Generation failed</p>
           <p className="text-sm text-red-600 font-mono break-all">{error}</p>
+        </div>
+      )}
+
+      {/* ── Info ──────────────────────────────────────────────────── */}
+      {infoMsg && (
+        <div className="rounded-xl border border-blue-200 bg-blue-50 px-5 py-4 mb-5">
+          <p className="text-sm font-medium text-blue-700 mb-0.5">Share link</p>
+          <p className="text-sm text-blue-600 font-mono break-all">{infoMsg}</p>
         </div>
       )}
 
