@@ -20,7 +20,7 @@
 <path d="M860,0 C905,0 915,0 960,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
 <path d="M860,0 C905,0 915,0 960,0" fill="none" stroke="#495057" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
 <g class="node node-terminal" data-id="root">
-<rect x="-80" y="22" width="160" height="60" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<rect x="-80" y="22" width="160" height="60" rx="6" ry="6" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
 <text x="0" y="52" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Product Strategy</text>
 </g>
 <g class="node node-process" data-id="market">
@@ -32,27 +32,27 @@
 <text x="260" y="52" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Technology</text>
 </g>
 <g class="node node-decision" data-id="smb">
-<polygon points="-520,-30 -440,0 -520,30 -600,0" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<rect x="-600" y="-30" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
 <text x="-520" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">SMB</text>
 </g>
 <g class="node node-decision" data-id="ent">
-<polygon points="-520,74 -440,104 -520,134 -600,104" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<rect x="-600" y="74" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
 <text x="-520" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Enterprise</text>
 </g>
 <g class="node node-decision" data-id="ai">
-<polygon points="520,-30 600,0 520,30 440,0" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<rect x="440" y="-30" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
 <text x="520" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">AI Features</text>
 </g>
 <g class="node node-decision" data-id="infra">
-<polygon points="520,74 600,104 520,134 440,104" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<rect x="440" y="74" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
 <text x="520" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Infra</text>
 </g>
 <g class="node node-io" data-id="ml">
-<polygon points="714,-30 860,-30 846,30 700,30" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2" stroke-linejoin="round"/>
+<rect x="700" y="-30" width="160" height="60" rx="6" ry="6" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2"/>
 <text x="780" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">ML Platform</text>
 </g>
 <g class="node node-terminal" data-id="safety">
-<rect x="960" y="-30" width="160" height="60" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<rect x="960" y="-30" width="160" height="60" rx="6" ry="6" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
 <text x="1040" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Model Safety</text>
 </g>
 </g>

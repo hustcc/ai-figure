@@ -25,7 +25,7 @@
 <path d="M860,104 C905,104 915,104 960,104" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
 <path d="M860,104 C905,104 915,104 960,104" fill="none" stroke="#495057" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
 <g class="node node-terminal" data-id="root">
-<rect x="-80" y="91.3" width="160" height="60" rx="28" ry="28" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+<rect x="-80" y="91.3" width="160" height="60" rx="6" ry="6" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
 <text x="0" y="121.3" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#047857">Knowledge Base</text>
 </g>
 <g class="node node-process" data-id="docs">
@@ -37,19 +37,19 @@
 <text x="-260" y="260" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#4338ca">Runbooks</text>
 </g>
 <g class="node node-decision" data-id="apis">
-<polygon points="-520,-30 -440,0 -520,30 -600,0" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
+<rect x="-600" y="-30" width="160" height="60" rx="6" ry="6" fill="#ecfeff" stroke="#06b6d4" stroke-width="2"/>
 <text x="-520" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0891b2">API Guides</text>
 </g>
 <g class="node node-decision" data-id="playbooks">
-<polygon points="-520,178 -440,208 -520,238 -600,208" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
+<rect x="-600" y="178" width="160" height="60" rx="6" ry="6" fill="#ecfeff" stroke="#06b6d4" stroke-width="2"/>
 <text x="-520" y="208" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0891b2">Playbooks</text>
 </g>
 <g class="node node-decision" data-id="tutorials">
-<polygon points="-520,74 -440,104 -520,134 -600,104" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
+<rect x="-600" y="74" width="160" height="60" rx="6" ry="6" fill="#ecfeff" stroke="#06b6d4" stroke-width="2"/>
 <text x="-520" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0891b2">Tutorials</text>
 </g>
 <g class="node node-decision" data-id="faq">
-<polygon points="-520,282 -440,312 -520,342 -600,312" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
+<rect x="-600" y="282" width="160" height="60" rx="6" ry="6" fill="#ecfeff" stroke="#06b6d4" stroke-width="2"/>
 <text x="-520" y="312" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0891b2">FAQ</text>
 </g>
 <g class="node node-process" data-id="tools">
@@ -57,19 +57,19 @@
 <text x="260" y="52" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#4338ca">Internal Tools</text>
 </g>
 <g class="node node-decision" data-id="ci">
-<polygon points="520,-30 600,0 520,30 440,0" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
+<rect x="440" y="-30" width="160" height="60" rx="6" ry="6" fill="#ecfeff" stroke="#06b6d4" stroke-width="2"/>
 <text x="520" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0891b2">CI/CD</text>
 </g>
 <g class="node node-decision" data-id="ops">
-<polygon points="520,74 600,104 520,134 440,104" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
+<rect x="440" y="74" width="160" height="60" rx="6" ry="6" fill="#ecfeff" stroke="#06b6d4" stroke-width="2"/>
 <text x="520" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0891b2">Ops</text>
 </g>
 <g class="node node-io" data-id="observability">
-<polygon points="714,74 860,74 846,134 700,134" fill="#fdf2f8" stroke="#ec4899" stroke-width="2" stroke-linejoin="round"/>
+<rect x="700" y="74" width="160" height="60" rx="6" ry="6" fill="#fdf2f8" stroke="#ec4899" stroke-width="2"/>
 <text x="780" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#be185d">Observability</text>
 </g>
 <g class="node node-terminal" data-id="oncall">
-<rect x="960" y="74" width="160" height="60" rx="28" ry="28" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+<rect x="960" y="74" width="160" height="60" rx="6" ry="6" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
 <text x="1040" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#047857">On-call Guide</text>
 </g>
 </g>

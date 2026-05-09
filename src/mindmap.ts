@@ -220,18 +220,7 @@ export function createMindmapDiagram(options: MindmapDiagramOptions): string {
     const stroke = theme.nodeStrokes[type];
     const textColor = theme.textColors[type];
 
-    let shape = '';
-    if (type === 'terminal') {
-      const rx = Math.min(NODE_H / 2, 28);
-      shape = `<rect x="${x}" y="${y}" width="${NODE_W}" height="${NODE_H}" rx="${rx}" ry="${rx}" fill="${fill}" stroke="${stroke}" stroke-width="${theme.strokeWidth}"/>`;
-    } else if (type === 'decision') {
-      shape = `<polygon points="${roundCoord(p.x)},${y} ${roundCoord(x + NODE_W)},${roundCoord(p.y)} ${roundCoord(p.x)},${roundCoord(y + NODE_H)} ${x},${roundCoord(p.y)}" fill="${fill}" stroke="${stroke}" stroke-width="${theme.strokeWidth}" stroke-linejoin="round"/>`;
-    } else if (type === 'io') {
-      const skew = 14;
-      shape = `<polygon points="${roundCoord(x + skew)},${y} ${roundCoord(x + NODE_W)},${y} ${roundCoord(x + NODE_W - skew)},${roundCoord(y + NODE_H)} ${x},${roundCoord(y + NODE_H)}" fill="${fill}" stroke="${stroke}" stroke-width="${theme.strokeWidth}" stroke-linejoin="round"/>`;
-    } else {
-      shape = `<rect x="${x}" y="${y}" width="${NODE_W}" height="${NODE_H}" rx="${theme.cornerRadius}" ry="${theme.cornerRadius}" fill="${fill}" stroke="${stroke}" stroke-width="${theme.strokeWidth}"/>`;
-    }
+    const shape = `<rect x="${x}" y="${y}" width="${NODE_W}" height="${NODE_H}" rx="${theme.cornerRadius}" ry="${theme.cornerRadius}" fill="${fill}" stroke="${stroke}" stroke-width="${theme.strokeWidth}"/>`;
 
     const lines = wrapText(n.label, NODE_W - 16, theme.fontSize);
     const lineH = theme.fontSize * 1.4;
