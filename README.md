@@ -945,7 +945,7 @@ const svg = fig(`
 `);
 ```
 
-## Mindmap (Draft Design Proposal, 待确认)
+## 思维导图（草案，待确认）
 
 > 目标：先确认技术方案与视觉方案，再进入代码实现。
 
@@ -970,12 +970,12 @@ r1: Render Engine, ai-figure, right
 r2: Parser, ai-figure, left
 r3: Themes, ai-figure, right
 r4: Tests, ai-figure, left
-r5: Snapshot, tests, left
+r5: Snapshot, r4, left
 ```
 
 字段约定（提案）：
 - `root: <label>` 定义中心主题（内部自动分配 id）。
-  - `label` 支持空格与中文；解析时会 `trim` 前后空白；建议长度不超过 40 个字符（按 Unicode 字符数计，而非字节长度）以避免节点过宽。
+  - `label` 支持空格与中文；解析时会 `trim` 前后空白；建议长度不超过 40 个字符（按 Unicode 字符数计，而非字节长度），以在常见视口宽度下保持节点可读性并减少拥挤换行。
 - 普通节点格式：`id: label, parentId, side?`
   - `id` 建议使用无空格标识（如 `r1` / `topic_backend`）。
   - `:` 与 `,` 两侧空格可选（`id:label,parentId` 与 `id: label, parentId` 都视为合法）。
