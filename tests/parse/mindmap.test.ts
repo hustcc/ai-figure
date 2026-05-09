@@ -74,6 +74,16 @@ describe('mindmap — markdown parse', () => {
     expect(svg).toContain('B1');
   });
 
+  it('throws on cyclic input from options', () => {
+    expect(() => fig({
+      figure: 'mindmap',
+      nodes: [
+        { id: 'a', label: 'A', parent: 'b' },
+        { id: 'b', label: 'B', parent: 'a' },
+      ],
+    })).toThrow(/Mindmap cycle detected/);
+  });
+
   it('streaming safety: header-only returns valid SVG', () => {
     expect(() => fig('figure mindmap')).not.toThrow();
     expect(fig('figure mindmap')).toContain('<svg');

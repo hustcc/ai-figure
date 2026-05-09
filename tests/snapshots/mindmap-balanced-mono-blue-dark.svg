@@ -2,12 +2,12 @@
 <rect x="-656" y="-134" width="1832" height="532" fill="#1a1b1e"/>
 <text x="260" y="-100" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#adb5bd">Launch Plan</text>
 <g class="mindmap">
-<path d="M-80,190.66666666666666 C-125,190.66666666666666 -135,156 -180,156" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M-80,190.66666666666666 C-125,190.66666666666666 -135,156 -180,156" fill="none" stroke="#adb5bd" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
-<path d="M80,190.66666666666666 C125,190.66666666666666 135,104 180,104" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M80,190.66666666666666 C125,190.66666666666666 135,104 180,104" fill="none" stroke="#adb5bd" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
-<path d="M80,190.66666666666666 C125,190.66666666666666 135,312 180,312" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M80,190.66666666666666 C125,190.66666666666666 135,312 180,312" fill="none" stroke="#adb5bd" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M-80,190.7 C-125,190.7 -135,156 -180,156" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-80,190.7 C-125,190.7 -135,156 -180,156" fill="none" stroke="#adb5bd" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M80,190.7 C125,190.7 135,104 180,104" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M80,190.7 C125,190.7 135,104 180,104" fill="none" stroke="#adb5bd" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M80,190.7 C125,190.7 135,312 180,312" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M80,190.7 C125,190.7 135,312 180,312" fill="none" stroke="#adb5bd" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
 <path d="M-340,156 C-385,156 -395,0 -440,0" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
 <path d="M-340,156 C-385,156 -395,0 -440,0" fill="none" stroke="#adb5bd" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
 <path d="M-340,156 C-385,156 -395,104 -440,104" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
@@ -29,8 +29,8 @@
 <path d="M860,312 C905,312 915,312 960,312" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
 <path d="M860,312 C905,312 915,312 960,312" fill="none" stroke="#adb5bd" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
 <g class="node node-terminal" data-id="root">
-<rect x="-80" y="160.66666666666666" width="160" height="60" rx="28" ry="28" fill="#162040" stroke="#3b82f6" stroke-width="2"/>
-<text x="0" y="190.66666666666666" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bfdbfe">Launch Plan</text>
+<rect x="-80" y="160.7" width="160" height="60" rx="28" ry="28" fill="#162040" stroke="#3b82f6" stroke-width="2"/>
+<text x="0" y="190.7" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bfdbfe">Launch Plan</text>
 </g>
 <g class="node node-process" data-id="product">
 <rect x="-340" y="126" width="160" height="60" rx="6" ry="6" fill="#0c1938" stroke="#60a5fa" stroke-width="2"/>

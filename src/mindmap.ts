@@ -9,6 +9,7 @@ const Y_GAP = 44;
 const PAD = 56;
 const EDGE_ANIM_DASH = '8 14';
 const EDGE_ANIM_DUR = '2.2s';
+const COORD_PRECISION = 10;
 
 const DEPTH_NODE_TYPES: NodeType[] = ['process', 'decision', 'io', 'terminal'];
 
@@ -18,14 +19,25 @@ interface Pos {
 }
 
 function average(nums: number[]): number {
-  return nums.length ? nums.reduce((a, b) => a + b, 0) / nums.length : 0;
+  return nums.length ? roundCoord(nums.reduce((a, b) => a + b, 0) / nums.length) : 0;
+}
+
+function roundCoord(value: number): number {
+  return Math.round(value * COORD_PRECISION) / COORD_PRECISION;
 }
 
 function buildSubtreeSizeMap(rootId: string, childrenMap: Map<string, string[]>): Map<string, number> {
   const sizeMap = new Map<string, number>();
+  const visiting = new Set<string>();
   const visit = (id: string): number => {
+    if (sizeMap.has(id)) return sizeMap.get(id)!;
+    if (visiting.has(id)) {
+      throw new Error(`Mindmap cycle detected at node "${id}". Nodes must form a tree-like hierarchy.`);
+    }
+    visiting.add(id);
     const children = childrenMap.get(id) ?? [];
     const total = 1 + children.reduce((sum, c) => sum + visit(c), 0);
+    visiting.delete(id);
     sizeMap.set(id, total);
     return total;
   };
@@ -115,7 +127,7 @@ export function createMindmapDiagram(options: MindmapDiagramOptions): string {
       return v;
     })();
     const x = side === 'right' ? depth * X_GAP : -depth * X_GAP;
-    posMap.set(id, { x, y });
+    posMap.set(id, { x: roundCoord(x), y: roundCoord(y) });
     return y;
   };
 
@@ -138,7 +150,7 @@ export function createMindmapDiagram(options: MindmapDiagramOptions): string {
     const fallbackCursor = { y: Math.max(leftCursor.y, rightCursor.y) };
     for (const n of unresolved) {
       depthMap.set(n.id, 1);
-      posMap.set(n.id, { x: X_GAP, y: fallbackCursor.y });
+      posMap.set(n.id, { x: roundCoord(X_GAP), y: roundCoord(fallbackCursor.y) });
       fallbackCursor.y += NODE_H + Y_GAP;
     }
   }
@@ -152,10 +164,10 @@ export function createMindmapDiagram(options: MindmapDiagramOptions): string {
     maxY = Math.max(maxY, p.y + NODE_H / 2);
   }
 
-  const vbX = minX - PAD;
-  const vbY = minY - PAD;
-  const vbW = maxX - minX + PAD * 2;
-  const vbH = maxY - minY + PAD * 2;
+  const vbX = roundCoord(minX - PAD);
+  const vbY = roundCoord(minY - PAD);
+  const vbW = roundCoord(maxX - minX + PAD * 2);
+  const vbH = roundCoord(maxY - minY + PAD * 2);
   let width = vbW;
   let height = vbH;
   let viewY = vbY;
@@ -164,11 +176,11 @@ export function createMindmapDiagram(options: MindmapDiagramOptions): string {
   const titleH = titleBlockHeight(title, subtitle, theme.fontSize);
   let titleSvg = '';
   if (titleH > 0) {
-    viewY -= titleH;
-    viewH += titleH;
-    height += titleH;
+    viewY = roundCoord(viewY - titleH);
+    viewH = roundCoord(viewH + titleH);
+    height = roundCoord(height + titleH);
     titleSvg = renderTitleBlock(
-      title, subtitle, vbX + vbW / 2, viewY,
+      title, subtitle, roundCoord(vbX + vbW / 2), viewY,
       theme.fontFamily, theme.fontSize, theme.edgeColor, theme.groupColor,
     );
   }
@@ -191,7 +203,7 @@ export function createMindmapDiagram(options: MindmapDiagramOptions): string {
       const bend = Math.max(36, gapX * 0.45);
       const c1x = sx + sign * bend;
       const c2x = tx - sign * bend;
-      const d = `M${sx},${sy} C${c1x},${sy} ${c2x},${ty} ${tx},${ty}`;
+      const d = `M${roundCoord(sx)},${roundCoord(sy)} C${roundCoord(c1x)},${roundCoord(sy)} ${roundCoord(c2x)},${roundCoord(ty)} ${roundCoord(tx)},${roundCoord(ty)}`;
       const base = `<path d="${d}" fill="none" stroke="${theme.edgeColor}" stroke-width="${theme.edgeWidth}" stroke-linecap="round"/>`;
       const anim = `<path d="${d}" fill="none" stroke="${theme.edgeColor}" stroke-width="${Math.max(1, theme.edgeWidth - 0.2)}" stroke-linecap="round" stroke-dasharray="${EDGE_ANIM_DASH}" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="${EDGE_ANIM_DUR}" repeatCount="indefinite"/></path>`;
       return `${base}\n${anim}`;
@@ -202,8 +214,8 @@ export function createMindmapDiagram(options: MindmapDiagramOptions): string {
     const p = posMap.get(n.id)!;
     const depth = depthMap.get(n.id) ?? 1;
     const type: NodeType = depth === 0 ? 'terminal' : DEPTH_NODE_TYPES[(depth - 1) % DEPTH_NODE_TYPES.length];
-    const x = p.x - NODE_W / 2;
-    const y = p.y - NODE_H / 2;
+    const x = roundCoord(p.x - NODE_W / 2);
+    const y = roundCoord(p.y - NODE_H / 2);
     const fill = theme.nodeFills[type];
     const stroke = theme.nodeStrokes[type];
     const textColor = theme.textColors[type];
@@ -213,26 +225,26 @@ export function createMindmapDiagram(options: MindmapDiagramOptions): string {
       const rx = Math.min(NODE_H / 2, 28);
       shape = `<rect x="${x}" y="${y}" width="${NODE_W}" height="${NODE_H}" rx="${rx}" ry="${rx}" fill="${fill}" stroke="${stroke}" stroke-width="${theme.strokeWidth}"/>`;
     } else if (type === 'decision') {
-      shape = `<polygon points="${p.x},${y} ${x + NODE_W},${p.y} ${p.x},${y + NODE_H} ${x},${p.y}" fill="${fill}" stroke="${stroke}" stroke-width="${theme.strokeWidth}" stroke-linejoin="round"/>`;
+      shape = `<polygon points="${roundCoord(p.x)},${y} ${roundCoord(x + NODE_W)},${roundCoord(p.y)} ${roundCoord(p.x)},${roundCoord(y + NODE_H)} ${x},${roundCoord(p.y)}" fill="${fill}" stroke="${stroke}" stroke-width="${theme.strokeWidth}" stroke-linejoin="round"/>`;
     } else if (type === 'io') {
       const skew = 14;
-      shape = `<polygon points="${x + skew},${y} ${x + NODE_W},${y} ${x + NODE_W - skew},${y + NODE_H} ${x},${y + NODE_H}" fill="${fill}" stroke="${stroke}" stroke-width="${theme.strokeWidth}" stroke-linejoin="round"/>`;
+      shape = `<polygon points="${roundCoord(x + skew)},${y} ${roundCoord(x + NODE_W)},${y} ${roundCoord(x + NODE_W - skew)},${roundCoord(y + NODE_H)} ${x},${roundCoord(y + NODE_H)}" fill="${fill}" stroke="${stroke}" stroke-width="${theme.strokeWidth}" stroke-linejoin="round"/>`;
     } else {
       shape = `<rect x="${x}" y="${y}" width="${NODE_W}" height="${NODE_H}" rx="${theme.cornerRadius}" ry="${theme.cornerRadius}" fill="${fill}" stroke="${stroke}" stroke-width="${theme.strokeWidth}"/>`;
     }
 
     const lines = wrapText(n.label, NODE_W - 16, theme.fontSize);
     const lineH = theme.fontSize * 1.4;
-    const startY = p.y - (lines.length * lineH) / 2 + lineH * 0.5;
+    const startY = roundCoord(p.y - (lines.length * lineH) / 2 + lineH * 0.5);
     const text = lines.map((line, i) =>
-      `<text x="${p.x}" y="${startY + i * lineH}" text-anchor="middle" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize}" fill="${escapeXml(textColor)}">${escapeXml(line)}</text>`,
+      `<text x="${roundCoord(p.x)}" y="${roundCoord(startY + i * lineH)}" text-anchor="middle" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize}" fill="${escapeXml(textColor)}">${escapeXml(line)}</text>`,
     ).join('\n');
 
     return `<g class="node node-${type}" data-id="${escapeXml(n.id)}">\n${shape}\n${text}\n</g>`;
   }).join('\n');
 
   return [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="${vbX} ${viewY} ${vbW} ${viewH}">`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${roundCoord(width)}" height="${roundCoord(height)}" viewBox="${vbX} ${viewY} ${vbW} ${viewH}">`,
     bg,
     ...(titleSvg ? [titleSvg] : []),
     `<g class="mindmap">`,
