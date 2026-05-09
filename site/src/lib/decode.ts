@@ -16,10 +16,6 @@ export async function decodeMarkdown(encoded: string): Promise<string> {
   const base64 = normalized.replace(/-/g, '+').replace(/_/g, '/');
   const padded = base64 + '='.repeat((4 - (base64.length % 4)) % 4);
 
-  if (!/^[A-Za-z0-9+/]*={0,2}$/.test(padded)) {
-    throw new Error('Invalid share link data. Please regenerate the share URL.');
-  }
-
   let binaryStr: string;
   try {
     binaryStr = atob(padded);
@@ -44,17 +40,22 @@ export async function decodeMarkdown(encoded: string): Promise<string> {
   return new Response(compressedStream.pipeThrough(new DecompressionStream('gzip'))).text();
 }
 
+/**
+ * Normalizes share-hash input before base64 decoding.
+ * Accepts raw hash text, trims whitespace, strips a leading `#`,
+ * and gracefully handles percent-encoded hash strings.
+ */
 function normalizeEncodedHash(encoded: string): string {
   const raw = encoded.trim().replace(/^#/, '');
   if (!raw) {
-    throw new Error('No diagram encoded in the URL hash.');
+    throw new Error('Share link is empty. Please check the URL and try again.');
   }
 
   let normalized = raw;
   try {
     normalized = decodeURIComponent(raw);
   } catch {
-    // Keep original if hash is not percent-encoded.
+    // If decoding fails, the hash was not percent-encoded, so use the original value.
   }
 
   return normalized.replace(/\s+/g, '');
