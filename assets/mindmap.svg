@@ -10,32 +10,32 @@
 <path d="M260,48 C341,48 199,0 280,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
 <path d="M260,48 C341,48 199,96 280,96" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
 <g class="node node-terminal" data-id="root">
-<rect x="-80" y="18" width="160" height="60" rx="28" ry="28" fill="#edfaf5" stroke="#5ad8a6" stroke-width="2"/>
-<text x="0" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1c9c6f">Product Strategy</text>
+<rect x="-80" y="18" width="160" height="60" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="0" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Product Strategy</text>
 </g>
 <g class="node node-process" data-id="market">
-<rect x="-260" y="18" width="160" height="60" rx="6" ry="6" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
-<text x="-180" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1d5bc7">Market</text>
+<rect x="-260" y="18" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="-180" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Market</text>
 </g>
 <g class="node node-process" data-id="tech">
-<rect x="100" y="18" width="160" height="60" rx="6" ry="6" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
-<text x="180" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1d5bc7">Technology</text>
+<rect x="100" y="18" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="180" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Technology</text>
 </g>
 <g class="node node-decision" data-id="smb">
-<polygon points="-360,-30 -280,0 -360,30 -440,0" fill="#fff4ef" stroke="#e8684a" stroke-width="2" stroke-linejoin="round"/>
-<text x="-360" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">SMB</text>
+<polygon points="-360,-30 -280,0 -360,30 -440,0" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="-360" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">SMB</text>
 </g>
 <g class="node node-decision" data-id="ent">
-<polygon points="-360,66 -280,96 -360,126 -440,96" fill="#fff4ef" stroke="#e8684a" stroke-width="2" stroke-linejoin="round"/>
-<text x="-360" y="96" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">Enterprise</text>
+<polygon points="-360,66 -280,96 -360,126 -440,96" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="-360" y="96" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Enterprise</text>
 </g>
 <g class="node node-decision" data-id="ai">
-<polygon points="360,-30 440,0 360,30 280,0" fill="#fff4ef" stroke="#e8684a" stroke-width="2" stroke-linejoin="round"/>
-<text x="360" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">AI Features</text>
+<polygon points="360,-30 440,0 360,30 280,0" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="360" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">AI Features</text>
 </g>
 <g class="node node-decision" data-id="infra">
-<polygon points="360,66 440,96 360,126 280,96" fill="#fff4ef" stroke="#e8684a" stroke-width="2" stroke-linejoin="round"/>
-<text x="360" y="96" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">Platform Infra</text>
+<polygon points="360,66 440,96 360,126 280,96" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="360" y="96" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Infra</text>
 </g>
 </g>
 </svg>

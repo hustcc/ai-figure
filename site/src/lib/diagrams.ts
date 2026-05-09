@@ -1846,7 +1846,7 @@ root --> tech[Technology]
 market --> smb[SMB]
 market --> ent[Enterprise]
 tech --> ai[AI Features]
-tech --> infra[Platform Infra]`,
+tech --> infra[Infra]`,
       },
       {
         title: 'Go-To-Market',
