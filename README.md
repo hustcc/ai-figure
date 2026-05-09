@@ -47,13 +47,7 @@
     <td align="center" width="25%">
       <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/mindmap.svg" width="100%" alt="Mindmap"/>
       <br/><small>Mindmap</small>
-    </td>
-    <td align="center" width="25%"></td>
-    <td align="center" width="25%"></td>
-    <td align="center" width="25%"></td>
-  </tr>
-  <tr>
-    <td align="center" width="25%">
+      <br/>
       <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/timeline.svg" width="100%" alt="Timeline"/>
       <br/><small>Timeline</small>
     </td>
