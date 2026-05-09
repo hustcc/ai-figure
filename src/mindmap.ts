@@ -9,7 +9,7 @@ const Y_GAP = 44;
 const PAD = 56;
 const EDGE_ANIM_DASH = '8 14';
 const EDGE_ANIM_DUR = '2.2s';
-const COORD_PRECISION = 10;
+const COORD_ROUND_MULTIPLIER = 10;
 
 const DEPTH_NODE_TYPES: NodeType[] = ['process', 'decision', 'io', 'terminal'];
 
@@ -19,11 +19,11 @@ interface Pos {
 }
 
 function average(nums: number[]): number {
-  return nums.length ? roundCoord(nums.reduce((a, b) => a + b, 0) / nums.length) : 0;
+  return nums.length ? roundCoord(nums.reduce((a, b) => a + b, 0) / nums.length) : roundCoord(0);
 }
 
 function roundCoord(value: number): number {
-  return Math.round(value * COORD_PRECISION) / COORD_PRECISION;
+  return Math.round(value * COORD_ROUND_MULTIPLIER) / COORD_ROUND_MULTIPLIER;
 }
 
 function buildSubtreeSizeMap(rootId: string, childrenMap: Map<string, string[]>): Map<string, number> {
