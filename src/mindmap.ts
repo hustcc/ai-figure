@@ -9,8 +9,9 @@ const ROOT_NODE_H = 66;
 const X_GAP = 260;
 const Y_GAP = 44;
 const PAD = 56;
-const EDGE_ANIM_DASH = '8 14';
-const EDGE_ANIM_DUR = '2.2s';
+const EDGE_ANIM_DASH = '6,4';
+const EDGE_ANIM_OFFSET = '-20';
+const EDGE_ANIM_DUR = '0.8s';
 const COORD_ROUND_MULTIPLIER = 10;
 
 const DEPTH_NODE_TYPES: NodeType[] = ['process', 'decision', 'io', 'terminal'];
@@ -216,9 +217,7 @@ export function createMindmapDiagram(options: MindmapDiagramOptions): string {
       const c1x = sx + sign * bend;
       const c2x = tx - sign * bend;
       const d = `M${roundCoord(sx)},${roundCoord(sy)} C${roundCoord(c1x)},${roundCoord(sy)} ${roundCoord(c2x)},${roundCoord(ty)} ${roundCoord(tx)},${roundCoord(ty)}`;
-      const base = `<path d="${d}" fill="none" stroke="${theme.edgeColor}" stroke-width="${theme.edgeWidth}" stroke-linecap="round"/>`;
-      const anim = `<path d="${d}" fill="none" stroke="${theme.edgeColor}" stroke-width="${Math.max(1, theme.edgeWidth - 0.2)}" stroke-linecap="round" stroke-dasharray="${EDGE_ANIM_DASH}" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="${EDGE_ANIM_DUR}" repeatCount="indefinite"/></path>`;
-      return `${base}\n${anim}`;
+      return `<path d="${d}" fill="none" stroke="${theme.edgeColor}" stroke-width="${theme.edgeWidth}" stroke-linecap="round" stroke-dasharray="${EDGE_ANIM_DASH}"><animate attributeName="stroke-dashoffset" from="0" to="${EDGE_ANIM_OFFSET}" dur="${EDGE_ANIM_DUR}" repeatCount="indefinite"/></path>`;
     })
     .join('\n');
 
