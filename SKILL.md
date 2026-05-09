@@ -1,6 +1,6 @@
 ---
 name: ai-figure
-version: "0.4.0"
+version: "0.5.0"
 description: Generate clean SVG diagrams (flowchart, tree, mindmap, architecture, sequence, quadrant, gantt, state machine, ER, timeline, swimlane, bubble chart, radar chart) from a markdown string or a JSON config via fig(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
 author: hustcc
 license: MIT
