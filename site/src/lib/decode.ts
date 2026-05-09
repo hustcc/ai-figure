@@ -10,11 +10,18 @@ export async function decodeMarkdown(encoded: string): Promise<string> {
     );
   }
 
+  const normalized = normalizeEncodedHash(encoded);
+
   // Reverse base64url → standard base64 → binary
-  const base64 = encoded.replace(/-/g, '+').replace(/_/g, '/');
+  const base64 = normalized.replace(/-/g, '+').replace(/_/g, '/');
   const padded = base64 + '='.repeat((4 - (base64.length % 4)) % 4);
 
-  const binaryStr = atob(padded);
+  let binaryStr: string;
+  try {
+    binaryStr = atob(padded);
+  } catch {
+    throw new Error('Invalid share link data. Please regenerate the share URL.');
+  }
   const bytes = new Uint8Array(binaryStr.length);
   for (let i = 0; i < binaryStr.length; i++) {
     bytes[i] = binaryStr.charCodeAt(i);
@@ -31,6 +38,27 @@ export async function decodeMarkdown(encoded: string): Promise<string> {
   });
 
   return new Response(compressedStream.pipeThrough(new DecompressionStream('gzip'))).text();
+}
+
+/**
+ * Normalizes share-hash input before base64 decoding.
+ * Accepts raw hash text, trims whitespace, strips a leading `#`,
+ * and gracefully handles percent-encoded hash strings.
+ */
+function normalizeEncodedHash(encoded: string): string {
+  const raw = encoded.trim().replace(/^#/, '');
+  if (!raw) {
+    throw new Error('Share link is empty. Please check the URL and try again.');
+  }
+
+  let normalized = raw;
+  try {
+    normalized = decodeURIComponent(raw);
+  } catch {
+    // If decoding fails, the hash was not percent-encoded, so use the original value.
+  }
+
+  return normalized.replace(/\s+/g, '');
 }
 
 /**
