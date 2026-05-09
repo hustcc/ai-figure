@@ -1,5 +1,6 @@
 import { renderFlowChart } from './render';
 import { createTreeDiagram } from './tree';
+import { createMindmapDiagram } from './mindmap';
 import { createArchDiagram } from './arch';
 import { createSequenceDiagram } from './sequence';
 import { createQuadrantChart } from './quadrant';
@@ -28,6 +29,7 @@ const EMPTY_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1">
  * the diagram type:
  * - `'flow'`     — flowchart (nodes + edges + optional groups)
  * - `'tree'`     — tree / hierarchy (flat node list with parent refs)
+ * - `'mindmap'`  — mindmap (root-centered branches with auto left/right balancing)
  * - `'arch'`     — architecture diagram (layered grid, no edges)
  * - `'sequence'` — sequence diagram (actors + message arrows)
  * - `'quadrant'` — quadrant chart (2×2 matrix with data points)
@@ -74,6 +76,8 @@ function figDispatch(options: FigOptions): string {
       return renderFlowChart(options);
     case 'tree':
       return createTreeDiagram(options);
+    case 'mindmap':
+      return createMindmapDiagram(options);
     case 'arch':
       return createArchDiagram(options);
     case 'sequence':
@@ -112,6 +116,9 @@ export type {
   ThemeType,
   TreeNode,
   TreeDiagramOptions,
+  MindmapSide,
+  MindmapNode,
+  MindmapDiagramOptions,
   ArchNode,
   ArchLayer,
   ArchDiagramOptions,

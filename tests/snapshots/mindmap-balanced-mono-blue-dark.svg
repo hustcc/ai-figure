@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="380" viewBox="-480 -118 960 380">
+<rect x="-480" y="-118" width="960" height="380" fill="#1a1b1e"/>
+<text x="0" y="-84" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#adb5bd">Launch Plan</text>
+<g class="mindmap">
+<path d="M-80,112 C-161,112 -19,96 -100,96" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M80,112 C161,112 19,48 100,48" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M80,112 C161,112 19,192 100,192" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-260,96 C-341,96 -199,0 -280,0" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-260,96 C-341,96 -199,96 -280,96" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-260,96 C-341,96 -199,192 -280,192" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M260,48 C341,48 199,0 280,0" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M260,48 C341,48 199,96 280,96" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M260,192 C341,192 199,192 280,192" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<g class="node node-terminal" data-id="root">
+<rect x="-80" y="82" width="160" height="60" rx="28" ry="28" fill="#162040" stroke="#3b82f6" stroke-width="2"/>
+<text x="0" y="112" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bfdbfe">Launch Plan</text>
+</g>
+<g class="node node-process" data-id="product">
+<rect x="-260" y="66" width="160" height="60" rx="6" ry="6" fill="#0c1938" stroke="#60a5fa" stroke-width="2"/>
+<text x="-180" y="96" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#93c5fd">Product</text>
+</g>
+<g class="node node-process" data-id="go-to-market">
+<rect x="100" y="18" width="160" height="60" rx="6" ry="6" fill="#0c1938" stroke="#60a5fa" stroke-width="2"/>
+<text x="180" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#93c5fd">Go To Market</text>
+</g>
+<g class="node node-process" data-id="ops">
+<rect x="100" y="162" width="160" height="60" rx="6" ry="6" fill="#0c1938" stroke="#60a5fa" stroke-width="2"/>
+<text x="180" y="192" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#93c5fd">Operations</text>
+</g>
+<g class="node node-decision" data-id="feature-1">
+<polygon points="-360,-30 -280,0 -360,30 -440,0" fill="#071128" stroke="#93c5fd" stroke-width="2" stroke-linejoin="round"/>
+<text x="-360" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bfdbfe">Feature A</text>
+</g>
+<g class="node node-decision" data-id="feature-2">
+<polygon points="-360,66 -280,96 -360,126 -440,96" fill="#071128" stroke="#93c5fd" stroke-width="2" stroke-linejoin="round"/>
+<text x="-360" y="96" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bfdbfe">Feature B</text>
+</g>
+<g class="node node-decision" data-id="feature-3">
+<polygon points="-360,162 -280,192 -360,222 -440,192" fill="#071128" stroke="#93c5fd" stroke-width="2" stroke-linejoin="round"/>
+<text x="-360" y="192" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bfdbfe">Feature C</text>
+</g>
+<g class="node node-decision" data-id="pricing">
+<polygon points="360,-30 440,0 360,30 280,0" fill="#071128" stroke="#93c5fd" stroke-width="2" stroke-linejoin="round"/>
+<text x="360" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bfdbfe">Pricing</text>
+</g>
+<g class="node node-decision" data-id="campaign">
+<polygon points="360,66 440,96 360,126 280,96" fill="#071128" stroke="#93c5fd" stroke-width="2" stroke-linejoin="round"/>
+<text x="360" y="96" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bfdbfe">Campaign</text>
+</g>
+<g class="node node-decision" data-id="support">
+<polygon points="360,162 440,192 360,222 280,192" fill="#071128" stroke="#93c5fd" stroke-width="2" stroke-linejoin="round"/>
+<text x="360" y="192" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bfdbfe">Support Readiness</text>
+</g>
+</g>
+</svg>

@@ -4,7 +4,7 @@ import CodeBlock from '@/components/CodeBlock';
 
 export const metadata: Metadata = {
   title: 'Docs',
-  description: 'ai-figure documentation: installation, usage, markdown syntax for all 12 diagram types, framework integration (React, Vue, HTML, Node.js), and AI agent Skill.',
+  description: 'ai-figure documentation: installation, usage, markdown syntax for all 13 diagram types, framework integration (React, Vue, HTML, Node.js), and AI agent Skill.',
 };
 
 /* ── small prose helpers ───────────────────────────────────────── */
@@ -122,6 +122,16 @@ ceo --> coo[COO]
 cto --> fe[Frontend Lead]
 cto --> be[Backend Lead]
 coo --> ops[Operations]`;
+
+const MINDMAP_MD = `figure mindmap
+title: Product Strategy
+subtitle: 2026 planning map
+root[Product Strategy]
+root --> market[Market]
+root --> tech[Technology]
+market --> smb[SMB]
+market --> ent[Enterprise]
+tech --> ai[AI Features]`;
 
 const ARCH_MD = `figure arch
 direction: TB
@@ -253,6 +263,7 @@ export default function DocsPage() {
             ['#markdown-syntax', 'Markdown Syntax'],
             ['#diagram-flow', '→ Flow'],
             ['#diagram-tree', '→ Tree'],
+            ['#diagram-mindmap', '→ Mindmap'],
             ['#diagram-arch', '→ Arch'],
             ['#diagram-sequence', '→ Sequence'],
             ['#diagram-quadrant', '→ Quadrant'],
@@ -466,6 +477,20 @@ const svg2 = fig({
           ]}
           markdownExample={TREE_MD}
         />
+
+        {/* mindmap */}
+        <DiagramSection
+          id="diagram-mindmap"
+          title="mindmap — Mindmap"
+          description="Root-centered concept map. First-level branches split left/right automatically; deeper levels inherit branch direction. Supports optional side hints in JSON."
+          configRows={[
+            ...COMMON_CONFIG,
+            ['nodes', 'MindmapNode[]', 'required'],
+          ]}
+          markdownExample={MINDMAP_MD}
+        >
+          <P>Syntax is intentionally consistent with tree/flow: node lines plus <Mono>A --{'>'} B</Mono> links. In JSON mode, root children can provide <Mono>side: 'left' | 'right'</Mono> to pin branch direction.</P>
+        </DiagramSection>
 
         {/* arch */}
         <DiagramSection
@@ -738,4 +763,3 @@ create a sequence diagram showing the OAuth2 authorization code flow.`}</CodeBlo
     </div>
   );
 }
-

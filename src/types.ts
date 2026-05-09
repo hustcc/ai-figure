@@ -109,6 +109,39 @@ export interface TreeDiagramOptions {
 }
 
 // ---------------------------------------------------------------------------
+// MindmapDiagram types
+// ---------------------------------------------------------------------------
+
+/** Side assignment for first-level mindmap branches. */
+export type MindmapSide = 'left' | 'right';
+
+/** A node in a mindmap diagram (flat array with parent reference). */
+export interface MindmapNode {
+  /** Unique identifier. */
+  id: string;
+  /** Text displayed inside the node. */
+  label: string;
+  /** ID of the parent node. Root nodes omit this field. */
+  parent?: string;
+  /** Optional preferred side for first-level branches (and inheritance to descendants). */
+  side?: MindmapSide;
+}
+
+/** Options passed to {@link createMindmapDiagram}. */
+export interface MindmapDiagramOptions {
+  /** Flat list of nodes with optional parent references. */
+  nodes: MindmapNode[];
+  /** Light or dark rendering mode (default: 'light'). */
+  theme?: ThemeType;
+  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'figma'`, `'vega'`, `'mono-blue'`, `'mono-green'`, `'mono-purple'`, `'mono-orange'`, or custom hex array (default: `'default'`). */
+  palette?: PaletteType;
+  /** Optional chart title displayed above the diagram. */
+  title?: string;
+  /** Optional subtitle displayed beneath the title. */
+  subtitle?: string;
+}
+
+// ---------------------------------------------------------------------------
 // ArchDiagram types
 // ---------------------------------------------------------------------------
 
@@ -520,6 +553,7 @@ export interface BubbleChartOptions {
 export type FigOptions =
   | ({ figure: 'flow' } & FlowChartOptions)
   | ({ figure: 'tree' } & TreeDiagramOptions)
+  | ({ figure: 'mindmap' } & MindmapDiagramOptions)
   | ({ figure: 'arch' } & ArchDiagramOptions)
   | ({ figure: 'sequence' } & SequenceDiagramOptions)
   | ({ figure: 'quadrant' } & QuadrantChartOptions)

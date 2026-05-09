@@ -94,6 +94,7 @@ Every renderer accepts two independent parameters:
 Each renderer cycles node types to give visual variety without requiring per-element color input:
 
 - **Tree**: cycle `[terminal, process, decision, io]` by **depth level**.
+- **Mindmap**: root uses `terminal`; descendants cycle `[process, decision, io, terminal]` by **depth level**.
 - **Arch**: cycle `[process, decision, terminal, io]` by **layer index**.
 - **Sequence**: cycle `[terminal, process, decision, io]` by **actor index**.
 - **Quadrant**: fixed mapping — TL=`terminal` (green), TR=`process` (amber), BL=`io` (purple), BR=`decision` (blue).
@@ -227,6 +228,7 @@ Never expose `width`/`height` to callers:
 | Diagram | Size rule |
 |---------|-----------|
 | Flow / Tree | Auto-sized by Dagre layout; padded viewBox from `src/layout.ts` |
+| Mindmap | Auto-sized from left/right branch extents + fixed branch/node paddings in `src/mindmap.ts` |
 | Arch | TB: `clamp(480, 48 + 28 + maxCols×140 + (maxCols−1)×10, 1600)` px wide; LR: `clamp(480, 48 + layers×168 + (layers−1)×14, 1600)` px wide; height always auto from layer/node count |
 | Sequence | Auto-sized from actor count × `ACTOR_SPACING` and message count × `MSG_SPACING` |
 | Quadrant | `clamp(640, 640 + (n−4)×24, 1024)` px square, where n = point count |

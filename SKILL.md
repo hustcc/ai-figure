@@ -1,12 +1,12 @@
 ---
 name: ai-figure
 version: "0.4.0"
-description: Generate clean SVG diagrams (flowchart, tree, architecture, sequence, quadrant, gantt, state machine, ER, timeline, swimlane, bubble chart, radar chart) from a markdown string or a JSON config via fig(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
+description: Generate clean SVG diagrams (flowchart, tree, mindmap, architecture, sequence, quadrant, gantt, state machine, ER, timeline, swimlane, bubble chart, radar chart) from a markdown string or a JSON config via fig(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
 author: hustcc
 license: MIT
 package: ai-figure
 api: fig(markdown|options) → string (SVG)
-tags: [flowchart, tree-diagram, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, state-machine, er-diagram, timeline, swimlane, bubble-chart, radar-chart, svg, layout, visualization, markdown]
+tags: [flowchart, tree-diagram, mindmap, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, state-machine, er-diagram, timeline, swimlane, bubble-chart, radar-chart, svg, layout, visualization, markdown]
 ---
 
 # ai-figure Skill
@@ -44,7 +44,7 @@ const svg2 = fig({ figure: 'flow', nodes: [...], edges: [...] });
 
 **First line must be:** `figure <type>` — this is the required header, **not** a `key: value` config line.
 
-Valid types: `flow` `tree` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` `bubble` `radar`
+Valid types: `flow` `tree` `mindmap` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` `bubble` `radar`
 
 Config lines use `key: value` syntax. Data lines use diagram-specific patterns.
 
@@ -58,7 +58,7 @@ Config lines use `key: value` syntax. Data lines use diagram-specific patterns.
 
 Lines starting with `%%` are comments.
 
-### Node notation (flow / tree / arch)
+### Node notation (flow / tree / mindmap / arch)
 
 | Notation | Shape |
 |----------|-------|
@@ -91,6 +91,20 @@ subtitle: company structure
 root[Root]
 root --> child[Child]
 child --> leaf[Leaf]
+```
+
+### mindmap
+
+```
+figure mindmap
+title: Product Strategy
+subtitle: 2026 planning map
+root[Product Strategy]
+root --> market[Market]
+root --> tech[Technology]
+market --> smb[SMB]
+market --> ent[Enterprise]
+tech --> ai[AI Features]
 ```
 
 ### arch
@@ -296,6 +310,10 @@ All options share: `title?`, `subtitle?`, `theme?: 'light'|'dark'`, `palette?: s
 // tree
 { figure: 'tree', nodes: TreeNode[] }
 // TreeNode: { id, label, parent? }
+
+// mindmap
+{ figure: 'mindmap', nodes: MindmapNode[] }
+// MindmapNode: { id, label, parent?, side?: 'left'|'right' }
 
 // arch
 { figure: 'arch', layers: ArchLayer[] }

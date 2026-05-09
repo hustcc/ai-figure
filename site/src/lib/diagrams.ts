@@ -1832,6 +1832,130 @@ Swift: 44`,
     ],
   },
   {
+    type: 'mindmap',
+    label: 'Mindmap',
+    examples: [
+      {
+        title: 'Product Strategy',
+        markdown: `figure mindmap
+title: Product Strategy
+subtitle: 2026 planning map
+root[Product Strategy]
+root --> market[Market]
+root --> tech[Technology]
+market --> smb[SMB]
+market --> ent[Enterprise]
+tech --> ai[AI Features]
+tech --> infra[Platform Infra]`,
+      },
+      {
+        title: 'Go-To-Market',
+        markdown: `figure mindmap
+title: Go-To-Market Plan
+palette: antv
+root[GTM Plan]
+root --> audience[Audience]
+root --> channels[Channels]
+root --> messaging[Messaging]
+audience --> smb[SMB]
+audience --> enterprise[Enterprise]
+channels --> ads[Paid Ads]
+channels --> content[Content]
+messaging --> value[Value Props]`,
+      },
+      {
+        title: 'Engineering Vision',
+        markdown: `figure mindmap
+title: Engineering Vision
+palette: figma
+theme: dark
+root[Engineering 2026]
+root --> architecture[Architecture]
+root --> developerx[Developer Experience]
+root --> reliability[Reliability]
+architecture --> modular[Modular Services]
+developerx --> platform[Platform Tooling]
+reliability --> slo[SLO Governance]`,
+      },
+      {
+        title: 'Learning Roadmap',
+        markdown: `figure mindmap
+title: Learning Roadmap
+palette: default
+root[Learning Plan]
+root --> frontend[Frontend]
+root --> backend[Backend]
+root --> ops[Operations]
+frontend --> react[React]
+frontend --> ts[TypeScript]
+backend --> node[Node.js]
+backend --> db[Databases]
+ops --> ci[CI/CD]
+ops --> cloud[Cloud]`,
+      },
+      {
+        title: 'Knowledge Base',
+        markdown: `figure mindmap
+title: Knowledge Base
+palette: mono-blue
+root[Knowledge Hub]
+root --> docs[Documentation]
+root --> runbooks[Runbooks]
+root --> playbooks[Playbooks]
+docs --> api[API Guides]
+docs --> onboarding[Onboarding]
+runbooks --> incidents[Incident Response]
+playbooks --> release[Release Process]`,
+      },
+      {
+        title: 'Hiring Plan',
+        markdown: `figure mindmap
+title: Hiring Plan
+theme: dark
+palette: vega
+root[Hiring 2026]
+root --> sourcing[Sourcing]
+root --> interviews[Interview Loop]
+root --> onboarding[Onboarding]
+sourcing --> referrals[Referrals]
+sourcing --> communities[Communities]
+interviews --> techscreen[Tech Screen]
+interviews --> onsite[Onsite]
+onboarding --> buddy[Buddy Program]`,
+      },
+      {
+        title: 'Customer Success',
+        markdown: `figure mindmap
+title: Customer Success
+palette: mono-green
+root[Customer Success]
+root --> adoption[Adoption]
+root --> expansion[Expansion]
+root --> retention[Retention]
+adoption --> onboarding[Onboarding]
+adoption --> education[Education]
+expansion --> upsell[Upsell]
+retention --> qbr[QBR]`,
+      },
+      {
+        title: 'Security Program',
+        markdown: `figure mindmap
+title: Security Program
+theme: dark
+palette: drawio
+root[Security Program]
+root --> people[People]
+root --> process[Process]
+root --> technology[Technology]
+people --> training[Training]
+process --> policy[Policy]
+process --> audits[Audits]
+technology --> iam[IAM]
+technology --> monitoring[Monitoring]`,
+      },
+    ],
+  },
+  {
     type: 'radar',
     label: 'Radar Chart',
     examples: [
