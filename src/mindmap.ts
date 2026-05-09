@@ -4,6 +4,8 @@ import type { MindmapDiagramOptions, MindmapNode, MindmapSide, NodeType } from '
 
 const NODE_W = 160;
 const NODE_H = 60;
+const ROOT_NODE_W = 176;
+const ROOT_NODE_H = 66;
 const X_GAP = 260;
 const Y_GAP = 44;
 const PAD = 56;
@@ -24,6 +26,10 @@ function average(nums: number[]): number {
 
 function roundCoord(value: number): number {
   return Math.round(value * COORD_ROUND_MULTIPLIER) / COORD_ROUND_MULTIPLIER;
+}
+
+function getNodeSize(depth: number): { width: number; height: number } {
+  return depth === 0 ? { width: ROOT_NODE_W, height: ROOT_NODE_H } : { width: NODE_W, height: NODE_H };
 }
 
 function buildSubtreeSizeMap(rootId: string, childrenMap: Map<string, string[]>): Map<string, number> {
@@ -158,10 +164,12 @@ export function createMindmapDiagram(options: MindmapDiagramOptions): string {
   let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
   for (const n of nodes) {
     const p = posMap.get(n.id)!;
-    minX = Math.min(minX, p.x - NODE_W / 2);
-    minY = Math.min(minY, p.y - NODE_H / 2);
-    maxX = Math.max(maxX, p.x + NODE_W / 2);
-    maxY = Math.max(maxY, p.y + NODE_H / 2);
+    const depth = depthMap.get(n.id) ?? 1;
+    const { width: nodeW, height: nodeH } = getNodeSize(depth);
+    minX = Math.min(minX, p.x - nodeW / 2);
+    minY = Math.min(minY, p.y - nodeH / 2);
+    maxX = Math.max(maxX, p.x + nodeW / 2);
+    maxY = Math.max(maxY, p.y + nodeH / 2);
   }
 
   const vbX = roundCoord(minX - PAD);
@@ -194,10 +202,14 @@ export function createMindmapDiagram(options: MindmapDiagramOptions): string {
     .map((n) => {
       const parent = posMap.get(n.parent!)!;
       const child = posMap.get(n.id)!;
+      const parentDepth = depthMap.get(n.parent!) ?? 1;
+      const childDepth = depthMap.get(n.id) ?? 1;
+      const parentW = getNodeSize(parentDepth).width;
+      const childW = getNodeSize(childDepth).width;
       const sign = child.x >= parent.x ? 1 : -1;
-      const sx = parent.x + sign * (NODE_W / 2);
+      const sx = parent.x + sign * (parentW / 2);
       const sy = parent.y;
-      const tx = child.x - sign * (NODE_W / 2);
+      const tx = child.x - sign * (childW / 2);
       const ty = child.y;
       const gapX = Math.abs(tx - sx);
       const bend = Math.max(36, gapX * 0.45);
@@ -213,10 +225,11 @@ export function createMindmapDiagram(options: MindmapDiagramOptions): string {
   const nodesSvg = nodes.map((n) => {
     const p = posMap.get(n.id)!;
     const depth = depthMap.get(n.id) ?? 1;
+    const { width: nodeW, height: nodeH } = getNodeSize(depth);
     const isRoot = depth === 0;
     const type: NodeType = depth === 0 ? 'terminal' : DEPTH_NODE_TYPES[(depth - 1) % DEPTH_NODE_TYPES.length];
-    const x = roundCoord(p.x - NODE_W / 2);
-    const y = roundCoord(p.y - NODE_H / 2);
+    const x = roundCoord(p.x - nodeW / 2);
+    const y = roundCoord(p.y - nodeH / 2);
     const fill = theme.nodeFills[type];
     const stroke = theme.nodeStrokes[type];
     const textColor = theme.textColors[type];
@@ -224,9 +237,9 @@ export function createMindmapDiagram(options: MindmapDiagramOptions): string {
     const fontSize = isRoot ? theme.fontSize + 1 : theme.fontSize;
     const fontWeightAttr = isRoot ? ' font-weight="700"' : '';
 
-    const shape = `<rect x="${x}" y="${y}" width="${NODE_W}" height="${NODE_H}" rx="${theme.cornerRadius}" ry="${theme.cornerRadius}" fill="${fill}" stroke="${stroke}" stroke-width="${strokeWidth}"/>`;
+    const shape = `<rect x="${x}" y="${y}" width="${nodeW}" height="${nodeH}" rx="${theme.cornerRadius}" ry="${theme.cornerRadius}" fill="${fill}" stroke="${stroke}" stroke-width="${strokeWidth}"/>`;
 
-    const lines = wrapText(n.label, NODE_W - 16, fontSize);
+    const lines = wrapText(n.label, nodeW - 16, fontSize);
     const lineH = fontSize * 1.4;
     const startY = roundCoord(p.y - (lines.length * lineH) / 2 + lineH * 0.5);
     const text = lines.map((line, i) =>
