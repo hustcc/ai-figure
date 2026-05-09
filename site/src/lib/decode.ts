@@ -10,11 +10,22 @@ export async function decodeMarkdown(encoded: string): Promise<string> {
     );
   }
 
+  const normalized = normalizeEncodedHash(encoded);
+
   // Reverse base64url → standard base64 → binary
-  const base64 = encoded.replace(/-/g, '+').replace(/_/g, '/');
+  const base64 = normalized.replace(/-/g, '+').replace(/_/g, '/');
   const padded = base64 + '='.repeat((4 - (base64.length % 4)) % 4);
 
-  const binaryStr = atob(padded);
+  if (!/^[A-Za-z0-9+/]*={0,2}$/.test(padded)) {
+    throw new Error('Invalid share link data. Please regenerate the share URL.');
+  }
+
+  let binaryStr: string;
+  try {
+    binaryStr = atob(padded);
+  } catch {
+    throw new Error('Invalid share link data. Please regenerate the share URL.');
+  }
   const bytes = new Uint8Array(binaryStr.length);
   for (let i = 0; i < binaryStr.length; i++) {
     bytes[i] = binaryStr.charCodeAt(i);
@@ -31,6 +42,22 @@ export async function decodeMarkdown(encoded: string): Promise<string> {
   });
 
   return new Response(compressedStream.pipeThrough(new DecompressionStream('gzip'))).text();
+}
+
+function normalizeEncodedHash(encoded: string): string {
+  const raw = encoded.trim().replace(/^#/, '');
+  if (!raw) {
+    throw new Error('No diagram encoded in the URL hash.');
+  }
+
+  let normalized = raw;
+  try {
+    normalized = decodeURIComponent(raw);
+  } catch {
+    // Keep original if hash is not percent-encoded.
+  }
+
+  return normalized.replace(/\s+/g, '');
 }
 
 /**
