@@ -945,6 +945,62 @@ const svg = fig(`
 `);
 ```
 
+## Mindmap (Draft Design Proposal, 待确认)
+
+> 目标：先确认技术方案与视觉方案，再进入代码实现。
+
+### 1) 技术方案（提案）
+
+- 新增图表类型：`figure: 'mindmap'`（不影响现有 12 种图表）。
+- 新增文件（实现阶段）：`src/mindmap.ts`，负责思维导图 SVG 渲染。
+- 类型扩展（实现阶段）：
+  - `MindmapNode { id, label, parent?, side? }`
+  - `MindmapDiagramOptions { nodes, theme?, palette?, title?, subtitle? }`
+  - 并加入 `FigOptions` 联合类型。
+- 入口扩展（实现阶段）：
+  - `src/index.ts` 增加 `case 'mindmap'`
+  - `src/parse.ts` 增加 `parseMindmap()` 与 `figure mindmap` 分支。
+- Markdown 草案（待确认）：
+
+```figmd
+figure mindmap
+title: AI Figure Mindmap
+root: ai-figure
+r1: Render Engine, ai-figure, right
+r2: Parser, ai-figure, left
+r3: Themes, ai-figure, right
+r4: Tests, ai-figure, left
+r5: Snapshot, tests, left
+```
+
+字段约定（提案）：
+- `root: <label>` 定义中心主题（内部自动分配 id）。
+- 普通节点格式：`id: label, parentId, side?`
+- `side` 可选：`left | right`；未填写时按平衡策略自动分配。
+
+### 2) 视觉方案（提案）
+
+- 布局：以中心主题为原点，左右双侧树形扩展（经典 mindmap 结构）。
+- 连线：使用平滑曲线（cubic bezier），从父节点中心连接到子节点中心。
+- 颜色：
+  - 沿用现有 `theme + palette` 体系，不新增独立配色系统。
+  - 中心节点使用强调色；分支按层级循环颜色，保持与现有图表风格一致。
+- 节点样式：
+  - 中心节点：较大圆角胶囊（强调层级）。
+  - 一级节点：中等圆角矩形。
+  - 二级及以下：紧凑圆角矩形，优先可读性。
+- 文本：
+  - 继续使用统一字体与标题/副标题规范（与其它图表一致）。
+  - 长文本自动换行，节点最小宽度受字数驱动。
+- 动画：默认不加动画（先保证稳定与可读性），后续可选轻量入场动画。
+
+### 3) 待你确认的关键点
+
+1. Markdown 语法是否采用上面的 `root + id: label, parent, side` 方案？
+2. 布局是否固定为“左右双侧展开”，还是需要支持“仅右侧”模式？
+3. 一级节点是否需要支持自定义颜色（可选字段）？
+4. 是否先只做静态样式（无动画）？
+
 ## Development
 
 ```bash
@@ -968,4 +1024,3 @@ npx serve .
 ## License
 
 MIT © [hustcc](https://github.com/hustcc)
-
