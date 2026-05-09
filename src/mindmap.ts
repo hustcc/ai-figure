@@ -213,20 +213,24 @@ export function createMindmapDiagram(options: MindmapDiagramOptions): string {
   const nodesSvg = nodes.map((n) => {
     const p = posMap.get(n.id)!;
     const depth = depthMap.get(n.id) ?? 1;
+    const isRoot = depth === 0;
     const type: NodeType = depth === 0 ? 'terminal' : DEPTH_NODE_TYPES[(depth - 1) % DEPTH_NODE_TYPES.length];
     const x = roundCoord(p.x - NODE_W / 2);
     const y = roundCoord(p.y - NODE_H / 2);
     const fill = theme.nodeFills[type];
     const stroke = theme.nodeStrokes[type];
     const textColor = theme.textColors[type];
+    const strokeWidth = roundCoord(theme.strokeWidth + (isRoot ? 0.8 : 0));
+    const fontSize = isRoot ? theme.fontSize + 1 : theme.fontSize;
+    const fontWeightAttr = isRoot ? ' font-weight="700"' : '';
 
-    const shape = `<rect x="${x}" y="${y}" width="${NODE_W}" height="${NODE_H}" rx="${theme.cornerRadius}" ry="${theme.cornerRadius}" fill="${fill}" stroke="${stroke}" stroke-width="${theme.strokeWidth}"/>`;
+    const shape = `<rect x="${x}" y="${y}" width="${NODE_W}" height="${NODE_H}" rx="${theme.cornerRadius}" ry="${theme.cornerRadius}" fill="${fill}" stroke="${stroke}" stroke-width="${strokeWidth}"/>`;
 
-    const lines = wrapText(n.label, NODE_W - 16, theme.fontSize);
-    const lineH = theme.fontSize * 1.4;
+    const lines = wrapText(n.label, NODE_W - 16, fontSize);
+    const lineH = fontSize * 1.4;
     const startY = roundCoord(p.y - (lines.length * lineH) / 2 + lineH * 0.5);
     const text = lines.map((line, i) =>
-      `<text x="${roundCoord(p.x)}" y="${roundCoord(startY + i * lineH)}" text-anchor="middle" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${theme.fontSize}" fill="${escapeXml(textColor)}">${escapeXml(line)}</text>`,
+      `<text x="${roundCoord(p.x)}" y="${roundCoord(startY + i * lineH)}" text-anchor="middle" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${fontSize}"${fontWeightAttr} fill="${escapeXml(textColor)}">${escapeXml(line)}</text>`,
     ).join('\n');
 
     return `<g class="node node-${type}" data-id="${escapeXml(n.id)}">\n${shape}\n${text}\n</g>`;
