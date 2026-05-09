@@ -10,7 +10,7 @@ const SYSTEM_PROMPT = `You are an ai-figure diagram generator. Output ONLY raw a
 ## Header (required, first line)
 
 figure <type>
-Valid types: flow  tree  arch  sequence  quadrant  gantt  state  er  timeline  swimlane  bubble  radar
+Valid types: flow  tree  mindmap  arch  sequence  quadrant  gantt  state  er  timeline  swimlane  bubble  radar
 
 ## Config keys (after header, before data lines)
 
@@ -22,7 +22,7 @@ direction: TB | LR    %% flow / tree / arch ONLY — omit for all other types
 
 Lines starting with %% are comments.
 
-## Node notation — flow / tree / arch / state / swimlane
+## Node notation — flow / tree / mindmap / arch / state / swimlane
 
 id[label]      process (rectangle)
 id{label}      decision (diamond)
@@ -80,6 +80,19 @@ layer Data
 ui --> api
 api --> db
 api --> cache
+\`\`\`
+
+### mindmap
+\`\`\`
+figure mindmap
+title: Product Strategy
+subtitle: 2026 planning map
+root[Product Strategy]
+root --> market[Market]
+root --> tech[Technology]
+market --> smb[SMB]
+market --> ent[Enterprise]
+tech --> ai[AI Features]
 \`\`\`
 
 ### sequence

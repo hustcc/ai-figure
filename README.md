@@ -45,6 +45,15 @@
   </tr>
   <tr>
     <td align="center" width="25%">
+      <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/mindmap.svg" width="100%" alt="Mindmap"/>
+      <br/><small>Mindmap</small>
+    </td>
+    <td align="center" width="25%"></td>
+    <td align="center" width="25%"></td>
+    <td align="center" width="25%"></td>
+  </tr>
+  <tr>
+    <td align="center" width="25%">
       <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/timeline.svg" width="100%" alt="Timeline"/>
       <br/><small>Timeline</small>
     </td>
@@ -68,7 +77,7 @@
 - 🎨 **Rich visual styles** — light/dark mode, nine built-in palettes (`default`, `antv`, `drawio`, `figma`, `vega`, `mono-blue`, `mono-green`, `mono-purple`, `mono-orange`) plus custom hex arrays; every diagram supports optional title & subtitle, node groups, and color-coded layers
 - 📐 **Auto layout** — just describe the graph; x/y coordinates are computed automatically, and diagram dimensions scale to fit the content
 - 🤖 **AI-friendly** — single `fig()` entry point accepts a markdown string **or** a JSON config; streaming-safe (partial input never throws); ships a [`SKILL.md`](https://github.com/hustcc/ai-figure/blob/main/SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
-- 📊 **12 diagram types** — flowchart, tree, architecture, sequence, quadrant, Gantt, state machine, ER data model, timeline, swimlane, bubble chart, and radar chart; pure SVG output with zero DOM dependency, works in browser and Node.js
+- 📊 **13 diagram types** — flowchart, tree, mindmap, architecture, sequence, quadrant, Gantt, state machine, ER data model, timeline, swimlane, bubble chart, and radar chart; pure SVG output with zero DOM dependency, works in browser and Node.js
 
 ## Quick Start
 
@@ -142,6 +151,7 @@ import { fig } from 'ai-figure';
 // JSON config
 fig({ figure: 'flow',     ...flowOptions     }); // flowchart
 fig({ figure: 'tree',     ...treeOptions     }); // tree / hierarchy
+fig({ figure: 'mindmap',  ...mindmapOptions  }); // root-centered mindmap
 fig({ figure: 'arch',     ...archOptions     }); // architecture diagram
 fig({ figure: 'sequence', ...sequenceOptions }); // sequence diagram
 fig({ figure: 'quadrant', ...quadrantOptions }); // quadrant chart
@@ -232,6 +242,44 @@ fig({
   ],
   theme: 'light',
   palette: 'default',
+});
+```
+
+### `figure: 'mindmap'` — Mindmap Diagram
+
+Renders a root-centered mindmap. First-level branches are auto-balanced across left/right unless explicit `side` is provided.
+
+![Mindmap](https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/mindmap.svg)
+
+| Field      | Type               | Default      | Description |
+|------------|--------------------|--------------|-------------|
+| `figure`   | `'mindmap'`        | **required** | Selects the mindmap renderer |
+| `nodes`    | `MindmapNode[]`    | **required** | Flat list with optional `parent` and `side` |
+| `title`    | `string`           | `undefined`  | Optional centered title above the diagram |
+| `subtitle` | `string`           | `undefined`  | Optional centered subtitle below the title |
+| `theme`    | `ThemeType`        | `'light'`    | Light or dark rendering mode (`'light'` \| `'dark'`) |
+| `palette`  | `PaletteType`      | `'default'`  | Color palette — see [Palette API](#palette-api) below |
+
+#### `MindmapNode`
+
+| Field    | Type                  | Default      | Description |
+|----------|-----------------------|--------------|-------------|
+| `id`     | `string`              | **required** | Unique node identifier |
+| `label`  | `string`              | **required** | Text displayed in the node |
+| `parent` | `string`              | `undefined`  | Parent node id (omit for root) |
+| `side`   | `'left' \| 'right'`   | auto         | Optional preferred branch side (best for root-level children) |
+
+```typescript
+fig({
+  figure: 'mindmap',
+  title: 'Product Strategy',
+  nodes: [
+    { id: 'root', label: 'Product Strategy' },
+    { id: 'market', label: 'Market', parent: 'root', side: 'left' },
+    { id: 'tech', label: 'Technology', parent: 'root', side: 'right' },
+    { id: 'smb', label: 'SMB', parent: 'market' },
+    { id: 'ai', label: 'AI Features', parent: 'tech' },
+  ],
 });
 ```
 
@@ -679,7 +727,7 @@ fig({
 
 ### Palette API
 
-All twelve diagram types accept two independent styling parameters:
+All thirteen diagram types accept two independent styling parameters:
 
 | Field     | Type                   | Default       | Description                          |
 |-----------|------------------------|---------------|--------------------------------------|
@@ -731,7 +779,7 @@ fig({ figure: 'flow', nodes, edges, palette: ['#e64980', '#ae3ec9', '#7048e8', '
 
 Config keys available in all diagram types: `title`, `subtitle`, `theme` (`light`\|`dark`), `palette`, `direction` (`TB`\|`LR`).
 
-#### Node notation (flow / tree / arch)
+#### Node notation (flow / tree / mindmap / arch)
 
 | Notation | Shape |
 |----------|-------|
@@ -779,6 +827,20 @@ direction: TB
 title: Optional Title
 layer Layer Label            %% layer declaration (label serves as id)
   nodeId[Node Label]         %% node in current layer (indentation optional)
+```
+</details>
+
+<details>
+<summary><strong>mindmap</strong></summary>
+
+```
+figure mindmap
+title: Optional Title
+subtitle: Optional Subtitle
+root[Root Topic]
+root --> leftBranch[Left Branch]
+root --> rightBranch[Right Branch]
+leftBranch --> leaf[Leaf]
 ```
 </details>
 
@@ -968,4 +1030,3 @@ npx serve .
 ## License
 
 MIT © [hustcc](https://github.com/hustcc)
-

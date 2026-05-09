@@ -1832,6 +1832,153 @@ Swift: 44`,
     ],
   },
   {
+    type: 'mindmap',
+    label: 'Mindmap',
+    examples: [
+      {
+        title: 'Product Strategy',
+        markdown: `figure mindmap
+title: Product Strategy
+subtitle: 2026 planning map
+root[Product Strategy]
+root --> market[Market Expansion]
+root --> tech[Technology Bets]
+market --> smb[SMB]
+market --> enterprise[Enterprise]
+tech --> ai[AI Features]
+tech --> platform[Platform]
+ai --> copilot[Copilot UX]
+ai --> safety[Model Safety]
+platform --> observability[Observability]`,
+      },
+      {
+        title: 'Go-To-Market',
+        markdown: `figure mindmap
+title: Go-To-Market Plan
+palette: antv
+root[GTM Plan]
+root --> audience[Audience]
+root --> channels[Channels]
+root --> messaging[Messaging]
+root --> enablement[Enablement]
+audience --> smb[SMB]
+audience --> enterprise[Enterprise]
+channels --> ads[Paid Ads]
+channels --> content[Content]
+messaging --> value[Value Props]
+messaging --> proof[Proof Points]
+enablement --> deck[Pitch Deck]
+enablement --> demos[Demo Scripts]`,
+      },
+      {
+        title: 'Engineering Vision',
+        markdown: `figure mindmap
+title: Engineering Vision
+palette: figma
+theme: dark
+root[Engineering 2026]
+root --> architecture[Architecture]
+root --> developerx[Developer Experience]
+root --> reliability[Reliability]
+architecture --> modular[Modular Services]
+architecture --> contracts[API Contracts]
+developerx --> platform[Platform Tooling]
+developerx --> templates[Project Templates]
+reliability --> slo[SLO Governance]
+reliability --> response[Incident Response]
+response --> game-days[Game Days]`,
+      },
+      {
+        title: 'Learning Roadmap',
+        markdown: `figure mindmap
+title: Learning Roadmap
+palette: drawio
+root[Learning Plan]
+root --> frontend[Frontend]
+root --> backend[Backend]
+root --> ops[Operations]
+frontend --> react[React]
+frontend --> ts[TypeScript]
+frontend --> testing[Testing]
+testing --> rtl[RTL]
+backend --> node[Node.js]
+backend --> db[Databases]
+backend --> queues[Queues]
+ops --> ci[CI/CD]
+ops --> cloud[Cloud]
+cloud --> kubernetes[Kubernetes]`,
+      },
+      {
+        title: 'Knowledge Base',
+        markdown: `figure mindmap
+title: Knowledge Base
+palette: mono-blue
+root[Knowledge Hub]
+root --> docs[Documentation]
+root --> runbooks[Runbooks]
+root --> playbooks[Playbooks]
+docs --> api[API Guides]
+docs --> onboarding[Onboarding]
+runbooks --> incidents[Incident Response]
+playbooks --> release[Release Process]
+playbooks --> migration[Migration Guide]
+migration --> cutover[Cutover Checklist]`,
+      },
+      {
+        title: 'Hiring Plan',
+        markdown: `figure mindmap
+title: Hiring Plan
+theme: dark
+palette: vega
+root[Hiring 2026]
+root --> sourcing[Sourcing]
+root --> interviews[Interview Loop]
+root --> onboarding[Onboarding]
+sourcing --> referrals[Referrals]
+sourcing --> communities[Communities]
+interviews --> techscreen[Tech Screen]
+interviews --> onsite[Onsite]
+onsite --> panel[Panel Interview]
+onboarding --> buddy[Buddy Program]
+onboarding --> handbook[Team Handbook]`,
+      },
+      {
+        title: 'Customer Success',
+        markdown: `figure mindmap
+title: Customer Success
+palette: mono-green
+root[Customer Success]
+root --> adoption[Adoption]
+root --> expansion[Expansion]
+root --> retention[Retention]
+adoption --> onboarding[Onboarding]
+adoption --> education[Education]
+expansion --> upsell[Upsell]
+expansion --> partners[Partner Channel]
+retention --> qbr[QBR]
+retention --> renewal[Renewal Motion]`,
+      },
+      {
+        title: 'Security Program',
+        markdown: `figure mindmap
+title: Security Program
+theme: dark
+palette: drawio
+root[Security Program]
+root --> people[People]
+root --> process[Process]
+root --> technology[Technology]
+people --> training[Training]
+process --> policy[Policy]
+process --> audits[Audits]
+technology --> iam[IAM]
+technology --> monitoring[Monitoring]
+monitoring --> alerting[Threat Alerting]
+alerting --> tabletop[Tabletop Drills]`,
+      },
+    ],
+  },
+  {
     type: 'radar',
     label: 'Radar Chart',
     examples: [

@@ -4,6 +4,7 @@ import type {
   FlowEdge,
   FlowGroup,
   TreeNode,
+  MindmapNode,
   ArchLayer,
   SeqMessage,
   QuadrantPoint,
@@ -54,6 +55,7 @@ export function parseFigmd(markdown: string): FigOptions {
   switch (figureType) {
     case 'flow':      return parseFlow(body);
     case 'tree':      return parseTree(body);
+    case 'mindmap':   return parseMindmap(body);
     case 'arch':      return parseArch(body);
     case 'sequence':  return parseSequence(body);
     case 'quadrant':  return parseQuadrant(body);
@@ -67,7 +69,7 @@ export function parseFigmd(markdown: string): FigOptions {
     default:
       throw new Error(
         `figmd: unknown figure type "${figureType}". ` +
-          `Expected one of: flow, tree, arch, sequence, quadrant, gantt, state, er, timeline, swimlane, bubble, radar`,
+          `Expected one of: flow, tree, mindmap, arch, sequence, quadrant, gantt, state, er, timeline, swimlane, bubble, radar`,
       );
   }
 }
@@ -255,6 +257,36 @@ function parseTree(lines: string[]): FigOptions {
   }
 
   return { figure: 'tree', nodes: [...nodeMap.values()], ...cfgSpread(cfg) };
+}
+
+// --- mindmap ---
+
+function parseMindmap(lines: string[]): FigOptions {
+  const cfg: CommonConfig = {};
+  const nodeMap = new Map<string, MindmapNode>();
+
+  const ensureNode = (expr: string, parent?: string): string => {
+    const { id, label } = parseNodeExpr(expr);
+    const existing = nodeMap.get(id);
+    if (!existing) {
+      nodeMap.set(id, { id, label, ...(parent !== undefined ? { parent } : {}) });
+    } else {
+      if (expr.trim() !== id && existing.label === id) existing.label = label;
+      if (parent !== undefined && existing.parent === undefined) existing.parent = parent;
+    }
+    return id;
+  };
+
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
+    if (line.includes('-->')) {
+      const p = splitOnArrow(line, '-->');
+      if (p) { ensureNode(p[1], ensureNode(p[0])); continue; }
+    }
+    ensureNode(line);
+  }
+
+  return { figure: 'mindmap', nodes: [...nodeMap.values()], ...cfgSpread(cfg) };
 }
 
 // --- arch ---

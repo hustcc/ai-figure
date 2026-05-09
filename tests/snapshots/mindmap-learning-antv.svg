@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1572" height="636" viewBox="-916 -134 1572 636">
+
+<text x="-130" y="-100" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Learning Roadmap</text>
+<g class="mindmap">
+<path d="M-88,190.7 C-129.4,190.7 -138.6,104 -180,104" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-88,190.7 C-129.4,190.7 -138.6,104 -180,104" fill="none" stroke="#495057" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M88,190.7 C129.4,190.7 138.6,104 180,104" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M88,190.7 C129.4,190.7 138.6,104 180,104" fill="none" stroke="#495057" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M88,190.7 C129.4,190.7 138.6,364 180,364" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M88,190.7 C129.4,190.7 138.6,364 180,364" fill="none" stroke="#495057" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M-340,104 C-385,104 -395,0 -440,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-340,104 C-385,104 -395,0 -440,0" fill="none" stroke="#495057" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M-340,104 C-385,104 -395,104 -440,104" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-340,104 C-385,104 -395,104 -440,104" fill="none" stroke="#495057" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M-340,104 C-385,104 -395,208 -440,208" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-340,104 C-385,104 -395,208 -440,208" fill="none" stroke="#495057" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M-600,208 C-645,208 -655,208 -700,208" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-600,208 C-645,208 -655,208 -700,208" fill="none" stroke="#495057" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M340,104 C385,104 395,0 440,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M340,104 C385,104 395,0 440,0" fill="none" stroke="#495057" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M340,104 C385,104 395,104 440,104" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M340,104 C385,104 395,104 440,104" fill="none" stroke="#495057" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M340,104 C385,104 395,208 440,208" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M340,104 C385,104 395,208 440,208" fill="none" stroke="#495057" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M340,364 C385,364 395,312 440,312" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M340,364 C385,364 395,312 440,312" fill="none" stroke="#495057" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M340,364 C385,364 395,416 440,416" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M340,364 C385,364 395,416 440,416" fill="none" stroke="#495057" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<g class="node node-terminal" data-id="root">
+<rect x="-88" y="157.7" width="176" height="66" rx="6" ry="6" fill="#edfaf5" stroke="#5ad8a6" stroke-width="2.8"/>
+<text x="0" y="190.7" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#1c9c6f">Learning Plan</text>
+</g>
+<g class="node node-process" data-id="frontend">
+<rect x="-340" y="74" width="160" height="60" rx="6" ry="6" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="-260" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1d5bc7">Frontend</text>
+</g>
+<g class="node node-process" data-id="backend">
+<rect x="180" y="74" width="160" height="60" rx="6" ry="6" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="260" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1d5bc7">Backend</text>
+</g>
+<g class="node node-process" data-id="architecture">
+<rect x="180" y="334" width="160" height="60" rx="6" ry="6" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="260" y="364" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1d5bc7">Architecture</text>
+</g>
+<g class="node node-decision" data-id="react">
+<rect x="-600" y="-30" width="160" height="60" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="-520" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">React</text>
+</g>
+<g class="node node-decision" data-id="ts">
+<rect x="-600" y="74" width="160" height="60" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="-520" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">TypeScript</text>
+</g>
+<g class="node node-decision" data-id="testing">
+<rect x="-600" y="178" width="160" height="60" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="-520" y="208" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">Testing</text>
+</g>
+<g class="node node-io" data-id="rtl">
+<rect x="-860" y="178" width="160" height="60" rx="6" ry="6" fill="#f5f0fd" stroke="#9270ca" stroke-width="2"/>
+<text x="-780" y="208" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#5e3b9e">RTL</text>
+</g>
+<g class="node node-decision" data-id="node">
+<rect x="440" y="-30" width="160" height="60" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="520" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">Node.js</text>
+</g>
+<g class="node node-decision" data-id="db">
+<rect x="440" y="74" width="160" height="60" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="520" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">Databases</text>
+</g>
+<g class="node node-decision" data-id="queues">
+<rect x="440" y="178" width="160" height="60" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="520" y="208" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">Queues</text>
+</g>
+<g class="node node-decision" data-id="ddd">
+<rect x="440" y="282" width="160" height="60" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="520" y="312" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">DDD</text>
+</g>
+<g class="node node-decision" data-id="eventing">
+<rect x="440" y="386" width="160" height="60" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="520" y="416" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">Eventing</text>
+</g>
+</g>
+</svg>

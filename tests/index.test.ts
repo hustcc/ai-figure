@@ -490,10 +490,11 @@ describe('fig(string) — markdown input', () => {
     expect(svg).toContain('Start');
   });
 
-  it('renders all ten diagram types from string input', () => {
+  it('renders all diagram types from string input', () => {
     const types = [
       `figure flow\na[A] --> b[B]`,
       `figure tree\nr[Root] --> c[Child]`,
+      `figure mindmap\nroot[Root]\nroot --> idea[Idea]`,
       `figure arch\nlayer Layer\nn[Node]`,
       `figure sequence\nA -> B: hello`,
       `figure quadrant\nx-axis: Low .. High\ny-axis: Low .. High\nquadrant-1: Q1\nquadrant-2: Q2\nquadrant-3: Q3\nquadrant-4: Q4`,
