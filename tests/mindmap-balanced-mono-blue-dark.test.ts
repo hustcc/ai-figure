@@ -16,9 +16,13 @@ it('mindmap — auto-balanced first-level branches, mono-blue dark', () => {
       { id: 'feature-1', label: 'Feature A', parent: 'product' },
       { id: 'feature-2', label: 'Feature B', parent: 'product' },
       { id: 'feature-3', label: 'Feature C', parent: 'product' },
+      { id: 'feature-4', label: 'Feature D', parent: 'product' },
       { id: 'pricing', label: 'Pricing', parent: 'go-to-market' },
       { id: 'campaign', label: 'Campaign', parent: 'go-to-market' },
+      { id: 'partners', label: 'Channel Partners', parent: 'go-to-market' },
       { id: 'support', label: 'Support Readiness', parent: 'ops' },
+      { id: 'playbook', label: 'Escalation Playbook', parent: 'support' },
+      { id: 'sla', label: 'SLA Rollout', parent: 'playbook' },
     ],
   });
   matchSvgSnapshot('mindmap-balanced-mono-blue-dark', svg);

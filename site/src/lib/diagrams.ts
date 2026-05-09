@@ -1841,12 +1841,15 @@ Swift: 44`,
 title: Product Strategy
 subtitle: 2026 planning map
 root[Product Strategy]
-root --> market[Market]
-root --> tech[Technology]
+root --> market[Market Expansion]
+root --> tech[Technology Bets]
 market --> smb[SMB]
-market --> ent[Enterprise]
+market --> enterprise[Enterprise]
 tech --> ai[AI Features]
-tech --> infra[Infra]`,
+tech --> platform[Platform]
+ai --> copilot[Copilot UX]
+ai --> safety[Model Safety]
+platform --> observability[Observability]`,
       },
       {
         title: 'Go-To-Market',
@@ -1857,11 +1860,15 @@ root[GTM Plan]
 root --> audience[Audience]
 root --> channels[Channels]
 root --> messaging[Messaging]
+root --> enablement[Enablement]
 audience --> smb[SMB]
 audience --> enterprise[Enterprise]
 channels --> ads[Paid Ads]
 channels --> content[Content]
-messaging --> value[Value Props]`,
+messaging --> value[Value Props]
+messaging --> proof[Proof Points]
+enablement --> deck[Pitch Deck]
+enablement --> demos[Demo Scripts]`,
       },
       {
         title: 'Engineering Vision',
@@ -1874,24 +1881,32 @@ root --> architecture[Architecture]
 root --> developerx[Developer Experience]
 root --> reliability[Reliability]
 architecture --> modular[Modular Services]
+architecture --> contracts[API Contracts]
 developerx --> platform[Platform Tooling]
-reliability --> slo[SLO Governance]`,
+developerx --> templates[Project Templates]
+reliability --> slo[SLO Governance]
+reliability --> response[Incident Response]
+response --> game-days[Game Days]`,
       },
       {
         title: 'Learning Roadmap',
         markdown: `figure mindmap
 title: Learning Roadmap
-palette: default
+palette: drawio
 root[Learning Plan]
 root --> frontend[Frontend]
 root --> backend[Backend]
 root --> ops[Operations]
 frontend --> react[React]
 frontend --> ts[TypeScript]
+frontend --> testing[Testing]
+testing --> rtl[RTL]
 backend --> node[Node.js]
 backend --> db[Databases]
+backend --> queues[Queues]
 ops --> ci[CI/CD]
-ops --> cloud[Cloud]`,
+ops --> cloud[Cloud]
+cloud --> kubernetes[Kubernetes]`,
       },
       {
         title: 'Knowledge Base',
@@ -1905,7 +1920,9 @@ root --> playbooks[Playbooks]
 docs --> api[API Guides]
 docs --> onboarding[Onboarding]
 runbooks --> incidents[Incident Response]
-playbooks --> release[Release Process]`,
+playbooks --> release[Release Process]
+playbooks --> migration[Migration Guide]
+migration --> cutover[Cutover Checklist]`,
       },
       {
         title: 'Hiring Plan',
@@ -1921,7 +1938,9 @@ sourcing --> referrals[Referrals]
 sourcing --> communities[Communities]
 interviews --> techscreen[Tech Screen]
 interviews --> onsite[Onsite]
-onboarding --> buddy[Buddy Program]`,
+onsite --> panel[Panel Interview]
+onboarding --> buddy[Buddy Program]
+onboarding --> handbook[Team Handbook]`,
       },
       {
         title: 'Customer Success',
@@ -1935,7 +1954,9 @@ root --> retention[Retention]
 adoption --> onboarding[Onboarding]
 adoption --> education[Education]
 expansion --> upsell[Upsell]
-retention --> qbr[QBR]`,
+expansion --> partners[Partner Channel]
+retention --> qbr[QBR]
+retention --> renewal[Renewal Motion]`,
       },
       {
         title: 'Security Program',
@@ -1951,7 +1972,9 @@ people --> training[Training]
 process --> policy[Policy]
 process --> audits[Audits]
 technology --> iam[IAM]
-technology --> monitoring[Monitoring]`,
+technology --> monitoring[Monitoring]
+monitoring --> alerting[Threat Alerting]
+alerting --> tabletop[Tabletop Drills]`,
       },
     ],
   },

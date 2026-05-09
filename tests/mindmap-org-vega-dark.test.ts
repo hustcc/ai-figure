@@ -13,10 +13,14 @@ it('mindmap — org planning, vega dark', () => {
       { id: 'root', label: '2026 Org Plan' },
       { id: 'eng', label: 'Engineering', parent: 'root', side: 'right' },
       { id: 'ops', label: 'Operations', parent: 'root', side: 'left' },
+      { id: 'finance', label: 'Finance', parent: 'root', side: 'left' },
       { id: 'platform', label: 'Platform Team', parent: 'eng' },
       { id: 'product', label: 'Product Team', parent: 'eng' },
+      { id: 'qa', label: 'Quality Team', parent: 'eng' },
       { id: 'support', label: 'Support', parent: 'ops' },
-      { id: 'finance', label: 'Finance', parent: 'ops' },
+      { id: 'noc', label: 'NOC', parent: 'ops' },
+      { id: 'payroll', label: 'Payroll', parent: 'finance' },
+      { id: 'fpna', label: 'FP&A', parent: 'finance' },
     ],
   });
   matchSvgSnapshot('mindmap-org-vega-dark', svg);

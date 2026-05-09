@@ -15,6 +15,8 @@ it('mindmap — product strategy, default palette', () => {
       { id: 'ent', label: 'Enterprise', parent: 'market' },
       { id: 'ai', label: 'AI Features', parent: 'tech' },
       { id: 'infra', label: 'Infra', parent: 'tech' },
+      { id: 'ml', label: 'ML Platform', parent: 'ai' },
+      { id: 'safety', label: 'Model Safety', parent: 'ml' },
     ],
   });
   matchSvgSnapshot('mindmap-product-default', svg);

@@ -1,25 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1312" height="343" viewBox="-656 -153 1312 343">
-<rect x="-656" y="-153" width="1312" height="343" fill="#1a1b1e"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1312" height="551" viewBox="-656 -153 1312 551">
+<rect x="-656" y="-153" width="1312" height="551" fill="#1a1b1e"/>
 <text x="0" y="-119" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#adb5bd">Org Planning</text>
 <text x="0" y="-100" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#5c6370">Hiring and execution</text>
 <g class="mindmap">
-<path d="M80,52 C125,52 135,52 180,52" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M-80,52 C-125,52 -135,52 -180,52" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M340,52 C385,52 395,0 440,0" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M340,52 C385,52 395,104 440,104" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M80,138.66666666666666 C125,138.66666666666666 135,104 180,104" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M80,138.66666666666666 C125,138.66666666666666 135,104 180,104" fill="none" stroke="#adb5bd" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M-80,138.66666666666666 C-125,138.66666666666666 -135,52 -180,52" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-80,138.66666666666666 C-125,138.66666666666666 -135,52 -180,52" fill="none" stroke="#adb5bd" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M-80,138.66666666666666 C-125,138.66666666666666 -135,260 -180,260" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-80,138.66666666666666 C-125,138.66666666666666 -135,260 -180,260" fill="none" stroke="#adb5bd" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M340,104 C385,104 395,0 440,0" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M340,104 C385,104 395,0 440,0" fill="none" stroke="#adb5bd" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M340,104 C385,104 395,104 440,104" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M340,104 C385,104 395,104 440,104" fill="none" stroke="#adb5bd" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M340,104 C385,104 395,208 440,208" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M340,104 C385,104 395,208 440,208" fill="none" stroke="#adb5bd" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
 <path d="M-340,52 C-385,52 -395,0 -440,0" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-340,52 C-385,52 -395,0 -440,0" fill="none" stroke="#adb5bd" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
 <path d="M-340,52 C-385,52 -395,104 -440,104" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-340,52 C-385,52 -395,104 -440,104" fill="none" stroke="#adb5bd" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M-340,260 C-385,260 -395,208 -440,208" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-340,260 C-385,260 -395,208 -440,208" fill="none" stroke="#adb5bd" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
+<path d="M-340,260 C-385,260 -395,312 -440,312" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-340,260 C-385,260 -395,312 -440,312" fill="none" stroke="#adb5bd" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="8 14" opacity="0.55"><animate attributeName="stroke-dashoffset" from="0" to="-44" dur="2.2s" repeatCount="indefinite"/></path>
 <g class="node node-terminal" data-id="root">
-<rect x="-80" y="22" width="160" height="60" rx="28" ry="28" fill="#0e2928" stroke="#90ccc9" stroke-width="2"/>
-<text x="0" y="52" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#b0dbd8">2026 Org Plan</text>
+<rect x="-80" y="108.66666666666666" width="160" height="60" rx="28" ry="28" fill="#0e2928" stroke="#90ccc9" stroke-width="2"/>
+<text x="0" y="138.66666666666666" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#b0dbd8">2026 Org Plan</text>
 </g>
 <g class="node node-process" data-id="eng">
-<rect x="180" y="22" width="160" height="60" rx="6" ry="6" fill="#162536" stroke="#7aadce" stroke-width="2"/>
-<text x="260" y="52" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a8cce4">Engineering</text>
+<rect x="180" y="74" width="160" height="60" rx="6" ry="6" fill="#162536" stroke="#7aadce" stroke-width="2"/>
+<text x="260" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a8cce4">Engineering</text>
 </g>
 <g class="node node-process" data-id="ops">
 <rect x="-340" y="22" width="160" height="60" rx="6" ry="6" fill="#162536" stroke="#7aadce" stroke-width="2"/>
 <text x="-260" y="52" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a8cce4">Operations</text>
+</g>
+<g class="node node-process" data-id="finance">
+<rect x="-340" y="230" width="160" height="60" rx="6" ry="6" fill="#162536" stroke="#7aadce" stroke-width="2"/>
+<text x="-260" y="260" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a8cce4">Finance</text>
 </g>
 <g class="node node-decision" data-id="platform">
 <polygon points="520,-30 600,0 520,30 440,0" fill="#3a2000" stroke="#f5a54e" stroke-width="2" stroke-linejoin="round"/>
@@ -29,13 +47,25 @@
 <polygon points="520,74 600,104 520,134 440,104" fill="#3a2000" stroke="#f5a54e" stroke-width="2" stroke-linejoin="round"/>
 <text x="520" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#f7c78a">Product Team</text>
 </g>
+<g class="node node-decision" data-id="qa">
+<polygon points="520,178 600,208 520,238 440,208" fill="#3a2000" stroke="#f5a54e" stroke-width="2" stroke-linejoin="round"/>
+<text x="520" y="208" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#f7c78a">Quality Team</text>
+</g>
 <g class="node node-decision" data-id="support">
 <polygon points="-520,-30 -440,0 -520,30 -600,0" fill="#3a2000" stroke="#f5a54e" stroke-width="2" stroke-linejoin="round"/>
 <text x="-520" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#f7c78a">Support</text>
 </g>
-<g class="node node-decision" data-id="finance">
+<g class="node node-decision" data-id="noc">
 <polygon points="-520,74 -440,104 -520,134 -600,104" fill="#3a2000" stroke="#f5a54e" stroke-width="2" stroke-linejoin="round"/>
-<text x="-520" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#f7c78a">Finance</text>
+<text x="-520" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#f7c78a">NOC</text>
+</g>
+<g class="node node-decision" data-id="payroll">
+<polygon points="-520,178 -440,208 -520,238 -600,208" fill="#3a2000" stroke="#f5a54e" stroke-width="2" stroke-linejoin="round"/>
+<text x="-520" y="208" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#f7c78a">Payroll</text>
+</g>
+<g class="node node-decision" data-id="fpna">
+<polygon points="-520,282 -440,312 -520,342 -600,312" fill="#3a2000" stroke="#f5a54e" stroke-width="2" stroke-linejoin="round"/>
+<text x="-520" y="312" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#f7c78a">FP&amp;A</text>
 </g>
 </g>
 </svg>

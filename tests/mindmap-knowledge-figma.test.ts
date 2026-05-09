@@ -18,6 +18,8 @@ it('mindmap — knowledge graph, figma palette', () => {
       { id: 'tools', label: 'Internal Tools', parent: 'root', side: 'right' },
       { id: 'ci', label: 'CI/CD', parent: 'tools' },
       { id: 'ops', label: 'Ops', parent: 'tools' },
+      { id: 'observability', label: 'Observability', parent: 'ops' },
+      { id: 'oncall', label: 'On-call Guide', parent: 'observability' },
     ],
   });
   matchSvgSnapshot('mindmap-knowledge-figma', svg);
