@@ -975,7 +975,10 @@ r5: Snapshot, tests, left
 
 字段约定（提案）：
 - `root: <label>` 定义中心主题（内部自动分配 id）。
+  - `label` 支持空格与中文；解析时会 `trim` 前后空白；建议长度不超过 40 字符以避免节点过宽。
 - 普通节点格式：`id: label, parentId, side?`
+  - `id` 建议使用无空格标识（如 `r1` / `topic_backend`）。
+  - `:` 与 `,` 两侧空格可选（`id:label,parentId` 与 `id: label, parentId` 都视为合法）。
 - `side` 可选：`left | right`；未填写时按平衡策略自动分配。
 
 ### 2) 视觉方案（提案）
