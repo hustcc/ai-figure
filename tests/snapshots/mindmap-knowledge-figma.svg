@@ -1,55 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="476" viewBox="-480 -118 960 476">
+<svg xmlns="http://www.w3.org/2000/svg" width="1312" height="532" viewBox="-656 -134 1312 532">
 
-<text x="0" y="-84" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Knowledge Map</text>
+<text x="0" y="-100" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Knowledge Map</text>
 <g class="mindmap">
-<path d="M-80,112 C-161,112 -19,48 -100,48" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M-80,112 C-161,112 -19,240 -100,240" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M-260,48 C-341,48 -199,0 -280,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M-260,240 C-341,240 -199,192 -280,192" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M-260,48 C-341,48 -199,96 -280,96" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M-260,240 C-341,240 -199,288 -280,288" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M80,112 C161,112 19,48 100,48" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M260,48 C341,48 199,0 280,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M260,48 C341,48 199,96 280,96" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-80,121.33333333333333 C-125,121.33333333333333 -135,52 -180,52" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-80,121.33333333333333 C-125,121.33333333333333 -135,260 -180,260" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-340,52 C-385,52 -395,0 -440,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-340,260 C-385,260 -395,208 -440,208" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-340,52 C-385,52 -395,104 -440,104" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-340,260 C-385,260 -395,312 -440,312" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M80,121.33333333333333 C125,121.33333333333333 135,52 180,52" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M340,52 C385,52 395,0 440,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M340,52 C385,52 395,104 440,104" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
 <g class="node node-terminal" data-id="root">
-<rect x="-80" y="82" width="160" height="60" rx="28" ry="28" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
-<text x="0" y="112" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#047857">Knowledge Base</text>
+<rect x="-80" y="91.33333333333333" width="160" height="60" rx="28" ry="28" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+<text x="0" y="121.33333333333333" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#047857">Knowledge Base</text>
 </g>
 <g class="node node-process" data-id="docs">
-<rect x="-260" y="18" width="160" height="60" rx="6" ry="6" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
-<text x="-180" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#4338ca">Docs</text>
+<rect x="-340" y="22" width="160" height="60" rx="6" ry="6" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="-260" y="52" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#4338ca">Docs</text>
 </g>
 <g class="node node-process" data-id="runbooks">
-<rect x="-260" y="210" width="160" height="60" rx="6" ry="6" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
-<text x="-180" y="240" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#4338ca">Runbooks</text>
+<rect x="-340" y="230" width="160" height="60" rx="6" ry="6" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="-260" y="260" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#4338ca">Runbooks</text>
 </g>
 <g class="node node-decision" data-id="apis">
-<polygon points="-360,-30 -280,0 -360,30 -440,0" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
-<text x="-360" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0891b2">API Guides</text>
+<polygon points="-520,-30 -440,0 -520,30 -600,0" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
+<text x="-520" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0891b2">API Guides</text>
 </g>
 <g class="node node-decision" data-id="playbooks">
-<polygon points="-360,162 -280,192 -360,222 -440,192" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
-<text x="-360" y="192" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0891b2">Playbooks</text>
+<polygon points="-520,178 -440,208 -520,238 -600,208" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
+<text x="-520" y="208" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0891b2">Playbooks</text>
 </g>
 <g class="node node-decision" data-id="tutorials">
-<polygon points="-360,66 -280,96 -360,126 -440,96" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
-<text x="-360" y="96" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0891b2">Tutorials</text>
+<polygon points="-520,74 -440,104 -520,134 -600,104" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
+<text x="-520" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0891b2">Tutorials</text>
 </g>
 <g class="node node-decision" data-id="faq">
-<polygon points="-360,258 -280,288 -360,318 -440,288" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
-<text x="-360" y="288" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0891b2">FAQ</text>
+<polygon points="-520,282 -440,312 -520,342 -600,312" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
+<text x="-520" y="312" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0891b2">FAQ</text>
 </g>
 <g class="node node-process" data-id="tools">
-<rect x="100" y="18" width="160" height="60" rx="6" ry="6" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
-<text x="180" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#4338ca">Internal Tools</text>
+<rect x="180" y="22" width="160" height="60" rx="6" ry="6" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="260" y="52" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#4338ca">Internal Tools</text>
 </g>
 <g class="node node-decision" data-id="ci">
-<polygon points="360,-30 440,0 360,30 280,0" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
-<text x="360" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0891b2">CI/CD</text>
+<polygon points="520,-30 600,0 520,30 440,0" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
+<text x="520" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0891b2">CI/CD</text>
 </g>
 <g class="node node-decision" data-id="ops">
-<polygon points="360,66 440,96 360,126 280,96" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
-<text x="360" y="96" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0891b2">Ops</text>
+<polygon points="520,74 600,104 520,134 440,104" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
+<text x="520" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#0891b2">Ops</text>
 </g>
 </g>
 </svg>

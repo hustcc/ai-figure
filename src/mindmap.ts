@@ -4,9 +4,9 @@ import type { MindmapDiagramOptions, MindmapNode, MindmapSide, NodeType } from '
 
 const NODE_W = 160;
 const NODE_H = 60;
-const X_GAP = 180;
-const Y_GAP = 36;
-const PAD = 40;
+const X_GAP = 260;
+const Y_GAP = 44;
+const PAD = 56;
 
 const DEPTH_NODE_TYPES: NodeType[] = ['process', 'decision', 'io', 'terminal'];
 
@@ -185,8 +185,10 @@ export function createMindmapDiagram(options: MindmapDiagramOptions): string {
       const sy = parent.y;
       const tx = child.x - sign * (NODE_W / 2);
       const ty = child.y;
-      const c1x = sx + sign * X_GAP * 0.45;
-      const c2x = tx - sign * X_GAP * 0.45;
+      const gapX = Math.abs(tx - sx);
+      const bend = Math.max(36, gapX * 0.45);
+      const c1x = sx + sign * bend;
+      const c2x = tx - sign * bend;
       return `<path d="M${sx},${sy} C${c1x},${sy} ${c2x},${ty} ${tx},${ty}" fill="none" stroke="${theme.edgeColor}" stroke-width="${theme.edgeWidth}" stroke-linecap="round"/>`;
     })
     .join('\n');

@@ -1,41 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="303" viewBox="-480 -137 960 303">
+<svg xmlns="http://www.w3.org/2000/svg" width="1312" height="343" viewBox="-656 -153 1312 343">
 
-<text x="0" y="-103" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Product Strategy</text>
-<text x="0" y="-84" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">2026 planning map</text>
+<text x="0" y="-119" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Product Strategy</text>
+<text x="0" y="-100" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">2026 planning map</text>
 <g class="mindmap">
-<path d="M-80,48 C-161,48 -19,48 -100,48" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M80,48 C161,48 19,48 100,48" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M-260,48 C-341,48 -199,0 -280,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M-260,48 C-341,48 -199,96 -280,96" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M260,48 C341,48 199,0 280,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M260,48 C341,48 199,96 280,96" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-80,52 C-125,52 -135,52 -180,52" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M80,52 C125,52 135,52 180,52" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-340,52 C-385,52 -395,0 -440,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M-340,52 C-385,52 -395,104 -440,104" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M340,52 C385,52 395,0 440,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M340,52 C385,52 395,104 440,104" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round"/>
 <g class="node node-terminal" data-id="root">
-<rect x="-80" y="18" width="160" height="60" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
-<text x="0" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Product Strategy</text>
+<rect x="-80" y="22" width="160" height="60" rx="28" ry="28" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="0" y="52" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Product Strategy</text>
 </g>
 <g class="node node-process" data-id="market">
-<rect x="-260" y="18" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
-<text x="-180" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Market</text>
+<rect x="-340" y="22" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="-260" y="52" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Market</text>
 </g>
 <g class="node node-process" data-id="tech">
-<rect x="100" y="18" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
-<text x="180" y="48" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Technology</text>
+<rect x="180" y="22" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="260" y="52" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Technology</text>
 </g>
 <g class="node node-decision" data-id="smb">
-<polygon points="-360,-30 -280,0 -360,30 -440,0" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
-<text x="-360" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">SMB</text>
+<polygon points="-520,-30 -440,0 -520,30 -600,0" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="-520" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">SMB</text>
 </g>
 <g class="node node-decision" data-id="ent">
-<polygon points="-360,66 -280,96 -360,126 -440,96" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
-<text x="-360" y="96" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Enterprise</text>
+<polygon points="-520,74 -440,104 -520,134 -600,104" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="-520" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Enterprise</text>
 </g>
 <g class="node node-decision" data-id="ai">
-<polygon points="360,-30 440,0 360,30 280,0" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
-<text x="360" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">AI Features</text>
+<polygon points="520,-30 600,0 520,30 440,0" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="520" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">AI Features</text>
 </g>
 <g class="node node-decision" data-id="infra">
-<polygon points="360,66 440,96 360,126 280,96" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
-<text x="360" y="96" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Infra</text>
+<polygon points="520,74 600,104 520,134 440,104" fill="#fff7e6" stroke="#f59f00" stroke-width="2" stroke-linejoin="round"/>
+<text x="520" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Infra</text>
 </g>
 </g>
 </svg>
