@@ -733,17 +733,20 @@ function parseNetwork(lines: string[]): FigOptions {
     const { id, label } = parseNodeExpr(nodeExpr);
     if (!id) continue;
 
-    if (!nodeMap.has(id) || nodeExpr.trim() !== id) {
+    const existing = nodeMap.get(id);
+    if (!existing) {
       const node: NetworkNode = { id, label };
       if (currentGroup) node.group = currentGroup;
       if (weight !== undefined) node.weight = weight;
       nodeMap.set(id, node);
       nodes.push(node);
-    } else if (weight !== undefined) {
-      // Update weight if node was auto-created by an edge
-      const existing = nodeMap.get(id)!;
-      existing.weight = weight;
+      continue;
     }
+
+    // Existing node: refine previously auto-created / bare declaration in place.
+    if (nodeExpr.trim() !== id) existing.label = label;
+    if (currentGroup) existing.group = currentGroup;
+    if (weight !== undefined) existing.weight = weight;
   }
 
   return { figure: 'network', nodes, edges, ...cfgSpread(cfg) };

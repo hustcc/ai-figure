@@ -19,6 +19,8 @@ const MIN_H = 360;
 const IDEAL_LEN = 120;
 /** FR iterations. */
 const ITERATIONS = 300;
+const MIN_WEIGHT = 1;
+const MAX_WEIGHT = 5;
 
 /** Node types cycled by group index for color variety. */
 const GROUP_TYPES: NodeType[] = ['process', 'decision', 'terminal', 'io'];
@@ -89,7 +91,12 @@ function runLayout(
         const dy = nodes[i].y - nodes[j].y;
         const d2 = dx * dx + dy * dy || 0.01;
         const d  = Math.sqrt(d2);
-        const f  = k2 / d;
+        const minDist = nodes[i].r + nodes[j].r + 6;
+        let f  = k2 / d;
+        if (d < minDist) {
+          const overlap = minDist - d;
+          f += overlap * overlap * 0.8;
+        }
         const fx = (dx / d) * f;
         const fy = (dy / d) * f;
         nodes[i].vx += fx;
@@ -132,7 +139,7 @@ function runLayout(
     }
   }
 
-  return nodes.map(n => [Math.round(n.x), Math.round(n.y)]);
+  return nodes.map(n => [Number(n.x.toFixed(1)), Number(n.y.toFixed(1))]);
 }
 
 // ---------------------------------------------------------------------------
@@ -142,11 +149,9 @@ function runLayout(
 /**
  * Generate an SVG network / relationship diagram using a force-directed layout.
  *
- * Node sizes use the same area-proportional mapping as the bubble chart:
- * each node's radius is derived so that the circle area is proportional to
- * its weight, interpolated between MIN_NODE_R and MAX_NODE_R.
+ * Node sizes linearly map clamped weights [1,5] to MIN_NODE_R..MAX_NODE_R.
  * Groups are colored by cycling the palette's node types.
- * Edges are animated dashed lines with arrowheads at a fixed stroke-width.
+ * Edges are animated dashed lines with arrowheads and weight-based stroke widths.
  */
 export function createNetworkDiagram(options: NetworkDiagramOptions): string {
   const {
@@ -166,34 +171,51 @@ export function createNetworkDiagram(options: NetworkDiagramOptions): string {
   const nodeIndex = new Map<string, number>();
   rawNodes.forEach((n, i) => nodeIndex.set(n.id, i));
 
-  // Collect unique groups in order of first appearance
-  const groupOrder: string[] = [];
-  const groupSeen = new Set<string>();
+  // Collect unique groups in order of first appearance, with ungrouped first.
+  const groupOrder: string[] = [''];
+  const groupSeen = new Set<string>(['']);
   for (const n of rawNodes) {
     const g = n.group ?? '';
-    if (!groupSeen.has(g)) { groupSeen.add(g); groupOrder.push(g); }
+    if (g && !groupSeen.has(g)) { groupSeen.add(g); groupOrder.push(g); }
   }
 
-  const groupType = (group: string | undefined): NodeType =>
-    GROUP_TYPES[groupOrder.indexOf(group ?? '') % GROUP_TYPES.length];
+  const groupType = (group: string | undefined): NodeType => {
+    const idx = groupOrder.indexOf(group ?? '');
+    return GROUP_TYPES[(idx === -1 ? 0 : idx) % GROUP_TYPES.length];
+  };
 
-  // ── Compute node radii (area-proportional, same formula as bubble chart) ─
-  // Area ∝ weight: r = sqrt(MIN_R² + weight/maxWeight * (MAX_R² − MIN_R²))
-  const nodeWeights = rawNodes.map(n => Math.max(0, n.weight ?? 1));
-  const maxNodeW = Math.max(...(nodeWeights.length ? nodeWeights : [1]));
-  const radii = nodeWeights.map(w =>
-    maxNodeW > 0
-      ? Math.round(Math.sqrt(MIN_NODE_R * MIN_NODE_R + (w / maxNodeW) * (MAX_NODE_R * MAX_NODE_R - MIN_NODE_R * MIN_NODE_R)))
-      : MIN_NODE_R,
-  );
+  // ── Compute node radii (linear MIN→MAX across clamped weight [1,5]) ─────
+  const clampWeight = (w: number | undefined) => Math.min(MAX_WEIGHT, Math.max(MIN_WEIGHT, w ?? 1));
+  const nodeWeights = rawNodes.map(n => clampWeight(n.weight));
+  const minNodeW = Math.min(...(nodeWeights.length ? nodeWeights : [MIN_WEIGHT]));
+  const maxNodeW = Math.max(...(nodeWeights.length ? nodeWeights : [MIN_WEIGHT]));
+  const radii = nodeWeights.map(w => {
+    if (maxNodeW === minNodeW) return MIN_NODE_R;
+    const ratio = (w - minNodeW) / (maxNodeW - minNodeW);
+    return Math.round(MIN_NODE_R + ratio * (MAX_NODE_R - MIN_NODE_R));
+  });
 
   // ── Build edge index list (skip edges with unknown node ids) ─────────────
   const edgeList: Array<[number, number]> = [];
+  const renderEdges: Array<{ edge: (typeof rawEdges)[number]; si: number; ti: number }> = [];
   for (const e of rawEdges) {
     const si = nodeIndex.get(e.from);
     const ti = nodeIndex.get(e.to);
-    if (si !== undefined && ti !== undefined && si !== ti) edgeList.push([si, ti]);
+    if (si !== undefined && ti !== undefined && si !== ti) {
+      edgeList.push([si, ti]);
+      renderEdges.push({ edge: e, si, ti });
+    }
   }
+  const edgeWeights = renderEdges.map(({ edge }) => clampWeight(edge.weight));
+  const minEdgeW = Math.min(...(edgeWeights.length ? edgeWeights : [MIN_WEIGHT]));
+  const maxEdgeW = Math.max(...(edgeWeights.length ? edgeWeights : [MIN_WEIGHT]));
+  const minStrokeW = Math.max(1, theme.edgeWidth - 1);
+  const maxStrokeW = Math.max(minStrokeW, theme.edgeWidth + 2);
+  const edgeStroke = (idx: number) => {
+    if (maxEdgeW === minEdgeW) return theme.edgeWidth;
+    const ratio = (edgeWeights[idx] - minEdgeW) / (maxEdgeW - minEdgeW);
+    return Number((minStrokeW + ratio * (maxStrokeW - minStrokeW)).toFixed(2));
+  };
 
   // ── Layout canvas size (initial guess; FR runs inside these bounds) ───────
   const n = rawNodes.length;
@@ -225,8 +247,8 @@ export function createNetworkDiagram(options: NetworkDiagramOptions): string {
   const offX = -minX + PAD + (CANVAS_W - contentW - PAD * 2) / 2;
   const offY = -minY + PAD + (CANVAS_H - contentH - PAD * 2) / 2;
 
-  const px = (i: number) => Math.round(positions[i][0] + offX);
-  const py = (i: number) => Math.round(positions[i][1] + offY);
+  const px = (i: number) => Number((positions[i][0] + offX).toFixed(1));
+  const py = (i: number) => Number((positions[i][1] + offY).toFixed(1));
 
   const parts: string[] = [];
 
@@ -245,32 +267,33 @@ export function createNetworkDiagram(options: NetworkDiagramOptions): string {
   );
 
   // ── Edges ─────────────────────────────────────────────────────────────────
-  for (let ei = 0; ei < rawEdges.length; ei++) {
-    const e  = rawEdges[ei];
-    const si = nodeIndex.get(e.from);
-    const ti = nodeIndex.get(e.to);
-    if (si === undefined || ti === undefined || si === ti) continue;
-
+  for (let ei = 0; ei < renderEdges.length; ei++) {
+    const { edge: e, si, ti } = renderEdges[ei];
     const x1 = px(si), y1 = py(si);
+    const r1 = radii[si];
     const x2 = px(ti), y2 = py(ti);
     const r2 = radii[ti];
+    const sw = edgeStroke(ei);
 
-    // Shorten line so it ends at the target node's boundary (arrowhead sits at border)
+    // Shorten line so it starts/ends at node boundaries.
     const dx = x2 - x1, dy = y2 - y1;
     const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-    const ex2 = Math.round(x2 - (dx / dist) * (r2 + 2));
-    const ey2 = Math.round(y2 - (dy / dist) * (r2 + 2));
+    const ux = dx / dist, uy = dy / dist;
+    const sx = Number((x1 + ux * (r1 + 2)).toFixed(1));
+    const sy = Number((y1 + uy * (r1 + 2)).toFixed(1));
+    const ex2 = Number((x2 - ux * (r2 + 2)).toFixed(1));
+    const ey2 = Number((y2 - uy * (r2 + 2)).toFixed(1));
 
     parts.push(
-      `<line x1="${x1}" y1="${y1}" x2="${ex2}" y2="${ey2}" ` +
-        `stroke="${escapeXml(theme.edgeColor)}" stroke-width="${theme.edgeWidth}" ` +
+      `<line x1="${sx}" y1="${sy}" x2="${ex2}" y2="${ey2}" ` +
+        `stroke="${escapeXml(theme.edgeColor)}" stroke-width="${sw}" ` +
         `marker-end="url(#${uid}-arr)" class="${uid}-edge"/>`,
     );
 
     // Optional edge label (centred)
     if (e.label) {
-      const lx = Math.round((x1 + ex2) / 2);
-      const ly = Math.round((y1 + ey2) / 2);
+      const lx = Number(((sx + ex2) / 2).toFixed(1));
+      const ly = Number(((sy + ey2) / 2).toFixed(1));
       const labelFs  = 10;
       const labelW   = Math.round(estimateTextWidth(e.label, labelFs) + 10);
       const labelH   = labelFs + 6;
