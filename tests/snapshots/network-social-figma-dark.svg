@@ -11,14 +11,14 @@
 <line x1="381" y1="113" x2="258" y2="96" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
 <line x1="209" y1="219" x2="225" y2="120" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
 <circle cx="209" cy="219" r="32" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
-<text x="209" y="219" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a5b4fc">Alice</text>
+<text x="209" y="219" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#a5b4fc">Alice</text>
 <circle cx="358" cy="248" r="26" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
-<text x="358" y="248" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a5b4fc">Bob</text>
+<text x="358" y="248" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#a5b4fc">Bob</text>
 <circle cx="99" cy="135" r="19" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
-<text x="99" y="135" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a5b4fc">Ca…</text>
+<text x="99" y="135" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#a5b4fc">Carol</text>
 <circle cx="381" cy="113" r="19" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
-<text x="381" y="113" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a5b4fc">Da…</text>
+<text x="381" y="113" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#a5b4fc">Dave</text>
 <circle cx="230" cy="92" r="26" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
-<text x="230" y="92" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a5b4fc">Eve</text>
+<text x="230" y="92" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#a5b4fc">Eve</text>
 </g>
 </svg>

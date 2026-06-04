@@ -271,7 +271,7 @@ export function createNetworkDiagram(options: NetworkDiagramOptions): string {
     if (e.label) {
       const lx = Math.round((x1 + ex2) / 2);
       const ly = Math.round((y1 + ey2) / 2);
-      const labelFs  = theme.fontSize - 2;
+      const labelFs  = 10;
       const labelW   = Math.round(estimateTextWidth(e.label, labelFs) + 10);
       const labelH   = labelFs + 6;
       const bg = theme.background || 'white';
@@ -301,13 +301,16 @@ export function createNetworkDiagram(options: NetworkDiagramOptions): string {
         `fill="${escapeXml(fill)}" stroke="${escapeXml(stroke)}" stroke-width="${theme.strokeWidth}"/>`,
     );
 
-    // Label inside the circle (truncate if too wide)
+    // Label inside the circle (truncate to max 10 chars, then fit width)
     const maxLabelW = r * 2 - 8;
-    const labelFs   = theme.fontSize;
+    const labelFs   = 10;
     let label = node.label;
+    if (label.length > 10) {
+      label = label.slice(0, 10) + '…';
+    }
     const estimated = estimateTextWidth(label, labelFs);
     if (estimated > maxLabelW) {
-      // Truncate to fit
+      // Truncate further to fit circle width
       const ratio = maxLabelW / estimated;
       const chars = Math.max(1, Math.floor(label.length * ratio) - 1);
       label = label.slice(0, chars) + '…';
