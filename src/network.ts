@@ -7,9 +7,9 @@ import type { NetworkDiagramOptions, NodeType } from './types';
 // ---------------------------------------------------------------------------
 
 /** Minimum node circle radius in SVG user units. */
-const MIN_NODE_R = 20;
+const MIN_NODE_R = 6;
 /** Maximum node circle radius in SVG user units. */
-const MAX_NODE_R = 56;
+const MAX_NODE_R = 32;
 /** Padding around the entire network. */
 const PAD = 48;
 /** Minimum canvas width / height. */
