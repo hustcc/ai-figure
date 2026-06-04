@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="447" viewBox="0 0 480 447">
+<text x="240" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Machine Learning Concepts</text>
+<text x="240" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">Key relationships</text>
+<g class="network-diagram" transform="translate(0,67)">
+<defs><marker id="net-1-arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/></marker><style>.net-1-edge{stroke-dasharray:8 5;animation:net-1-dash 1.2s linear infinite;}@keyframes net-1-dash{to{stroke-dashoffset:-26;}}</style></defs>
+<line x1="400" y1="176" x2="403" y2="254" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<rect x="379" y="207" width="45" height="16" fill="white" rx="3" opacity="0.9"/>
+<text x="402" y="215" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#495057">subset</text>
+<line x1="404" y1="284" x2="279" y2="230" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<rect x="325" y="249" width="33" height="16" fill="white" rx="3" opacity="0.9"/>
+<text x="342" y="257" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#495057">uses</text>
+<line x1="256" y1="220" x2="170" y2="284" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<line x1="256" y1="220" x2="186" y2="82" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<line x1="155" y1="295" x2="96" y2="291" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<rect x="103" y="285" width="45" height="16" fill="white" rx="3" opacity="0.9"/>
+<text x="126" y="293" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#495057">powers</text>
+<line x1="177" y1="65" x2="96" y2="70" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<rect x="114" y="60" width="45" height="16" fill="white" rx="3" opacity="0.9"/>
+<text x="137" y="68" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#495057">powers</text>
+<line x1="404" y1="76" x2="401" y2="142" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<rect x="383" y="101" width="39" height="16" fill="white" rx="3" opacity="0.9"/>
+<text x="403" y="109" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#495057">feeds</text>
+<circle cx="400" cy="176" r="32" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
+<text x="400" y="176" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#581c87">Machine Le…</text>
+<circle cx="404" cy="284" r="28" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
+<text x="404" y="284" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#581c87">Deep Learn…</text>
+<circle cx="256" cy="220" r="23" fill="#faf5ff" stroke="#c084fc" stroke-width="2"/>
+<text x="256" y="220" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#7e22ce">Neural Net</text>
+<circle cx="155" cy="295" r="17" fill="#faf5ff" stroke="#c084fc" stroke-width="2"/>
+<text x="155" y="295" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#7e22ce">CNN</text>
+<circle cx="177" cy="65" r="17" fill="#faf5ff" stroke="#c084fc" stroke-width="2"/>
+<text x="177" y="65" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#7e22ce">RNN</text>
+<circle cx="71" cy="71" r="23" fill="#e9d5ff" stroke="#7e22ce" stroke-width="2"/>
+<text x="71" y="71" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#6b21a8">NLP</text>
+<circle cx="71" cy="289" r="23" fill="#e9d5ff" stroke="#7e22ce" stroke-width="2"/>
+<text x="71" y="289" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#6b21a8">Computer V…</text>
+<circle cx="404" cy="76" r="28" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
+<text x="404" y="76" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#581c87">Data</text>
+</g>
+</svg>

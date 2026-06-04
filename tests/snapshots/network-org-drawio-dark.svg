@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="447" viewBox="0 0 480 447">
+<rect width="100%" height="100%" fill="#1a1b1e"/>
+<text x="240" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#adb5bd">研发团队</text>
+<text x="240" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#5c6370">组织关系</text>
+<g class="network-diagram" transform="translate(0,67)">
+<defs><marker id="net-1-arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#adb5bd"/></marker><style>.net-1-edge{stroke-dasharray:8 5;animation:net-1-dash 1.2s linear infinite;}@keyframes net-1-dash{to{stroke-dashoffset:-26;}}</style></defs>
+<line x1="254" y1="144" x2="123" y2="89" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<rect x="178" y="109" width="22" height="16" fill="#1a1b1e" rx="3" opacity="0.9"/>
+<text x="189" y="117" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#adb5bd">管理</text>
+<line x1="254" y1="144" x2="374" y2="162" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<rect x="303" y="145" width="22" height="16" fill="#1a1b1e" rx="3" opacity="0.9"/>
+<text x="314" y="153" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#adb5bd">管理</text>
+<line x1="254" y1="144" x2="294" y2="265" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<rect x="263" y="197" width="22" height="16" fill="#1a1b1e" rx="3" opacity="0.9"/>
+<text x="274" y="205" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#adb5bd">管理</text>
+<line x1="95" y1="77" x2="70" y2="176" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<line x1="95" y1="77" x2="70" y2="176" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<line x1="404" y1="167" x2="413" y2="276" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<line x1="404" y1="167" x2="413" y2="84" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<line x1="302" y1="289" x2="396" y2="294" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<rect x="338" y="284" width="22" height="16" fill="#1a1b1e" rx="3" opacity="0.9"/>
+<text x="349" y="292" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#adb5bd">协作</text>
+<circle cx="254" cy="144" r="32" fill="#1a2d45" stroke="#6c8ebf" stroke-width="2"/>
+<text x="254" y="144" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#9ec5f0">CTO</text>
+<circle cx="95" cy="77" r="28" fill="#3d3200" stroke="#d6b656" stroke-width="2"/>
+<text x="95" y="77" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#edd78f">FE Lead</text>
+<circle cx="404" cy="167" r="28" fill="#1a3024" stroke="#82b366" stroke-width="2"/>
+<text x="404" y="167" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#a8d4a5">BE Lead</text>
+<circle cx="65" cy="194" r="17" fill="#3d3200" stroke="#d6b656" stroke-width="2"/>
+<text x="65" y="194" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#edd78f">FE Dev 1</text>
+<circle cx="65" cy="194" r="17" fill="#3d3200" stroke="#d6b656" stroke-width="2"/>
+<text x="65" y="194" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#edd78f">FE Dev 2</text>
+<circle cx="415" cy="295" r="17" fill="#1a3024" stroke="#82b366" stroke-width="2"/>
+<text x="415" y="295" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#a8d4a5">BE Dev 1</text>
+<circle cx="415" cy="65" r="17" fill="#1a3024" stroke="#82b366" stroke-width="2"/>
+<text x="415" y="65" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#a8d4a5">BE Dev 2</text>
+<circle cx="302" cy="289" r="23" fill="#3d1414" stroke="#b85450" stroke-width="2"/>
+<text x="302" y="289" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#d99b99">DevOps</text>
+</g>
+</svg>

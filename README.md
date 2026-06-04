@@ -47,9 +47,6 @@
     <td align="center" width="25%">
       <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/mindmap.svg" width="100%" alt="Mindmap"/>
       <br/><small>Mindmap</small>
-      <br/>
-      <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/timeline.svg" width="100%" alt="Timeline"/>
-      <br/><small>Timeline</small>
     </td>
     <td align="center" width="25%">
       <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/swimlane.svg" width="100%" alt="Swimlane"/>
@@ -62,6 +59,12 @@
     <td align="center" width="25%">
       <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/radar.svg" width="100%" alt="Radar Chart"/>
       <br/><small>Radar Chart</small>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="25%">
+      <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/timeline.svg" width="100%" alt="Timeline"/>
+      <br/><small>Timeline</small>
     </td>
     <td align="center" width="25%">
       <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/network.svg" width="100%" alt="Network Diagram"/>
