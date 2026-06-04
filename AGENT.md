@@ -246,7 +246,7 @@ These values are used consistently and should not be changed without updating al
 - **Sequence**: `TOP_PAD=24`, `BOTTOM_PAD=32`, actor `W=120 H=44`, spacing `180` px center-to-center, message spacing `56` px.
 - **Quadrant**: `PAD_LEFT=56` (Y-axis label), `PAD_RIGHT=24`, `PAD_TOP=32`, `PAD_BOTTOM=52` (X-axis label).
 - **Radar**: `W=560`, `CX=280`, `R=180`, `LABEL_PAD=38`, `LEVELS=5`; legend: `LEGEND_ITEM_H=22`, `LEGEND_PAD_TOP=18`, `LEGEND_PAD_BTOM=14`; max 4 legend columns.
-- **Network**: `MIN_NODE_R=6`, `MAX_NODE_R=32`, `PAD=48`, `IDEAL_LEN=120`, `ITERATIONS=300`; node/edge weight is clamped to `[1,5]`; node radius maps linearly from min/max node weight to `MIN_NODE_R..MAX_NODE_R`.
+- **Network**: `MIN_NODE_R=16`, `MAX_NODE_R=56`, `DEFAULT_NODE_R=36`, `PAD=48`, `IDEAL_LEN=120`, `ITERATIONS=300`; node/edge weight is clamped to `[1,5]`; nodes without weight use `DEFAULT_NODE_R`; weighted node radius maps linearly from min/max weighted nodes to `MIN_NODE_R..MAX_NODE_R`.
 
 ### SVG output requirements
 

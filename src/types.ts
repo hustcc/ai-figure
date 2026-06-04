@@ -533,9 +533,10 @@ export interface NetworkNode {
    */
   group?: string;
   /**
-   * Optional numeric weight (defaults to 1, clamped to [1,5]).
-   * Controls node circle radius via linear mapping across all node weights:
-   * the node with the lowest weight gets the minimum radius, the highest gets
+   * Optional numeric weight (clamped to [1,5]).
+   * When omitted, node size defaults to radius 36.
+   * When provided, node radius is linearly mapped across weighted nodes:
+   * the lowest weighted node gets the minimum radius, and the highest gets
    * the maximum radius.
    */
   weight?: number;

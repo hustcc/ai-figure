@@ -7,9 +7,11 @@ import type { NetworkDiagramOptions, NodeType } from './types';
 // ---------------------------------------------------------------------------
 
 /** Minimum node circle radius in SVG user units. */
-const MIN_NODE_R = 6;
+const MIN_NODE_R = 16;
 /** Maximum node circle radius in SVG user units. */
-const MAX_NODE_R = 32;
+const MAX_NODE_R = 56;
+/** Default node circle radius when no weight/value is specified. */
+const DEFAULT_NODE_R = 36;
 /** Padding around the entire network. */
 const PAD = 48;
 /** Minimum canvas width / height. */
@@ -150,7 +152,8 @@ function runLayout(
 /**
  * Generate an SVG network / relationship diagram using a force-directed layout.
  *
- * Node sizes linearly map clamped weights [1,5] to MIN_NODE_R..MAX_NODE_R.
+ * Nodes without weight/value use DEFAULT_NODE_R; weighted nodes linearly map
+ * clamped weights [1,5] to MIN_NODE_R..MAX_NODE_R.
  * Groups are colored by cycling the palette's node types.
  * Edges are animated dashed lines with arrowheads and weight-based stroke widths.
  */
@@ -185,13 +188,17 @@ export function createNetworkDiagram(options: NetworkDiagramOptions): string {
     return GROUP_TYPES[(idx === -1 ? 0 : idx) % GROUP_TYPES.length];
   };
 
-  // ── Compute node radii (linear MIN→MAX across clamped weight [1,5]) ─────
+  // ── Compute node radii ────────────────────────────────────────────────────
   const clampWeight = (w: number | undefined) => Math.min(MAX_WEIGHT, Math.max(MIN_WEIGHT, w ?? 1));
-  const nodeWeights = rawNodes.map(n => clampWeight(n.weight));
+  const nodeWeights = rawNodes
+    .filter((n) => n.weight !== undefined)
+    .map((n) => clampWeight(n.weight));
   const minNodeW = Math.min(...(nodeWeights.length ? nodeWeights : [MIN_WEIGHT]));
   const maxNodeW = Math.max(...(nodeWeights.length ? nodeWeights : [MIN_WEIGHT]));
-  const radii = nodeWeights.map(w => {
-    if (maxNodeW === minNodeW) return MIN_NODE_R;
+  const radii = rawNodes.map((n) => {
+    if (n.weight === undefined) return DEFAULT_NODE_R;
+    const w = clampWeight(n.weight);
+    if (maxNodeW === minNodeW) return DEFAULT_NODE_R;
     const ratio = (w - minNodeW) / (maxNodeW - minNodeW);
     return Math.round(MIN_NODE_R + ratio * (MAX_NODE_R - MIN_NODE_R));
   });
