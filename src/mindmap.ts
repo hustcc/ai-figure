@@ -2,12 +2,12 @@ import { resolveTheme } from './theme';
 import { escapeXml, titleBlockHeight, renderTitleBlock } from './utils';
 import type { MindmapDiagramOptions, MindmapNode, MindmapSide, NodeType } from './types';
 
-const NODE_W = 120;
-const NODE_H = 44;
-const ROOT_NODE_W = 136;
-const ROOT_NODE_H = 50;
-const X_GAP = 300;
-const Y_GAP = 60;
+const NODE_W = 96;
+const NODE_H = 36;
+const ROOT_NODE_W = 112;
+const ROOT_NODE_H = 42;
+const X_GAP = 360;
+const Y_GAP = 80;
 const PAD = 56;
 const EDGE_ANIM_DASH = '6,4';
 const EDGE_ANIM_OFFSET = '-20';

@@ -1,70 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1732" height="620" viewBox="-1016 -126 1732 620">
+<svg xmlns="http://www.w3.org/2000/svg" width="2008" height="660" viewBox="-1184 -122 2008 660">
 
-<text x="-150" y="-92" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Learning Roadmap</text>
+<text x="-180" y="-88" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Learning Roadmap</text>
 <g class="mindmap">
-<path d="M-68,190.7 C-145.4,190.7 -162.6,104 -240,104" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M68,190.7 C145.4,190.7 162.6,104 240,104" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M68,190.7 C145.4,190.7 162.6,364 240,364" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M-360,104 C-441,104 -459,0 -540,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M-360,104 C-441,104 -459,104 -540,104" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M-360,104 C-441,104 -459,208 -540,208" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M-660,208 C-741,208 -759,208 -840,208" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M360,104 C441,104 459,0 540,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M360,104 C441,104 459,104 540,104" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M360,104 C441,104 459,208 540,208" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M360,364 C441,364 459,312 540,312" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M360,364 C441,364 459,416 540,416" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M-56,212.7 C-171.2,212.7 -196.8,116 -312,116" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M56,212.7 C171.2,212.7 196.8,116 312,116" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M56,212.7 C171.2,212.7 196.8,406 312,406" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M-408,116 C-526.8,116 -553.2,0 -672,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M-408,116 C-526.8,116 -553.2,116 -672,116" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M-408,116 C-526.8,116 -553.2,232 -672,232" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M-768,232 C-886.8,232 -913.2,232 -1032,232" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M408,116 C526.8,116 553.2,0 672,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M408,116 C526.8,116 553.2,116 672,116" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M408,116 C526.8,116 553.2,232 672,232" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M408,406 C526.8,406 553.2,348 672,348" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M408,406 C526.8,406 553.2,464 672,464" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
 <g class="node node-terminal" data-id="root">
-<rect x="-68" y="165.7" width="136" height="50" rx="6" ry="6" fill="#edfaf5" stroke="#5ad8a6" stroke-width="2.8"/>
-<text x="0" y="190.7" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#1c9c6f">Learning Plan</text>
+<rect x="-56" y="191.7" width="112" height="42" rx="6" ry="6" fill="#edfaf5" stroke="#5ad8a6" stroke-width="2.8"/>
+<text x="0" y="212.7" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#1c9c6f">Learning Plan</text>
 </g>
 <g class="node node-process" data-id="frontend">
-<rect x="-360" y="82" width="120" height="44" rx="6" ry="6" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
-<text x="-300" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#1d5bc7">Frontend</text>
+<rect x="-408" y="98" width="96" height="36" rx="6" ry="6" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="-360" y="116" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#1d5bc7">Frontend</text>
 </g>
 <g class="node node-process" data-id="backend">
-<rect x="240" y="82" width="120" height="44" rx="6" ry="6" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
-<text x="300" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#1d5bc7">Backend</text>
+<rect x="312" y="98" width="96" height="36" rx="6" ry="6" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="360" y="116" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#1d5bc7">Backend</text>
 </g>
 <g class="node node-process" data-id="architecture">
-<rect x="240" y="342" width="120" height="44" rx="6" ry="6" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
-<text x="300" y="364" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#1d5bc7">Architecture</text>
+<rect x="312" y="388" width="96" height="36" rx="6" ry="6" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="360" y="406" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#1d5bc7">Architecture</text>
 </g>
 <g class="node node-decision" data-id="react">
-<rect x="-660" y="-22" width="120" height="44" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
-<text x="-600" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bf3c22">React</text>
+<rect x="-768" y="-18" width="96" height="36" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="-720" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bf3c22">React</text>
 </g>
 <g class="node node-decision" data-id="ts">
-<rect x="-660" y="82" width="120" height="44" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
-<text x="-600" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bf3c22">TypeScript</text>
+<rect x="-768" y="98" width="96" height="36" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="-720" y="116" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bf3c22">TypeScript</text>
 </g>
 <g class="node node-decision" data-id="testing">
-<rect x="-660" y="186" width="120" height="44" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
-<text x="-600" y="208" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bf3c22">Testing</text>
+<rect x="-768" y="214" width="96" height="36" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="-720" y="232" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bf3c22">Testing</text>
 </g>
 <g class="node node-io" data-id="rtl">
-<rect x="-960" y="186" width="120" height="44" rx="6" ry="6" fill="#f5f0fd" stroke="#9270ca" stroke-width="2"/>
-<text x="-900" y="208" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#5e3b9e">RTL</text>
+<rect x="-1128" y="214" width="96" height="36" rx="6" ry="6" fill="#f5f0fd" stroke="#9270ca" stroke-width="2"/>
+<text x="-1080" y="232" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#5e3b9e">RTL</text>
 </g>
 <g class="node node-decision" data-id="node">
-<rect x="540" y="-22" width="120" height="44" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
-<text x="600" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bf3c22">Node.js</text>
+<rect x="672" y="-18" width="96" height="36" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="720" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bf3c22">Node.js</text>
 </g>
 <g class="node node-decision" data-id="db">
-<rect x="540" y="82" width="120" height="44" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
-<text x="600" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bf3c22">Databases</text>
+<rect x="672" y="98" width="96" height="36" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="720" y="116" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bf3c22">Databases</text>
 </g>
 <g class="node node-decision" data-id="queues">
-<rect x="540" y="186" width="120" height="44" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
-<text x="600" y="208" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bf3c22">Queues</text>
+<rect x="672" y="214" width="96" height="36" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="720" y="232" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bf3c22">Queues</text>
 </g>
 <g class="node node-decision" data-id="ddd">
-<rect x="540" y="290" width="120" height="44" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
-<text x="600" y="312" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bf3c22">DDD</text>
+<rect x="672" y="330" width="96" height="36" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="720" y="348" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bf3c22">DDD</text>
 </g>
 <g class="node node-decision" data-id="eventing">
-<rect x="540" y="394" width="120" height="44" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
-<text x="600" y="416" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bf3c22">Eventing</text>
+<rect x="672" y="446" width="96" height="36" rx="6" ry="6" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="720" y="464" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bf3c22">Eventing</text>
 </g>
 </g>
 </svg>
