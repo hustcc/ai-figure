@@ -1,18 +1,26 @@
 import { resolveTheme } from './theme';
-import { escapeXml, wrapText, titleBlockHeight, renderTitleBlock } from './utils';
+import { escapeXml, titleBlockHeight, renderTitleBlock } from './utils';
 import type { MindmapDiagramOptions, MindmapNode, MindmapSide, NodeType } from './types';
 
-const NODE_W = 160;
-const NODE_H = 60;
-const ROOT_NODE_W = 176;
-const ROOT_NODE_H = 66;
-const X_GAP = 260;
-const Y_GAP = 44;
+const NODE_W = 120;
+const NODE_H = 44;
+const ROOT_NODE_W = 136;
+const ROOT_NODE_H = 50;
+const X_GAP = 300;
+const Y_GAP = 60;
 const PAD = 56;
 const EDGE_ANIM_DASH = '6,4';
 const EDGE_ANIM_OFFSET = '-20';
 const EDGE_ANIM_DUR = '0.8s';
 const COORD_ROUND_MULTIPLIER = 10;
+
+/** Truncate text to fit within maxWidth (estimated), appending "…" if needed. */
+function truncateText(text: string, maxWidth: number, fontSize: number): string {
+  const avgCharWidth = fontSize * 0.58;
+  const maxChars = Math.max(1, Math.floor(maxWidth / avgCharWidth));
+  if (text.length <= maxChars) return text;
+  return text.slice(0, Math.max(1, maxChars - 1)) + '…';
+}
 
 const DEPTH_NODE_TYPES: NodeType[] = ['process', 'decision', 'io', 'terminal'];
 
@@ -233,17 +241,13 @@ export function createMindmapDiagram(options: MindmapDiagramOptions): string {
     const stroke = theme.nodeStrokes[type];
     const textColor = theme.textColors[type];
     const strokeWidth = roundCoord(theme.strokeWidth + (isRoot ? 0.8 : 0));
-    const fontSize = isRoot ? theme.fontSize + 1 : theme.fontSize;
+    const fontSize = isRoot ? theme.fontSize : theme.fontSize - 1;
     const fontWeightAttr = isRoot ? ' font-weight="700"' : '';
 
     const shape = `<rect x="${x}" y="${y}" width="${nodeW}" height="${nodeH}" rx="${theme.cornerRadius}" ry="${theme.cornerRadius}" fill="${fill}" stroke="${stroke}" stroke-width="${strokeWidth}"/>`;
 
-    const lines = wrapText(n.label, nodeW - 16, fontSize);
-    const lineH = fontSize * 1.4;
-    const startY = roundCoord(p.y - (lines.length * lineH) / 2 + lineH * 0.5);
-    const text = lines.map((line, i) =>
-      `<text x="${roundCoord(p.x)}" y="${roundCoord(startY + i * lineH)}" text-anchor="middle" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${fontSize}"${fontWeightAttr} fill="${escapeXml(textColor)}">${escapeXml(line)}</text>`,
-    ).join('\n');
+    const label = truncateText(n.label, nodeW * 1.5, fontSize);
+    const text = `<text x="${roundCoord(p.x)}" y="${roundCoord(p.y)}" text-anchor="middle" dominant-baseline="middle" font-family="${escapeXml(theme.fontFamily)}" font-size="${fontSize}"${fontWeightAttr} fill="${escapeXml(textColor)}">${escapeXml(label)}</text>`;
 
     return `<g class="node node-${type}" data-id="${escapeXml(n.id)}">\n${shape}\n${text}\n</g>`;
   }).join('\n');
