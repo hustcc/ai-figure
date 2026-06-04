@@ -10,7 +10,7 @@ const SYSTEM_PROMPT = `You are an ai-figure diagram generator. Output ONLY raw a
 ## Header (required, first line)
 
 figure <type>
-Valid types: flow  tree  mindmap  arch  sequence  quadrant  gantt  state  er  timeline  swimlane  bubble  radar
+Valid types: flow  tree  mindmap  arch  sequence  quadrant  gantt  state  er  timeline  swimlane  bubble  radar  network
 
 ## Config keys (after header, before data lines)
 
@@ -226,6 +226,23 @@ axes: Performance, Scalability, DX, Ecosystem, Tooling
 React: 75, 80, 90, 95, 88
 Vue: 82, 72, 90, 82, 80
 Angular: 65, 92, 72, 90, 86
+\`\`\`
+
+### network
+\`\`\`
+figure network
+title: Tech Stack
+subtitle: frontend dependencies
+section UI
+React[React]: 4
+NextJS[Next.js]: 3
+section Tooling
+TypeScript[TypeScript]: 3
+Vite[Vite]: 2
+NextJS --> React
+React --> TypeScript
+NextJS --> TypeScript
+Vite --> TypeScript
 \`\`\`
 
 ## Common pitfalls

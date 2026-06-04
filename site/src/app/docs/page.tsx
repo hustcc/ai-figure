@@ -4,7 +4,7 @@ import CodeBlock from '@/components/CodeBlock';
 
 export const metadata: Metadata = {
   title: 'Docs',
-  description: 'ai-figure documentation: installation, usage, markdown syntax for all 13 diagram types, framework integration (React, Vue, HTML, Node.js), and AI agent Skill.',
+  description: 'ai-figure documentation: installation, usage, markdown syntax for all 14 diagram types, framework integration (React, Vue, HTML, Node.js), and AI agent Skill.',
 };
 
 /* ── small prose helpers ───────────────────────────────────────── */
@@ -249,6 +249,22 @@ React: 75, 80, 90, 95, 88
 Vue: 82, 72, 90, 82, 80
 Angular: 65, 92, 72, 90, 86`;
 
+const NETWORK_MD = `figure network
+title: 三国人物关系
+subtitle: 魏蜀吴主要人物
+section 魏
+曹操[曹操]: 3
+曹丕[曹丕]
+section 蜀
+刘备[刘备]: 3
+诸葛亮[诸葛亮]: 2
+section 吴
+孙权[孙权]: 2
+曹操 --> 曹丕: 父子
+刘备 --> 诸葛亮: 君臣
+曹操 --> 刘备: 敌对
+刘备 --> 孙权: 盟友`;
+
 /* ══════════════════════════════════════════════════════════════════ */
 
 export default function DocsPage() {
@@ -274,6 +290,7 @@ export default function DocsPage() {
             ['#diagram-swimlane', '→ Swimlane'],
             ['#diagram-bubble', '→ Bubble'],
             ['#diagram-radar', '→ Radar'],
+            ['#diagram-network', '→ Network'],
             ['#frameworks', 'Framework Integration'],
             ['#skill', 'AI Skill'],
           ].map(([href, label]) => (
@@ -630,6 +647,21 @@ const svg2 = fig({
           markdownExample={RADAR_MD}
         >
           <P>Declare axes with <Mono>axes: Axis1, Axis2, Axis3, ...</Mono>. Each series line uses the format <Mono>Series Name: v1, v2, v3, ...</Mono> where values are 0–100 (one per axis, clamped). Multiple series overlay with translucent fills; each picks a palette color automatically.</P>
+        </DiagramSection>
+
+        {/* network */}
+        <DiagramSection
+          id="diagram-network"
+          title="network — Network / Relationship Graph"
+          description="Force-directed graph for visualizing relationships between nodes. Supports optional groups (each group gets a distinct palette color), node size weights, and labeled edges. Layout is computed automatically — no coordinates needed."
+          configRows={[
+            ...COMMON_CONFIG,
+            ['nodes', 'NetworkNode[]', 'required'],
+            ['edges', 'NetworkEdge[]', '[]'],
+          ]}
+          markdownExample={NETWORK_MD}
+        >
+          <P>Groups: <Mono>section GroupName</Mono> before the node lines. Node weight: <Mono>id[label]: 1–5</Mono> (default 1; larger = bigger circle). Edges: <Mono>A --{'>'} B</Mono> or <Mono>A --{'>'} B: label</Mono>.</P>
         </DiagramSection>
 
         {/* ═══════════════ 4. FRAMEWORKS ═══════════════════════════════ */}
