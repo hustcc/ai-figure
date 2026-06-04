@@ -4,21 +4,21 @@
 <text x="240" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#5c6370">Friend connections</text>
 <g class="network-diagram" transform="translate(0,67)">
 <defs><marker id="net-1-arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#adb5bd"/></marker><style>.net-1-edge{stroke-dasharray:8 5;animation:net-1-dash 1.2s linear infinite;}@keyframes net-1-dash{to{stroke-dashoffset:-26;}}</style></defs>
-<line x1="221" y1="231" x2="339" y2="235" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
-<line x1="221" y1="231" x2="127" y2="181" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
-<line x1="375" y1="236" x2="375" y2="128" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
-<line x1="100" y1="167" x2="190" y2="120" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
-<line x1="375" y1="98" x2="258" y2="102" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
-<line x1="221" y1="231" x2="222" y2="139" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
-<circle cx="221" cy="231" r="40" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
-<text x="221" y="231" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a5b4fc">Alice</text>
-<circle cx="375" cy="236" r="34" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
-<text x="375" y="236" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a5b4fc">Bob</text>
-<circle cx="100" cy="167" r="28" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
-<text x="100" y="167" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a5b4fc">Carol</text>
-<circle cx="375" cy="98" r="28" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
-<text x="375" y="98" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a5b4fc">Dave</text>
-<circle cx="222" cy="103" r="34" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
-<text x="222" y="103" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a5b4fc">Eve</text>
+<line x1="215" y1="225" x2="329" y2="229" stroke="#adb5bd" stroke-width="3.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<line x1="215" y1="225" x2="114" y2="172" stroke="#adb5bd" stroke-width="3.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<line x1="369" y1="231" x2="369" y2="113" stroke="#adb5bd" stroke-width="3.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<line x1="94" y1="162" x2="179" y2="117" stroke="#adb5bd" stroke-width="3.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<line x1="369" y1="91" x2="254" y2="96" stroke="#adb5bd" stroke-width="3.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<line x1="215" y1="225" x2="214" y2="138" stroke="#adb5bd" stroke-width="3.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<circle cx="215" cy="225" r="56" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
+<text x="215" y="225" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a5b4fc">Alice</text>
+<circle cx="369" cy="231" r="38" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
+<text x="369" y="231" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a5b4fc">Bob</text>
+<circle cx="94" cy="162" r="20" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
+<text x="94" y="162" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a5b4fc">Ca…</text>
+<circle cx="369" cy="91" r="20" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
+<text x="369" y="91" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a5b4fc">Da…</text>
+<circle cx="214" cy="98" r="38" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
+<text x="214" y="98" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#a5b4fc">Eve</text>
 </g>
 </svg>

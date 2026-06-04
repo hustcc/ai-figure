@@ -676,10 +676,34 @@ function parseNetwork(lines: string[]): FigOptions {
       continue;
     }
 
-    // Edge line: `from --> to` or `from --> to: label`
+    // Edge line: `from --> to` or `from --> to: label` or `from --> to: label: weight`
     const e = parseEdge(line);
     if (e) {
-      edges.push(e.label !== undefined ? { from: e.from, to: e.to, label: e.label } : { from: e.from, to: e.to });
+      // Extract optional weight suffix from edge label: `label: N`
+      let edgeLabel = e.label;
+      let edgeWeight: number | undefined;
+      if (edgeLabel !== undefined) {
+        const lastColon = edgeLabel.lastIndexOf(':');
+        if (lastColon !== -1) {
+          const after = edgeLabel.slice(lastColon + 1).trim();
+          const w = Number(after);
+          if (Number.isFinite(w) && w > 0 && after === String(w)) {
+            edgeWeight = w;
+            edgeLabel = edgeLabel.slice(0, lastColon).trim() || undefined;
+          }
+        } else {
+          // Label is a bare number — treat as weight with no label
+          const w = Number(edgeLabel.trim());
+          if (Number.isFinite(w) && w > 0 && edgeLabel.trim() === String(w)) {
+            edgeWeight = w;
+            edgeLabel = undefined;
+          }
+        }
+      }
+      const edge: NetworkEdge = { from: e.from, to: e.to };
+      if (edgeLabel !== undefined) edge.label = edgeLabel;
+      if (edgeWeight !== undefined) edge.weight = edgeWeight;
+      edges.push(edge);
       // Auto-create nodes for edge endpoints if not yet declared
       for (const id of [e.from, e.to]) {
         if (!nodeMap.has(id)) {
@@ -702,7 +726,7 @@ function parseNetwork(lines: string[]): FigOptions {
       const w = Number(after);
       if (Number.isFinite(w) && w > 0 && after === String(w)) {
         nodeExpr = line.slice(0, lastColon).trim();
-        weight = Math.max(1, Math.min(5, w));
+        weight = w;
       }
     }
 

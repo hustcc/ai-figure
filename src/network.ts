@@ -6,10 +6,14 @@ import type { NetworkDiagramOptions, NodeType } from './types';
 // Layout constants
 // ---------------------------------------------------------------------------
 
-/** Base node radius for weight=1 nodes. */
-const BASE_R = 28;
-/** Additional radius per weight unit above 1. */
-const WEIGHT_STEP = 6;
+/** Minimum node circle radius in SVG user units. */
+const MIN_NODE_R = 20;
+/** Maximum node circle radius in SVG user units. */
+const MAX_NODE_R = 56;
+/** Minimum edge stroke-width in SVG user units. */
+const MIN_EDGE_W = 1;
+/** Maximum edge stroke-width in SVG user units. */
+const MAX_EDGE_W = 6;
 /** Padding around the entire network. */
 const PAD = 48;
 /** Minimum canvas width / height. */
@@ -136,13 +140,29 @@ function runLayout(
 }
 
 // ---------------------------------------------------------------------------
+// Linear mapping helper
+// ---------------------------------------------------------------------------
+
+/**
+ * Linearly map `value` from data range [dataMin, dataMax] to output range
+ * [outMin, outMax].  When the data range collapses to a single value the
+ * midpoint of the output range is returned.
+ */
+function linearMap(value: number, dataMin: number, dataMax: number, outMin: number, outMax: number): number {
+  if (dataMax === dataMin) return (outMin + outMax) / 2;
+  return outMin + (value - dataMin) / (dataMax - dataMin) * (outMax - outMin);
+}
+
+// ---------------------------------------------------------------------------
 // Renderer
 // ---------------------------------------------------------------------------
 
 /**
  * Generate an SVG network / relationship diagram using a force-directed layout.
  *
- * Nodes are rendered as circles sized proportional to their `weight`.
+ * Node sizes and edge stroke-widths are determined by linearly mapping each
+ * element's weight from the observed [min, max] weight range to the predefined
+ * [MIN_NODE_R, MAX_NODE_R] or [MIN_EDGE_W, MAX_EDGE_W] visual range.
  * Groups are colored by cycling the palette's node types.
  * Edges are animated dashed lines with arrowheads.
  */
@@ -175,8 +195,17 @@ export function createNetworkDiagram(options: NetworkDiagramOptions): string {
   const groupType = (group: string | undefined): NodeType =>
     GROUP_TYPES[groupOrder.indexOf(group ?? '') % GROUP_TYPES.length];
 
-  // ── Compute node radii ───────────────────────────────────────────────────
-  const radii = rawNodes.map(n => BASE_R + (Math.max(1, Math.min(5, n.weight ?? 1)) - 1) * WEIGHT_STEP);
+  // ── Compute node radii (linear mapping over actual weight range) ─────────
+  const nodeWeights = rawNodes.map(n => Math.max(0, n.weight ?? 1));
+  const minNodeW = Math.min(...(nodeWeights.length ? nodeWeights : [1]));
+  const maxNodeW = Math.max(...(nodeWeights.length ? nodeWeights : [1]));
+  const radii = nodeWeights.map(w => Math.round(linearMap(w, minNodeW, maxNodeW, MIN_NODE_R, MAX_NODE_R)));
+
+  // ── Compute edge stroke-widths (linear mapping over actual weight range) ─
+  const edgeWeights = rawEdges.map(e => Math.max(0, e.weight ?? 1));
+  const minEdgeW = Math.min(...(edgeWeights.length ? edgeWeights : [1]));
+  const maxEdgeW = Math.max(...(edgeWeights.length ? edgeWeights : [1]));
+  const edgeWidths = edgeWeights.map(w => +linearMap(w, minEdgeW, maxEdgeW, MIN_EDGE_W, MAX_EDGE_W).toFixed(1));
 
   // ── Build edge index list (skip edges with unknown node ids) ─────────────
   const edgeList: Array<[number, number]> = [];
@@ -254,7 +283,7 @@ export function createNetworkDiagram(options: NetworkDiagramOptions): string {
 
     parts.push(
       `<line x1="${x1}" y1="${y1}" x2="${ex2}" y2="${ey2}" ` +
-        `stroke="${escapeXml(theme.edgeColor)}" stroke-width="${theme.edgeWidth}" ` +
+        `stroke="${escapeXml(theme.edgeColor)}" stroke-width="${edgeWidths[ei]}" ` +
         `marker-end="url(#${uid}-arr)" class="${uid}-edge"/>`,
     );
 

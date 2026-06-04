@@ -533,9 +533,10 @@ export interface NetworkNode {
    */
   group?: string;
   /**
-   * Optional weight in the range 1–5.
-   * Controls the node circle radius: larger weight → larger radius.
-   * Defaults to 1.
+   * Optional numeric weight (any positive number).
+   * Controls the node circle radius via linear mapping across all node weights:
+   * the node with the lowest weight gets the minimum radius, the highest gets
+   * the maximum radius.  Defaults to 1.
    */
   weight?: number;
 }
@@ -548,6 +549,13 @@ export interface NetworkEdge {
   to: string;
   /** Optional label displayed along the edge. */
   label?: string;
+  /**
+   * Optional numeric weight (any positive number).
+   * Controls the edge stroke-width via linear mapping across all edge weights:
+   * the edge with the lowest weight gets the minimum stroke-width, the highest
+   * gets the maximum stroke-width.
+   */
+  weight?: number;
 }
 
 /** Options passed to {@link createNetworkDiagram}. */
