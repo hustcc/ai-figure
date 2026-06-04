@@ -1,75 +1,76 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="2368" height="544" viewBox="-824 -122 2368 544">
-<rect x="-824" y="-122" width="2368" height="544" fill="#1a1b1e"/>
-<text x="360" y="-88" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#adb5bd">Launch Plan</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1832" height="532" viewBox="-656 -134 1832 532">
+<rect x="-656" y="-134" width="1832" height="532" fill="#1a1b1e"/>
+<text x="260" y="-100" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#adb5bd">Launch Plan</text>
 <g class="mindmap">
-<path d="M-56,212.7 C-171.2,212.7 -196.8,174 -312,174" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M56,212.7 C171.2,212.7 196.8,116 312,116" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M56,212.7 C171.2,212.7 196.8,348 312,348" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M-408,174 C-526.8,174 -553.2,0 -672,0" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M-408,174 C-526.8,174 -553.2,116 -672,116" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M-408,174 C-526.8,174 -553.2,232 -672,232" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M-408,174 C-526.8,174 -553.2,348 -672,348" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M408,116 C526.8,116 553.2,0 672,0" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M408,116 C526.8,116 553.2,116 672,116" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M408,116 C526.8,116 553.2,232 672,232" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M408,348 C526.8,348 553.2,348 672,348" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M768,348 C886.8,348 913.2,348 1032,348" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M1128,348 C1246.8,348 1273.2,348 1392,348" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M-88,190.7 C-129.4,190.7 -138.6,156 -180,156" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M88,190.7 C129.4,190.7 138.6,104 180,104" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M88,190.7 C129.4,190.7 138.6,312 180,312" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M-340,156 C-385,156 -395,0 -440,0" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M-340,156 C-385,156 -395,104 -440,104" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M-340,156 C-385,156 -395,208 -440,208" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M-340,156 C-385,156 -395,312 -440,312" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M340,104 C385,104 395,0 440,0" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M340,104 C385,104 395,104 440,104" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M340,104 C385,104 395,208 440,208" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M340,312 C385,312 395,312 440,312" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M600,312 C645,312 655,312 700,312" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M860,312 C905,312 915,312 960,312" fill="none" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
 <g class="node node-terminal" data-id="root">
-<rect x="-56" y="191.7" width="112" height="42" rx="6" ry="6" fill="#162040" stroke="#3b82f6" stroke-width="2.8"/>
-<text x="0" y="212.7" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#bfdbfe">Launch Plan</text>
+<rect x="-88" y="157.7" width="176" height="66" rx="6" ry="6" fill="#162040" stroke="#3b82f6" stroke-width="2.8"/>
+<text x="0" y="190.7" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#bfdbfe">Launch Plan</text>
 </g>
 <g class="node node-process" data-id="product">
-<rect x="-408" y="156" width="96" height="36" rx="6" ry="6" fill="#0c1938" stroke="#60a5fa" stroke-width="2"/>
-<text x="-360" y="174" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#93c5fd">Product</text>
+<rect x="-340" y="126" width="160" height="60" rx="6" ry="6" fill="#0c1938" stroke="#60a5fa" stroke-width="2"/>
+<text x="-260" y="156" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#93c5fd">Product</text>
 </g>
 <g class="node node-process" data-id="go-to-market">
-<rect x="312" y="98" width="96" height="36" rx="6" ry="6" fill="#0c1938" stroke="#60a5fa" stroke-width="2"/>
-<text x="360" y="116" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#93c5fd">Go To Market</text>
+<rect x="180" y="74" width="160" height="60" rx="6" ry="6" fill="#0c1938" stroke="#60a5fa" stroke-width="2"/>
+<text x="260" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#93c5fd">Go To Market</text>
 </g>
 <g class="node node-process" data-id="ops">
-<rect x="312" y="330" width="96" height="36" rx="6" ry="6" fill="#0c1938" stroke="#60a5fa" stroke-width="2"/>
-<text x="360" y="348" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#93c5fd">Operations</text>
+<rect x="180" y="282" width="160" height="60" rx="6" ry="6" fill="#0c1938" stroke="#60a5fa" stroke-width="2"/>
+<text x="260" y="312" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#93c5fd">Operations</text>
 </g>
 <g class="node node-decision" data-id="feature-1">
-<rect x="-768" y="-18" width="96" height="36" rx="6" ry="6" fill="#071128" stroke="#93c5fd" stroke-width="2"/>
-<text x="-720" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bfdbfe">Feature A</text>
+<rect x="-600" y="-30" width="160" height="60" rx="6" ry="6" fill="#071128" stroke="#93c5fd" stroke-width="2"/>
+<text x="-520" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bfdbfe">Feature A</text>
 </g>
 <g class="node node-decision" data-id="feature-2">
-<rect x="-768" y="98" width="96" height="36" rx="6" ry="6" fill="#071128" stroke="#93c5fd" stroke-width="2"/>
-<text x="-720" y="116" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bfdbfe">Feature B</text>
+<rect x="-600" y="74" width="160" height="60" rx="6" ry="6" fill="#071128" stroke="#93c5fd" stroke-width="2"/>
+<text x="-520" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bfdbfe">Feature B</text>
 </g>
 <g class="node node-decision" data-id="feature-3">
-<rect x="-768" y="214" width="96" height="36" rx="6" ry="6" fill="#071128" stroke="#93c5fd" stroke-width="2"/>
-<text x="-720" y="232" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bfdbfe">Feature C</text>
+<rect x="-600" y="178" width="160" height="60" rx="6" ry="6" fill="#071128" stroke="#93c5fd" stroke-width="2"/>
+<text x="-520" y="208" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bfdbfe">Feature C</text>
 </g>
 <g class="node node-decision" data-id="feature-4">
-<rect x="-768" y="330" width="96" height="36" rx="6" ry="6" fill="#071128" stroke="#93c5fd" stroke-width="2"/>
-<text x="-720" y="348" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bfdbfe">Feature D</text>
+<rect x="-600" y="282" width="160" height="60" rx="6" ry="6" fill="#071128" stroke="#93c5fd" stroke-width="2"/>
+<text x="-520" y="312" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bfdbfe">Feature D</text>
 </g>
 <g class="node node-decision" data-id="pricing">
-<rect x="672" y="-18" width="96" height="36" rx="6" ry="6" fill="#071128" stroke="#93c5fd" stroke-width="2"/>
-<text x="720" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bfdbfe">Pricing</text>
+<rect x="440" y="-30" width="160" height="60" rx="6" ry="6" fill="#071128" stroke="#93c5fd" stroke-width="2"/>
+<text x="520" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bfdbfe">Pricing</text>
 </g>
 <g class="node node-decision" data-id="campaign">
-<rect x="672" y="98" width="96" height="36" rx="6" ry="6" fill="#071128" stroke="#93c5fd" stroke-width="2"/>
-<text x="720" y="116" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bfdbfe">Campaign</text>
+<rect x="440" y="74" width="160" height="60" rx="6" ry="6" fill="#071128" stroke="#93c5fd" stroke-width="2"/>
+<text x="520" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bfdbfe">Campaign</text>
 </g>
 <g class="node node-decision" data-id="partners">
-<rect x="672" y="214" width="96" height="36" rx="6" ry="6" fill="#071128" stroke="#93c5fd" stroke-width="2"/>
-<text x="720" y="232" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bfdbfe">Channel Partners</text>
+<rect x="440" y="178" width="160" height="60" rx="6" ry="6" fill="#071128" stroke="#93c5fd" stroke-width="2"/>
+<text x="520" y="208" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bfdbfe">Channel Partners</text>
 </g>
 <g class="node node-decision" data-id="support">
-<rect x="672" y="330" width="96" height="36" rx="6" ry="6" fill="#071128" stroke="#93c5fd" stroke-width="2"/>
-<text x="720" y="348" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bfdbfe">Support Readiness</text>
+<rect x="440" y="282" width="160" height="60" rx="6" ry="6" fill="#071128" stroke="#93c5fd" stroke-width="2"/>
+<text x="520" y="312" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bfdbfe">Support Readiness</text>
 </g>
 <g class="node node-io" data-id="playbook">
-<rect x="1032" y="330" width="96" height="36" rx="6" ry="6" fill="#1e2d5a" stroke="#bfdbfe" stroke-width="2"/>
-<text x="1080" y="348" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#dbeafe">Escalation Playbook</text>
+<rect x="700" y="282" width="160" height="60" rx="6" ry="6" fill="#1e2d5a" stroke="#bfdbfe" stroke-width="2"/>
+<text x="780" y="302.2" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#dbeafe">Escalation</text>
+<text x="780" y="321.8" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#dbeafe">Playbook</text>
 </g>
 <g class="node node-terminal" data-id="sla">
-<rect x="1392" y="330" width="96" height="36" rx="6" ry="6" fill="#162040" stroke="#3b82f6" stroke-width="2"/>
-<text x="1440" y="348" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#bfdbfe">SLA Rollout</text>
+<rect x="960" y="282" width="160" height="60" rx="6" ry="6" fill="#162040" stroke="#3b82f6" stroke-width="2"/>
+<text x="1040" y="312" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bfdbfe">SLA Rollout</text>
 </g>
 </g>
 </svg>

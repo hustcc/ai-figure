@@ -1,51 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="2368" height="331" viewBox="-824 -141 2368 331">
+<svg xmlns="http://www.w3.org/2000/svg" width="1832" height="343" viewBox="-656 -153 1832 343">
 
-<text x="360" y="-107" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Product Strategy</text>
-<text x="360" y="-88" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">2026 planning map</text>
+<text x="260" y="-119" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Product Strategy</text>
+<text x="260" y="-100" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">2026 planning map</text>
 <g class="mindmap">
-<path d="M-56,58 C-171.2,58 -196.8,58 -312,58" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M56,58 C171.2,58 196.8,58 312,58" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M-408,58 C-526.8,58 -553.2,0 -672,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M-408,58 C-526.8,58 -553.2,116 -672,116" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M408,58 C526.8,58 553.2,0 672,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M408,58 C526.8,58 553.2,116 672,116" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M768,0 C886.8,0 913.2,0 1032,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
-<path d="M1128,0 C1246.8,0 1273.2,0 1392,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M-88,52 C-129.4,52 -138.6,52 -180,52" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M88,52 C129.4,52 138.6,52 180,52" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M-340,52 C-385,52 -395,0 -440,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M-340,52 C-385,52 -395,104 -440,104" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M340,52 C385,52 395,0 440,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M340,52 C385,52 395,104 440,104" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M600,0 C645,0 655,0 700,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
+<path d="M860,0 C905,0 915,0 960,0" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite"/></path>
 <g class="node node-terminal" data-id="root">
-<rect x="-56" y="37" width="112" height="42" rx="6" ry="6" fill="#ebfbee" stroke="#51cf66" stroke-width="2.8"/>
-<text x="0" y="58" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#2f9e44">Product Strategy</text>
+<rect x="-88" y="19" width="176" height="66" rx="6" ry="6" fill="#ebfbee" stroke="#51cf66" stroke-width="2.8"/>
+<text x="0" y="52" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#2f9e44">Product Strategy</text>
 </g>
 <g class="node node-process" data-id="market">
-<rect x="-408" y="40" width="96" height="36" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
-<text x="-360" y="58" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#1971c2">Market</text>
+<rect x="-340" y="22" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="-260" y="52" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Market</text>
 </g>
 <g class="node node-process" data-id="tech">
-<rect x="312" y="40" width="96" height="36" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
-<text x="360" y="58" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#1971c2">Technology</text>
+<rect x="180" y="22" width="160" height="60" rx="6" ry="6" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+<text x="260" y="52" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1971c2">Technology</text>
 </g>
 <g class="node node-decision" data-id="smb">
-<rect x="-768" y="-18" width="96" height="36" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
-<text x="-720" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">SMB</text>
+<rect x="-600" y="-30" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="-520" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">SMB</text>
 </g>
 <g class="node node-decision" data-id="ent">
-<rect x="-768" y="98" width="96" height="36" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
-<text x="-720" y="116" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">Enterprise</text>
+<rect x="-600" y="74" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="-520" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Enterprise</text>
 </g>
 <g class="node node-decision" data-id="ai">
-<rect x="672" y="-18" width="96" height="36" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
-<text x="720" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">AI Features</text>
+<rect x="440" y="-30" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="520" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">AI Features</text>
 </g>
 <g class="node node-decision" data-id="infra">
-<rect x="672" y="98" width="96" height="36" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
-<text x="720" y="116" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#e67700">Infra</text>
+<rect x="440" y="74" width="160" height="60" rx="6" ry="6" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="520" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#e67700">Infra</text>
 </g>
 <g class="node node-io" data-id="ml">
-<rect x="1032" y="-18" width="96" height="36" rx="6" ry="6" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2"/>
-<text x="1080" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#862e9c">ML Platform</text>
+<rect x="700" y="-30" width="160" height="60" rx="6" ry="6" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2"/>
+<text x="780" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#862e9c">ML Platform</text>
 </g>
 <g class="node node-terminal" data-id="safety">
-<rect x="1392" y="-18" width="96" height="36" rx="6" ry="6" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
-<text x="1440" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#2f9e44">Model Safety</text>
+<rect x="960" y="-30" width="160" height="60" rx="6" ry="6" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="1040" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#2f9e44">Model Safety</text>
 </g>
 </g>
 </svg>
