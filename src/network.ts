@@ -24,6 +24,7 @@ const MAX_WEIGHT = 5;
 
 /** Node types cycled by group index for color variety. */
 const GROUP_TYPES: NodeType[] = ['process', 'decision', 'terminal', 'io'];
+const OUTSIDE_LABEL_DIAMETER = 18;
 
 /** Incrementing counter for unique per-diagram SVG IDs. */
 let _netCount = 0;
@@ -228,13 +229,19 @@ export function createNetworkDiagram(options: NetworkDiagramOptions): string {
   const positions = n > 0 ? runLayout(n, radii, edgeList, W, H) : [];
 
   // ── Bounding box clamp → normalise to PAD-padded canvas ─────────────────
+  const labelFs = 10;
+  const displayLabel = (raw: string) => (raw.length > 10 ? `${raw.slice(0, 10)}…` : raw);
   let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
   for (let i = 0; i < n; i++) {
     const r = radii[i];
+    const label = displayLabel(rawNodes[i].label);
+    const labelW = estimateTextWidth(label, labelFs);
+    const labelH = labelFs + 4;
+    const outside = r * 2 < OUTSIDE_LABEL_DIAMETER;
     minX = Math.min(minX, positions[i][0] - r);
-    maxX = Math.max(maxX, positions[i][0] + r);
-    minY = Math.min(minY, positions[i][1] - r);
-    maxY = Math.max(maxY, positions[i][1] + r + theme.fontSize + 6); // reserve space for label below
+    maxX = Math.max(maxX, positions[i][0] + r + (outside ? 6 + labelW : 0));
+    minY = Math.min(minY, positions[i][1] - r, positions[i][1] - labelH / 2);
+    maxY = Math.max(maxY, positions[i][1] + r + theme.fontSize + 6, positions[i][1] + labelH / 2);
   }
   if (!isFinite(minX)) { minX = 0; maxX = W; minY = 0; maxY = H; }
 
@@ -251,6 +258,7 @@ export function createNetworkDiagram(options: NetworkDiagramOptions): string {
   const py = (i: number) => Number((positions[i][1] + offY).toFixed(1));
 
   const parts: string[] = [];
+  const outsideLabelNodes = new Set<number>();
 
   // ── Defs: arrowhead marker + CSS animation ───────────────────────────────
   parts.push(
@@ -309,6 +317,54 @@ export function createNetworkDiagram(options: NetworkDiagramOptions): string {
   }
 
   // ── Nodes ─────────────────────────────────────────────────────────────────
+  type OutsideLabelPlacement = {
+    label: string;
+    x: number;
+    y: number;
+    anchor: 'start' | 'end';
+    color: string;
+  };
+  const outsideLabels: OutsideLabelPlacement[] = [];
+  const placedBoxes: Array<{ left: number; right: number; top: number; bottom: number }> = [];
+  const sortedNodeIdx = [...Array(n).keys()].sort((a, b) => py(a) - py(b));
+  const overlaps = (
+    a: { left: number; right: number; top: number; bottom: number },
+    b: { left: number; right: number; top: number; bottom: number },
+  ) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+  const outsideGap = 6;
+  const outsideLabelH = labelFs + 4;
+  const clampY = (y: number) => Math.max(outsideLabelH / 2 + 2, Math.min(CANVAS_H - outsideLabelH / 2 - 2, y));
+  for (const i of sortedNodeIdx) {
+    const r = radii[i];
+    if (r * 2 >= OUTSIDE_LABEL_DIAMETER) continue;
+    const label = displayLabel(rawNodes[i].label);
+    const w = estimateTextWidth(label, labelFs);
+    const cx = px(i), cy = py(i);
+    const canRight = cx + r + outsideGap + w <= CANVAS_W - 2;
+    const canLeft = cx - r - outsideGap - w >= 2;
+    const placeRight = canRight || !canLeft;
+    const anchor: 'start' | 'end' = placeRight ? 'start' : 'end';
+    const x = Number((placeRight ? cx + r + outsideGap : cx - r - outsideGap).toFixed(1));
+    let y = clampY(cy);
+
+    for (let step = 0; step < n; step++) {
+      const left = Number((anchor === 'start' ? x : x - w).toFixed(1));
+      const right = Number((anchor === 'start' ? x + w : x).toFixed(1));
+      const top = Number((y - outsideLabelH / 2).toFixed(1));
+      const bottom = Number((y + outsideLabelH / 2).toFixed(1));
+      const conflict = placedBoxes.find((b) =>
+        overlaps({ left: left - 2, right: right + 2, top: top - 2, bottom: bottom + 2 }, b),
+      );
+      if (!conflict) {
+        placedBoxes.push({ left, right, top, bottom });
+        outsideLabels.push({ label, x, y, anchor, color: theme.textColors[groupType(rawNodes[i].group)] });
+        outsideLabelNodes.add(i);
+        break;
+      }
+      y = clampY(Number((conflict.bottom + outsideLabelH / 2 + 2).toFixed(1)));
+    }
+  }
+
   for (let i = 0; i < n; i++) {
     const node = rawNodes[i];
     const cx = px(i), cy = py(i);
@@ -324,17 +380,22 @@ export function createNetworkDiagram(options: NetworkDiagramOptions): string {
         `fill="${escapeXml(fill)}" stroke="${escapeXml(stroke)}" stroke-width="${theme.strokeWidth}"/>`,
     );
 
+    if (outsideLabelNodes.has(i)) continue;
     // Label inside the circle (truncate to max 10 chars)
-    const labelFs = 10;
-    let label = node.label;
-    if (label.length > 10) {
-      label = label.slice(0, 10) + '…';
-    }
+    const label = displayLabel(node.label);
 
     parts.push(
       `<text x="${cx}" y="${cy}" text-anchor="middle" dominant-baseline="middle" ` +
         `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
         `fill="${escapeXml(text)}">${escapeXml(label)}</text>`,
+    );
+  }
+
+  for (const outside of outsideLabels) {
+    parts.push(
+      `<text x="${outside.x}" y="${outside.y}" text-anchor="${outside.anchor}" dominant-baseline="middle" ` +
+        `font-family="${escapeXml(theme.fontFamily)}" font-size="${labelFs}" ` +
+        `fill="${escapeXml(outside.color)}">${escapeXml(outside.label)}</text>`,
     );
   }
 
