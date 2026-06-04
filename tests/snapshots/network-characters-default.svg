@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="447" viewBox="0 0 480 447">
+<text x="240" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">三国人物关系</text>
+<text x="240" y="53" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" fill="#868e96">魏蜀吴主要人物</text>
+<g class="network-diagram" transform="translate(0,67)">
+<defs><marker id="net-1-arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/></marker><style>.net-1-edge{stroke-dasharray:8 5;animation:net-1-dash 1.2s linear infinite;}@keyframes net-1-dash{to{stroke-dashoffset:-26;}}</style></defs>
+<line x1="336.4" y1="94.2" x2="358.5" y2="90.4" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<rect x="336.4" y="84.3" width="22" height="16" fill="white" rx="3" opacity="0.9"/>
+<text x="347.4" y="92.3" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#495057">父子</text>
+<line x1="113.1" y1="121.6" x2="75.7" y2="77.7" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<rect x="83.4" y="91.7" width="22" height="16" fill="white" rx="3" opacity="0.9"/>
+<text x="94.4" y="99.7" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#495057">君臣</text>
+<line x1="120.8" y1="215.3" x2="103.7" y2="243.5" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<rect x="98.3" y="221.4" width="27" height="16" fill="white" rx="3" opacity="0.9"/>
+<text x="112.3" y="229.4" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#495057">义兄弟</text>
+<line x1="226.9" y1="129.1" x2="203.1" y2="140.6" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<rect x="204" y="126.80000000000001" width="22" height="16" fill="white" rx="3" opacity="0.9"/>
+<text x="215" y="134.8" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#495057">敌对</text>
+<line x1="201.5" y1="193.8" x2="263.2" y2="228.1" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<rect x="221.3" y="202.9" width="22" height="16" fill="white" rx="3" opacity="0.9"/>
+<text x="232.3" y="210.9" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#495057">盟友</text>
+<line x1="296" y1="242.5" x2="360" y2="263.9" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<rect x="317" y="245.2" width="22" height="16" fill="white" rx="3" opacity="0.9"/>
+<text x="328" y="253.2" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#495057">君臣</text>
+<line x1="279.1" y1="162" x2="278.9" y2="218.8" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<rect x="268" y="182.4" width="22" height="16" fill="white" rx="3" opacity="0.9"/>
+<text x="279" y="190.4" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#495057">敌对</text>
+<circle cx="279.2" cy="104" r="56" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="279.2" y="104" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#e67700">曹操</text>
+<circle cx="396" cy="84" r="36" fill="#fff7e6" stroke="#f59f00" stroke-width="2"/>
+<text x="396" y="84" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#e67700">曹丕</text>
+<circle cx="150.8" cy="165.7" r="56" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="150.8" y="165.7" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#2f9e44">刘备</text>
+<circle cx="64" cy="64" r="16" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="64" y="64" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#2f9e44">诸葛亮</text>
+<circle cx="84" cy="276" r="36" fill="#ebfbee" stroke="#51cf66" stroke-width="2"/>
+<text x="84" y="276" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#2f9e44">关羽</text>
+<circle cx="278.9" cy="236.8" r="16" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2"/>
+<text x="278.9" y="236.8" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#862e9c">孙权</text>
+<circle cx="396" cy="276" r="36" fill="#fdf4ff" stroke="#cc5de8" stroke-width="2"/>
+<text x="396" y="276" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#862e9c">周瑜</text>
+</g>
+</svg>

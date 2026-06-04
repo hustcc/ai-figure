@@ -20,6 +20,8 @@ import type {
   SwimlaneEdge,
   BubbleItem,
   RadarSeries,
+  NetworkNode,
+  NetworkEdge,
   Direction,
   ThemeType,
   PaletteType,
@@ -66,10 +68,11 @@ export function parseFigmd(markdown: string): FigOptions {
     case 'swimlane':  return parseSwimlane(body);
     case 'bubble':    return parseBubble(body);
     case 'radar':     return parseRadar(body);
+    case 'network':   return parseNetwork(body);
     default:
       throw new Error(
         `figmd: unknown figure type "${figureType}". ` +
-          `Expected one of: flow, tree, mindmap, arch, sequence, quadrant, gantt, state, er, timeline, swimlane, bubble, radar`,
+          `Expected one of: flow, tree, mindmap, arch, sequence, quadrant, gantt, state, er, timeline, swimlane, bubble, radar, network`,
       );
   }
 }
@@ -653,4 +656,98 @@ function parseRadar(lines: string[]): FigOptions {
   }
 
   return { figure: 'radar', axes, series, ...cfgSpread(cfg) };
+}
+
+// --- network ---
+
+function parseNetwork(lines: string[]): FigOptions {
+  const cfg: CommonConfig = {};
+  const nodeMap = new Map<string, NetworkNode>();
+  const nodes: NetworkNode[] = [];
+  const edges: NetworkEdge[] = [];
+  let currentGroup: string | undefined;
+
+  for (const line of lines) {
+    if (applyCommonConfig(line, cfg)) continue;
+
+    // `section GroupName` — subsequent node declarations belong to this group
+    if (line.startsWith('section ')) {
+      currentGroup = line.slice('section '.length).trim() || undefined;
+      continue;
+    }
+
+    // Edge line: `from --> to` or `from --> to: label` or `from --> to: label: weight`
+    const e = parseEdge(line);
+    if (e) {
+      // Extract optional weight suffix from edge label: `label: N`
+      let edgeLabel = e.label;
+      let edgeWeight: number | undefined;
+      if (edgeLabel !== undefined) {
+        const lastColon = edgeLabel.lastIndexOf(':');
+        if (lastColon !== -1) {
+          const after = edgeLabel.slice(lastColon + 1).trim();
+          const w = Number(after);
+          if (Number.isFinite(w) && w > 0 && after === String(w)) {
+            edgeWeight = w;
+            edgeLabel = edgeLabel.slice(0, lastColon).trim() || undefined;
+          }
+        } else {
+          // Label is a bare number — treat as weight with no label
+          const w = Number(edgeLabel.trim());
+          if (Number.isFinite(w) && w > 0 && edgeLabel.trim() === String(w)) {
+            edgeWeight = w;
+            edgeLabel = undefined;
+          }
+        }
+      }
+      const edge: NetworkEdge = { from: e.from, to: e.to };
+      if (edgeLabel !== undefined) edge.label = edgeLabel;
+      if (edgeWeight !== undefined) edge.weight = edgeWeight;
+      edges.push(edge);
+      // Auto-create nodes for edge endpoints if not yet declared
+      for (const id of [e.from, e.to]) {
+        if (!nodeMap.has(id)) {
+          const node: NetworkNode = { id, label: id };
+          if (currentGroup) node.group = currentGroup;
+          nodeMap.set(id, node);
+          nodes.push(node);
+        }
+      }
+      continue;
+    }
+
+    // Node declaration: `id[label]`, `id[label]: weight`, `id`, or `id: weight`
+    // Detect optional weight suffix after closing bracket: `id[label]: 3`
+    let nodeExpr = line;
+    let weight: number | undefined;
+    const lastColon = line.lastIndexOf(':');
+    if (lastColon !== -1) {
+      const after = line.slice(lastColon + 1).trim();
+      const w = Number(after);
+      if (Number.isFinite(w) && w > 0 && after === String(w)) {
+        nodeExpr = line.slice(0, lastColon).trim();
+        weight = w;
+      }
+    }
+
+    const { id, label } = parseNodeExpr(nodeExpr);
+    if (!id) continue;
+
+    const existing = nodeMap.get(id);
+    if (!existing) {
+      const node: NetworkNode = { id, label };
+      if (currentGroup) node.group = currentGroup;
+      if (weight !== undefined) node.weight = weight;
+      nodeMap.set(id, node);
+      nodes.push(node);
+      continue;
+    }
+
+    // Existing node: refine previously auto-created / bare declaration in place.
+    if (nodeExpr.trim() !== id) existing.label = label;
+    if (currentGroup) existing.group = currentGroup;
+    if (weight !== undefined) existing.weight = weight;
+  }
+
+  return { figure: 'network', nodes, edges, ...cfgSpread(cfg) };
 }

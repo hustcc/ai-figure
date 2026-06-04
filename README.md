@@ -47,9 +47,6 @@
     <td align="center" width="25%">
       <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/mindmap.svg" width="100%" alt="Mindmap"/>
       <br/><small>Mindmap</small>
-      <br/>
-      <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/timeline.svg" width="100%" alt="Timeline"/>
-      <br/><small>Timeline</small>
     </td>
     <td align="center" width="25%">
       <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/swimlane.svg" width="100%" alt="Swimlane"/>
@@ -64,6 +61,16 @@
       <br/><small>Radar Chart</small>
     </td>
   </tr>
+  <tr>
+    <td align="center" width="25%">
+      <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/timeline.svg" width="100%" alt="Timeline"/>
+      <br/><small>Timeline</small>
+    </td>
+    <td align="center" width="25%">
+      <img src="https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/network.svg" width="100%" alt="Network Diagram"/>
+      <br/><small>Network Diagram</small>
+    </td>
+  </tr>
 </table>
 
 ## Features ✨
@@ -71,7 +78,7 @@
 - 🎨 **Rich visual styles** — light/dark mode, nine built-in palettes (`default`, `antv`, `drawio`, `figma`, `vega`, `mono-blue`, `mono-green`, `mono-purple`, `mono-orange`) plus custom hex arrays; every diagram supports optional title & subtitle, node groups, and color-coded layers
 - 📐 **Auto layout** — just describe the graph; x/y coordinates are computed automatically, and diagram dimensions scale to fit the content
 - 🤖 **AI-friendly** — single `fig()` entry point accepts a markdown string **or** a JSON config; streaming-safe (partial input never throws); ships a [`SKILL.md`](https://github.com/hustcc/ai-figure/blob/main/SKILL.md) that AI agents (Copilot, Cursor, Claude, etc.) can load as context
-- 📊 **13 diagram types** — flowchart, tree, mindmap, architecture, sequence, quadrant, Gantt, state machine, ER data model, timeline, swimlane, bubble chart, and radar chart; pure SVG output with zero DOM dependency, works in browser and Node.js
+- 📊 **14 diagram types** — flowchart, tree, mindmap, architecture, sequence, quadrant, Gantt, state machine, ER data model, timeline, swimlane, bubble chart, radar chart, and network diagram; pure SVG output with zero DOM dependency, works in browser and Node.js
 
 ## Quick Start
 
@@ -156,6 +163,7 @@ fig({ figure: 'timeline', ...timelineOptions }); // timeline
 fig({ figure: 'swimlane', ...swimlaneOptions }); // swimlane flow
 fig({ figure: 'bubble',   ...bubbleOptions   }); // bubble chart
 fig({ figure: 'radar',    ...radarOptions    }); // radar / spider chart
+fig({ figure: 'network',  ...networkOptions  }); // network / relationship diagram
 
 // markdown string
 fig(`figure flow\na[A] --> b[B]`);
@@ -719,9 +727,64 @@ fig({
 });
 ```
 
+### `figure: 'network'` — Network Diagram
+
+Renders a force-directed network graph for relationship and dependency visualisation. Nodes are sized by `weight` and colored by `group`. Layout is computed automatically using a lightweight Fruchterman–Reingold algorithm.
+
+![Network](https://raw.githubusercontent.com/hustcc/ai-figure/main/assets/network.svg)
+
+| Field      | Type                   | Default      | Description |
+|------------|------------------------|--------------|-------------|
+| `figure`   | `'network'`            | **required** | Selects the network renderer |
+| `nodes`    | `NetworkNode[]`        | **required** | List of nodes |
+| `edges`    | `NetworkEdge[]`        | **required** | List of directed edges |
+| `title`    | `string`               | `undefined`  | Optional centered title |
+| `subtitle` | `string`               | `undefined`  | Optional centered subtitle |
+| `theme`    | `ThemeType`            | `'light'`    | Light or dark rendering mode |
+| `palette`  | `PaletteType`          | `'default'`  | Color palette |
+
+#### `NetworkNode`
+
+| Field    | Type     | Default      | Description |
+|----------|----------|--------------|-------------|
+| `id`     | `string` | **required** | Unique node identifier |
+| `label`  | `string` | **required** | Text displayed inside the node |
+| `group`  | `string` | `undefined`  | Optional group name; nodes in the same group share a color |
+| `weight` | `number` | `1`          | Node size weight 1–5; larger = bigger circle |
+
+#### `NetworkEdge`
+
+| Field   | Type     | Default      | Description |
+|---------|----------|--------------|-------------|
+| `from`  | `string` | **required** | Source node ID |
+| `to`    | `string` | **required** | Target node ID |
+| `label` | `string` | `undefined`  | Optional edge label |
+
+```typescript
+fig({
+  figure: 'network',
+  title: '三国人物关系',
+  subtitle: '魏蜀吴主要人物',
+  nodes: [
+    { id: 'caocao',  label: '曹操', group: '魏', weight: 3 },
+    { id: 'caopi',   label: '曹丕', group: '魏' },
+    { id: 'liubei',  label: '刘备', group: '蜀', weight: 3 },
+    { id: 'zhuge',   label: '诸葛亮', group: '蜀', weight: 2 },
+    { id: 'sunquan', label: '孙权', group: '吴', weight: 2 },
+  ],
+  edges: [
+    { from: 'caocao', to: 'caopi',   label: '父子' },
+    { from: 'liubei', to: 'zhuge',   label: '君臣' },
+    { from: 'caocao', to: 'liubei',  label: '敌对' },
+    { from: 'liubei', to: 'sunquan', label: '盟友' },
+  ],
+  palette: 'default',
+});
+```
+
 ### Palette API
 
-All thirteen diagram types accept two independent styling parameters:
+All fourteen diagram types accept two independent styling parameters:
 
 | Field     | Type                   | Default       | Description                          |
 |-----------|------------------------|---------------|--------------------------------------|
@@ -964,6 +1027,21 @@ axes: Axis1, Axis2, Axis3, ...
 %% one value (0-100) per axis
 Series A: 80, 70, 90, ...
 Series B: 60, 85, 75, ...
+```
+</details>
+
+<details>
+<summary><strong>network</strong></summary>
+
+```
+figure network
+title: Optional Title
+subtitle: Optional Subtitle
+section GroupName          %% optional group (colors subsequent nodes)
+  id[Node Label]           %% node declaration (id[label] or bare id)
+  id[Node Label]: weight   %% node with weight 1–5 (default 1)
+A --> B                    %% directed edge
+A --> B: label             %% labeled edge
 ```
 </details>
 

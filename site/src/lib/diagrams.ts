@@ -2072,4 +2072,218 @@ Bob: 78, 92, 72, 88, 80`,
       },
     ],
   },
+  {
+    type: 'network',
+    label: 'Network',
+    examples: [
+      {
+        title: 'Three Kingdoms',
+        markdown: `figure network
+title: 三国人物关系
+subtitle: 魏蜀吴主要人物
+palette: default
+section 魏
+曹操[曹操]: 3
+曹丕[曹丕]
+section 蜀
+刘备[刘备]: 3
+诸葛亮[诸葛亮]: 2
+关羽[关羽]
+section 吴
+孙权[孙权]: 2
+周瑜[周瑜]
+曹操 --> 曹丕: 父子
+刘备 --> 诸葛亮: 君臣
+刘备 --> 关羽: 义兄弟
+曹操 --> 刘备: 敌对
+刘备 --> 孙权: 盟友
+孙权 --> 周瑜: 君臣
+曹操 --> 孙权: 敌对`,
+      },
+      {
+        title: 'Frontend Tech Stack',
+        markdown: `figure network
+title: Frontend Tech Stack
+subtitle: dependency graph
+palette: antv
+section UI
+React[React]: 4
+NextJS[Next.js]: 3
+Tailwind[Tailwind]: 2
+section Core
+TypeScript[TypeScript]: 3
+Zod[Zod]
+section Tooling
+Vite[Vite]: 2
+Vitest[Vitest]
+ESLint[ESLint]
+NextJS --> React
+React --> TypeScript
+NextJS --> TypeScript
+Tailwind --> React
+Vite --> TypeScript
+Vitest --> Vite
+ESLint --> TypeScript
+Zod --> TypeScript`,
+      },
+      {
+        title: 'Social Network',
+        markdown: `figure network
+title: Social Network
+subtitle: friend connections
+palette: figma
+theme: dark
+Alice[Alice]: 3
+Bob[Bob]: 2
+Carol[Carol]: 2
+Dave[Dave]
+Eve[Eve]: 2
+Frank[Frank]
+Grace[Grace]
+Alice --> Bob
+Alice --> Carol
+Alice --> Eve
+Bob --> Dave
+Carol --> Eve
+Dave --> Eve
+Frank --> Bob
+Grace --> Alice
+Grace --> Carol`,
+      },
+      {
+        title: 'ML Knowledge Graph',
+        markdown: `figure network
+title: Machine Learning Concepts
+subtitle: key relationships
+palette: mono-purple
+section Core
+ML[Machine Learning]: 4
+DL[Deep Learning]: 3
+Data[Data]: 3
+section Models
+NeuralNet[Neural Net]: 2
+CNN[CNN]
+RNN[RNN]
+section Applications
+NLP[NLP]: 2
+CV[Computer Vision]: 2
+ML --> DL: subset
+DL --> NeuralNet: uses
+NeuralNet --> CNN
+NeuralNet --> RNN
+CNN --> CV: powers
+RNN --> NLP: powers
+Data --> ML: feeds`,
+      },
+      {
+        title: 'Microservices',
+        markdown: `figure network
+title: Microservice Dependencies
+subtitle: production services
+palette: drawio
+section Gateway
+API[API Gateway]: 4
+Auth[Auth Service]: 3
+section Business
+Orders[Orders]: 3
+Products[Products]: 2
+Inventory[Inventory]: 2
+section Data
+DB[PostgreSQL]: 3
+Cache[Redis]: 2
+Queue[Kafka]: 2
+API --> Auth
+API --> Orders
+API --> Products
+Orders --> Inventory
+Orders --> DB
+Orders --> Queue
+Products --> DB
+Products --> Cache
+Auth --> Cache`,
+      },
+      {
+        title: 'City Transport',
+        markdown: `figure network
+title: City Transport Network
+subtitle: major hubs & connections
+palette: vega
+Airport[Airport]: 4
+CentralSt[Central Station]: 4
+NorthHub[North Hub]: 3
+SouthHub[South Hub]: 3
+EastTerm[East Terminal]: 2
+WestTerm[West Terminal]: 2
+Downtown[Downtown]: 3
+Airport --> CentralSt: express
+Airport --> NorthHub: shuttle
+CentralSt --> Downtown: metro
+CentralSt --> NorthHub: rail
+CentralSt --> SouthHub: rail
+NorthHub --> EastTerm: bus
+SouthHub --> WestTerm: bus
+Downtown --> EastTerm: tram
+Downtown --> WestTerm: tram`,
+      },
+      {
+        title: 'Movie Universe',
+        markdown: `figure network
+title: Avengers Connections
+subtitle: character relationships
+palette: mono-orange
+theme: dark
+section Heroes
+IronMan[Iron Man]: 4
+Cap[Captain America]: 3
+Thor[Thor]: 3
+Hulk[Hulk]: 2
+section Villains
+Thanos[Thanos]: 4
+Loki[Loki]: 3
+section Support
+Fury[Nick Fury]: 2
+Pepper[Pepper Potts]
+IronMan --> Cap: teammates
+IronMan --> Hulk: teammates
+Cap --> Thor: teammates
+Thor --> Loki: brothers
+IronMan --> Thanos: rivals
+Cap --> Thanos: rivals
+Loki --> Thanos: serves
+Fury --> IronMan: recruits
+Fury --> Cap: recruits
+Pepper --> IronMan: partner`,
+      },
+      {
+        title: 'R&D Org Chart',
+        markdown: `figure network
+title: R&D 组织架构
+subtitle: 研发部门关系图
+palette: drawio
+theme: dark
+section 领导层
+CTO[CTO]: 4
+VP研发[VP 研发]: 3
+section 工程
+前端团队[前端团队]: 2
+后端团队[后端团队]: 2
+平台团队[平台团队]: 2
+section 产品
+产品经理[产品经理]: 2
+设计师[设计师]
+section 质量
+QA团队[QA 团队]: 2
+CTO --> VP研发: 汇报
+VP研发 --> 前端团队: 管理
+VP研发 --> 后端团队: 管理
+VP研发 --> 平台团队: 管理
+前端团队 --> 设计师: 协作
+后端团队 --> 平台团队: 依赖
+产品经理 --> 前端团队: 需求
+产品经理 --> 后端团队: 需求
+QA团队 --> 前端团队: 测试
+QA团队 --> 后端团队: 测试`,
+      },
+    ],
+  },
 ];

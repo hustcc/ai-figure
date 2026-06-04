@@ -518,6 +518,64 @@ export interface RadarChartOptions {
 }
 
 // ---------------------------------------------------------------------------
+// NetworkDiagram types
+// ---------------------------------------------------------------------------
+
+/** A single node in a network / relationship diagram. */
+export interface NetworkNode {
+  /** Unique identifier. */
+  id: string;
+  /** Text label displayed inside the node. */
+  label: string;
+  /**
+   * Optional group name.  Nodes in the same group share a color.
+   * Colors are cycled across groups using the palette node types.
+   */
+  group?: string;
+  /**
+   * Optional numeric weight (clamped to [1,5]).
+   * When omitted, node size defaults to radius 36.
+   * When provided, node radius is linearly mapped across weighted nodes:
+   * the lowest weighted node gets the minimum radius, and the highest gets
+   * the maximum radius.
+   */
+  weight?: number;
+}
+
+/** A directed or undirected edge in a network diagram. */
+export interface NetworkEdge {
+  /** ID of the source node. */
+  from: string;
+  /** ID of the target node. */
+  to: string;
+  /** Optional label displayed along the edge. */
+  label?: string;
+  /**
+   * Optional numeric weight (defaults to 1, clamped to [1,5]).
+   * Controls edge stroke-width via linear mapping across all edge weights:
+   * the edge with the lowest weight gets the minimum stroke-width, the highest
+   * gets the maximum stroke-width.
+   */
+  weight?: number;
+}
+
+/** Options passed to {@link createNetworkDiagram}. */
+export interface NetworkDiagramOptions {
+  /** List of nodes to render. */
+  nodes: NetworkNode[];
+  /** List of edges connecting nodes. */
+  edges: NetworkEdge[];
+  /** Light or dark rendering mode (default: 'light'). */
+  theme?: ThemeType;
+  /** Color palette — `'default'`, `'antv'`, `'drawio'`, `'figma'`, `'vega'`, `'mono-blue'`, `'mono-green'`, `'mono-purple'`, `'mono-orange'`, or custom hex array (default: `'default'`). */
+  palette?: PaletteType;
+  /** Optional chart title displayed above the diagram. */
+  title?: string;
+  /** Optional subtitle displayed beneath the title. */
+  subtitle?: string;
+}
+
+// ---------------------------------------------------------------------------
 // BubbleChart types
 // ---------------------------------------------------------------------------
 
@@ -563,4 +621,5 @@ export type FigOptions =
   | ({ figure: 'timeline' } & TimelineDiagramOptions)
   | ({ figure: 'swimlane' } & SwimlaneDiagramOptions)
   | ({ figure: 'bubble' } & BubbleChartOptions)
-  | ({ figure: 'radar' } & RadarChartOptions);
+  | ({ figure: 'radar' } & RadarChartOptions)
+  | ({ figure: 'network' } & NetworkDiagramOptions);

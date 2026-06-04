@@ -98,6 +98,7 @@ Each renderer cycles node types to give visual variety without requiring per-ele
 - **Arch**: cycle `[process, decision, terminal, io]` by **layer index**.
 - **Sequence**: cycle `[terminal, process, decision, io]` by **actor index**.
 - **Quadrant**: fixed mapping — TL=`terminal` (green), TR=`process` (amber), BL=`io` (purple), BR=`decision` (blue).
+- **Network**: cycle `[process, decision, terminal, io]` by **group index** (groups sorted in declaration order); ungrouped nodes share the first type.
 
 Always use `theme.nodeStrokes[type]` for dot/box fill/stroke colors and `theme.textColors[type]` for the label color inside that element.
 
@@ -234,6 +235,7 @@ Never expose `width`/`height` to callers:
 | Quadrant | `clamp(640, 640 + (n−4)×24, 1024)` px square, where n = point count |
 | Bubble | Canvas sized from bounding box of packed cluster + `PAD=28` px; `MIN_R=18`, `MAX_R=80` px; pulse grow `+4%` |
 | Radar  | Fixed `W=560` px wide; `CX=280` center; `R=180` px outer ring; `LABEL_PAD=38` px; height auto from CY + R + label space + legend rows; `LEVELS=5` concentric rings |
+| Network | Canvas auto-sized from bounding box of FR layout + `PAD=48` px; initial size `clamp(480, sqrt(n)×IDEAL_LEN×1.4, 1200)` × `clamp(360, …×0.75, 900)` |
 
 ### Padding constants
 
@@ -244,6 +246,7 @@ These values are used consistently and should not be changed without updating al
 - **Sequence**: `TOP_PAD=24`, `BOTTOM_PAD=32`, actor `W=120 H=44`, spacing `180` px center-to-center, message spacing `56` px.
 - **Quadrant**: `PAD_LEFT=56` (Y-axis label), `PAD_RIGHT=24`, `PAD_TOP=32`, `PAD_BOTTOM=52` (X-axis label).
 - **Radar**: `W=560`, `CX=280`, `R=180`, `LABEL_PAD=38`, `LEVELS=5`; legend: `LEGEND_ITEM_H=22`, `LEGEND_PAD_TOP=18`, `LEGEND_PAD_BTOM=14`; max 4 legend columns.
+- **Network**: `MIN_NODE_R=16`, `MAX_NODE_R=56`, `DEFAULT_NODE_R=36`, `PAD=48`, `IDEAL_LEN=120`, `ITERATIONS=300`; node/edge weight is clamped to `[1,5]`; nodes without weight use `DEFAULT_NODE_R`; weighted node radius maps linearly from min/max weighted nodes to `MIN_NODE_R..MAX_NODE_R`.
 
 ### SVG output requirements
 

@@ -172,7 +172,7 @@ export function createBubbleChart(options: BubbleChartOptions): string {
     .filter(it => typeof it.value === 'number' && Number.isFinite(it.value) && it.value > 0);
 
   const maxVal = items.reduce((m, it) => Math.max(m, it.value), 0);
-  // True area-proportional mapping: interpolate between A_min and A_max so
+  // Area-proportional radius mapping: interpolate between A_min and A_max so
   // that A ∝ value, then derive r = sqrt(A/π).
   const sizedItems = items.map(it => ({
     ...it,

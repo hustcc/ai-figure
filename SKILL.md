@@ -1,12 +1,12 @@
 ---
 name: ai-figure
 version: "0.5.0"
-description: Generate clean SVG diagrams (flowchart, tree, mindmap, architecture, sequence, quadrant, gantt, state machine, ER, timeline, swimlane, bubble chart, radar chart) from a markdown string or a JSON config via fig(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
+description: Generate clean SVG diagrams (flowchart, tree, mindmap, architecture, sequence, quadrant, gantt, state machine, ER, timeline, swimlane, bubble chart, radar chart, network graph) from a markdown string or a JSON config via fig(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
 author: hustcc
 license: MIT
 package: ai-figure
 api: fig(markdown|options) → string (SVG)
-tags: [flowchart, tree-diagram, mindmap, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, state-machine, er-diagram, timeline, swimlane, bubble-chart, radar-chart, svg, layout, visualization, markdown]
+tags: [flowchart, tree-diagram, mindmap, architecture-diagram, sequence-diagram, quadrant-chart, gantt-chart, state-machine, er-diagram, timeline, swimlane, bubble-chart, radar-chart, network-graph, svg, layout, visualization, markdown]
 ---
 
 # ai-figure Skill
@@ -44,7 +44,7 @@ const svg2 = fig({ figure: 'flow', nodes: [...], edges: [...] });
 
 **First line must be:** `figure <type>` — this is the required header, **not** a `key: value` config line.
 
-Valid types: `flow` `tree` `mindmap` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` `bubble` `radar`
+Valid types: `flow` `tree` `mindmap` `arch` `sequence` `quadrant` `gantt` `state` `er` `timeline` `swimlane` `bubble` `radar` `network`
 
 Config lines use `key: value` syntax. Data lines use diagram-specific patterns.
 
@@ -282,6 +282,32 @@ Angular: 65, 92, 72, 90, 86
 - Multiple series can be overlaid; each is assigned a different palette color
 - A legend with colored dots and series names appears below the chart
 
+### network
+
+```
+figure network
+title: 三国人物关系
+subtitle: 魏蜀吴主要人物
+section 魏
+曹操[曹操]: 3
+曹丕[曹丕]
+section 蜀
+刘备[刘备]: 3
+诸葛亮[诸葛亮]: 2
+section 吴
+孙权[孙权]: 2
+曹操 --> 曹丕: 父子
+刘备 --> 诸葛亮: 君臣
+曹操 --> 刘备: 敌对
+刘备 --> 孙权: 盟友
+```
+
+- `section GroupName` — optional; groups subsequent node declarations and assigns them a shared color
+- `id[label]` or bare `id` — node declaration; can appear standalone or be auto-created by an edge line
+- `id[label]: weight` — node with size weight 1–5 (default 1; larger = bigger circle)
+- `A --> B` or `A --> B: label` — directed edge; nodes referenced here are auto-created if not yet declared
+- Layout is computed automatically using a force-directed algorithm; no coordinates needed
+
 ## Common pitfalls
 
 These mistakes may produce unexpected or broken diagrams:
@@ -360,4 +386,9 @@ All options share: `title?`, `subtitle?`, `theme?: 'light'|'dark'`, `palette?: s
 // radar
 { figure: 'radar', axes: string[], series: RadarSeries[] }
 // RadarSeries: { label, values }  — values are 0-100 (one per axis); clamped to [0,100]
+
+// network
+{ figure: 'network', nodes: NetworkNode[], edges: NetworkEdge[] }
+// NetworkNode: { id, label, group?, weight? }  — group for color, weight 1-5 for size
+// NetworkEdge: { from, to, label? }
 ```
