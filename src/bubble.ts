@@ -143,8 +143,7 @@ function packCircles(radii: number[]): Array<[number, number]> {
 /**
  * Generate an SVG packed-bubble chart.
  *
- * Each bubble's radius is linearly mapped from the item's value within the
- * observed [minVal, maxVal] data range to the [MIN_R, MAX_R] size range.
+ * Each bubble is sized so that its **area is proportional to its value**.
  * Positions are determined by a greedy circle-packing algorithm — the caller
  * only provides labels and values.  Bubbles are rendered as solid filled
  * circles with a subtle drop-shadow and a light specular-highlight overlay for
@@ -172,17 +171,14 @@ export function createBubbleChart(options: BubbleChartOptions): string {
     .map((it, origIdx) => ({ ...it, origIdx }))
     .filter(it => typeof it.value === 'number' && Number.isFinite(it.value) && it.value > 0);
 
-  const maxVal = items.reduce((m, it) => Math.max(m, it.value), -Infinity);
-  const minVal = items.reduce((m, it) => Math.min(m, it.value), Infinity);
-  // Linear radius mapping: linearly interpolate between MIN_R and MAX_R based
-  // on each item's value within the observed [minVal, maxVal] data range.
+  const maxVal = items.reduce((m, it) => Math.max(m, it.value), 0);
+  // Area-proportional radius mapping: interpolate between A_min and A_max so
+  // that A ∝ value, then derive r = sqrt(A/π).
   const sizedItems = items.map(it => ({
     ...it,
     r: maxVal > 0
       ? Math.round(
-          minVal === maxVal
-            ? (MIN_R + MAX_R) / 2
-            : MIN_R + (it.value - minVal) / (maxVal - minVal) * (MAX_R - MIN_R),
+          Math.sqrt(MIN_R * MIN_R + (it.value / maxVal) * (MAX_R * MAX_R - MIN_R * MIN_R)),
         )
       : MIN_R,
   }));

@@ -2,26 +2,26 @@
 <text x="240" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#495057">Frontend Tech Stack</text>
 <g class="network-diagram" transform="translate(0,48)">
 <defs><marker id="net-1-arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 8 3, 0 6, 1.5 3" fill="#495057"/></marker><style>.net-1-edge{stroke-dasharray:8 5;animation:net-1-dash 1.2s linear infinite;}@keyframes net-1-dash{to{stroke-dashoffset:-26;}}</style></defs>
-<line x1="92" y1="92" x2="105" y2="133" stroke="#495057" stroke-width="3.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
-<line x1="123" y1="188" x2="203" y2="121" stroke="#495057" stroke-width="3.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
-<line x1="92" y1="92" x2="192" y2="92" stroke="#495057" stroke-width="3.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
-<line x1="400" y1="80" x2="284" y2="89" stroke="#495057" stroke-width="3.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
-<line x1="68" y1="292" x2="96" y2="239" stroke="#495057" stroke-width="3.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
-<line x1="68" y1="292" x2="96" y2="239" stroke="#495057" stroke-width="3.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
-<line x1="412" y1="212" x2="403" y2="114" stroke="#495057" stroke-width="3.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
-<circle cx="123" cy="188" r="56" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
-<text x="123" y="188" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1d5bc7">React</text>
-<circle cx="92" cy="92" r="44" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
-<text x="92" y="92" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1d5bc7">Next.js</text>
-<circle cx="238" cy="92" r="44" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
-<text x="238" y="92" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">TypeScri…</text>
-<circle cx="400" cy="80" r="32" fill="#edfaf5" stroke="#5ad8a6" stroke-width="2"/>
-<text x="400" y="80" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1c9c6f">Vite</text>
-<circle cx="68" cy="292" r="20" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
-<text x="68" y="292" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1d5bc7">Ta…</text>
-<circle cx="68" cy="292" r="20" fill="#f5f0fd" stroke="#9270ca" stroke-width="2"/>
-<text x="68" y="292" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#5e3b9e">Zu…</text>
-<circle cx="412" cy="212" r="20" fill="#edfaf5" stroke="#5ad8a6" stroke-width="2"/>
-<text x="412" y="212" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1c9c6f">Vi…</text>
+<line x1="222" y1="262" x2="175" y2="221" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<line x1="131" y1="183" x2="225" y2="182" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<line x1="222" y1="262" x2="248" y2="224" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<line x1="390" y1="194" x2="329" y2="187" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<line x1="81" y1="279" x2="104" y2="234" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<line x1="81" y1="81" x2="105" y2="131" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<line x1="399" y1="81" x2="393" y2="150" stroke="#495057" stroke-width="1.5" marker-end="url(#net-1-arr)" class="net-1-edge"/>
+<circle cx="131" cy="183" r="56" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="131" y="183" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1d5bc7">React</text>
+<circle cx="222" cy="262" r="50" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="222" y="262" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1d5bc7">Next.js</text>
+<circle cx="277" cy="181" r="50" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
+<text x="277" y="181" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#bf3c22">TypeScript</text>
+<circle cx="390" cy="194" r="42" fill="#edfaf5" stroke="#5ad8a6" stroke-width="2"/>
+<text x="390" y="194" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1c9c6f">Vite</text>
+<circle cx="81" cy="81" r="33" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
+<text x="81" y="81" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1d5bc7">Tailwi…</text>
+<circle cx="81" cy="279" r="33" fill="#f5f0fd" stroke="#9270ca" stroke-width="2"/>
+<text x="81" y="279" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#5e3b9e">Zustand</text>
+<circle cx="399" cy="81" r="33" fill="#edfaf5" stroke="#5ad8a6" stroke-width="2"/>
+<text x="399" y="81" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="14" fill="#1c9c6f">Vitest</text>
 </g>
 </svg>
