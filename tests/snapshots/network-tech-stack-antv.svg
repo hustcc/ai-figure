@@ -14,14 +14,14 @@
 <circle cx="404" cy="284" r="28" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
 <text x="404" y="284" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#1d5bc7">Next.js</text>
 <circle cx="258" cy="284" r="28" fill="#fff4ef" stroke="#e8684a" stroke-width="2"/>
-<text x="258" y="284" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#bf3c22">TypeScr…</text>
+<text x="258" y="284" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#bf3c22">TypeScript</text>
 <circle cx="89" cy="289" r="23" fill="#edfaf5" stroke="#5ad8a6" stroke-width="2"/>
 <text x="89" y="289" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#1c9c6f">Vite</text>
 <circle cx="415" cy="65" r="17" fill="#eff4ff" stroke="#5b8ff9" stroke-width="2"/>
-<text x="415" y="65" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#1d5bc7">Tai…</text>
+<text x="415" y="65" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#1d5bc7">Tailwind</text>
 <circle cx="415" cy="65" r="17" fill="#f5f0fd" stroke="#9270ca" stroke-width="2"/>
-<text x="415" y="65" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#5e3b9e">Zus…</text>
+<text x="415" y="65" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#5e3b9e">Zustand</text>
 <circle cx="65" cy="162" r="17" fill="#edfaf5" stroke="#5ad8a6" stroke-width="2"/>
-<text x="65" y="162" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#1c9c6f">Vit…</text>
+<text x="65" y="162" text-anchor="middle" dominant-baseline="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#1c9c6f">Vitest</text>
 </g>
 </svg>

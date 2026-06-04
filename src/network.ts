@@ -301,19 +301,11 @@ export function createNetworkDiagram(options: NetworkDiagramOptions): string {
         `fill="${escapeXml(fill)}" stroke="${escapeXml(stroke)}" stroke-width="${theme.strokeWidth}"/>`,
     );
 
-    // Label inside the circle (truncate to max 10 chars, then fit width)
-    const maxLabelW = r * 2 - 8;
-    const labelFs   = 10;
+    // Label inside the circle (truncate to max 10 chars)
+    const labelFs = 10;
     let label = node.label;
     if (label.length > 10) {
       label = label.slice(0, 10) + '…';
-    }
-    const estimated = estimateTextWidth(label, labelFs);
-    if (estimated > maxLabelW) {
-      // Truncate further to fit circle width
-      const ratio = maxLabelW / estimated;
-      const chars = Math.max(1, Math.floor(label.length * ratio) - 1);
-      label = label.slice(0, chars) + '…';
     }
 
     parts.push(
