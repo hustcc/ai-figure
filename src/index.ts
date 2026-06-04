@@ -11,6 +11,7 @@ import { createTimelineDiagram } from './timeline';
 import { createSwimlaneDiagram } from './swimlane';
 import { createBubbleChart } from './bubble';
 import { createRadarChart } from './radar';
+import { createNetworkDiagram } from './network';
 import { parseFigmd } from './parse';
 import type { FigOptions } from './types';
 
@@ -98,6 +99,8 @@ function figDispatch(options: FigOptions): string {
       return createBubbleChart(options);
     case 'radar':
       return createRadarChart(options);
+    case 'network':
+      return createNetworkDiagram(options);
     default: {
       const _exhaustive: never = options;
       throw new Error(`Unknown figure type: ${(_exhaustive as FigOptions).figure}`);
@@ -147,4 +150,7 @@ export type {
   BubbleChartOptions,
   RadarSeries,
   RadarChartOptions,
+  NetworkNode,
+  NetworkEdge,
+  NetworkDiagramOptions,
 } from './types';
