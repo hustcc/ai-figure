@@ -67,10 +67,10 @@ export default function HomePage() {
       {/* Hero */}
       <section className="bg-white border-b border-slate-200">
         <div className="max-w-5xl mx-auto px-6 py-20 md:py-28 text-center">
-          <div className="inline-flex items-center gap-2 bg-orange-50 text-orange-600 text-sm font-medium px-3 py-1 rounded-full border border-orange-100 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-orange-500 inline-block"></span>
-            v0.5.0 &mdash; 13 diagram types
-          </div>
+          <a href="https://www.npmjs.com/package/ai-figure" target="_blank" rel="noopener noreferrer" className="inline-block mb-6">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="https://img.shields.io/npm/v/ai-figure.svg" alt="npm version" />
+          </a>
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-slate-900 mb-5">
             SVG diagrams from<br />
             <span className="text-orange-500">plain markdown</span>
