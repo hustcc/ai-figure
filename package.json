@@ -1,6 +1,6 @@
 {
   "name": "ai-figure",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "description": "Generate clean SVG diagrams (flowchart, tree, architecture, sequence) from a JSON config. Auto-layout, zero coordinates, works in browser and Node.js.",
   "keywords": [
     "flowchart",
