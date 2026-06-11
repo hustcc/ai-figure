@@ -81,6 +81,32 @@
 npm install ai-figure
 ```
 
+### CDN (browser, no bundler)
+
+```html
+<!-- jsDelivr -->
+<script src="https://cdn.jsdelivr.net/npm/ai-figure/dist/index.global.js"></script>
+
+<!-- unpkg -->
+<script src="https://unpkg.com/ai-figure/dist/index.global.js"></script>
+```
+
+After loading the script, the library is available as the global `AiFigure`:
+
+```html
+<div id="chart"></div>
+<script src="https://cdn.jsdelivr.net/npm/ai-figure/dist/index.global.js"></script>
+<script>
+  const svg = AiFigure.fig(`
+    figure flow
+    direction: LR
+    start((Start)) --> login[Login]
+    login --> dashboard[Dashboard]
+  `);
+  document.getElementById('chart').innerHTML = svg;
+</script>
+```
+
 ### Usage
 
 ```typescript
