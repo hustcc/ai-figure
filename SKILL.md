@@ -1,6 +1,6 @@
 ---
 name: ai-figure
-version: "0.5.0"
+version: "1.0.0"
 description: Generate clean SVG diagrams (flowchart, tree, mindmap, architecture, sequence, quadrant, gantt, state machine, ER, timeline, swimlane, bubble chart, radar chart) from a markdown string or a JSON config via fig(). Auto-layout, zero coordinates needed. Works in browser and Node.js.
 author: hustcc
 license: MIT
@@ -12,6 +12,25 @@ tags: [flowchart, tree-diagram, mindmap, architecture-diagram, sequence-diagram,
 # ai-figure Skill
 
 Generates self-contained SVG diagrams. No coordinates needed — layout is computed automatically.
+
+## Install
+
+```bash
+npm install ai-figure
+```
+
+## CDN (browser, no bundler)
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/ai-figure/dist/index.global.js"></script>
+<!-- or: https://unpkg.com/ai-figure/dist/index.global.js -->
+<script>
+  // Global: AiFigure.fig(...)
+  document.getElementById('chart').innerHTML = AiFigure.fig('figure flow\na[A] --> b[B]');
+</script>
+```
+
+## Usage
 
 ```typescript
 import { fig } from 'ai-figure';
